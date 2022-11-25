@@ -26,7 +26,6 @@ public class ZoomCamera : MonoBehaviour
 
     void Update()
     {
-        movementCamera();
 
         if (Input.touchCount == 2)
         {
@@ -44,12 +43,14 @@ public class ZoomCamera : MonoBehaviour
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
 
-
+         movementCamera();
 
         Zoom(Input.GetAxis(SCROLL_IN_MOUSE));
     }
 
-
+    /// <summary>
+    /// перемешение камеры
+    /// </summary>
     private void movementCamera ()
     {
         if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
@@ -64,12 +65,8 @@ public class ZoomCamera : MonoBehaviour
             // Camera.main.transform.position += direction * Time.deltaTime;
         }
 
-        /// Проверка границ 
-        checkingBoundaryX( _zoomPosMaxX, _zoomPosMinX);
-        checkingBoundaryY( _zoomPosMaxY, _zoomPosMinY);
-        string axisBoundary = "z";
-        checkingBoundaryZ(axisBoundary, _zoomPosMaxZ, _zoomPosMinZ);
 
+        checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
 
     }
 
@@ -80,63 +77,67 @@ public class ZoomCamera : MonoBehaviour
     /// </summary>
     /// <param name="max"></param>
     /// <param name="min"></param>
-    private void checkingBoundaryX( float max, float min)
-    { // ось Х
+    private void checkingBoundary( float maxX, float minX , float maxY, float minY, float maxZ, float minZ)
+    {
+        Vector3 camerPosi = Camera.main.transform.position;
+        Vector3 camerPosiMax = new Vector3(maxX, maxY, maxZ);
+        Vector3 camerPosiMin = new Vector3(minX, minY, minZ);
+        Debug.Log(camerPosi);
 
-        if (Camera.main.transform.position.x > max)
+        // проверка по оси Х
+
+        Debug.Log("Xcam" + camerPosi.x);
+        Debug.Log("X max" + camerPosiMax.x);
+
+        if (camerPosi.x >= camerPosiMax.x)
         {
-            Vector3 camerPosi = new Vector3(max, Camera.main.transform.position.y, Camera.main.transform.position.z);
+            camerPosi = new Vector3(maxX, camerPosi.y, camerPosi.z);
             Camera.main.transform.position = camerPosi;
+            Debug.Log("X max");
+            Debug.Log("Xcam" + camerPosi.x);
+            Debug.Log("X max" + camerPosiMax.x);
+        }
+        if (camerPosi.x <= camerPosiMin.x)
+        {
+            camerPosi = new Vector3(minX, camerPosi.y, camerPosi.z);
+            Camera.main.transform.position = camerPosi;
+            Debug.Log("X min");
+            Debug.Log("Xi" + camerPosi);
+
         }
 
-        if (Camera.main.transform.position.x < min)
+        // проверка по оси Y
+        if (camerPosi.y >= camerPosiMax.y)
         {
-            Vector3 camerPosi = new Vector3(min, Camera.main.transform.position.y, Camera.main.transform.position.z);
+            camerPosi = new Vector3(camerPosi.x, maxY, camerPosi.z);
             Camera.main.transform.position = camerPosi;
+            Debug.Log("Y max");
         }
-        
+        if (camerPosi.y <= camerPosiMin.y)
+        {
+            camerPosi = new Vector3(camerPosi.x, minY, camerPosi.z);
+            Camera.main.transform.position = camerPosi;
+            Debug.Log("Y min");
+        }
+
+        // проверка по оси Z
+        if (camerPosi.z >= camerPosiMax.z)
+        {
+            camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
+            Camera.main.transform.position = camerPosi;
+            Debug.Log("Z max");
+        }
+        if (camerPosi.z <= camerPosiMin.z)
+        {
+            camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
+            Camera.main.transform.position = camerPosi;
+            Debug.Log("Z min");
+        }
+
     }
 
-    /// <summary>
-    /// Проверка границы по оси Y
-    /// </summary>
-    private void checkingBoundaryY( float max, float min)
-    {  // Ось У
-        if (Camera.main.transform.position.y > max)
-        {
-            Vector3 camerPosi = new Vector3(Camera.main.transform.position.x, max, Camera.main.transform.position.z);
-            Camera.main.transform.position = camerPosi;
-        }
 
-        if (Camera.main.transform.position.y < min)
-        {
-            Vector3 camerPosi = new Vector3(Camera.main.transform.position.x, min, Camera.main.transform.position.z);
-            Camera.main.transform.position = camerPosi;
-        }
-    }
-    
-    
-    /// <summary>
-    /// Проверка границы по оси Z
-    /// </summary>
-    private void checkingBoundaryZ(string axis, float max, float min)
-        {  // Ось Z
-            if (axis == "z")
-        {
-            if (Camera.main.transform.position.z >= max)
-            {
-                Vector3 camerPosi = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, max);
-                Camera.main.transform.position = camerPosi;
-            }
 
-            if (Camera.main.transform.position.z <= min)
-            {
-                Vector3 camerPosi = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, min);
-                Camera.main.transform.position = camerPosi;
-            }
-        }
-
-    }
 
 
 
