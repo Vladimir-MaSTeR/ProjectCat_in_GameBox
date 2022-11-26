@@ -1,9 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class ClickFireplace : MonoBehaviour
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+
+public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 {
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
+    }
+
+
 
 
 
