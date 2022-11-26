@@ -38,9 +38,9 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         SpavnInZeroPoint();
-        ChangeJobInSlot();
+       // ChangeJobInSlot();
 
-        JobBank();
+        //JobBank();
     }
 
     private void SpavnInZeroPoint()
