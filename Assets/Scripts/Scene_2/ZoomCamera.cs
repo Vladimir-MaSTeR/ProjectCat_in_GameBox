@@ -26,12 +26,26 @@ public class ZoomCamera : MonoBehaviour
 
     void Update()
     {
+        //touchZoom();
 
+
+        changeCameraTouch();
+                
+        // zoom колесом мыши
+        Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*2);
+        movementCamera();
+    
+    }
+
+
+    private void changeCameraTouch()
+    {
+        // zoom
         if (Input.touchCount == 2)
         {
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
-
+            //// исходная позиция кликов(Touch)
             Vector2 touchZeroLastPos = touchZero.position - touchZero.deltaPosition;
             Vector2 touchOneLastPos = touchOne.position - touchOne.deltaPosition;
 
@@ -42,34 +56,29 @@ public class ZoomCamera : MonoBehaviour
 
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
+        // перемешение камеры
+        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
+        {
+            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+        }
 
-         movementCamera();
-
-        Zoom(Input.GetAxis(SCROLL_IN_MOUSE));
     }
+
 
     /// <summary>
     /// перемешение камеры
     /// </summary>
-    private void movementCamera ()
+    private void movementCamera()
     {
-        if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
-        {
-            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-
         if (Input.GetMouseButton(LEFT_BUTTON_IN_MOUSE))
         {
             Vector3 direction = touch - Camera.main.ScreenToWorldPoint(Input.mousePosition);  //Delta Camera
             Camera.main.transform.position += direction;
             // Camera.main.transform.position += direction * Time.deltaTime;
         }
-
-
         checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
-
     }
-
 
 
     /// <summary>
@@ -82,28 +91,17 @@ public class ZoomCamera : MonoBehaviour
         Vector3 camerPosi = Camera.main.transform.position;
         Vector3 camerPosiMax = new Vector3(maxX, maxY, maxZ);
         Vector3 camerPosiMin = new Vector3(minX, minY, minZ);
-        Debug.Log(camerPosi);
 
         // проверка по оси Х
-
-        Debug.Log("Xcam" + camerPosi.x);
-        Debug.Log("X max" + camerPosiMax.x);
-
         if (camerPosi.x >= camerPosiMax.x)
         {
             camerPosi = new Vector3(maxX, camerPosi.y, camerPosi.z);
             Camera.main.transform.position = camerPosi;
-            Debug.Log("X max");
-            Debug.Log("Xcam" + camerPosi.x);
-            Debug.Log("X max" + camerPosiMax.x);
         }
         if (camerPosi.x <= camerPosiMin.x)
         {
             camerPosi = new Vector3(minX, camerPosi.y, camerPosi.z);
             Camera.main.transform.position = camerPosi;
-            Debug.Log("X min");
-            Debug.Log("Xi" + camerPosi);
-
         }
 
         // проверка по оси Y
@@ -111,13 +109,11 @@ public class ZoomCamera : MonoBehaviour
         {
             camerPosi = new Vector3(camerPosi.x, maxY, camerPosi.z);
             Camera.main.transform.position = camerPosi;
-            Debug.Log("Y max");
         }
         if (camerPosi.y <= camerPosiMin.y)
         {
             camerPosi = new Vector3(camerPosi.x, minY, camerPosi.z);
             Camera.main.transform.position = camerPosi;
-            Debug.Log("Y min");
         }
 
         // проверка по оси Z
@@ -125,20 +121,33 @@ public class ZoomCamera : MonoBehaviour
         {
             camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
             Camera.main.transform.position = camerPosi;
-            Debug.Log("Z max");
         }
         if (camerPosi.z <= camerPosiMin.z)
         {
             camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
             Camera.main.transform.position = camerPosi;
-            Debug.Log("Z min");
         }
 
     }
 
+    /// <summary>
+    ///  приближение при cameraTouchZoomOn вкл/выкл
+    /// </summary>
+    [SerializeField] private bool cameraTouchZoomOn;
+    private float cameraTouchZoomSpeed = 0.01f;
+    private void touchZoom()
+    {
 
+        if (cameraTouchZoomOn)
+        {
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize,  _zoomMin,  cameraTouchZoomSpeed);
+        }
+        else
+        {
+            Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, _zoomMax, cameraTouchZoomSpeed);
 
-
+        }
+    }
 
 
 
