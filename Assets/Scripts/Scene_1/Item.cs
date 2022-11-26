@@ -34,9 +34,9 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Сраотал метод OnBeginDrag");
-        var slotTransform = _rectTransform.parent;
-        slotTransform.SetAsLastSibling();
+        Debug.Log("сраотал метод onbegindrag");
+        var slottransform = _rectTransform.parent;
+        slottransform.SetAsLastSibling();
 
         _canvasGroup.blocksRaycasts = false;
     }
@@ -56,7 +56,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
         _canvasGroup.blocksRaycasts = true;
 
-       // EventsForMearge.onEndDragSound?.Invoke();
+        // EventsForMearge.onEndDragSound?.Invoke();
     }
 
     public int GetCurrentAmountForText()
@@ -74,4 +74,5 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         return _id;
     }
 
+   
 }
