@@ -24,23 +24,35 @@ public class ZoomCamera : MonoBehaviour
     private const int LEFT_BUTTON_IN_MOUSE = 0;
     private const String SCROLL_IN_MOUSE = "Mouse ScrollWheel";
 
+
+    private void Start()
+    {
+        Camera.main.orthographicSize = _zoomMax;
+    }
+
     void Update()
     {
         //touchZoom();
 
 
         changeCameraTouch();
-                
+
+
         // zoom колесом мыши
-        Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*2);
+        Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*4);
+
+
+        ScalingBoundaryX();
         movementCamera();
     
     }
 
-
+    /// <summary>
+    /// ”правление “ачем
+    /// </summary>
     private void changeCameraTouch()
     {
-        // zoom
+        // zoom тач
         if (Input.touchCount == 2)
         {
             Touch touchZero = Input.GetTouch(0);
@@ -56,7 +68,7 @@ public class ZoomCamera : MonoBehaviour
 
             Zoom(defference * 0.01f); // ”множение дл€ плавности.
         }
-        // перемешение камеры
+        // перемешение камеры “ач
         else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
         {
             touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -67,7 +79,7 @@ public class ZoomCamera : MonoBehaviour
 
 
     /// <summary>
-    /// перемешение камеры
+    /// перемешение камеры мышкой
     /// </summary>
     private void movementCamera()
     {
@@ -78,6 +90,24 @@ public class ZoomCamera : MonoBehaviour
             // Camera.main.transform.position += direction * Time.deltaTime;
         }
         checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+    }
+
+
+    /// <summary>
+    /// изменение границ от скейла(приближени€)
+    /// 
+    /// </summary>
+    private void ScalingBoundaryX()
+    {
+        
+        var _scalSize = Camera.main.orthographicSize;
+        var _deltaBoundaryX =  _scalSize * 3f / 5f;
+        _zoomPosMaxX = (69 - _deltaBoundaryX);
+        _zoomPosMinX = (45 + _deltaBoundaryX);
+        var _deltaBoundaryY = _scalSize * 3f / 5f;
+        _zoomPosMaxY = (41 - _deltaBoundaryY);
+        _zoomPosMinY = (20 + _deltaBoundaryY);
+
     }
 
 

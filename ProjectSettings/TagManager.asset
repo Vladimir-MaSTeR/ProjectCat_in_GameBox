@@ -5,8 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Child
-  - Knight
-  - Horse
+  - Log_1
+  - Log_2
+  - Log_3
+  - Neil_1
+  - Neil_2
+  - Neil_3
+  - Stone_1
+  - Stone_2
+  - Stone_3
   layers:
   - Default
   - TransparentFX
