@@ -4,6 +4,18 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IDropHandler
 {
+    [SerializeField] private Sprite _log_2_image;
+    [SerializeField] private Sprite _log_3_image;
+
+    [SerializeField] private Sprite _cloth_2_image;
+    [SerializeField] private Sprite _cloth_3_image;
+
+    [SerializeField] private Sprite _stone_2_image;
+    [SerializeField] private Sprite _stone_3_image;
+
+    [SerializeField] private Sprite _neil_2_image;
+    [SerializeField] private Sprite _neil_3_image;
+
     public void OnDrop(PointerEventData eventData)
     {
         
@@ -27,12 +39,18 @@ public class Slot : MonoBehaviour, IDropHandler
 
             if ( parentTag == childrenTag && parentId != childrenId)
             {
-                var childAmount = eventData.pointerDrag.GetComponentInChildren<Item>().GetCurrentAmountForText();
-                var parentAmount = gameObject.GetComponentInChildren<Item>().GetCurrentAmountForText();
-                var currentAmount = childAmount + parentAmount;
 
-                gameObject.GetComponentInChildren<Text>().text = currentAmount.ToString();
-                gameObject.GetComponentInChildren<Item>().SetCurrentAmountForText(currentAmount);
+                if (parentTag == "Log_1")
+                {
+                    gameObject.GetComponentInChildren<Image>().sprite = _log_2_image;
+                }
+
+                //var childAmount = eventData.pointerDrag.GetComponentInChildren<Item>().GetCurrentAmountForText();
+                //var parentAmount = gameObject.GetComponentInChildren<Item>().GetCurrentAmountForText();
+                //var currentAmount = childAmount + parentAmount;
+
+                //gameObject.GetComponentInChildren<Text>().text = currentAmount.ToString();
+                //gameObject.GetComponentInChildren<Item>().SetCurrentAmountForText(currentAmount);
 
                // EventsForMearge.onPositiveMeargeSound?.Invoke();
 

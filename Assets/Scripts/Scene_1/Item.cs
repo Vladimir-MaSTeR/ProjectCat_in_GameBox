@@ -34,7 +34,6 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("сраотал метод onbegindrag");
         var slottransform = _rectTransform.parent;
         slottransform.SetAsLastSibling();
 
@@ -43,15 +42,11 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Сраотал метод OnDrag");
-
         _rectTransform.anchoredPosition += eventData.delta / _mainCanvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Сраотал метод OnEndDrag");
-
         transform.localPosition = Vector3.zero;
 
         _canvasGroup.blocksRaycasts = true;
