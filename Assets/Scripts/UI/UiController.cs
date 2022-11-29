@@ -23,6 +23,10 @@ public class UiController : MonoBehaviour
     [Header("Панели")]
     [SerializeField] private GameObject _menuPanel;
 
+    [Header("Звук")]
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _clickButtonClip;
+
 
     private int _currentCloath;
     private int _currentLog;
@@ -68,6 +72,11 @@ public class UiController : MonoBehaviour
     public void ClickBackButtonInMenuPanel()
     {
         _menuPanel.SetActive(false);
+    }
+
+    public void ClickButtonsSoundClic()
+    {
+        _source.PlayOneShot(_clickButtonClip);
     }
 
     private void SaveResources()
