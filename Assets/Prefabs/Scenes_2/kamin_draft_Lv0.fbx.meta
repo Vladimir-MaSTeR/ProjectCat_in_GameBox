@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: kamin_crushed
+    second: {fileID: 2100000, guid: 334649160fe595b4997cc8ca4eaaea7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: lambert1
     second: {fileID: -8175841661070087290, guid: a53bf21ffb10981478475092f3e6ad8d, type: 3}
   materials:

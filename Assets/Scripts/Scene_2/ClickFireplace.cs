@@ -61,6 +61,10 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
          if (_lvObject < _lvObjectMax  ) //&& _amtRequiredResource >= ) в инвентаре
         {
             _amtAddResource += 1;
+            if (_scaleProgress.activeSelf == false)
+            {
+                Invoke("_timeScaleOff", 4);
+            }
             ScaleProgress(true);
             if (_amtRequiredResourceGoLvUp == _amtAddResource)
             {
@@ -89,6 +93,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     {
         _lvObject += 1;
          AddModel(_lvObject);
+        _amtRequiredResourceGoLvUp *= 2;
+        //+ Списать русурс для LvUp ;
     }
 
 
@@ -129,5 +135,17 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         }
 
     }
+
+
+
+    private void _timeScaleOff()
+    {
+        _scaleProgress.SetActive(false);
+        _scaleProgressUp.SetActive(false);
+        _amtAddResource = 0;
+
+    }
+
+
 
 }
