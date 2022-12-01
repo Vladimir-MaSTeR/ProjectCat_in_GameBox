@@ -14,6 +14,9 @@ TagManager:
   - Stone_1
   - Stone_2
   - Stone_3
+  - Cloth_1
+  - Cloth_2
+  - Cloth_3
   layers:
   - Default
   - TransparentFX
