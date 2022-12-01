@@ -3,7 +3,12 @@ guid: 298f993400ee0f94593f5448e0633095
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kamin_repaired_low_kamin_repaired
+    second: {fileID: 2100000, guid: f4b70f37a702fc3409d31db6c4c84db0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
