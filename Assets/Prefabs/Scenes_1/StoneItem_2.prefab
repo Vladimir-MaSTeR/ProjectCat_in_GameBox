@@ -230,5 +230,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 2490504667729200947}
-  _minAmountText: 1
-  _maxAmountText: 1
+  _minAmountText: 2
+  _maxAmountText: 2

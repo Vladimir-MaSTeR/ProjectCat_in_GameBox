@@ -82,6 +82,16 @@ public class UiController : MonoBehaviour
         _menuPanel.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        EventsResources.onLogInBucket += ReloadLogText;
+    }
+
+    private void OnDisable()
+    {
+        EventsResources.onLogInBucket -= ReloadLogText;
+    }
+
 
     public void ClickMeargSceneButton()
     {
@@ -187,4 +197,23 @@ public class UiController : MonoBehaviour
        // _prestigeText.text = _currentPrestige.ToString();
     }
 
+
+    private void ReloadLogText(int count)
+    {
+        if (count == 1)
+        {
+            _currentLog_1 += count;
+            _log_0_Text.text = _currentLog_1.ToString();
+
+        } else if (count == 2)
+        {
+            _currentLog_2 += count;
+            _log_1_Text.text = _currentLog_2.ToString();
+        
+        } else if (count == 3)
+        {
+            _currentLog_3 += count;
+            _log_2_Text.text = _currentLog_3.ToString();
+        }
+    }
 }

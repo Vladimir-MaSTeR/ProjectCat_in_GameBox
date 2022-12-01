@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 63893303137039125}
-  _minAmountText: 1
-  _maxAmountText: 1
+  _minAmountText: 3
+  _maxAmountText: 3
 --- !u!1 &63893303137039127
 GameObject:
   m_ObjectHideFlags: 0
