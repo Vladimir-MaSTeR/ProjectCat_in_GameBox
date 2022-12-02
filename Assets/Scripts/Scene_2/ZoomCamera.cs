@@ -25,27 +25,60 @@ public class ZoomCamera : MonoBehaviour
     private const String SCROLL_IN_MOUSE = "Mouse ScrollWheel";
 
 
+
+    private Vector3 _cameraPosition;  //  bagFix
+    private GameObject _camera;   //  bagFix
+    
     private void Start()
     {
+        _camera = Camera.main.transform.gameObject;
+        _cameraPosition = Camera.main.transform.position;
         Camera.main.orthographicSize = _zoomMax;
     }
 
     void Update()
     {
-        //touchZoom();
+        //touchZoom(); // приблежение по клику
+
+     //  bagFix();
+
 
 
         changeCameraTouch();
 
 
         // zoom колесом мыши
-        Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*4);
+        Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*3);
 
 
         ScalingBoundaryX();
         movementCamera();
     
     }
+
+
+
+    private void bagFix()
+    {
+        Debug.Log("поз " + _camera.transform.position);
+
+        if (_cameraPosition != _camera.transform.position)
+        { 
+                Debug.Log("-");
+                _camera.SetActive(false);
+            
+                Debug.Log("+");
+                _camera.SetActive(true);
+            
+        }
+        _cameraPosition = _camera.transform.position;
+        Debug.Log("кам " + _cameraPosition);
+
+    }
+
+
+
+
 
     /// <summary>
     /// Управление Тачем
@@ -69,7 +102,7 @@ public class ZoomCamera : MonoBehaviour
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
         // перемешение камеры Тач
-        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
+        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE) && Input.touchCount == 1)
         {
             touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
