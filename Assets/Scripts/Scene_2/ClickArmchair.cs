@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ClickFireplace : MonoBehaviour, IPointerClickHandler
+public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
     /// Модель обьекта по уровням от 0 -сломано до n- максимум
@@ -16,14 +16,9 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _objectNow;
     /// <summary>
-    /// Огонь (Свет)
-    /// </summary>
-    [SerializeField]
-    private GameObject _objectLight;
-    /// <summary>
     /// Уровень обьекта 
     /// </summary>
-    [SerializeField] 
+[SerializeField] 
     private int _lvObject = 0;
     /// <summary>
     /// Максимальный Уровень обьекта 
@@ -65,15 +60,14 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     {
         _lvObjectMax = _objectModel.Length -1;
         AddModel(_lvObject);
-        _objectLight.SetActive(false);
-        _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 4;
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         // проверка ресурса
         if (_lvObject < _lvObjectMax  &&
-              EventsResources.onGetCurentStone?.Invoke(_lvObject + 1) >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
+              EventsResources.onGetCurentNeil?.Invoke(_lvObject + 1) >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
          {
             _amtAddResource += 1;
             if (_activTimeGoLvUp == true)
@@ -84,6 +78,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
                 Invoke("_timeScaleOff", _needTimeGoLvUp);
                 _activTimeGoLvUp = true;
                 ScaleProgress(true);
+
             }
             else if ( _amtAddResource >= _amtRequiredResourceGoLvUp )
             {
@@ -110,12 +105,11 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
    private void LvUp()
     {
-        _objectLight.SetActive(true);
         _lvObject += 1;
          AddModel(_lvObject);
-        EventsResources.onStoneInBucket?.Invoke(_lvObject, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
+        EventsResources.onNeilInBucket?.Invoke(_lvObject, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
         _amtRequiredResourceGoLvUp *= 2;
-        _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 4;
 
 
     }
@@ -131,6 +125,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         if (_LvMod <= _objectModel.Length && _LvMod >= 0)
         {
             _objectNow = Instantiate(_objectModel[_LvMod], transform.position, Quaternion.Euler(0f, 140f, 0f));
+            var _tabyr = _objectNow.transform.GetChild(0);  // заглушка 
+            _tabyr.transform.position = transform.position; // заглушка 
             _objectNow.transform.localScale = new Vector3(3f, 3f, 3f);
             _objectNow.transform.SetParent(transform);
             _objectNow.transform.SetAsFirstSibling(); // Ввеерх списка
