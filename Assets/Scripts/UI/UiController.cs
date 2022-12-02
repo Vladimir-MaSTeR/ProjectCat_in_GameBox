@@ -85,11 +85,18 @@ public class UiController : MonoBehaviour
     private void OnEnable()
     {
         EventsResources.onLogInBucket += ReloadLogText;
+        EventsResources.onNeilInBucket += ReloadNeilText;
+        EventsResources.onClouthInBucket += ReloadClouthText;
+        EventsResources.onStoneInBucket += ReloadStoneText;
     }
 
     private void OnDisable()
     {
         EventsResources.onLogInBucket -= ReloadLogText;
+        EventsResources.onNeilInBucket -= ReloadNeilText;
+        EventsResources.onClouthInBucket -= ReloadClouthText;
+        EventsResources.onStoneInBucket -= ReloadStoneText;
+
     }
 
 
@@ -198,22 +205,83 @@ public class UiController : MonoBehaviour
     }
 
 
-    private void ReloadLogText(int count)
+    private void ReloadLogText(int levelResouces, int count, int plusOrMinus)
     {
-        if (count == 1)
+        if (levelResouces == 1)
         {
-            _currentLog_1 += count;
+            _currentLog_1 = plusOrMinus == 1? _currentLog_1 += count : _currentLog_1 -= count;
             _log_0_Text.text = _currentLog_1.ToString();
 
-        } else if (count == 2)
+        } else if (levelResouces == 2)
         {
-            _currentLog_2 += count;
+            _currentLog_2 = plusOrMinus == 1 ? _currentLog_2 += count : _currentLog_2 -= count;
             _log_1_Text.text = _currentLog_2.ToString();
         
-        } else if (count == 3)
+        } else if (levelResouces == 3)
         {
-            _currentLog_3 += count;
+            _currentLog_3 = plusOrMinus == 1 ? _currentLog_3 += count : _currentLog_3 -= count;
             _log_2_Text.text = _currentLog_3.ToString();
+        }
+    }
+
+    private void ReloadNeilText(int levelResouces, int count, int plusOrMinus)
+    {
+        if (levelResouces == 1)
+        {
+            _currentNeil_1 = plusOrMinus == 1 ? _currentNeil_1 += count : _currentNeil_1 -= count;
+            _neil_0_Text.text = _currentNeil_1.ToString();
+
+        } else if (levelResouces == 2)
+        {
+            _currentNeil_2 = plusOrMinus == 1 ? _currentNeil_2 += count : _currentNeil_2 -= count;
+            _neil_1_Text.text = _currentNeil_2.ToString();
+
+        } else if (levelResouces == 3)
+        {
+            _currentNeil_3 = plusOrMinus == 1 ? _currentNeil_3 += count : _currentNeil_3 -= count;
+            _neil_2_Text.text = _currentNeil_3.ToString();
+        }
+    }
+
+    private void ReloadClouthText(int levelResouces, int count, int plusOrMinus)
+    {
+        if (levelResouces == 1)
+        {
+            _currentCloath_1 = plusOrMinus == 1 ? _currentCloath_1 += count : _currentCloath_1 -= count;
+            _cloath_0_Text.text = _currentCloath_1.ToString();
+
+        }
+        else if (levelResouces == 2)
+        {
+            _currentCloath_2 = plusOrMinus == 1 ? _currentCloath_2 += count : _currentCloath_2 -= count;
+            _cloath_1_Text.text = _currentCloath_2.ToString();
+
+        }
+        else if (levelResouces == 3)
+        {
+            _currentCloath_3 = plusOrMinus == 1 ? _currentCloath_3 += count : _currentCloath_3 -= count;
+            _cloath_2_Text.text = _currentCloath_3.ToString();
+        }
+    }
+
+    private void ReloadStoneText(int levelResouces, int count, int plusOrMinus)
+    {
+        if (levelResouces == 1)
+        {
+            _currentStone_1 = plusOrMinus == 1 ? _currentStone_1 += count : _currentStone_1 -= count;
+            _stone_0_Text.text = _currentStone_1.ToString();
+
+        }
+        else if (levelResouces == 2)
+        {
+            _currentStone_2 = plusOrMinus == 1 ? _currentStone_2 += count : _currentStone_2 -= count;
+            _stone_1_Text.text = _currentStone_2.ToString();
+
+        }
+        else if (levelResouces == 3)
+        {
+            _currentStone_3 = plusOrMinus == 1 ? _currentStone_3 += count : _currentStone_3 -= count;
+            _stone_2_Text.text = _currentStone_3.ToString();
         }
     }
 }

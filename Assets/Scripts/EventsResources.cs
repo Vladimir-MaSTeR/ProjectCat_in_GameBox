@@ -2,19 +2,20 @@ using System;
 
 public class EventsResources
 {
-    public static Action<int> onClouthInBucket_L1;
-    public static Action<int> onClouthInBucket_L2;
-    public static Action<int> onClouthInBucket_L3;
+    public static Action<int, int, int> onClouthInBucket; // ТКАНЬ | Первый ар. - Ур предмета.
+                                                          //         Второй ар. - колл ресурса.
+                                                          //         Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)
 
-    public static Action<int> onLogInBucket;
-    //public static Action<int> onLogInBucket_L2;
-    //public static Action<int> onLogInBucket_L3;
+    public static Action<int, int, int> onLogInBucket;   // ДЕРЕВО | Первый ар. - Ур предмета.
+                                                         //          Второй ар. - колл ресурса.
+                                                         //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)   
 
-    public static Action<int> onStoneInBucket_L1;
-    public static Action<int> onStoneInBucket_L2;
-    public static Action<int> onStoneInBucket_L3;
+    public static Action<int, int, int> onStoneInBucket;  // КАМЕНЬ | Первый ар. - Ур предмета.
+                                                          //          Второй ар. - колл ресурса.
+                                                          //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)  
 
-    public static Action<int> onNeilInBucket_L1;
-    public static Action<int> onNeilInBucket_L2;
-    public static Action<int> onNeilInBucket_L3;
+    public static Action<int, int, int> onNeilInBucket;  // ГВОЗДИ | Первый ар. - Ур предмета.
+                                                         //          Второй ар. - колл ресурса.
+                                                         //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)
+
 }
