@@ -8485,19 +8485,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9a785e024faaf498854f666199d796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startCloath_1: 2
-  _startCloath_2: 3
-  _startCloath_3: 4
-  _startLog_1: 12
-  _startLog_2: 22
-  _startLog_3: 45
-  _startNeil_1: 124
-  _startNeil_2: 25
-  _startNeil_3: 25
-  _startStone_1: 125
-  _startStone_2: 12
-  _startStone_3: 5
-  _startPrestige: 67
+  _startCloath_1: 0
+  _startCloath_2: 0
+  _startCloath_3: 0
+  _startLog_1: 0
+  _startLog_2: 0
+  _startLog_3: 0
+  _startNeil_1: 0
+  _startNeil_2: 0
+  _startNeil_3: 0
+  _startStone_1: 0
+  _startStone_2: 0
+  _startStone_3: 0
+  _startPrestige: 0
   _cloath_0_Text: {fileID: 1840815696}
   _cloath_1_Text: {fileID: 1023278406}
   _cloath_2_Text: {fileID: 1666826818}
@@ -8645,17 +8645,9 @@ MonoBehaviour:
   - {fileID: 1463249321}
   _items:
   - {fileID: 3117540375077490778, guid: cfcf860dfdf61d64fab36f5ebe1c9785, type: 3}
-  - {fileID: 1834282548828750297, guid: ae6a419a3ded33f4dacf6a18c2848fab, type: 3}
-  - {fileID: 7837800797250407700, guid: 7634c0cd6ae4f9842950a1fcbd491763, type: 3}
   - {fileID: 2091279913939045748, guid: dcdafd95ec85df64d8f1e7590e9693c7, type: 3}
-  - {fileID: 2588521070912408874, guid: c157f05f2d6a19e438e376545da20770, type: 3}
-  - {fileID: 3388276953230274769, guid: 55303fedce08c6a49b5753c27b622505, type: 3}
   - {fileID: 2500134608311086046, guid: eba8d09d3254ad845a5d2eb1f8a31a4a, type: 3}
-  - {fileID: 3431645703520709846, guid: 4c0a299cfc951ae4395ccb90db2c1683, type: 3}
-  - {fileID: 63893303125916275, guid: ccbb8f18e11f2f84e8e225fc013fe04b, type: 3}
   - {fileID: 5809922311926233094, guid: f452be7e84b37a349b80cb8a5ce23acf, type: 3}
-  - {fileID: 5664344616744900185, guid: 56fbd05e00eddcd498e8bfbc54a08a78, type: 3}
-  - {fileID: 6495332648424932879, guid: e686c2b31573fd74db5afef433f04a02, type: 3}
 --- !u!222 &8576595995226094915
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,9 +1,9 @@
 
 public enum ResourcesTags
 {
-    Clouth_1,
-    Clouth_2,
-    Clouth_3,
+    Cloth_1,
+    Cloth_2,
+    Cloth_3,
 
     Log_1,
     Log_2,
