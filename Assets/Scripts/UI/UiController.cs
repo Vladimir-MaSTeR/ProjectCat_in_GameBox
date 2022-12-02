@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
+    [Header("Загружать сохранения или стартовые значения ресурсов")]
+    [SerializeField] private bool loadResorces = true;
+
     [Header("Стартовые настройки ресурсов")]
     [SerializeField] private int _startCloath_1;
     [SerializeField] private int _startCloath_2;
@@ -77,9 +78,17 @@ public class UiController : MonoBehaviour
 
     private void Start()
     {
-        StartResourcesText(); // пока без сохранения
+
+        if (!loadResorces)
+        {
+            StartResourcesText();
+        } else
+        {
+            LoadResouces();
+        }
 
         _menuPanel.SetActive(false);
+        _resorcesPanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -164,6 +173,90 @@ public class UiController : MonoBehaviour
         PlayerPrefs.SetInt("currentCloath3", _currentCloath_3);
 
         PlayerPrefs.SetInt("currentLog1", _currentLog_1);
+        PlayerPrefs.SetInt("currentLog2", _currentLog_2);
+        PlayerPrefs.SetInt("currentLog3", _currentLog_3);
+
+        PlayerPrefs.SetInt("currentNeil1", _currentNeil_1);
+        PlayerPrefs.SetInt("currentNeil2", _currentNeil_2);
+        PlayerPrefs.SetInt("currentNeil3", _currentNeil_3);
+
+        PlayerPrefs.SetInt("currentStone1", _currentStone_1);
+        PlayerPrefs.SetInt("currentStone2", _currentStone_2);
+        PlayerPrefs.SetInt("currentStone3", _currentStone_3);
+
+        PlayerPrefs.Save();
+    }
+
+    private void LoadResouces()
+    {
+        if (loadResorces)
+        {
+            if (PlayerPrefs.HasKey("currentCloath1"))
+            {
+                _currentCloath_1 = PlayerPrefs.GetInt("currentCloath1");
+            }
+
+            if (PlayerPrefs.HasKey("currentCloath2"))
+            {
+                _currentCloath_2 = PlayerPrefs.GetInt("currentCloath2");
+            }
+
+            if (PlayerPrefs.HasKey("currentCloath3"))
+            {
+                _currentCloath_3 = PlayerPrefs.GetInt("currentCloath3");
+            }
+
+            //------
+            
+            if (PlayerPrefs.HasKey("currentLog1"))
+            {
+                _currentLog_1 = PlayerPrefs.GetInt("currentLog1");
+            }
+
+            if (PlayerPrefs.HasKey("currentLog2"))
+            {
+                _currentLog_2 = PlayerPrefs.GetInt("currentLog2");
+            }
+
+            if (PlayerPrefs.HasKey("currentLog3"))
+            {
+                _currentLog_3 = PlayerPrefs.GetInt("currentLog3");
+            }
+
+            //-------
+            
+            if (PlayerPrefs.HasKey("currentNeil1"))
+            {
+                _currentNeil_1 = PlayerPrefs.GetInt("currentNeil1");
+            }
+            
+            if (PlayerPrefs.HasKey("currentNeil2"))
+            {
+                _currentNeil_2 = PlayerPrefs.GetInt("currentNeil2");
+            }
+            
+            if (PlayerPrefs.HasKey("currentNeil3"))
+            {
+                _currentNeil_3 = PlayerPrefs.GetInt("currentNeil3");
+            }
+
+            //-------
+            
+            if (PlayerPrefs.HasKey("currentStone1"))
+            {
+                _currentStone_1 = PlayerPrefs.GetInt("currentStone1");
+            }
+            
+            if (PlayerPrefs.HasKey("currentStone2"))
+            {
+                _currentStone_2 = PlayerPrefs.GetInt("currentStone2");
+            }
+            
+            if (PlayerPrefs.HasKey("currentStone3"))
+            {
+                _currentStone_3 = PlayerPrefs.GetInt("currentStone3");
+            }
+        }
     }
 
     private void StartResourcesText()
