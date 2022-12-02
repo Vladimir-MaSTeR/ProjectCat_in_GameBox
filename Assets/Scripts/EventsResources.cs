@@ -18,4 +18,9 @@ public class EventsResources
                                                          //          Второй ар. - колл ресурса.
                                                          //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)
 
+    public static Func<int, int> onGetCurentClouth; // возвращает подписчику текущее колличество ткани
+    public static Func<int, int> onGetCurentLog;    // возвращает подписчику текущее колличество дерева
+    public static Func<int, int> onGetCurentStone;  // возвращает подписчику текущее колличество камня
+    public static Func<int, int> onGetCurentNeil;   // возвращает подписчику текущее колличество гвоздей
+
 }

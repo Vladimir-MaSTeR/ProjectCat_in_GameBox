@@ -88,6 +88,11 @@ public class UiController : MonoBehaviour
         EventsResources.onNeilInBucket += ReloadNeilText;
         EventsResources.onClouthInBucket += ReloadClouthText;
         EventsResources.onStoneInBucket += ReloadStoneText;
+
+        EventsResources.onGetCurentClouth += GetCurrentCountClouth;
+        EventsResources.onGetCurentLog += GetCurrentCountLog;
+        EventsResources.onGetCurentNeil += GetCurrentCountNeil;
+        EventsResources.onGetCurentStone += GetCurrentCountStone;
     }
 
     private void OnDisable()
@@ -96,6 +101,11 @@ public class UiController : MonoBehaviour
         EventsResources.onNeilInBucket -= ReloadNeilText;
         EventsResources.onClouthInBucket -= ReloadClouthText;
         EventsResources.onStoneInBucket -= ReloadStoneText;
+
+        EventsResources.onGetCurentClouth -= GetCurrentCountClouth;
+        EventsResources.onGetCurentLog -= GetCurrentCountLog;
+        EventsResources.onGetCurentNeil -= GetCurrentCountNeil;
+        EventsResources.onGetCurentStone -= GetCurrentCountStone;
 
     }
 
@@ -149,7 +159,11 @@ public class UiController : MonoBehaviour
 
     private void SaveResources()
     {
-        //TODO
+        PlayerPrefs.SetInt("currentCloath1", _currentCloath_1);
+        PlayerPrefs.SetInt("currentCloath2", _currentCloath_2);
+        PlayerPrefs.SetInt("currentCloath3", _currentCloath_3);
+
+        PlayerPrefs.SetInt("currentLog1", _currentLog_1);
     }
 
     private void StartResourcesText()
@@ -283,5 +297,63 @@ public class UiController : MonoBehaviour
             _currentStone_3 = plusOrMinus == 1 ? _currentStone_3 += count : _currentStone_3 -= count;
             _stone_2_Text.text = _currentStone_3.ToString();
         }
+    }
+
+    private int GetCurrentCountLog(int levelResorces) {
+        if (levelResorces == 3)
+        {
+            return _currentLog_3;
+        
+        } else if (levelResorces == 2)
+        {
+            return _currentLog_2;
+        }
+
+        return _currentLog_1;
+    }
+
+    private int GetCurrentCountNeil(int levelResorces)
+    {
+        if (levelResorces == 3)
+        {
+            return _currentNeil_3;
+
+        }
+        else if (levelResorces == 2)
+        {
+            return _currentNeil_2;
+        }
+
+        return _currentNeil_1;
+    }
+
+    private int GetCurrentCountClouth(int levelResorces)
+    {
+        if (levelResorces == 3)
+        {
+            return _currentCloath_3;
+
+        }
+        else if (levelResorces == 2)
+        {
+            return _currentCloath_2;
+        }
+
+        return _currentCloath_1;
+    }
+
+    private int GetCurrentCountStone(int levelResorces)
+    {
+        if (levelResorces == 3)
+        {
+            return _currentStone_3;
+
+        }
+        else if (levelResorces == 2)
+        {
+            return _currentStone_2;
+        }
+
+        return _currentStone_1;
     }
 }
