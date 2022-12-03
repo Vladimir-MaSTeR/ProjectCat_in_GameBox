@@ -58,12 +58,6 @@ public class ZoomCamera : MonoBehaviour
         if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
         {
             touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.touchCount == 2)
-            {
-                Touch touchZero = Input.GetTouch(1);
-                touch = Camera.main.ScreenToWorldPoint(touchZero.position);
-            }
-
         }
 
         // zoom тач
@@ -83,7 +77,7 @@ public class ZoomCamera : MonoBehaviour
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
         // перемешение камеры Тач
-        if (Input.GetMouseButton(LEFT_BUTTON_IN_MOUSE) && Input.touchCount < 2)
+        if (Input.GetMouseButton(LEFT_BUTTON_IN_MOUSE))
         {
             Vector3 direction = touch - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Camera.main.transform.position += direction;

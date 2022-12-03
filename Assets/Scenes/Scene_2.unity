@@ -2232,6 +2232,62 @@ PrefabInstance:
       propertyPath: m_Name
       value: UiCanvas 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startLog_1
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startLog_2
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startLog_3
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startNeil_1
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startNeil_2
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startNeil_3
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: loadResorces
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startStone_1
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startStone_2
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startStone_3
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startCloath_1
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startCloath_2
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startCloath_3
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152612631756296984, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
+      propertyPath: _startPrestige
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1152612631756297002, guid: 42bc2f2baeaea1144a3160c6f3f190e4, type: 3}
       propertyPath: m_Camera
       value: 

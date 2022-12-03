@@ -234,6 +234,8 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     private void SaveResources()
     {
         PlayerPrefs.SetInt("lvKitchen", _lvObjectNow);
+        PlayerPrefs.SetInt("needResourcKitchen", _amtRequiredResourceGoLvUp);
+
         PlayerPrefs.Save();
     }
 
@@ -245,6 +247,13 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
             {
                 _lvObjectNow = PlayerPrefs.GetInt("lvKitchen");
             }
+            if (PlayerPrefs.HasKey("needResourcKitchen"))
+            {
+                _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcKitchen");
+            }
+            
+
+
         }
     }
 }

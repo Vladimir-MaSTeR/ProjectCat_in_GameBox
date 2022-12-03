@@ -197,6 +197,8 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
     private void SaveResources()
     {
         PlayerPrefs.SetInt("lvArmchair", _lvObjectNow);
+        PlayerPrefs.SetInt("needResourcArmchair", _amtRequiredResourceGoLvUp);
+
         PlayerPrefs.Save();
     }
 
@@ -208,6 +210,12 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
             {
                 _lvObjectNow = PlayerPrefs.GetInt("lvArmchair");
             }
+            if (PlayerPrefs.HasKey("needResourcArmchair"))
+            {
+                _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcArmchair");
+            }
+
+
         }
     }
 
