@@ -34,7 +34,6 @@ public class ZoomCamera : MonoBehaviour
         _camera = Camera.main.transform.gameObject;
         _cameraPosition = Camera.main.transform.position;
         Camera.main.orthographicSize = _zoomMax;
-        _camera.GetComponent<Camera>().renderingPath = RenderingPath.Forward;
 
     }
 
@@ -42,43 +41,15 @@ public class ZoomCamera : MonoBehaviour
     {
         //touchZoom(); // приблежение по клику
 
-        //  bagFix();
-
-
         changeCameraTouch();
-
 
         // zoom колесом мыши
         Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*3);
-
 
         ScalingBoundaryX();
         movementCamera();
     
     }
-
-
-
-    private void bagFix()
-    {
-        Debug.Log("поз " + _camera.transform.position);
-
-        if (_cameraPosition != _camera.transform.position)
-        { 
-                Debug.Log("-");
-                _camera.SetActive(false);
-            
-                Debug.Log("+");
-                _camera.SetActive(true);
-            
-        }
-        _cameraPosition = _camera.transform.position;
-        Debug.Log("кам " + _cameraPosition);
-
-    }
-
-
-
 
 
     /// <summary>

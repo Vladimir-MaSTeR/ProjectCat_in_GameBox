@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 {
+    [Header("«агружать сохранени€ или стартовые значени€ ресурсов")]
+    [SerializeField] private bool loadResorces = true;
+
     /// <summary>
     /// ћодель обьекта по уровн€м от 0 -сломано до n- максимум
     /// </summary>
@@ -56,18 +59,37 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 [SerializeField]
     private bool _activTimeGoLvUp = false;
 
+    /// <summary>
+    /// текушей уровень обьекта 
+    /// </summary>
+    private int _lvObjectNow;
+    /// <summary>
+    /// текушее колличество ресурса в сумке 
+    /// </summary>
+    private int _needResourceBagNow;
+    /// <summary>
+    /// требуемый уровень –есурса дл€ ремонта 
+    /// </summary>
+    private int _needLvResource;
+
+
     private void Start()
     {
         _lvObjectMax = _objectModel.Length -1;
-        AddModel(_lvObject);
+        AddModel(_lvObjectNow);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 4;
+        _needLvResource = _lvObjectNow + 1;
+        _needResourceBagNow = (int)EventsResources.onGetCurentNeil?.Invoke(_needLvResource);
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         // проверка ресурса
+        _needLvResource = _lvObjectNow + 1;
+        _needResourceBagNow = (int)EventsResources.onGetCurentNeil?.Invoke(_needLvResource);
+
         if (_lvObject < _lvObjectMax  &&
-              EventsResources.onGetCurentNeil?.Invoke(_lvObject + 1) >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
+              _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
          {
             _amtAddResource += 1;
             if (_activTimeGoLvUp == true)
@@ -105,12 +127,12 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
     /// </summary>
    private void LvUp()
     {
-        _lvObject += 1;
-         AddModel(_lvObject);
-        EventsResources.onNeilInBucket?.Invoke(_lvObject, _amtRequiredResourceGoLvUp, 0); // —писать русурс дл€ LvUp ;
-        _amtRequiredResourceGoLvUp *= 2;
+        _lvObjectNow += 1;
+         AddModel(_lvObjectNow);
+        EventsResources.onNeilInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // —писать русурс дл€ LvUp ;
+        _amtRequiredResourceGoLvUp /= 2;
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 4;
-
+        _needLvResource = _lvObjectNow + 1;
 
     }
 
@@ -166,6 +188,21 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 
     }
 
+    private void SaveResources()
+    {
+        PlayerPrefs.SetInt("lvArmchair", _lvObjectNow);
+        PlayerPrefs.Save();
+    }
 
+    private void LoadResouces()
+    {
+        if (loadResorces)
+        {
+            if (PlayerPrefs.HasKey("lvArmchair"))
+            {
+                _lvObjectNow = PlayerPrefs.GetInt("lvArmchair");
+            }
+        }
+    }
 
 }
