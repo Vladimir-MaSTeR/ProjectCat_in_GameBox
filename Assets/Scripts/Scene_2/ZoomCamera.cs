@@ -26,30 +26,23 @@ public class ZoomCamera : MonoBehaviour
 
 
 
-    private Vector3 _cameraPosition;  //  bagFix
-    private GameObject _camera;   //  bagFix
+
     
     private void Start()
     {
-        _camera = Camera.main.transform.gameObject;
-        _cameraPosition = Camera.main.transform.position;
-        Camera.main.orthographicSize = _zoomMax;
+
+        // Camera.main.orthographicSize = _zoomMax;
+
     }
 
     void Update()
     {
         //touchZoom(); // приблежение по клику
 
-     //  bagFix();
-
-
-
         changeCameraTouch();
-
 
         // zoom колесом мыши
         Zoom(Input.GetAxis(SCROLL_IN_MOUSE)*3);
-
 
         ScalingBoundaryX();
         movementCamera();
@@ -57,34 +50,16 @@ public class ZoomCamera : MonoBehaviour
     }
 
 
-
-    private void bagFix()
-    {
-        Debug.Log("поз " + _camera.transform.position);
-
-        if (_cameraPosition != _camera.transform.position)
-        { 
-                Debug.Log("-");
-                _camera.SetActive(false);
-            
-                Debug.Log("+");
-                _camera.SetActive(true);
-            
-        }
-        _cameraPosition = _camera.transform.position;
-        Debug.Log("кам " + _cameraPosition);
-
-    }
-
-
-
-
-
     /// <summary>
     /// Управление Тачем
     /// </summary>
     private void changeCameraTouch()
     {
+        if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
+        {
+            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
         // zoom тач
         if (Input.touchCount == 2)
         {
@@ -102,10 +77,13 @@ public class ZoomCamera : MonoBehaviour
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
         // перемешение камеры Тач
-        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE) && Input.touchCount == 1)
+        if (Input.GetMouseButton(LEFT_BUTTON_IN_MOUSE))
         {
-            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 direction = touch - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.transform.position += direction;
+            // Camera.main.transform.position += direction * Time.deltaTime;
             checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+
         }
 
     }

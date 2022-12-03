@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ClickKitchen : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Загружать сохранения или стартовые значения ресурсов")]
+    [SerializeField] private bool loadResorces = true;
+
     /// <summary>
     /// Модель обьекта по уровням от 0 -сломано до n- максимум
     /// </summary>
@@ -26,14 +29,15 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _objectTable;
     /// <summary>
-    /// Уровень обьекта 
+    /// Стартовый Уровень обьекта 
     /// </summary>
-    [SerializeField] 
+    [SerializeField]
     private int _lvObject = 0;
+
     /// <summary>
     /// Максимальный Уровень обьекта 
     /// </summary>
-[SerializeField]
+    [SerializeField]
     private int _lvObjectMax;
     /// <summary>
     ///      Шкала для ремонта фоновая
@@ -53,7 +57,7 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Количество произведенных кликов для Lv Up
     /// </summary>
- [SerializeField]
+    [SerializeField]
     private int _amtAddResource = 0;
     /// <summary>
     /// Время  на починку для Up
@@ -63,23 +67,49 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     /// <summary>
     ///  Таймер активирован
     /// </summary>
-[SerializeField]
+    [SerializeField]
     private bool _activTimeGoLvUp = false;
+
+    /// <summary>
+    /// текушей уровень обьекта 
+    /// </summary>
+    private int _lvObjectNow;
+    /// <summary>
+    /// текушее колличество ресурса в сумке 
+    /// </summary>
+    private int _needResourceBagNow;
+    /// <summary>
+    /// требуемый уровень Ресурса для ремонта 
+    /// </summary>
+    private int _needLvResource;
+
 
     private void Start()
     {
-        _lvObjectMax = _objectModelShkaf.Length -1;
+
+        if (!loadResorces)
+        { _lvObjectNow = _lvObject; }
+        else
+        { LoadResouces();}
+
+        _lvObjectMax = _objectModelShkaf.Length - 1;
         _lvObjectMax = _objectModelTable.Length - 1;
-        AddModel(_lvObject);
+
+        AddModel(_lvObjectNow);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        _needLvResource = _lvObjectNow + 1;
+        _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_needLvResource);
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         // проверка ресурса
-        if (_lvObject < _lvObjectMax  &&
-              EventsResources.onGetCurentLog?.Invoke(_lvObject + 1) >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
-         {
+        _needLvResource = _lvObjectNow + 1;
+        _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_needLvResource);
+
+        if (_lvObjectNow < _lvObjectMax &&
+              _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
+        {
             _amtAddResource += 1;
             if (_activTimeGoLvUp == true)
             { ScaleProgress(true); }
@@ -90,7 +120,7 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
                 _activTimeGoLvUp = true;
                 ScaleProgress(true);
             }
-            else if ( _amtAddResource >= _amtRequiredResourceGoLvUp )
+            else if (_amtAddResource >= _amtRequiredResourceGoLvUp)
             {
                 LvUp();
                 _amtAddResource = 0;
@@ -102,7 +132,7 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
         } // русурса не хватает
         else
         {
-            
+
         }
 
 
@@ -113,14 +143,15 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// повышение уронвя
     /// </summary>
-   private void LvUp()
+    private void LvUp()
     {
-        _lvObject += 1;
-         AddModel(_lvObject);
-        EventsResources.onLogInBucket?.Invoke(_lvObject, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
-        _amtRequiredResourceGoLvUp *= 2;
+        _lvObjectNow += 1;
+        AddModel(_lvObjectNow);
+        EventsResources.onLogInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
+        _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp* 1.3f);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 3;
-
+        _needLvResource = _lvObjectNow + 1;
+        SaveResources();
     }
 
 
@@ -149,13 +180,14 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
         Destroy(_objectTable);
         if (_LvMod <= _objectModelTable.Length && _LvMod >= 0)
         {
-            _objectTable = Instantiate(_objectModelTable[_LvMod],  _objectTable.transform.position, Quaternion.Euler(0f, -30f, 0f));
+            _objectTable = Instantiate(_objectModelTable[_LvMod], _objectTable.transform.position, Quaternion.Euler(0f, -30f, 0f));
             var _table = _objectTable.transform.GetChild(0);  // заглушка 
             Debug.Log(_table.name);
             _table.transform.position = _objectTable.transform.position; // заглушка 
             Debug.Log(_table.name);
             if (_LvMod >= 1)
-            {_table = _table.transform.GetChild(0); // заглушка 
+            {
+                _table = _table.transform.GetChild(0); // заглушка 
                 _table.transform.position = _objectTable.transform.position; // заглушка 
             }
 
@@ -171,7 +203,7 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     /// Шкала прогресса
     /// </summary>
     /// <param name="OnOff">true= вкл,false=выкл</param>
-    private void ScaleProgress (bool OnOff)
+    private void ScaleProgress(bool OnOff)
     {
         if (OnOff == true)
         {
@@ -199,6 +231,29 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
 
     }
 
+    private void SaveResources()
+    {
+        PlayerPrefs.SetInt("lvKitchen", _lvObjectNow);
+        PlayerPrefs.SetInt("needResourcKitchen", _amtRequiredResourceGoLvUp);
+
+        PlayerPrefs.Save();
+    }
+
+    private void LoadResouces()
+    {
+        if (loadResorces)
+        {
+            if (PlayerPrefs.HasKey("lvKitchen"))
+            {
+                _lvObjectNow = PlayerPrefs.GetInt("lvKitchen");
+            }
+            if (PlayerPrefs.HasKey("needResourcKitchen"))
+            {
+                _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcKitchen");
+            }
+            
 
 
+        }
+    }
 }

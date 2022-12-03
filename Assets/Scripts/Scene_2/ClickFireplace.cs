@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Загружать сохранения или стартовые значения ресурсов")]
+    [SerializeField] private bool loadResorces = true;
+
     /// <summary>
     /// Модель обьекта по уровням от 0 -сломано до n- максимум
     /// </summary>
@@ -21,7 +24,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _objectLight;
     /// <summary>
-    /// Уровень обьекта 
+    /// Стартовый Уровень обьекта 
     /// </summary>
     [SerializeField] 
     private int _lvObject = 0;
@@ -61,19 +64,48 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 [SerializeField]
     private bool _activTimeGoLvUp = false;
 
+    /// <summary>
+    /// текушей уровень обьекта 
+    /// </summary>
+    private int _lvObjectNow;
+    /// <summary>
+    /// текушее колличество ресурса в сумке 
+    /// </summary>
+    private int _needResourceBagNow;
+    /// <summary>
+    /// требуемый уровень Ресурса для ремонта 
+    /// </summary>
+    private int _needLvResource;
+
+
+
     private void Start()
     {
+        if (!loadResorces)
+        { _lvObjectNow = _lvObject; }
+        else
+        { LoadResouces(); }
+
         _lvObjectMax = _objectModel.Length -1;
-        AddModel(_lvObject);
-        _objectLight.SetActive(false);
+        AddModel(_lvObjectNow);
+        if(_lvObjectNow == 0)
+        { _objectLight.SetActive(false); }
+        else
+        { _objectLight.SetActive(true); }
+
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
+
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         // проверка ресурса
-        if (_lvObject < _lvObjectMax  &&
-              EventsResources.onGetCurentStone?.Invoke(_lvObject + 1) >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
+        _needLvResource = _lvObjectNow + 1;
+        _needResourceBagNow = (int)EventsResources.onGetCurentStone?.Invoke(_needLvResource);
+            
+            if (_lvObjectNow < _lvObjectMax  &&
+              _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
          {
             _amtAddResource += 1;
             if (_activTimeGoLvUp == true)
@@ -111,11 +143,13 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
    private void LvUp()
     {
         _objectLight.SetActive(true);
-        _lvObject += 1;
-         AddModel(_lvObject);
-        EventsResources.onStoneInBucket?.Invoke(_lvObject, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
-        _amtRequiredResourceGoLvUp *= 2;
+        _lvObjectNow += 1;
+         AddModel(_lvObjectNow);
+        EventsResources.onStoneInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
+        _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp * 1.3f);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        _needLvResource = _lvObjectNow +1;
+        SaveResources();
 
 
     }
@@ -170,6 +204,31 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     }
 
+
+    private void SaveResources()
+    {
+        PlayerPrefs.SetInt("lvFireplace", _lvObjectNow);
+        PlayerPrefs.SetInt("needResourcFireplace", _amtRequiredResourceGoLvUp);
+
+        PlayerPrefs.Save();
+    }
+
+    private void LoadResouces()
+    {
+        if (loadResorces)
+        {
+            if (PlayerPrefs.HasKey("lvFireplace"))
+            {
+                _lvObjectNow = PlayerPrefs.GetInt("lvFireplace");
+            }
+            if (PlayerPrefs.HasKey("needResourcFireplace"))
+            {
+                _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcFireplace");
+            }
+
+
+        }
+    }
 
 
 }
