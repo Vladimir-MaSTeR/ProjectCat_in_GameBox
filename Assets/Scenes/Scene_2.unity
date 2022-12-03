@@ -2205,7 +2205,7 @@ MonoBehaviour:
   _lvObjectMax: 3
   _scaleProgress: {fileID: 1647444713}
   _scaleProgressUp: {fileID: 306662672}
-  _amtRequiredResourceGoLvUp: 30
+  _amtRequiredResourceGoLvUp: 7
   _amtAddResource: 0
   _needTimeGoLvUp: 2
   _activTimeGoLvUp: 0
@@ -2643,7 +2643,7 @@ MonoBehaviour:
   _lvObjectMax: 0
   _scaleProgress: {fileID: 2144124852}
   _scaleProgressUp: {fileID: 711540885}
-  _amtRequiredResourceGoLvUp: 20
+  _amtRequiredResourceGoLvUp: 5
   _amtAddResource: 0
   _needTimeGoLvUp: 2
   _activTimeGoLvUp: 0
@@ -3443,7 +3443,7 @@ MonoBehaviour:
   _lvObjectMax: 3
   _scaleProgress: {fileID: 709780695}
   _scaleProgressUp: {fileID: 302121858}
-  _amtRequiredResourceGoLvUp: 40
+  _amtRequiredResourceGoLvUp: 10
   _amtAddResource: 0
   _needTimeGoLvUp: 2
   _activTimeGoLvUp: 0

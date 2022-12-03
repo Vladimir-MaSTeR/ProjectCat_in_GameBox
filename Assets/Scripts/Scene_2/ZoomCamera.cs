@@ -26,13 +26,11 @@ public class ZoomCamera : MonoBehaviour
 
 
 
-    private Vector3 _cameraPosition;  //  bagFix
-    private GameObject _camera;   //  bagFix
+
     
     private void Start()
     {
-        _camera = Camera.main.transform.gameObject;
-        _cameraPosition = Camera.main.transform.position;
+
         Camera.main.orthographicSize = _zoomMax;
 
     }
@@ -74,16 +72,20 @@ public class ZoomCamera : MonoBehaviour
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
         // перемешение камеры Тач
-        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE) && Input.touchCount == 1)
+        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE) || Input.touchCount == 1)
         {
-            Touch touchZero = Input.GetTouch(0);
-            Vector2 touchZeroLastPos = touchZero.position - touchZero.deltaPosition;
-            touch = Camera.main.ScreenToWorldPoint(touchZero.position);
-           // touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
-
             
+            if (Input.touchCount > 0)
+            {
+                Touch touchZero = Input.GetTouch(0);
+                Vector2 touchZeroLastPos = touchZero.position - touchZero.deltaPosition;
+                touch = Camera.main.ScreenToWorldPoint(touchZero.position);
+            }
+            else
+            { touch = Camera.main.ScreenToWorldPoint(Input.mousePosition); }
 
+            checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+            
         }
 
     }

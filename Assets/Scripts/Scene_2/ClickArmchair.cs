@@ -75,6 +75,11 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        if (!loadResorces)
+        { _lvObjectNow = 0; }
+        else
+        { LoadResouces(); }
+
         _lvObjectMax = _objectModel.Length -1;
         AddModel(_lvObjectNow);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 4;
@@ -130,9 +135,10 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
         _lvObjectNow += 1;
          AddModel(_lvObjectNow);
         EventsResources.onNeilInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
-        _amtRequiredResourceGoLvUp /= 2;
+        _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp * 1.3f);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 4;
         _needLvResource = _lvObjectNow + 1;
+        SaveResources();
 
     }
 

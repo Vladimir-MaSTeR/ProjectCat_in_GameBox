@@ -86,6 +86,12 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+
+        if (!loadResorces)
+        {_lvObjectNow = 0;}
+        else
+        {LoadResouces();}
+
         _lvObjectMax = _objectModelShkaf.Length - 1;
         _lvObjectMax = _objectModelTable.Length - 1;
 
@@ -142,9 +148,10 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
         _lvObjectNow += 1;
         AddModel(_lvObjectNow);
         EventsResources.onLogInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
-        _amtRequiredResourceGoLvUp /= 2;
+        _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp* 1.3f);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 3;
         _needLvResource = _lvObjectNow + 1;
+        SaveResources();
     }
 
 
