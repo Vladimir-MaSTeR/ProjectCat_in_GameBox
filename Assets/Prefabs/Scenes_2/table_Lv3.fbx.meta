@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25bfc00aec4b74f4786345d1d6f5c88b
+guid: 98e31a44dfc4de34895e6daf3a04d357
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: kamin_repaired_low_kamin_repaired
-    second: {fileID: 7770318624900243041, guid: 5420a73aa123d8b4da9d043a1ed5d853, type: 3}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+      name: wood_2
+    second: {fileID: 7770318624900243041, guid: ac911a3749d913743a02e24fe48926fb, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
