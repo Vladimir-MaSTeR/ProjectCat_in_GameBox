@@ -19,9 +19,9 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _objectNow;
     /// <summary>
-    /// Уровень обьекта 
+    /// Стартовый Уровень обьекта 
     /// </summary>
-[SerializeField] 
+    [SerializeField] 
     private int _lvObject = 0;
     /// <summary>
     /// Максимальный Уровень обьекта 
@@ -76,7 +76,7 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         if (!loadResorces)
-        { _lvObjectNow = 0; }
+        { _lvObjectNow = _lvObject; }
         else
         { LoadResouces(); }
 
@@ -93,7 +93,7 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
         _needLvResource = _lvObjectNow + 1;
         _needResourceBagNow = (int)EventsResources.onGetCurentNeil?.Invoke(_needLvResource);
 
-        if (_lvObject < _lvObjectMax  &&
+        if (_lvObjectNow < _lvObjectMax  &&
               _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
          {
             _amtAddResource += 1;

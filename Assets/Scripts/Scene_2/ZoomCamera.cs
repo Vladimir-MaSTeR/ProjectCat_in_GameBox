@@ -31,7 +31,7 @@ public class ZoomCamera : MonoBehaviour
     private void Start()
     {
 
-        Camera.main.orthographicSize = _zoomMax;
+        // Camera.main.orthographicSize = _zoomMax;
 
     }
 
@@ -55,6 +55,17 @@ public class ZoomCamera : MonoBehaviour
     /// </summary>
     private void changeCameraTouch()
     {
+        if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE))
+        {
+            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Input.touchCount == 2)
+            {
+                Touch touchZero = Input.GetTouch(1);
+                touch = Camera.main.ScreenToWorldPoint(touchZero.position);
+            }
+
+        }
+
         // zoom тач
         if (Input.touchCount == 2)
         {
@@ -72,20 +83,13 @@ public class ZoomCamera : MonoBehaviour
             Zoom(defference * 0.01f); // Умножение для плавности.
         }
         // перемешение камеры Тач
-        else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE) || Input.touchCount == 1)
+        if (Input.GetMouseButton(LEFT_BUTTON_IN_MOUSE) && Input.touchCount < 2)
         {
-            
-            if (Input.touchCount > 0)
-            {
-                Touch touchZero = Input.GetTouch(0);
-                Vector2 touchZeroLastPos = touchZero.position - touchZero.deltaPosition;
-                touch = Camera.main.ScreenToWorldPoint(touchZero.position);
-            }
-            else
-            { touch = Camera.main.ScreenToWorldPoint(Input.mousePosition); }
-
+            Vector3 direction = touch - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.transform.position += direction;
+            // Camera.main.transform.position += direction * Time.deltaTime;
             checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
-            
+
         }
 
     }

@@ -88,9 +88,9 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     {
 
         if (!loadResorces)
-        {_lvObjectNow = 0;}
+        { _lvObjectNow = _lvObject; }
         else
-        {LoadResouces();}
+        { LoadResouces();}
 
         _lvObjectMax = _objectModelShkaf.Length - 1;
         _lvObjectMax = _objectModelTable.Length - 1;

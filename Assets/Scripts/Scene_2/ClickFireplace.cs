@@ -24,7 +24,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _objectLight;
     /// <summary>
-    /// Уровень обьекта 
+    /// Стартовый Уровень обьекта 
     /// </summary>
     [SerializeField] 
     private int _lvObject = 0;
@@ -82,7 +82,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         if (!loadResorces)
-        { _lvObjectNow = 0; }
+        { _lvObjectNow = _lvObject; }
         else
         { LoadResouces(); }
 
