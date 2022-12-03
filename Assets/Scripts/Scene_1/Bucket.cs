@@ -3,14 +3,32 @@ using UnityEngine.EventSystems;
 
 public class Bucket : MonoBehaviour, IDropHandler
 {
+
+    private bool holdBucket;
+
+
     public void OnDrop(PointerEventData eventData)
     {
         var childrenTag = eventData.pointerDrag.tag;
 
-        CheckLogResouces(childrenTag, eventData);
-        CheckNeilResources(childrenTag, eventData);
-        CheckCloathResources(childrenTag, eventData);
-        CheckStoneResources(childrenTag, eventData);
+        if (!holdBucket)
+        {
+            CheckLogResouces(childrenTag, eventData);
+            CheckNeilResources(childrenTag, eventData);
+            CheckCloathResources(childrenTag, eventData);
+            CheckStoneResources(childrenTag, eventData);
+        }     
+    }
+
+
+    private void OnEnable()
+    {
+        EventsResources.onHoldBucket += CheckHold;
+    }
+
+    private void OnDisable()
+    {
+        EventsResources.onHoldBucket -= CheckHold;
     }
 
 
@@ -109,5 +127,10 @@ public class Bucket : MonoBehaviour, IDropHandler
             EventsResources.onStoneInBucket?.Invoke(3, 1, 1);
             Debug.Log($"Камень {3} уровня  в козине");
         }
+    }
+
+    private void CheckHold(bool hold)
+    {
+        holdBucket = hold;
     }
 }

@@ -28,6 +28,8 @@ public class EventsResources
                                                          //          ¬торой ар. - колл ресурса.
                                                          //          “ретий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)
 
+    public static Action<bool> onHoldBucket;
+
 
     public static Func<int, int> onGetCurentClouth; // возвращает подписчику текущее колличество ткани
     public static Func<int, int> onGetCurentLog;    // возвращает подписчику текущее колличество дерева

@@ -53,6 +53,17 @@ public class UiController : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _clickButtonClip;
 
+    [Header("Таймеры для заморозки корзины")]
+    [SerializeField] private float _holdTime = 10;
+    [SerializeField] private float _noHoldTime = 5;
+
+    [Header("Текст о Заморзке")]
+    [SerializeField] private Text _infoText;
+    [SerializeField] private Text _clockHoldText;
+
+
+    private const string HOLD_BUCKET_TEXT = "Корзина заморожена пауком";
+    private const string NO_HOLD_BUCKET_TEXT = "Корзина разможенна";
 
     private int _currentCloath_1;
     private int _currentCloath_2;
@@ -72,6 +83,11 @@ public class UiController : MonoBehaviour
 
     private int _currentPrestige;
 
+    private bool _holdBucket;
+    private float _currentHoldTime;
+    private float _currentNoHoldTime;
+
+
     private const int ONE_SCENE_INDEX = 0;
     private const int TWO_SCENE_INDEX = 1;
 
@@ -89,6 +105,14 @@ public class UiController : MonoBehaviour
 
         _menuPanel.SetActive(false);
         _resorcesPanel.SetActive(false);
+
+        _currentHoldTime = _holdTime;
+        _currentNoHoldTime = _noHoldTime;
+    }
+
+    private void Update()
+    {
+        HoldTimer();
     }
 
     private void OnEnable()
@@ -164,6 +188,12 @@ public class UiController : MonoBehaviour
     public void ClickButtonsSoundClic()
     {
         _source.PlayOneShot(_clickButtonClip);
+    }
+
+    public void ClickReloadSaveButton()
+    {
+        PlayerPrefs.DeleteAll();
+        StartResourcesText();
     }
 
     private void SaveResources()
@@ -311,6 +341,39 @@ public class UiController : MonoBehaviour
        // _prestigeText.text = _currentPrestige.ToString();
     }
 
+    private void HoldTimer()
+    {
+
+
+        if (_currentNoHoldTime <= 0)
+        {
+           
+
+            _holdBucket = true;
+            EventsResources.onHoldBucket?.Invoke(_holdBucket);
+            _infoText.text = HOLD_BUCKET_TEXT;
+
+            UpdateTimerText(_currentHoldTime);
+            _currentHoldTime -= Time.deltaTime;
+
+            if (_currentHoldTime <= 0)
+            {
+                
+                _holdBucket = false;
+                EventsResources.onHoldBucket?.Invoke(_holdBucket);
+                _currentNoHoldTime = _noHoldTime;
+            }
+        } else
+        {
+            _holdBucket = false;
+            EventsResources.onHoldBucket?.Invoke(_holdBucket);
+            _infoText.text = NO_HOLD_BUCKET_TEXT;
+
+            UpdateTimerText(_currentNoHoldTime);
+            _currentNoHoldTime -= Time.deltaTime;
+            _currentHoldTime = _holdTime;
+        }
+    }
 
     private void ReloadLogText(int levelResouces, int count, int plusOrMinus)
     {
@@ -448,5 +511,18 @@ public class UiController : MonoBehaviour
         }
 
         return _currentStone_1;
+    }
+
+    private void UpdateTimerText(float time)
+    {
+        if (time < 0)
+        {
+            time = 0;
+        }
+
+        var minutes = Mathf.FloorToInt(time / 60);
+        var seconds = Mathf.FloorToInt(time % 60);
+        _clockHoldText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+
     }
 }
