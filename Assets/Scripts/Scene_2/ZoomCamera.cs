@@ -34,14 +34,15 @@ public class ZoomCamera : MonoBehaviour
         _camera = Camera.main.transform.gameObject;
         _cameraPosition = Camera.main.transform.position;
         Camera.main.orthographicSize = _zoomMax;
+        _camera.GetComponent<Camera>().renderingPath = RenderingPath.Forward;
+
     }
 
     void Update()
     {
         //touchZoom(); // приблежение по клику
 
-     //  bagFix();
-
+        //  bagFix();
 
 
         changeCameraTouch();
@@ -104,8 +105,14 @@ public class ZoomCamera : MonoBehaviour
         // перемешение камеры “ач
         else if (Input.GetMouseButtonDown(LEFT_BUTTON_IN_MOUSE) && Input.touchCount == 1)
         {
-            touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Touch touchZero = Input.GetTouch(0);
+            Vector2 touchZeroLastPos = touchZero.position - touchZero.deltaPosition;
+            touch = Camera.main.ScreenToWorldPoint(touchZero.position);
+           // touch = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+
+            
+
         }
 
     }
