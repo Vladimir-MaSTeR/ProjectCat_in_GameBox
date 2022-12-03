@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: kamin_repaired_low_kamin_repaired
+    second: {fileID: 7770318624900243041, guid: 5420a73aa123d8b4da9d043a1ed5d853, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: lambert1
     second: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   materials:
