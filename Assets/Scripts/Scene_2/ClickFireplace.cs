@@ -164,8 +164,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         Destroy(_objectNow);
         if (_LvMod <= _objectModel.Length && _LvMod >= 0)
         {
-            _objectNow = Instantiate(_objectModel[_LvMod], transform.position, Quaternion.Euler(0f, 140f, 0f));
-            _objectNow.transform.localScale = new Vector3(3f, 3f, 3f);
+             _objectNow = Instantiate(_objectModel[_LvMod], transform.position, Quaternion.Euler(0f, 0f, 0f));
+
             _objectNow.transform.SetParent(transform);
             _objectNow.transform.SetAsFirstSibling(); // ¬веерх списка
         }

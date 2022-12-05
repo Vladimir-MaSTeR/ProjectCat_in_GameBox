@@ -12,22 +12,14 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     /// Модель обьекта по уровням от 0 -сломано до n- максимум
     /// </summary>
     [SerializeField]
-    private GameObject[] _objectModelShkaf;
+    private GameObject[] _objectModel;
+
     /// <summary>
-    /// Модель обьекта по уровням от 0 -сломано до n- максимум
+    /// Модель обьекта кухня
     /// </summary>
     [SerializeField]
-    private GameObject[] _objectModelTable;
-    /// <summary>
-    /// Модель обьекта шкаф
-    /// </summary>
-    [SerializeField]
-    private GameObject _objectShkaf;
-    /// <summary>
-    /// Модель обьекта стол
-    /// </summary>
-    [SerializeField]
-    private GameObject _objectTable;
+    private GameObject _object;
+
     /// <summary>
     /// Стартовый Уровень обьекта 
     /// </summary>
@@ -92,8 +84,7 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
         else
         { LoadResouces();}
 
-        _lvObjectMax = _objectModelShkaf.Length - 1;
-        _lvObjectMax = _objectModelTable.Length - 1;
+        _lvObjectMax = _objectModel.Length - 1;
 
         AddModel(_lvObjectNow);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
@@ -161,40 +152,15 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     /// <param name="_LvMod"></param>
     private void AddModel(int _LvMod)
     {
-        // _objectModelShkaf _objectModelTable
 
-        Destroy(_objectShkaf);
-        if (_LvMod <= _objectModelShkaf.Length && _LvMod >= 0)
+        Destroy(_object);
+        if (_LvMod <= _objectModel.Length && _LvMod >= 0)
         {
-            _objectShkaf = Instantiate(_objectModelShkaf[_LvMod], transform.position, Quaternion.Euler(0f, -30f, 0f));
-            var _shkaf = _objectShkaf.transform.GetChild(0);  // заглушка 
-            _shkaf.transform.position = transform.position; // заглушка 
-            _shkaf = _shkaf.transform.GetChild(0); // заглушка 
-            _shkaf.transform.position = transform.position; // заглушка 
+           _object = Instantiate(_objectModel[_LvMod], transform.position, Quaternion.Euler(0f, 0f, 0f));
 
-            _objectShkaf.transform.localScale = new Vector3(3f, 3f, 3f);
-            _objectShkaf.transform.SetParent(transform);
-            _objectShkaf.transform.SetAsFirstSibling(); // Ввеерх списка
-        }
-
-        Destroy(_objectTable);
-        if (_LvMod <= _objectModelTable.Length && _LvMod >= 0)
-        {
-            _objectTable = Instantiate(_objectModelTable[_LvMod], _objectTable.transform.position, Quaternion.Euler(0f, -30f, 0f));
-            var _table = _objectTable.transform.GetChild(0);  // заглушка 
-            Debug.Log(_table.name);
-            _table.transform.position = _objectTable.transform.position; // заглушка 
-            Debug.Log(_table.name);
-            if (_LvMod >= 1)
-            {
-                _table = _table.transform.GetChild(0); // заглушка 
-                _table.transform.position = _objectTable.transform.position; // заглушка 
-            }
-
-            _objectTable.transform.localScale = new Vector3(3f, 3f, 3f);
-            _objectTable.transform.SetParent(transform);
-            _objectTable.transform.SetAsFirstSibling(); // Ввеерх списка
-        }
+            _object.transform.SetParent(transform);
+            _object.transform.SetAsFirstSibling(); // Ввеерх списка
+        }        
 
     }
 
