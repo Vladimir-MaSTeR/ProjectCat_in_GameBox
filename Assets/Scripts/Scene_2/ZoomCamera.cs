@@ -165,7 +165,7 @@ public class ZoomCamera : MonoBehaviour
             // проверка по оси Z
             if (camerPosi.z >= camerPosiMax.z)
             {
-                camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
+                camerPosi = new Vector3(camerPosi.x, camerPosi.y, maxZ);
                 Camera.main.transform.position = camerPosi;
             }
             if (camerPosi.z <= camerPosiMin.z)
