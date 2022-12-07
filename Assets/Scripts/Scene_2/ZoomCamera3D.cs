@@ -6,6 +6,11 @@ public class ZoomCamera3D : MonoBehaviour
 {
 	[SerializeField]
 	private Transform _myCamera;
+	/// <summary>
+	/// родитель камеры
+	/// </summary>
+	private Transform _objCamera;
+	private float yRotationCamera;
 	//public Vector3 offset;
 	private Vector3 _firstPointOneTouch;
 	private Vector3 _secondPointOneTouch;
@@ -18,6 +23,8 @@ public class ZoomCamera3D : MonoBehaviour
 	private float yPositTemp;
 	private float xPositDelta;
 	private float yPositDelta;
+	private float deltaTouchTemp; // растояние между двумя тачами при нажании
+	private float deltaTouch; // растояние между двумя тачами при движении
 	//  Delta от 0 до 10
 	private float xPositTemp2;
 	private float yPositTemp2;
@@ -41,21 +48,26 @@ public class ZoomCamera3D : MonoBehaviour
 		yPosit = transform.position.y;
 		zPosit = transform.position.z;
 		Debug.Log("старт Х " + (int)xPosit + " и У " + (int)yPosit + " и Z " + (int)zPosit);
-
+		_objCamera = _myCamera.parent.transform;
 
 	}
 
 	void Update()
 	{
 		changeCameraTouch();
-
+		zoomCameraTouch();
 
 
 		checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+		checkingBoundaryZ();
 
 	}
 
+	private void FixedUpdate()
+    {
+		//checkingBoundaryZ();
 
+	}
 
 
 	/// <summary>
@@ -63,45 +75,65 @@ public class ZoomCamera3D : MonoBehaviour
 	/// </summary>
 	private void changeCameraTouch()
 	{
+		movingCameraTouch();
+
+
+		
+        {
+			// Debug.Log("Touch 0 или 3+ ");
+		}
+	}
+
+
+	/// <summary>
+	/// Управление Тачем передвижение 
+	/// </summary>
+	 
+	private void movingCameraTouch ()
+    {
 		if (Input.touchCount == 1)
 		{
-			// foreach (Touch touch in Input.touches)
+			// foreach (Touch touch in Input.touches) {
+
+			Touch touchZero = Input.GetTouch(0);
+			var touch = touchZero;
+			if (touch.phase == TouchPhase.Began) /// первое нажание косанием
 			{
-				Touch touchZero = Input.GetTouch(0);
-				var touch = touchZero;
-				if (
-				// touch.position.x > Screen.width/2 &  // правая половина экрана
-				touch.phase == TouchPhase.Began) /// первое нажание 
-				{
-					_firstPointOneTouch = touch.position;
-					xPositTemp = _firstPointOneTouch.x;
-					yPositTemp = _firstPointOneTouch.y;
-					// Debug.Log("тык Х " + (int)xPositTemp + " и У " + (int)yPositTemp);
-					xPositDelta = 0;
-					yPositDelta = 0;
-				}
-				if (
-					touch.phase == TouchPhase.Moved) /// движение 
-				{
-
-					_secondPointOneTouch = touch.position;
-					xPositDelta = (_secondPointOneTouch.x - _firstPointOneTouch.x) / Screen.height; // * 90
-					yPositDelta = (_secondPointOneTouch.y - _firstPointOneTouch.y) / Screen.width; // * 180 
-					xPosit = xPosit - xPositDelta * 1;
-					yPosit = yPosit - yPositDelta * 1;
-					_myCamera.position = new Vector3(xPosit, yPosit, _myCamera.position.z);
-
-					// Debug.Log("Del Х " + (int)(xPositDelta * 1) + " и У " + (int)(yPositDelta * 1));
-					// Debug.Log("таши Х " + (int)xPosit + " и У " + (int)yPosit);
-				}
-
-				_myCamera.position = new Vector3(xPosit, yPosit, _myCamera.position.z);
-
-
-
+				_firstPointOneTouch = touch.position;
+				xPositTemp = _firstPointOneTouch.x;
+				yPositTemp = _firstPointOneTouch.y;
+				// Debug.Log("тык Х " + (int)xPositTemp + " и У " + (int)yPositTemp);
+				xPositDelta = 0;
+				yPositDelta = 0;
 			}
+			if (
+				touch.phase == TouchPhase.Moved) /// движение 
+			{
+
+				_secondPointOneTouch = touch.position;
+				xPositDelta = (_secondPointOneTouch.x - _firstPointOneTouch.x) / Screen.height; // * 90
+				yPositDelta = (_secondPointOneTouch.y - _firstPointOneTouch.y) / Screen.width; // * 180 
+				xPosit = xPosit - xPositDelta * 1;
+				yPosit = yPosit - yPositDelta * 1;
+				// zPosit = zPosit ;
+				_myCamera.position = new Vector3(xPosit, yPosit, zPosit);
+
+				// Debug.Log("Del Х " + (int)(xPositDelta * 1) + " и У " + (int)(yPositDelta * 1));
+				// Debug.Log("таши Х " + (int)xPosit + " и У " + (int)yPosit);
+			}
+
+			_myCamera.position = new Vector3(xPosit, yPosit, _myCamera.position.z);
+
+
+
 		}
-		else if (Input.touchCount == 2)
+		
+	}
+
+
+	private void zoomCameraTouch()
+	{
+		if (Input.touchCount == 2)
 		{
 			Touch touchZero = Input.GetTouch(0);
 			Touch touchOne = Input.GetTouch(1);
@@ -118,9 +150,9 @@ public class ZoomCamera3D : MonoBehaviour
 				_firstPointTwoTouch = touchOne.position;
 				xPositTemp2 = _firstPointTwoTouch.x;
 				yPositTemp2 = _firstPointTwoTouch.y;
-			//	Debug.Log("тык2 Х " + (int)xPositTemp2 + " и У " + (int)yPositTemp2);
 				xPositDelta2 = 0;
 				yPositDelta2 = 0;
+				deltaTouchTemp = Vector3.Distance(touchZero.position, touchOne.position);
 			}
 
 			if (touchZero.phase == TouchPhase.Moved ||
@@ -128,46 +160,51 @@ public class ZoomCamera3D : MonoBehaviour
 			{
 				_secondPointOneTouch = touchZero.position;
 				_secondPointTwoTouch = touchOne.position;
+
 				xPositDelta = (_secondPointOneTouch.x - _firstPointOneTouch.x) / Screen.height; // * 90
 				yPositDelta = (_secondPointOneTouch.y - _firstPointOneTouch.y) / Screen.width; // * 180 
 				xPositDelta2 = (_secondPointTwoTouch.x - _firstPointTwoTouch.x) / Screen.height; // * 90
 				yPositDelta2 = (_secondPointTwoTouch.y - _firstPointTwoTouch.y) / Screen.width; // * 180 
-				Debug.Log("тыкD1 Х " + xPositDelta + " и У " + yPositDelta + 
-					"тыкD2 Х " + xPositDelta2 + " и У " + yPositDelta2);
+				deltaTouch = Vector3.Distance(touchZero.position, touchOne.position);
 
-				var zPositDelta = xPositDelta + yPositDelta + xPositDelta2 + yPositDelta2 ;
-				zPosit = zPosit + zPositDelta *10 ;
-				Debug.Log("камD z " + zPositDelta + " и z камер " + zPosit);
+				// Debug.Log("deltaTouch " + deltaTouch + "deltaTouchTemp  " + deltaTouchTemp);
 
-				_myCamera.position = new Vector3(_myCamera.position.x, _myCamera.position.y, zPosit);
+				if //(deltaTouch != deltaTouchTemp )
+				(deltaTouch > deltaTouchTemp + 10f || deltaTouch < deltaTouchTemp - 10)
+				{
+					// var zPositDelta = xPositDelta + xPositDelta2 + yPositDelta + yPositDelta2;
+					var zPositNew = zPosit + (deltaTouch - deltaTouchTemp) / 100;     // zPositDelta * 10;
+					_myCamera.position = new Vector3(_myCamera.position.x, _myCamera.position.y, zPositNew);
+					checkingBoundaryZ();
+					Debug.Log("zPosit " + zPosit);
+
+				}
+				else
+				{
+					//var zPositDelta = xPositDelta + xPositDelta2 + yPositDelta + yPositDelta2;
+					//var yZoomDelta = zPositDelta * 10;
+					//_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, yZoomDelta, _objCamera.rotation.z);
+					//Debug.Log("deltaTouch " + deltaTouch);
+				}
+
+				////			_myCamera.position = new Vector3(xPosit, yPosit, _myCamera.position.z);
+
 
 			}
-			//if( )
-			{
-
-            }
-
-			_myCamera.position = new Vector3(xPosit, yPosit, _myCamera.position.z);
-
-
 		}
-		else
-        {
-			// Debug.Log("Touch 0 или 3+ ");
-		}
-
 	}
+	
 
 
 
-
-	/// <summary>
-	/// Проверка границы по оси X
-	/// </summary>
-	/// <param name="max"></param>
-	/// <param name="min"></param>
-	private void checkingBoundary(float maxX, float minX, float maxY, float minY, float maxZ, float minZ)
+    /// <summary>
+    /// Проверка границы по оси X
+    /// </summary>
+    /// <param name="max"></param>
+    /// <param name="min"></param>
+    private void checkingBoundary(float maxX, float minX, float maxY, float minY, float maxZ, float minZ)
 	{
+	//	checkingBoundaryZ(); //(maxZ, minZ);
 		 if (onBoundary == true)
 		{
 			Vector3 camerPosi = _myCamera.position;
@@ -219,6 +256,35 @@ public class ZoomCamera3D : MonoBehaviour
 	}
 
 
+	private void checkingBoundaryZ ()
+    {
+		// checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
+		if(_myCamera.position.z > _zoomPosMaxZ)
+        {
+			_myCamera.position = new Vector3 (_myCamera.position.x, _myCamera.position.y, _zoomPosMaxZ);
+        }
+		if (_myCamera.position.z < _zoomPosMinZ)
+		{
+			_myCamera.position = new Vector3(_myCamera.position.x, _myCamera.position.y, _zoomPosMinZ);
+		}
+
+		float deltaZ = ((zPosit - _myCamera.position.z) * (5f / 15f));
+		Debug.Log(deltaZ);
+		_zoomPosMaxX = _zoomPosMaxX - deltaZ;
+
+		deltaZ = ((zPosit - _myCamera.position.z) * (4f / 15f));
+		_zoomPosMinX = _zoomPosMinX + deltaZ;
+
+
+		deltaZ = ((zPosit - _myCamera.position.z) * (1f / 15f));
+		_zoomPosMaxY = _zoomPosMaxY - deltaZ;
+		deltaZ = ((zPosit - _myCamera.position.z) * (10f / 15f));
+		_zoomPosMinY = _zoomPosMinY + deltaZ;
+
+		zPosit = _myCamera.position.z;
+
+
+	}
 
 
 
