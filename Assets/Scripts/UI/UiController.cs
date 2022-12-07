@@ -49,9 +49,9 @@ public class UiController : MonoBehaviour
     [SerializeField] private GameObject _menuPanel;
     [SerializeField] private GameObject _resorcesPanel;
 
-    [Header("Звук")]
-    [SerializeField] private AudioSource _source;
-    [SerializeField] private AudioClip _clickButtonClip;
+    //[Header("Звук")]
+    //[SerializeField] private AudioSource _source;
+    //[SerializeField] private AudioClip _clickButtonClip;
 
     [Header("Таймеры для заморозки корзины")]
     [SerializeField] private float _holdTime = 10;
@@ -88,8 +88,8 @@ public class UiController : MonoBehaviour
     private float _currentNoHoldTime;
 
 
-    private const int ONE_SCENE_INDEX = 0;
-    private const int TWO_SCENE_INDEX = 1;
+    //private const int ONE_SCENE_INDEX = 0;
+    //private const int TWO_SCENE_INDEX = 1;
 
 
     private void Start()
@@ -126,6 +126,10 @@ public class UiController : MonoBehaviour
         EventsResources.onGetCurentLog += GetCurrentCountLog;
         EventsResources.onGetCurentNeil += GetCurrentCountNeil;
         EventsResources.onGetCurentStone += GetCurrentCountStone;
+
+        ButtonsEvents.onSaveResouces += SaveResources;
+        ButtonsEvents.onReloadResources += ReloadResourcesText;
+        ButtonsEvents.onStartResourcesText += StartResourcesText;
     }
 
     private void OnDisable()
@@ -140,61 +144,63 @@ public class UiController : MonoBehaviour
         EventsResources.onGetCurentNeil -= GetCurrentCountNeil;
         EventsResources.onGetCurentStone -= GetCurrentCountStone;
 
+        ButtonsEvents.onSaveResouces -= SaveResources;
+        ButtonsEvents.onReloadResources -= ReloadResourcesText;
+        ButtonsEvents.onStartResourcesText -= StartResourcesText;
     }
 
 
-    public void ClickMeargSceneButton()
-    {
-        SaveResources();
-        if (SceneManager.GetActiveScene().buildIndex != ONE_SCENE_INDEX)
-        {
-            SceneManager.LoadScene(ONE_SCENE_INDEX);
-        }
-    }
+    //public void ClickMeargSceneButton()
+    //{
+    //    SaveResources();
+    //    if (SceneManager.GetActiveScene().buildIndex != ONE_SCENE_INDEX)
+    //    {
+    //        SceneManager.LoadScene(ONE_SCENE_INDEX);
+    //    }
+    //}
 
-    public void ClickHomeSceneButton()
-    {
-        SaveResources();
-        if (SceneManager.GetActiveScene().buildIndex != TWO_SCENE_INDEX)
-        {
-            SceneManager.LoadScene(TWO_SCENE_INDEX);
-        }
-    }
+    //public void ClickHomeSceneButton()
+    //{
+    //    SaveResources();
+    //    if (SceneManager.GetActiveScene().buildIndex != TWO_SCENE_INDEX)
+    //    {
+    //        SceneManager.LoadScene(TWO_SCENE_INDEX);
+    //    }
+    //}
 
-    public void ClickMenuButton()
-    {
-        // Возможно стоит ставить паузу
-        _menuPanel.SetActive(true);
-    }
+    //public void ClickMenuButton()
+    //{
+    //    // Возможно стоит ставить паузу
+    //    _menuPanel.SetActive(true);
+    //}
 
+    //public void ClickBackButtonInMenuPanel()
+    //{
+    //    _menuPanel.SetActive(false);
+    //}
+
+    //public void ClickResoucesButton()
+    //{
+    //    // Возможно стоит ставить паузу
+    //    _resorcesPanel.SetActive(true);
+    //    ReloadResourcesText();
+    //}
+
+    //public void ClickBackButtonResoucesPanel()
+    //{
+    //    _resorcesPanel.SetActive(false);
+    //}
     
-    public void ClickBackButtonInMenuPanel()
-    {
-        _menuPanel.SetActive(false);
-    }
+    //public void ClickButtonsSoundClic()
+    //{
+    //    _source.PlayOneShot(_clickButtonClip);
+    //}
 
-    public void ClickResoucesButton()
-    {
-        // Возможно стоит ставить паузу
-        _resorcesPanel.SetActive(true);
-        ReloadResourcesText();
-    }
-
-    public void ClickBackButtonResoucesPanel()
-    {
-        _resorcesPanel.SetActive(false);
-    }
-    
-    public void ClickButtonsSoundClic()
-    {
-        _source.PlayOneShot(_clickButtonClip);
-    }
-
-    public void ClickReloadSaveButton()
-    {
-        PlayerPrefs.DeleteAll();
-        StartResourcesText();
-    }
+    //public void ClickReloadSaveButton()
+    //{
+    //    PlayerPrefs.DeleteAll();
+    //    StartResourcesText();
+    //}
 
     private void SaveResources()
     {
