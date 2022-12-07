@@ -44,10 +44,10 @@ public class ZoomCamera3D : MonoBehaviour
 
 	void Start()
 	{
-		xPosit = transform.position.x;
-		yPosit = transform.position.y;
-		zPosit = transform.position.z;
-		Debug.Log("старт Х " + (int)xPosit + " и У " + (int)yPosit + " и Z " + (int)zPosit);
+		xPosit = transform.localPosition.x;
+		yPosit = transform.localPosition.y;
+		zPosit = transform.localPosition.z;
+		//Debug.Log("старт Х " + (int)xPosit + " и У " + (int)yPosit + " и Z " + (int)zPosit);
 		_objCamera = _myCamera.parent.transform;
 
 	}
@@ -116,13 +116,13 @@ public class ZoomCamera3D : MonoBehaviour
 				xPosit = xPosit - xPositDelta * 1;
 				yPosit = yPosit - yPositDelta * 1;
 				// zPosit = zPosit ;
-				_myCamera.position = new Vector3(xPosit, yPosit, zPosit);
+				_myCamera.localPosition = new Vector3(xPosit, yPosit, zPosit);
 
 				// Debug.Log("Del Х " + (int)(xPositDelta * 1) + " и У " + (int)(yPositDelta * 1));
 				// Debug.Log("таши Х " + (int)xPosit + " и У " + (int)yPosit);
 			}
 
-			_myCamera.position = new Vector3(xPosit, yPosit, _myCamera.position.z);
+			_myCamera.localPosition = new Vector3(xPosit, yPosit, _myCamera.localPosition.z);
 
 
 
@@ -170,13 +170,12 @@ public class ZoomCamera3D : MonoBehaviour
 				// Debug.Log("deltaTouch " + deltaTouch + "deltaTouchTemp  " + deltaTouchTemp);
 
 				if //(deltaTouch != deltaTouchTemp )
-				(deltaTouch > deltaTouchTemp + 10f || deltaTouch < deltaTouchTemp - 10)
+				(deltaTouch > deltaTouchTemp + 10f || deltaTouch < deltaTouchTemp - 10f)
 				{
 					// var zPositDelta = xPositDelta + xPositDelta2 + yPositDelta + yPositDelta2;
-					var zPositNew = zPosit + (deltaTouch - deltaTouchTemp) / 100;     // zPositDelta * 10;
+					var zPositNew = _myCamera.position.z + ((deltaTouch - deltaTouchTemp) / 100 );     // zPositDelta * 10;
 					_myCamera.position = new Vector3(_myCamera.position.x, _myCamera.position.y, zPositNew);
 					checkingBoundaryZ();
-					Debug.Log("zPosit " + zPosit);
 
 				}
 				else
@@ -207,7 +206,7 @@ public class ZoomCamera3D : MonoBehaviour
 	//	checkingBoundaryZ(); //(maxZ, minZ);
 		 if (onBoundary == true)
 		{
-			Vector3 camerPosi = _myCamera.position;
+			Vector3 camerPosi = _myCamera.localPosition;
 			Vector3 camerPosiMax = new Vector3(maxX, maxY, maxZ);
 			Vector3 camerPosiMin = new Vector3(minX, minY, minZ);
 
@@ -215,13 +214,13 @@ public class ZoomCamera3D : MonoBehaviour
 			if (camerPosi.x >= camerPosiMax.x)
 			{
 				camerPosi = new Vector3(maxX, camerPosi.y, camerPosi.z);
-				_myCamera.position = camerPosi;
+				_myCamera.localPosition = camerPosi;
 				xPosit = maxX;
 			}
 			if (camerPosi.x <= camerPosiMin.x)
 			{
 				camerPosi = new Vector3(minX, camerPosi.y, camerPosi.z);
-				_myCamera.position = camerPosi;
+				_myCamera.localPosition = camerPosi;
 				xPosit = minX;
 			}
 
@@ -229,13 +228,13 @@ public class ZoomCamera3D : MonoBehaviour
 			if (camerPosi.y >= camerPosiMax.y)
 			{
 				camerPosi = new Vector3(camerPosi.x, maxY, camerPosi.z);
-				_myCamera.position = camerPosi;
+				_myCamera.localPosition = camerPosi;
 				yPosit = maxY;
 			}
 			if (camerPosi.y <= camerPosiMin.y)
 			{
 				camerPosi = new Vector3(camerPosi.x, minY, camerPosi.z);
-				_myCamera.position = camerPosi;
+				_myCamera.localPosition = camerPosi;
 				yPosit = minY;
 			}
 
@@ -243,13 +242,13 @@ public class ZoomCamera3D : MonoBehaviour
 			if (camerPosi.z >= camerPosiMax.z)
 			{
 				camerPosi = new Vector3(camerPosi.x, camerPosi.y, maxZ);
-				_myCamera.position = camerPosi;
+				_myCamera.localPosition = camerPosi;
 				zPosit = maxZ;
 			}
 			if (camerPosi.z <= camerPosiMin.z)
 			{
 				camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
-				_myCamera.position = camerPosi;
+				_myCamera.localPosition = camerPosi;
 				zPosit = minZ;
 			}
 		}
@@ -259,33 +258,76 @@ public class ZoomCamera3D : MonoBehaviour
 	private void checkingBoundaryZ ()
     {
 		// checkingBoundary(_zoomPosMaxX, _zoomPosMinX, _zoomPosMaxY, _zoomPosMinY, _zoomPosMaxZ, _zoomPosMinZ);
-		if(_myCamera.position.z > _zoomPosMaxZ)
+		if(_myCamera.localPosition.z > _zoomPosMaxZ)
         {
-			_myCamera.position = new Vector3 (_myCamera.position.x, _myCamera.position.y, _zoomPosMaxZ);
+			_myCamera.localPosition = new Vector3 (_myCamera.localPosition.x, _myCamera.localPosition.y, _zoomPosMaxZ);
         }
-		if (_myCamera.position.z < _zoomPosMinZ)
+		if (_myCamera.localPosition.z < _zoomPosMinZ)
 		{
-			_myCamera.position = new Vector3(_myCamera.position.x, _myCamera.position.y, _zoomPosMinZ);
+			_myCamera.localPosition = new Vector3(_myCamera.localPosition.x, _myCamera.localPosition.y, _zoomPosMinZ);
 		}
 
-		float deltaZ = ((zPosit - _myCamera.position.z) * (5f / 15f));
-		Debug.Log(deltaZ);
+		float deltaZ = ((zPosit - _myCamera.localPosition.z) * (5f / 15f));
+		// Debug.Log(deltaZ);
 		_zoomPosMaxX = _zoomPosMaxX - deltaZ;
 
-		deltaZ = ((zPosit - _myCamera.position.z) * (4f / 15f));
+		deltaZ = ((zPosit - _myCamera.localPosition.z) * (4f / 15f));
 		_zoomPosMinX = _zoomPosMinX + deltaZ;
 
 
-		deltaZ = ((zPosit - _myCamera.position.z) * (1f / 15f));
+		deltaZ = ((zPosit - _myCamera.localPosition.z) * (1f / 15f));
 		_zoomPosMaxY = _zoomPosMaxY - deltaZ;
-		deltaZ = ((zPosit - _myCamera.position.z) * (10f / 15f));
+		deltaZ = ((zPosit - _myCamera.localPosition.z) * (10f / 15f));
 		_zoomPosMinY = _zoomPosMinY + deltaZ;
 
-		zPosit = _myCamera.position.z;
+		zPosit = _myCamera.localPosition.z;
 
 
 	}
 
+
+	public void clickTurnR(bool _turn)
+	{
+
+		float yZoomDelta = _objCamera.localEulerAngles.y;
+		if (_turn == true )
+		{
+			if (yZoomDelta > 360-12f || yZoomDelta < 20) //-15f+3f
+			{
+
+				yZoomDelta = yZoomDelta - 1.5f;
+				// Debug.Log("R+ " + yZoomDelta);
+			}
+			else
+			{
+				_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, -12f, _objCamera.rotation.z);
+
+
+			}
+		}
+		else // if (_turn == false)
+		{
+			{
+
+				if (yZoomDelta < 18  || yZoomDelta > 360 - 13f) // 15f+3f
+				{
+					yZoomDelta = yZoomDelta + 1.5f;
+					// Debug.Log("L+ " + yZoomDelta);
+				}
+				else
+				{
+
+					_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, 18f, _objCamera.rotation.z);
+
+				}
+
+			}
+
+		}
+		_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, yZoomDelta, _objCamera.rotation.z);
+
+
+	}
 
 
 }

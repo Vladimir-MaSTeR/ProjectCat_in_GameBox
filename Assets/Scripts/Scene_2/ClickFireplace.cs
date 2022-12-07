@@ -26,12 +26,12 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Стартовый Уровень обьекта 
     /// </summary>
-    [SerializeField] 
+    [SerializeField]
     private int _lvObject = 0;
     /// <summary>
     /// Максимальный Уровень обьекта 
     /// </summary>
-[SerializeField]
+    [SerializeField]
     private int _lvObjectMax;
     /// <summary>
     ///      Шкала для ремонта фоновая
@@ -44,15 +44,15 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _scaleProgressUp;
     /// <summary>
-    /// Колличество необходимых кликов (ресурсов) для Lv Up
+    /// Колличество необходимых кликов (ресурсов) для Lv Up 
     /// </summary>
     [SerializeField]
     private int _amtRequiredResourceGoLvUp = 1;
     /// <summary>
-    /// Количество произведенных кликов для Lv Up
+    /// Количество произведенных кликов для Lv Up (Прогрес заполнения шкалы)
     /// </summary>
- [SerializeField]
-    private int _amtAddResource = 0;
+    [SerializeField]
+    private float _amtAddResource = 0;
     /// <summary>
     /// Время  на починку для Up
     /// </summary>
@@ -61,7 +61,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     ///  Таймер активирован
     /// </summary>
-[SerializeField]
+    [SerializeField]
     private bool _activTimeGoLvUp = false;
 
     /// <summary>
@@ -86,9 +86,9 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         else
         { LoadResouces(); }
 
-        _lvObjectMax = _objectModel.Length -1;
+        _lvObjectMax = _objectModel.Length - 1;
         AddModel(_lvObjectNow);
-        if(_lvObjectNow == 0)
+        if (_lvObjectNow == 0)
         { _objectLight.SetActive(false); }
         else
         { _objectLight.SetActive(true); }
@@ -103,21 +103,23 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         // проверка ресурса
         _needLvResource = _lvObjectNow + 1;
         _needResourceBagNow = (int)EventsResources.onGetCurentStone?.Invoke(_needLvResource);
-            
-            if (_lvObjectNow < _lvObjectMax  &&
-              _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
-         {
+
+        if (_lvObjectNow < _lvObjectMax &&
+          _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
+        {
             _amtAddResource += 1;
-            if (_activTimeGoLvUp == true)
-            { ScaleProgress(true); }
+            //if (_activTimeGoLvUp == true)
+            //{ ScaleProgress(true); }
 
             if (_scaleProgress.activeSelf == false)
             {
-                Invoke("_timeScaleOff", _needTimeGoLvUp);
+                //Invoke("_timeScaleOff", _needTimeGoLvUp);
                 _activTimeGoLvUp = true;
                 ScaleProgress(true);
+                _timeScaleOff();
+
             }
-            else if ( _amtAddResource >= _amtRequiredResourceGoLvUp )
+            else if (_amtAddResource >= _amtRequiredResourceGoLvUp)
             {
                 LvUp();
                 _amtAddResource = 0;
@@ -129,7 +131,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         } // русурса не хватает
         else
         {
-            
+
         }
 
 
@@ -140,15 +142,15 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// повышение уронвя
     /// </summary>
-   private void LvUp()
+    private void LvUp()
     {
         _objectLight.SetActive(true);
         _lvObjectNow += 1;
-         AddModel(_lvObjectNow);
+        AddModel(_lvObjectNow);
         EventsResources.onStoneInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
         _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp * 1.3f);
         _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
-        _needLvResource = _lvObjectNow +1;
+        _needLvResource = _lvObjectNow + 1;
         SaveResources();
 
 
@@ -164,7 +166,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         Destroy(_objectNow);
         if (_LvMod <= _objectModel.Length && _LvMod >= 0)
         {
-             _objectNow = Instantiate(_objectModel[_LvMod], transform.position, Quaternion.Euler(0f, 0f, 0f));
+            _objectNow = Instantiate(_objectModel[_LvMod], transform.position, Quaternion.Euler(0f, 0f, 0f));
 
             _objectNow.transform.SetParent(transform);
             _objectNow.transform.SetAsFirstSibling(); // Ввеерх списка
@@ -176,7 +178,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// Шкала прогресса
     /// </summary>
     /// <param name="OnOff">true= вкл,false=выкл</param>
-    private void ScaleProgress (bool OnOff)
+    private void ScaleProgress(bool OnOff)
     {
         if (OnOff == true)
         {
@@ -193,14 +195,46 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     }
 
+    private void _scaleActivePosi()
+    {
+        //if (Input.touchCount > 0)
+        //{
+            //Touch[] touchClick = new Touch[Input.touchCount];
+            //for (int i = 0; i < Input.touchCount; i++)
+            //{ 
+            //    touchClick[i] = Input.GetTouch(i);
+            //}
 
+        var touch = Input.GetTouch(0);
+            //if (touch.phase == TouchPhase.Began) /// первое нажание косанием
+			{
+                Vector3 _scalePosi = touch.position;
+            _scalePosi = new(_scalePosi.x, _scalePosi.y, 0);
+                Vector3 _scaleDelta = new Vector3 (-100,-200,0) ;
+                _scaleProgress.transform.localPosition = _scalePosi + _scaleDelta;
+               // Debug.Log(_scalePosi);
+            }
+        //}
+    }
 
     private void _timeScaleOff()
     {
-        _scaleProgress.SetActive(false);
-        _scaleProgressUp.SetActive(false);
-        _activTimeGoLvUp = false;
-        _amtAddResource = 0;
+        if (_amtAddResource <= 0)
+        {
+            ScaleProgress(false);
+        }
+        if (_scaleProgress.activeSelf == true )
+        {
+            Invoke("_timeScaleOff", 0.1f);
+            _amtAddResource = _amtAddResource - 0.1f;
+            ScaleProgress(true);
+        }
+   
+
+        //_scaleProgress.SetActive(false);
+        //_scaleProgressUp.SetActive(false);
+        //_activTimeGoLvUp = false;
+        //_amtAddResource = 0;
 
     }
 

@@ -44,10 +44,10 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private int _amtRequiredResourceGoLvUp = 1;
     /// <summary>
-    ///  оличество произведенных кликов дл€ Lv Up
+    ///  оличество произведенных кликов дл€ Lv Up  (ѕрогрес заполнени€ шкалы)
     /// </summary>
- [SerializeField]
-    private int _amtAddResource = 0;
+    [SerializeField]
+    private float _amtAddResource = 0;
     /// <summary>
     /// ¬рем€  на починку дл€ Up
     /// </summary>
@@ -89,6 +89,8 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
+
+
         // проверка ресурса
         _needLvResource = _lvObjectNow + 1;
         _needResourceBagNow = (int)EventsResources.onGetCurentNeil?.Invoke(_needLvResource);
@@ -97,15 +99,15 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
               _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
          {
             _amtAddResource += 1;
-            if (_activTimeGoLvUp == true)
-            { ScaleProgress(true); }
+            //if (_activTimeGoLvUp == true)
+            //{ ScaleProgress(true); }
 
             if (_scaleProgress.activeSelf == false)
             {
-                Invoke("_timeScaleOff", _needTimeGoLvUp);
+                // Invoke("_timeScaleOff", _needTimeGoLvUp);
                 _activTimeGoLvUp = true;
                 ScaleProgress(true);
-
+                _timeScaleOff();
             }
             else if ( _amtAddResource >= _amtRequiredResourceGoLvUp )
             {
@@ -185,10 +187,16 @@ public class ClickArmchair : MonoBehaviour, IPointerClickHandler
 
     private void _timeScaleOff()
     {
-        _scaleProgress.SetActive(false);
-        _scaleProgressUp.SetActive(false);
-        _activTimeGoLvUp = false;
-        _amtAddResource = 0;
+        if (_amtAddResource <= 0)
+        {
+            ScaleProgress(false);
+        }
+        if (_scaleProgress.activeSelf == true)
+        {
+            Invoke("_timeScaleOff", 0.1f);
+            _amtAddResource = _amtAddResource - 0.1f;
+            ScaleProgress(true);
+        }
 
     }
 

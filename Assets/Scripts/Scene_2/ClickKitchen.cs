@@ -42,15 +42,15 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _scaleProgressUp;
     /// <summary>
-    /// Колличество необходимых кликов (ресурсов) для Lv Up
+    /// Колличество необходимых кликов (ресурсов) для Lv Up 
     /// </summary>
     [SerializeField]
     private int _amtRequiredResourceGoLvUp = 1;
     /// <summary>
-    /// Количество произведенных кликов для Lv Up
+    /// Количество произведенных кликов для Lv Up (Прогрес заполнения шкалы)
     /// </summary>
     [SerializeField]
-    private int _amtAddResource = 0;
+    private float _amtAddResource = 0;
     /// <summary>
     /// Время  на починку для Up
     /// </summary>
@@ -102,14 +102,16 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
               _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
         {
             _amtAddResource += 1;
-            if (_activTimeGoLvUp == true)
-            { ScaleProgress(true); }
+            //if (_activTimeGoLvUp == true)
+            //{ ScaleProgress(true); }
 
             if (_scaleProgress.activeSelf == false)
             {
-                Invoke("_timeScaleOff", _needTimeGoLvUp);
+               // Invoke("_timeScaleOff", _needTimeGoLvUp);
                 _activTimeGoLvUp = true;
                 ScaleProgress(true);
+                _timeScaleOff();
+
             }
             else if (_amtAddResource >= _amtRequiredResourceGoLvUp)
             {
@@ -190,10 +192,16 @@ public class ClickKitchen : MonoBehaviour, IPointerClickHandler
 
     private void _timeScaleOff()
     {
-        _scaleProgress.SetActive(false);
-        _scaleProgressUp.SetActive(false);
-        _activTimeGoLvUp = false;
-        _amtAddResource = 0;
+        if (_amtAddResource <= 0)
+        {
+            ScaleProgress(false);
+        }
+        if (_scaleProgress.activeSelf == true)
+        {
+            Invoke("_timeScaleOff", 0.1f);
+            _amtAddResource = _amtAddResource - 0.1f;
+            ScaleProgress(true);
+        }
 
     }
 
