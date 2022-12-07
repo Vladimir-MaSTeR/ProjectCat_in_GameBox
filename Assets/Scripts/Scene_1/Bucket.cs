@@ -11,13 +11,13 @@ public class Bucket : MonoBehaviour, IDropHandler
     {
         var childrenTag = eventData.pointerDrag.tag;
 
-        if (!holdBucket)
-        {
+        //if (!holdBucket)
+        //{
             CheckLogResouces(childrenTag, eventData);
             CheckNeilResources(childrenTag, eventData);
             CheckCloathResources(childrenTag, eventData);
             CheckStoneResources(childrenTag, eventData);
-        }     
+        //}     
     }
 
 
