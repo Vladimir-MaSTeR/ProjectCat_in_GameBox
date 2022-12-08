@@ -345,8 +345,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     private void SaveResources()
     {
-        PlayerPrefs.SetInt("lvFireplace", _lvObjectNow);
-        PlayerPrefs.SetInt("needResourcFireplace", _amtRequiredResourceGoLvUp);
+        //PlayerPrefs.SetInt("lvFireplace", _lvObjectNow);
+        //PlayerPrefs.SetInt("needResourcFireplace", _amtRequiredResourceGoLvUp);
 
         PlayerPrefs.Save();
     }
@@ -355,13 +355,13 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     {
         if (loadResorces)
         {
-            if (PlayerPrefs.HasKey("lvFireplace"))
-            {
-                _lvObjectNow = PlayerPrefs.GetInt("lvFireplace");
-            }
-            if (PlayerPrefs.HasKey("needResourcFireplace"))
-            {
-                _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcFireplace");
+            //if (PlayerPrefs.HasKey("lvFireplace"))
+            //{
+            //    _lvObjectNow = PlayerPrefs.GetInt("lvFireplace");
+            //}
+            //if (PlayerPrefs.HasKey("needResourcFireplace"))
+            //{
+            //    _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcFireplace");
             }
 
 
@@ -369,4 +369,4 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     }
 
 
-}
+
