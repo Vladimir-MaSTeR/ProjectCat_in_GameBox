@@ -5,10 +5,25 @@ public class Quests
     public const string MAIN_QUEST_1_LONG = "Ваша задача открыть второй этаж дома. Для этого вам потребуется: " +
                                             "Починить камин до 1 уровня, " +
                                             "Починить табурет до 1 уровня " +
-                                            "Починить стол до 1 уровня";
+                                            "Починить кухню до 1 уровня";
 
-    public const string SECOND_QUEST_1_SHORT = "Починить камин 1 ур.  " +
-                                               "5 камней 1 ур";
+    public const string SECOND_QUEST_SHORT_DEFAULT = "Починить дом";
+    public const string SECOND_QUEST_0_SHORT = "Починить камин \n камни 1ур 5";
+    public const string SECOND_QUEST_1_SHORT = "Починить табурет \n гвозди 1ур 7";
+    public const string SECOND_QUEST_2_SHORT = "Починить кухню \n доски 1ур 10";
 
-    public const string SECOND_QUEST_1_LONG = "Что бы улучшить дом, нужно починить камин до 1 уровня, для этого собырете в сундук, 5шт камней 1 уровня";
+    public const string SECOND_QUEST_1_LONG = "Что бы улучшить дом, " +
+                                              "нужно починить камин до 1 уровня. \n\n" +
+                                              "Для этого соберите в сундук, \n\n" +
+                                              "5шт камней \n 1 уровня";
+
+    public const string SECOND_QUEST_2_LONG = "Что бы улучшить дом," +
+                                              " нужно починить табурет до 1 уровня. \n\n " +
+                                              "Для этого собырите в сундук, \n\n" +
+                                              "7шт гвоздей \n 1 уровня";
+
+    public const string SECOND_QUEST_3_LONG = "Что бы улучшить дом, " +
+                                              "нужно починить кухню до 1 уровня. \n\n" +
+                                              "Для этого собырите в сундук, \n\n" +
+                                              "10шт досок \n 1 уровня";
 }

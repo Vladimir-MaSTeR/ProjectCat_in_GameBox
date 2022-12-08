@@ -38,6 +38,7 @@ public class Bucket : MonoBehaviour, IDropHandler
         {
             Destroy(eventData.pointerDrag);
             EventsResources.onLogInBucket?.Invoke(1, 1, 1);
+            EventsResources.onUpdateQuest?.Invoke();
             Debug.Log($"Дерево {1} уровня  в козине");
         }
 
@@ -63,6 +64,7 @@ public class Bucket : MonoBehaviour, IDropHandler
         {
             Destroy(eventData.pointerDrag);
             EventsResources.onNeilInBucket?.Invoke(1, 1, 1);
+            EventsResources.onUpdateQuest?.Invoke();
             Debug.Log($"Гвоздь {1} уровня  в козине");
         }
 
@@ -87,6 +89,7 @@ public class Bucket : MonoBehaviour, IDropHandler
         {
             Destroy(eventData.pointerDrag);
             EventsResources.onClouthInBucket?.Invoke(1, 1, 1);
+            EventsResources.onUpdateQuest?.Invoke();
             Debug.Log($"Ткань {1} уровня  в козине");
         }
 
@@ -111,6 +114,7 @@ public class Bucket : MonoBehaviour, IDropHandler
         {
             Destroy(eventData.pointerDrag);
             EventsResources.onStoneInBucket?.Invoke(1, 1, 1);
+            EventsResources.onUpdateQuest?.Invoke();
             Debug.Log($"Камень {1} уровня  в козине");
         }
 

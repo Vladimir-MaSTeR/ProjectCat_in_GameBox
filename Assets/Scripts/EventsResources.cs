@@ -36,4 +36,7 @@ public class EventsResources
     public static Func<int, int> onGetCurentStone;  // возвращает подписчику текущее колличество камня
     public static Func<int, int> onGetCurentNeil;   // возвращает подписчику текущее колличество гвоздей
 
+
+    public static Action onUpdateQuest;
+
 }
