@@ -2359,7 +2359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &953564348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8308,9 +8308,11 @@ MonoBehaviour:
   _lvObjectMax: 0
   _scaleProgress: {fileID: 988801485}
   _scaleProgressUp: {fileID: 1450430462}
-  _amtRequiredResourceGoLvUp: 5
+  _amtRequiredResourceGoLvUp: 
+  _typeRequiredResourceGoLvUp: 
+  _lvRequiredResourceGoLvUp: 
   _amtAddResource: 0
-  _needTimeGoLvUp: 2
+  _amtClickGoLvUp: 0
   _activTimeGoLvUp: 0
 --- !u!1 &1450430462
 GameObject:
