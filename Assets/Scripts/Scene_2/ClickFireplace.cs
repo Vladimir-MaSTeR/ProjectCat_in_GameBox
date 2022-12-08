@@ -47,17 +47,32 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// Колличество необходимых кликов (ресурсов) для Lv Up 
     /// </summary>
     [SerializeField]
-    private int _amtRequiredResourceGoLvUp = 1;
+    private int[] _amtRequiredResourceGoLvUp;//= 1;
+    /// <summary>
+    /// тип необходимых (ресурсов)(1-КАМЕНЬ, 2-ГВОЗДИ, 3-ДЕРЕВО, 4-ТКАНЬ) для Lv Up 
+    /// </summary>
+    [SerializeField]
+    private int[] _typeRequiredResourceGoLvUp;// = 1;
+    /// <summary>
+    /// Уровень необходимых кликов (ресурсов) для Lv Up 
+    /// </summary>
+    [SerializeField]
+    private int[] _lvRequiredResourceGoLvUp;// = 1;
     /// <summary>
     /// Количество произведенных кликов для Lv Up (Прогрес заполнения шкалы)
     /// </summary>
     [SerializeField]
     private float _amtAddResource = 0;
     /// <summary>
-    /// Время  на починку для Up
+    /// Количество необходимых кликов для Lv Up (шкалы)
     /// </summary>
     [SerializeField]
-    private int _needTimeGoLvUp = 2;
+    private float _amtClickGoLvUp;
+    /// <summary>
+    /// Время  на починку для Up
+    /// </summary>
+    // [SerializeField]
+    // private int _needTimeGoLvUp = 2;
     /// <summary>
     ///  Таймер активирован
     /// </summary>
@@ -69,7 +84,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private int _lvObjectNow;
     /// <summary>
-    /// текушее колличество ресурса в сумке 
+    /// текущее колличество ресурса в сумке 
     /// </summary>
     private int _needResourceBagNow;
     /// <summary>
@@ -77,7 +92,13 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private int _needLvResource;
 
-
+    /// <summary>
+    /// Уровень камина (читать)
+    /// </summary>
+    public int LvFireplaceNow
+    {
+        get {return _lvObjectNow;}
+    }
 
     private void Start()
     {
@@ -93,19 +114,33 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         else
         { _objectLight.SetActive(true); }
 
-        _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
-        _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
+        // _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        // _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
 
+        _amtClickGoLvUp = _clickGoLvUp();
+    }
+
+    private float _clickGoLvUp()
+    {
+        float _amtClickGoLvUp = 0;
+        for (int i = 0; i < _amtRequiredResourceGoLvUp.Length; i++)
+        {
+            _amtClickGoLvUp += _amtRequiredResourceGoLvUp[i];
+        }
+        return _amtClickGoLvUp;
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         // проверка ресурса
-        _needLvResource = _lvObjectNow + 1;
-        _needResourceBagNow = (int)EventsResources.onGetCurentStone?.Invoke(_needLvResource);
+        //_needLvResource = _lvObjectNow + 1;
+        // _needResourceBagNow = (int)EventsResources.onGetCurentStone?.Invoke(_needLvResource);
 
+        var _checkResLvUp = _checkResourceLvUp(); /// проверка ресурсов
+
+             
         if (_lvObjectNow < _lvObjectMax &&
-          _needResourceBagNow >= _amtRequiredResourceGoLvUp)  /// проверка ресерса
+            _checkResLvUp == true )  /// проверка ресерса
         {
             _amtAddResource += 1;
             //if (_activTimeGoLvUp == true)
@@ -119,7 +154,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
                 _timeScaleOff();
 
             }
-            else if (_amtAddResource >= _amtRequiredResourceGoLvUp)
+            else if (_amtAddResource >= _amtClickGoLvUp)
             {
                 LvUp();
                 _amtAddResource = 0;
@@ -139,17 +174,86 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     }
 
 
+    private bool _checkResourceLvUp()
+    {
+        bool _checkUp = false;
+        bool _resUp = true;
+
+        for (int i = 0; i < _amtRequiredResourceGoLvUp.Length; i++)
+        {
+            if (_resUp == true)
+            {
+                _resUp = _checkResource(_typeRequiredResourceGoLvUp[i], _lvRequiredResourceGoLvUp[i], _amtRequiredResourceGoLvUp[i]);
+            }
+        }
+        _checkUp = _resUp;
+
+        return _checkUp;
+
+    }
+
+
     /// <summary>
-    /// повышение уронвя
+    /// наличие Необходимого ресурса в сумке
+    /// </summary>
+    /// <param name="typeRes">тип ресурса (1-КАМЕНЬ, 2-ГВОЗДИ, 3-ДЕРЕВО, 4-ТКАНЬ) </param>
+    /// <param name="_lvRes">уровень ресурса</param>
+    /// <param name="_amtRes">колличество ресурса</param>
+    /// <returns></returns>
+    private bool _checkResource(int typeRes, int _lvRes, int _amtRes)
+    {
+        bool _check = false;
+
+        switch (typeRes)
+        {
+            case 1:
+                {
+                    _needResourceBagNow = (int)EventsResources.onGetCurentStone?.Invoke(_lvRes);
+                    if (_needResourceBagNow >= _amtRes)
+                    { _check = true; }
+                    break;
+                }
+            case 2:
+                {
+                    _needResourceBagNow = (int)EventsResources.onGetCurentNeil?.Invoke(_lvRes);
+                    if (_needResourceBagNow >= _amtRes)
+                    { _check = true; }
+                    break;
+                }
+            case 3:
+                {
+                    _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvRes);
+                    if (_needResourceBagNow >= _amtRes)
+                    { _check = true; }
+                    break;
+                }
+            case 4:
+                {
+                    _needResourceBagNow = (int)EventsResources.onGetCurentClouth?.Invoke(_lvRes);
+                    if (_needResourceBagNow >= _amtRes)
+                    { _check = true; }
+                    break;
+                }
+        }
+        
+        return _check;
+        
+    }
+
+
+    /// <summary>
+    /// повышение уровнвя
     /// </summary>
     private void LvUp()
     {
         _objectLight.SetActive(true);
         _lvObjectNow += 1;
         AddModel(_lvObjectNow);
-        EventsResources.onStoneInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
-        _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp * 1.3f);
-        _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+        // EventsResources.onStoneInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
+        //  _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp * 1.3f); // новое задание
+        //  _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
+
+        _amtClickGoLvUp = _clickGoLvUp();
         _needLvResource = _lvObjectNow + 1;
         SaveResources();
 
@@ -184,7 +288,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         {
             _scaleProgress.SetActive(true);
             _scaleProgressUp.SetActive(true);
-            float _progressResource = (float)_amtAddResource / (float)_amtRequiredResourceGoLvUp;
+            float _progressResource = _amtAddResource / _amtClickGoLvUp;
             { _scaleProgressUp.GetComponent<Image>().fillAmount = _progressResource; }
         }
         else
