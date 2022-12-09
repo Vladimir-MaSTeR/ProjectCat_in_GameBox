@@ -92,6 +92,9 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private int _needLvResource;
 
+   // private Animation _animClick;
+
+
     /// <summary>
     /// Уровень камина (читать)
     /// </summary>
@@ -102,6 +105,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+       // _animClick = GetComponent<Animation>();
         if (!loadResorces)
         { _lvObjectNow = _lvObject; }
         else
