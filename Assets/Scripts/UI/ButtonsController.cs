@@ -227,22 +227,22 @@ public class ButtonsController : MonoBehaviour
     {
         if (_currentQuest == INDEX_QUEST_0)
         {
-            var currentLog = EventsResources.onGetCurentStone(1);
-            var text = Quests.SECOND_QUEST_0_SHORT + $"({currentLog})";
+            var currentCount = EventsResources.onGetCurentStone(1);
+            var text = Quests.SECOND_QUEST_0_SHORT + $" ({currentCount})";
             _questShortText.text = text;
 
         }
         else if (_currentQuest == INDEX_QUEST_1)
         {
-            var currentLog = EventsResources.onGetCurentNeil(1);
-            var text = Quests.SECOND_QUEST_1_SHORT + $"({currentLog})";
+            var currentCount = EventsResources.onGetCurentNeil(1);
+            var text = Quests.SECOND_QUEST_1_SHORT + $" ({currentCount})";
             _questShortText.text = text;
 
         }
         else if (_currentQuest == INDEX_QUEST_2)
         {
-            var currentLog = EventsResources.onGetCurentLog(1);
-            var text = Quests.SECOND_QUEST_1_SHORT + $"({currentLog})";
+            var currentCount = EventsResources.onGetCurentLog(1);
+            var text = Quests.SECOND_QUEST_2_SHORT + $" ({currentCount})";
             _questShortText.text = text;
 
         }
