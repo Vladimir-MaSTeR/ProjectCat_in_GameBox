@@ -92,6 +92,9 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private int _needLvResource;
 
+    private Animation _animClick;
+
+
     /// <summary>
     /// Уровень камина (читать)
     /// </summary>
@@ -102,6 +105,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        _animClick = GetComponent<Animation>();
         if (!loadResorces)
         { _lvObjectNow = _lvObject; }
         else
@@ -138,16 +142,18 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         var _checkResLvUp = _checkResourceLvUp(); /// проверка ресурсов
 
-             
         if (_lvObjectNow < _lvObjectMax &&
             _checkResLvUp == true )  /// проверка ресерса
         {
+
             _amtAddResource += 1;
             //if (_activTimeGoLvUp == true)
             //{ ScaleProgress(true); }
 
             if (_scaleProgress.activeSelf == false)
             {
+                _animClick.Play("AnimationFireplaceClick");
+
                 //Invoke("_timeScaleOff", _needTimeGoLvUp);
                 _activTimeGoLvUp = true;
                 ScaleProgress(true);
@@ -156,6 +162,9 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
             }
             else if (_amtAddResource >= _amtClickGoLvUp)
             {
+                //_animClick.Play("AnimationFireplaceClick");
+                _animClick.Play("AnimationFireplaceLvUp");
+
                 LvUp();
                 _amtAddResource = 0;
                 ScaleProgress(false);
