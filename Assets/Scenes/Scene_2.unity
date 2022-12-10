@@ -1024,7 +1024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &311768028
 Transform:
   m_ObjectHideFlags: 0
@@ -1811,7 +1811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588017445}
   m_LocalRotation: {x: 0, y: 0.026264153, z: 0, w: 0.99965507}
-  m_LocalPosition: {x: 55, y: 7, z: -45}
+  m_LocalPosition: {x: 55, y: 9, z: -45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2396,7 +2396,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953564347}
   m_LocalRotation: {x: 0.13052617, y: -0, z: 2.3283064e-10, w: 0.99144495}
-  m_LocalPosition: {x: 0, y: 0, z: 5.26}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 0.004959802, y: 0.0049598026, z: 0.0049598026}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2407,7 +2407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.91, y: 1.15}
+  m_AnchoredPosition: {x: 2.9, y: 0}
   m_SizeDelta: {x: 650, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &953564349
@@ -8097,7 +8097,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -8026658874593561982, guid: 55edd0432e2eaa84aabe3fd3888612a2, type: 3}
+  m_Mesh: {fileID: -4085542598650377539, guid: 55edd0432e2eaa84aabe3fd3888612a2, type: 3}
 --- !u!1 &1415617114
 GameObject:
   m_ObjectHideFlags: 0
