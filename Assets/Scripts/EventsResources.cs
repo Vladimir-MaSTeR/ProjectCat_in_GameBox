@@ -60,6 +60,14 @@ public class EventsResources
 
     [Tooltip("Ёвент завершени€ главного квеста")]
     public static Action onEndMainQuest;
-   
+
+    [Tooltip("Ёвент активани€ квеста  по апгрейду камина")]
+    public static Action onFireplaceQuest;
+    [Tooltip("Ёвент активани€ квеста  по апгрейду стула")]
+    public static Action onChairQuest;
+    [Tooltip("Ёвент активани€ квеста  по апгрейду стола")]
+    public static Action onTableQuest;
+
+
 
 }
