@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,12 +30,17 @@ public class ButtonsController : MonoBehaviour
     private const int ONE_SCENE_INDEX = 0;
     private const int TWO_SCENE_INDEX = 1;
 
-    private int _currentQuest = -1; // переменная для отслеживания активного квеста. начинается с ноля. 
+    private int _currentQuest = -1; // переменная для отслеживания активного квеста. Начинается с ноля. 
 
     private const int INDEX_QUEST_NO_QUEST = -1;
     private const int INDEX_QUEST_0 = 0;
     private const int INDEX_QUEST_1 = 1;
     private const int INDEX_QUEST_2 = 2;
+
+
+    private IDictionary<string, int> _fireplaceDictionary_1lv;
+    private IDictionary<string, int> _chairDictionary_1lv;
+    private IDictionary<string, int> _tableDictionary_1lv;
 
 
 
@@ -47,6 +53,8 @@ public class ButtonsController : MonoBehaviour
         _secondLongTextPanel.SetActive(false);
 
         UpdateShortQuestText();
+
+        CheckStartCraftResouces();
     }
 
 
@@ -227,23 +235,25 @@ public class ButtonsController : MonoBehaviour
     {
         if (_currentQuest == INDEX_QUEST_0)
         {
-            var currentCount = EventsResources.onGetCurentStone(1);
-            var text = Quests.SECOND_QUEST_0_SHORT + $" ({currentCount})";
-            _questShortText.text = text;
-
+           // var currentCount = EventsResources.onGetCurentStone(1);
+            var text = Quests.SECOND_QUEST_0_SHORT;
+            var completeText = SecondQuestText(text, _fireplaceDictionary_1lv);
+            _questShortText.text = completeText;
         }
         else if (_currentQuest == INDEX_QUEST_1)
         {
-            var currentCount = EventsResources.onGetCurentNeil(1);
-            var text = Quests.SECOND_QUEST_1_SHORT + $" ({currentCount})";
-            _questShortText.text = text;
+           // var currentCount = EventsResources.onGetCurentNeil(1);
+            var text = Quests.SECOND_QUEST_1_SHORT;
+            var completeText = SecondQuestText(text, _chairDictionary_1lv);
+            _questShortText.text = completeText;
 
         }
         else if (_currentQuest == INDEX_QUEST_2)
         {
-            var currentCount = EventsResources.onGetCurentLog(1);
-            var text = Quests.SECOND_QUEST_2_SHORT + $" ({currentCount})";
-            _questShortText.text = text;
+           // var currentCount = EventsResources.onGetCurentLog(1);
+            var text = Quests.SECOND_QUEST_2_SHORT;
+            var completeText = SecondQuestText(text, _tableDictionary_1lv);
+            _questShortText.text = completeText;
 
         }
         else
@@ -252,5 +262,49 @@ public class ButtonsController : MonoBehaviour
             _questShortText.text = text;
         }
 
+    }
+
+    private void CheckStartCraftResouces()
+    {
+        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary(1);
+        _chairDictionary_1lv = EventsResources.onGetChairDictionary(1);
+        _tableDictionary_1lv = EventsResources.onGetTableDictionary(1);
+    }
+
+    private string SecondQuestText(string startText, IDictionary<string, int> dictionary)
+    {
+        var modifayText = startText;
+        var completeText = "";
+
+        var stone_1lv = dictionary[ResourcesTags.Stone_1.ToString()];
+        var log_1lv = dictionary[ResourcesTags.Log_1.ToString()];
+        var neil_1lv = dictionary[ResourcesTags.Neil_1.ToString()];
+        var cloth_1lv = dictionary[ResourcesTags.Cloth_1.ToString()];
+
+        if (stone_1lv > 0)
+        {
+            var currentStone = EventsResources.onGetCurentStone(1);
+            modifayText = modifayText + "\n" + $"Камни 1ур {stone_1lv} ({currentStone})";
+        }
+        if (log_1lv > 0)
+        {
+            var currentLog = EventsResources.onGetCurentLog(1);
+            modifayText = modifayText + "\n" + $"Дерево 1ур {log_1lv} ({currentLog})";
+        }
+        if (neil_1lv > 0)
+        {
+            var currentNeil = EventsResources.onGetCurentNeil(1);
+            modifayText = modifayText + "\n" + $"Гвозди 1 ур {neil_1lv} ({currentNeil})";
+        }
+        if (cloth_1lv > 0)
+        {
+            var currentCloth = EventsResources.onGetCurentClouth(1);
+            modifayText = modifayText + "\n" + $"Ткань 1 ур {cloth_1lv} ({currentCloth})";
+        }
+
+        completeText = modifayText;
+        
+
+        return completeText;
     }
 }

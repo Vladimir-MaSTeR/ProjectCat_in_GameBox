@@ -8,9 +8,9 @@ public class Quests
                                             "Починить кухню до 1 уровня";
 
     public const string SECOND_QUEST_SHORT_DEFAULT = "Починить дом";
-    public const string SECOND_QUEST_0_SHORT = "Починить камин \n камни 1ур 5";
-    public const string SECOND_QUEST_1_SHORT = "Починить табурет \n гвозди 1ур 7";
-    public const string SECOND_QUEST_2_SHORT = "Починить кухню \n доски 1ур 10";
+    public const string SECOND_QUEST_0_SHORT = "Починить камин";
+    public const string SECOND_QUEST_1_SHORT = "Починить табурет";
+    public const string SECOND_QUEST_2_SHORT = "Починить кухню";
 
     public const string SECOND_QUEST_1_LONG = "Что бы улучшить дом, " +
                                               "нужно починить камин до 1 уровня. \n\n" +

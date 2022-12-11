@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EventsResources
 {
@@ -35,6 +37,15 @@ public class EventsResources
     public static Func<int, int> onGetCurentLog;    // возвращает подписчику текущее колличество дерева
     public static Func<int, int> onGetCurentStone;  // возвращает подписчику текущее колличество камня
     public static Func<int, int> onGetCurentNeil;   // возвращает подписчику текущее колличество гвоздей
+
+    [Tooltip("Эвент передает уровень нужных ресурсов а получает словарь со значениеями ресурсов для КАМИНА")]
+    public static Func<int, IDictionary<string, int>> onGetFireplaceDictionary;
+
+    [Tooltip("Эвент передает уровень нужных ресурсов а получает словарь со значениеями ресурсов для СТУЛА")]
+    public static Func<int, IDictionary<string, int>> onGetChairDictionary;
+
+    [Tooltip("Эвент передает уровень нужных ресурсов а получает словарь со значениеями ресурсов для СТОЛА")]
+    public static Func<int, IDictionary<string, int>> onGetTableDictionary;
 
 
     public static Action onUpdateQuest;
