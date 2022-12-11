@@ -54,7 +54,6 @@ public class ButtonsController : MonoBehaviour
     private IDictionary<string, int> _tableDictionary_1lv;
 
 
-
     private void Start()
     {
         _menuPanel.SetActive(false);
@@ -63,21 +62,38 @@ public class ButtonsController : MonoBehaviour
         _mainLongTextPanel.SetActive(false);
         _secondLongTextPanel.SetActive(false);
 
-        UpdateShortQuestText();
-
         CheckStartCraftResouces();
         ReloadCurrentQuest();
+        UpdateShortQuestText();       
+       
     }
 
 
     private void OnEnable()
     {
         EventsResources.onUpdateQuest += UpdateShortQuestText;
+
+        EventsResources.onEndFireplaceQuest += CompleteFireplaceQuest;
+        EventsResources.onEndChairQuest += CompleteChairQuest;
+        EventsResources.onEndTableQuest += CompleteTableQuest;
+
+        EventsResources.onFireplaceQuest += ClickFireplace;
+        EventsResources.onChairQuest += ClickChair;      
+        EventsResources.onTableQuest += ClickTable;
+       
     }
 
     private void OnDisable()
     {
-        EventsResources.onUpdateQuest += UpdateShortQuestText;
+        EventsResources.onUpdateQuest -= UpdateShortQuestText;
+
+        EventsResources.onEndFireplaceQuest -= CompleteFireplaceQuest;
+        EventsResources.onEndChairQuest -= CompleteChairQuest;
+        EventsResources.onEndTableQuest -= CompleteTableQuest;
+
+        EventsResources.onFireplaceQuest -= ClickFireplace;
+        EventsResources.onChairQuest -= ClickChair;
+        EventsResources.onTableQuest -= ClickTable;
     }
 
 
@@ -277,9 +293,12 @@ public class ButtonsController : MonoBehaviour
 
     private void CheckStartCraftResouces()
     {
-        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary(1);
-        _chairDictionary_1lv = EventsResources.onGetChairDictionary(1);
-        _tableDictionary_1lv = EventsResources.onGetTableDictionary(1);
+        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(1);
+        Debug.Log($"_fireplaceDictionary_1lv = {_fireplaceDictionary_1lv.Count}");
+        _chairDictionary_1lv = EventsResources.onGetChairDictionary?.Invoke(1);
+        Debug.Log($"_chairDictionary_1lv = {_chairDictionary_1lv.Count}");
+        _tableDictionary_1lv = EventsResources.onGetTableDictionary?.Invoke(1);
+        Debug.Log($"_tableDictionary_1lv = {_tableDictionary_1lv.Count}");
     }
 
     private string SecondQuestText(string startText, IDictionary<string, int> dictionary)
@@ -294,22 +313,22 @@ public class ButtonsController : MonoBehaviour
 
         if (stone_1lv > 0)
         {
-            var currentStone = EventsResources.onGetCurentStone(1);
+            var currentStone = EventsResources.onGetCurentStone?.Invoke(1);
             modifayText = modifayText + "\n" + $"Камни 1ур {stone_1lv} ({currentStone})";
         }
         if (log_1lv > 0)
         {
-            var currentLog = EventsResources.onGetCurentLog(1);
+            var currentLog = EventsResources.onGetCurentLog?.Invoke(1);
             modifayText = modifayText + "\n" + $"Дерево 1ур {log_1lv} ({currentLog})";
         }
         if (neil_1lv > 0)
         {
-            var currentNeil = EventsResources.onGetCurentNeil(1);
+            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(1);
             modifayText = modifayText + "\n" + $"Гвозди 1 ур {neil_1lv} ({currentNeil})";
         }
         if (cloth_1lv > 0)
         {
-            var currentCloth = EventsResources.onGetCurentClouth(1);
+            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(1);
             modifayText = modifayText + "\n" + $"Ткань 1 ур {cloth_1lv} ({currentCloth})";
         }
 
@@ -353,9 +372,29 @@ public class ButtonsController : MonoBehaviour
         if (PlayerPrefs.HasKey("currentQuest"))
         {
             _currentQuest = PlayerPrefs.GetInt("currentQuest");
+            Debug.Log($"_currentQuest = {_currentQuest}");
+            CheckStartCraftResouces();
             UpdateShortQuestText();
         }
        
+    }
+
+    private void ClickFireplace()
+    {
+        _currentQuest = 0;
+        UpdateShortQuestText();
+    }
+
+    private void ClickChair()
+    {
+        _currentQuest = 1;
+        UpdateShortQuestText();
+    }
+
+    private void ClickTable()
+    {
+        _currentQuest = 2;
+        UpdateShortQuestText();
     }
 
 }

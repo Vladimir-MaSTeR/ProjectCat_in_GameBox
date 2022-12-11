@@ -60,45 +60,59 @@ public class QuestsResources : MonoBehaviour
     [Tooltip("Метод добавления ресурсов для камина 1 уровня в словарь")]
     private void AddResourcesFireplaceDictionary_1lv(IDictionary<string, int> fireplaceDictionary)
     {
-        fireplaceDictionary.Add(ResourcesTags.Stone_1.ToString(), _fireplaceStone_1lv);
-        fireplaceDictionary.Add(ResourcesTags.Log_1.ToString(), _fireplaceLog_1lv);
-        fireplaceDictionary.Add(ResourcesTags.Neil_1.ToString(), _fireplaceNeil_1lv);
-        fireplaceDictionary.Add(ResourcesTags.Cloth_1.ToString(), _fireplaceCloth_1lv);
+        if (fireplaceDictionary.Count == 0)
+        {
+            fireplaceDictionary.Add(ResourcesTags.Stone_1.ToString(), _fireplaceStone_1lv);
+            fireplaceDictionary.Add(ResourcesTags.Log_1.ToString(), _fireplaceLog_1lv);
+            fireplaceDictionary.Add(ResourcesTags.Neil_1.ToString(), _fireplaceNeil_1lv);
+            fireplaceDictionary.Add(ResourcesTags.Cloth_1.ToString(), _fireplaceCloth_1lv);
+        }       
     }
 
     [Tooltip("Метод добавления ресурсов для камина 2 уровня в словарь")]
     private void AddResourcesFireplaceDictionary_2lv(IDictionary<string, int> fireplaceDictionary)
     {
-        fireplaceDictionary.Add(ResourcesTags.Stone_2.ToString(), _fireplaceStone_2lv);
-        fireplaceDictionary.Add(ResourcesTags.Log_2.ToString(), _fireplaceLog_2lv);
-        fireplaceDictionary.Add(ResourcesTags.Neil_2.ToString(), _fireplaceNeil_2lv);
-        fireplaceDictionary.Add(ResourcesTags.Cloth_2.ToString(), _fireplaceCloth_2lv);
+        if (fireplaceDictionary.Count == 0)
+        {
+            fireplaceDictionary.Add(ResourcesTags.Stone_2.ToString(), _fireplaceStone_2lv);
+            fireplaceDictionary.Add(ResourcesTags.Log_2.ToString(), _fireplaceLog_2lv);
+            fireplaceDictionary.Add(ResourcesTags.Neil_2.ToString(), _fireplaceNeil_2lv);
+            fireplaceDictionary.Add(ResourcesTags.Cloth_2.ToString(), _fireplaceCloth_2lv);
+        }
     }
 
     [Tooltip("Метод добавления ресурсов для стула 1 уровня в словарь")]
     private void AddResourcesChairDictionary_1lv(IDictionary<string, int> chairDictionary)
     {
-        chairDictionary.Add(ResourcesTags.Stone_1.ToString(), _chairStone_1lv);
-        chairDictionary.Add(ResourcesTags.Log_1.ToString(), _chairLog_1lv);
-        chairDictionary.Add(ResourcesTags.Neil_1.ToString(), _chairNeil_1lv);
-        chairDictionary.Add(ResourcesTags.Cloth_1.ToString(), _chairCloth_1lv);
+        if (chairDictionary.Count == 0)
+        {
+            chairDictionary.Add(ResourcesTags.Stone_1.ToString(), _chairStone_1lv);
+            chairDictionary.Add(ResourcesTags.Log_1.ToString(), _chairLog_1lv);
+            chairDictionary.Add(ResourcesTags.Neil_1.ToString(), _chairNeil_1lv);
+            chairDictionary.Add(ResourcesTags.Cloth_1.ToString(), _chairCloth_1lv);
+        }
     }
 
     [Tooltip("Метод добавления ресурсов для стола 1 уровня в словарь")]
     private void AddResourcesTableDictionary_1lv(IDictionary<string, int> tableDictionary)
     {
-        tableDictionary.Add(ResourcesTags.Stone_1.ToString(), _tableStone_1lv);
-        tableDictionary.Add(ResourcesTags.Log_1.ToString(), _tableLog_1lv);
-        tableDictionary.Add(ResourcesTags.Neil_1.ToString(), _tableNeil_1lv);
-        tableDictionary.Add(ResourcesTags.Cloth_1.ToString(), _tableCloth_1lv);
+        if (tableDictionary.Count == 0)
+        {
+            tableDictionary.Add(ResourcesTags.Stone_1.ToString(), _tableStone_1lv);
+            tableDictionary.Add(ResourcesTags.Log_1.ToString(), _tableLog_1lv);
+            tableDictionary.Add(ResourcesTags.Neil_1.ToString(), _tableNeil_1lv);
+            tableDictionary.Add(ResourcesTags.Cloth_1.ToString(), _tableCloth_1lv);
+        }
     }
 
     [Tooltip("Метод возвращает словарь со значениеями ресурсов для КАМИНА через эвент")]
     private IDictionary<string, int> GetFireplaceDictionary(int levelObject)
     {
+        AddResourcesFireplaceDictionary_1lv(_fireplaceDictionary_1lv);
+
         if (levelObject == 2)
         {
-            return _fireplaceDictionary_2lv;
+          //  return _fireplaceDictionary_2lv;
         }
         else if (levelObject == 3)
         {
@@ -111,6 +125,8 @@ public class QuestsResources : MonoBehaviour
     [Tooltip("Метод возвращает словарь со значениеями ресурсов для СТУЛА через эвент")]
     private IDictionary<string, int> GetChairDictionary(int levelObject)
     {
+        AddResourcesChairDictionary_1lv(_chairDictionary_1lv);
+        
         if (levelObject == 3)
         {
             //   return _fireplaceDictionary_2lv;
@@ -126,6 +142,8 @@ public class QuestsResources : MonoBehaviour
     [Tooltip("Метод возвращает словарь со значениеями ресурсов для СТОЛА через эвент")]
     private IDictionary<string, int> GetTableDictionary(int levelObject)
     {
+        AddResourcesTableDictionary_1lv(_tableDictionary_1lv);
+
         if (levelObject == 3)
         {
             //   return _fireplaceDictionary_2lv;

@@ -8430,7 +8430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3214997840138991791, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
       propertyPath: loadResorces
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3214997840138991791, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
       propertyPath: _startStone_1
@@ -8459,6 +8459,22 @@ PrefabInstance:
     - target: {fileID: 3214997840138991791, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
       propertyPath: _startPrestige
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792299296134996643, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
+      propertyPath: _chairLog_1lv
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792299296134996643, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
+      propertyPath: _tableLog_1lv
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792299296134996643, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
+      propertyPath: _chairNeil_1lv
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792299296134996643, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
+      propertyPath: _tableNeil_1lv
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 023a2356df0330f4e89ef6acb076bb59, type: 3}
