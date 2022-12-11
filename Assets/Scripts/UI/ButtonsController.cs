@@ -18,10 +18,21 @@ public class ButtonsController : MonoBehaviour
 
     [SerializeField] private Text _questShortText;
 
+    [SerializeField] private Text _fireplaceQuestTextButton;
+    [SerializeField] private Text _chairQuestTextButton;
+    [SerializeField] private Text _tableQuestTextButton;
+
     [Header("Картинки для отслеживания заданий")]
     [SerializeField] private GameObject _questCheckImage_0;
     [SerializeField] private GameObject _questCheckImage_1;
     [SerializeField] private GameObject _questCheckImage_2;
+
+    [Header("Кнопки активирования квестов")]
+    [SerializeField] private Button _fireplaceQuestCheckButton;
+    [SerializeField] private Button _chairQuestCheckButton;
+    [SerializeField] private Button _tableQuestCheckButton;
+
+    
 
     [Header("Звук")]
     [SerializeField] private AudioSource _source;
@@ -55,6 +66,7 @@ public class ButtonsController : MonoBehaviour
         UpdateShortQuestText();
 
         CheckStartCraftResouces();
+        ReloadCurrentQuest();
     }
 
 
@@ -72,20 +84,22 @@ public class ButtonsController : MonoBehaviour
     public void ClickMeargSceneButton()
     {
         ButtonsEvents.onSaveResouces?.Invoke();
+        SaveCurrentQuest();
+
         if (SceneManager.GetActiveScene().buildIndex != ONE_SCENE_INDEX)
         {
             SceneManager.LoadScene(ONE_SCENE_INDEX);
-            UpdateShortQuestText();
         }
     }
 
     public void ClickHomeSceneButton()
     {
         ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
+        SaveCurrentQuest();
+
         if (SceneManager.GetActiveScene().buildIndex != TWO_SCENE_INDEX)
         {
             SceneManager.LoadScene(TWO_SCENE_INDEX);
-            UpdateShortQuestText();
         }
     }
 
@@ -141,11 +155,13 @@ public class ButtonsController : MonoBehaviour
         _secondLongText.text = Quests.SECOND_QUEST_1_LONG;
         _secondLongTextPanel.SetActive(true);
     }
+
     public void ClickSecondLongTextButtonInSecondQuest_2()
     {
         _secondLongText.text = Quests.SECOND_QUEST_2_LONG;
         _secondLongTextPanel.SetActive(true);
     }
+
     public void ClickSecondLongTextButtonInSecondQuest_3()
     {
         _secondLongText.text = Quests.SECOND_QUEST_3_LONG;
@@ -217,7 +233,6 @@ public class ButtonsController : MonoBehaviour
         _questCheckImage_1.SetActive(false);
     }
 
-
     public void ClickButtonsSoundClic()
     {
         _source.PlayOneShot(_clickButtonClip);
@@ -230,19 +245,16 @@ public class ButtonsController : MonoBehaviour
         UpdateShortQuestText();
     }
 
-
     private void UpdateShortQuestText()
     {
         if (_currentQuest == INDEX_QUEST_0)
         {
-           // var currentCount = EventsResources.onGetCurentStone(1);
             var text = Quests.SECOND_QUEST_0_SHORT;
             var completeText = SecondQuestText(text, _fireplaceDictionary_1lv);
             _questShortText.text = completeText;
         }
         else if (_currentQuest == INDEX_QUEST_1)
         {
-           // var currentCount = EventsResources.onGetCurentNeil(1);
             var text = Quests.SECOND_QUEST_1_SHORT;
             var completeText = SecondQuestText(text, _chairDictionary_1lv);
             _questShortText.text = completeText;
@@ -250,7 +262,6 @@ public class ButtonsController : MonoBehaviour
         }
         else if (_currentQuest == INDEX_QUEST_2)
         {
-           // var currentCount = EventsResources.onGetCurentLog(1);
             var text = Quests.SECOND_QUEST_2_SHORT;
             var completeText = SecondQuestText(text, _tableDictionary_1lv);
             _questShortText.text = completeText;
@@ -307,4 +318,44 @@ public class ButtonsController : MonoBehaviour
 
         return completeText;
     }
+
+    private void CompleteFireplaceQuest()
+    {
+        _fireplaceQuestCheckButton.interactable = false;
+        _fireplaceQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+        _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    private void CompleteChairQuest()
+    {
+        _chairQuestCheckButton.interactable = false;
+        _chairQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+        _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    private void CompleteTableQuest()
+    {
+        _tableQuestCheckButton.interactable = false;
+        _tableQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+        _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    private void SaveCurrentQuest()
+    {
+        PlayerPrefs.SetInt("currentQuest", _currentQuest);
+
+        PlayerPrefs.Save();
+    }
+
+    private void ReloadCurrentQuest()
+    {
+
+        if (PlayerPrefs.HasKey("currentQuest"))
+        {
+            _currentQuest = PlayerPrefs.GetInt("currentQuest");
+            UpdateShortQuestText();
+        }
+       
+    }
+
 }

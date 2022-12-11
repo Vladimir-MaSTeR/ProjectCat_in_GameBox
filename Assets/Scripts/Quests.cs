@@ -11,6 +11,7 @@ public class Quests
     public const string SECOND_QUEST_0_SHORT = "Починить камин";
     public const string SECOND_QUEST_1_SHORT = "Починить табурет";
     public const string SECOND_QUEST_2_SHORT = "Починить кухню";
+    public const string SECOND_QUEST_COMPLETE = "Квест выполнен";
 
     public const string SECOND_QUEST_1_LONG = "Что бы улучшить дом, " +
                                               "нужно починить камин до 1 уровня. \n\n" +
