@@ -18,10 +18,21 @@ public class ButtonsController : MonoBehaviour
 
     [SerializeField] private Text _questShortText;
 
+    [SerializeField] private Text _fireplaceQuestTextButton;
+    [SerializeField] private Text _chairQuestTextButton;
+    [SerializeField] private Text _tableQuestTextButton;
+
     [Header("Картинки для отслеживания заданий")]
     [SerializeField] private GameObject _questCheckImage_0;
     [SerializeField] private GameObject _questCheckImage_1;
     [SerializeField] private GameObject _questCheckImage_2;
+
+    [Header("Кнопки активирования квестов")]
+    [SerializeField] private Button _fireplaceQuestCheckButton;
+    [SerializeField] private Button _chairQuestCheckButton;
+    [SerializeField] private Button _tableQuestCheckButton;
+
+    
 
     [Header("Звук")]
     [SerializeField] private AudioSource _source;
@@ -43,7 +54,6 @@ public class ButtonsController : MonoBehaviour
     private IDictionary<string, int> _tableDictionary_1lv;
 
 
-
     private void Start()
     {
         _menuPanel.SetActive(false);
@@ -52,40 +62,60 @@ public class ButtonsController : MonoBehaviour
         _mainLongTextPanel.SetActive(false);
         _secondLongTextPanel.SetActive(false);
 
-        UpdateShortQuestText();
-
         CheckStartCraftResouces();
+        ReloadCurrentQuest();
+        UpdateShortQuestText();       
+       
     }
 
 
     private void OnEnable()
     {
         EventsResources.onUpdateQuest += UpdateShortQuestText;
+
+        EventsResources.onEndFireplaceQuest += CompleteFireplaceQuest;
+        EventsResources.onEndChairQuest += CompleteChairQuest;
+        EventsResources.onEndTableQuest += CompleteTableQuest;
+
+        EventsResources.onFireplaceQuest += ClickFireplace;
+        EventsResources.onChairQuest += ClickChair;      
+        EventsResources.onTableQuest += ClickTable;
+       
     }
 
     private void OnDisable()
     {
-        EventsResources.onUpdateQuest += UpdateShortQuestText;
+        EventsResources.onUpdateQuest -= UpdateShortQuestText;
+
+        EventsResources.onEndFireplaceQuest -= CompleteFireplaceQuest;
+        EventsResources.onEndChairQuest -= CompleteChairQuest;
+        EventsResources.onEndTableQuest -= CompleteTableQuest;
+
+        EventsResources.onFireplaceQuest -= ClickFireplace;
+        EventsResources.onChairQuest -= ClickChair;
+        EventsResources.onTableQuest -= ClickTable;
     }
 
 
     public void ClickMeargSceneButton()
     {
         ButtonsEvents.onSaveResouces?.Invoke();
+        SaveCurrentQuest();
+
         if (SceneManager.GetActiveScene().buildIndex != ONE_SCENE_INDEX)
         {
             SceneManager.LoadScene(ONE_SCENE_INDEX);
-            UpdateShortQuestText();
         }
     }
 
     public void ClickHomeSceneButton()
     {
         ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
+        SaveCurrentQuest();
+
         if (SceneManager.GetActiveScene().buildIndex != TWO_SCENE_INDEX)
         {
             SceneManager.LoadScene(TWO_SCENE_INDEX);
-            UpdateShortQuestText();
         }
     }
 
@@ -141,11 +171,13 @@ public class ButtonsController : MonoBehaviour
         _secondLongText.text = Quests.SECOND_QUEST_1_LONG;
         _secondLongTextPanel.SetActive(true);
     }
+
     public void ClickSecondLongTextButtonInSecondQuest_2()
     {
         _secondLongText.text = Quests.SECOND_QUEST_2_LONG;
         _secondLongTextPanel.SetActive(true);
     }
+
     public void ClickSecondLongTextButtonInSecondQuest_3()
     {
         _secondLongText.text = Quests.SECOND_QUEST_3_LONG;
@@ -217,7 +249,6 @@ public class ButtonsController : MonoBehaviour
         _questCheckImage_1.SetActive(false);
     }
 
-
     public void ClickButtonsSoundClic()
     {
         _source.PlayOneShot(_clickButtonClip);
@@ -230,19 +261,16 @@ public class ButtonsController : MonoBehaviour
         UpdateShortQuestText();
     }
 
-
     private void UpdateShortQuestText()
     {
         if (_currentQuest == INDEX_QUEST_0)
         {
-           // var currentCount = EventsResources.onGetCurentStone(1);
             var text = Quests.SECOND_QUEST_0_SHORT;
             var completeText = SecondQuestText(text, _fireplaceDictionary_1lv);
             _questShortText.text = completeText;
         }
         else if (_currentQuest == INDEX_QUEST_1)
         {
-           // var currentCount = EventsResources.onGetCurentNeil(1);
             var text = Quests.SECOND_QUEST_1_SHORT;
             var completeText = SecondQuestText(text, _chairDictionary_1lv);
             _questShortText.text = completeText;
@@ -250,7 +278,6 @@ public class ButtonsController : MonoBehaviour
         }
         else if (_currentQuest == INDEX_QUEST_2)
         {
-           // var currentCount = EventsResources.onGetCurentLog(1);
             var text = Quests.SECOND_QUEST_2_SHORT;
             var completeText = SecondQuestText(text, _tableDictionary_1lv);
             _questShortText.text = completeText;
@@ -266,9 +293,12 @@ public class ButtonsController : MonoBehaviour
 
     private void CheckStartCraftResouces()
     {
-        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary(1);
-        _chairDictionary_1lv = EventsResources.onGetChairDictionary(1);
-        _tableDictionary_1lv = EventsResources.onGetTableDictionary(1);
+        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(1);
+        Debug.Log($"_fireplaceDictionary_1lv = {_fireplaceDictionary_1lv.Count}");
+        _chairDictionary_1lv = EventsResources.onGetChairDictionary?.Invoke(1);
+        Debug.Log($"_chairDictionary_1lv = {_chairDictionary_1lv.Count}");
+        _tableDictionary_1lv = EventsResources.onGetTableDictionary?.Invoke(1);
+        Debug.Log($"_tableDictionary_1lv = {_tableDictionary_1lv.Count}");
     }
 
     private string SecondQuestText(string startText, IDictionary<string, int> dictionary)
@@ -283,22 +313,22 @@ public class ButtonsController : MonoBehaviour
 
         if (stone_1lv > 0)
         {
-            var currentStone = EventsResources.onGetCurentStone(1);
+            var currentStone = EventsResources.onGetCurentStone?.Invoke(1);
             modifayText = modifayText + "\n" + $"Камни 1ур {stone_1lv} ({currentStone})";
         }
         if (log_1lv > 0)
         {
-            var currentLog = EventsResources.onGetCurentLog(1);
+            var currentLog = EventsResources.onGetCurentLog?.Invoke(1);
             modifayText = modifayText + "\n" + $"Дерево 1ур {log_1lv} ({currentLog})";
         }
         if (neil_1lv > 0)
         {
-            var currentNeil = EventsResources.onGetCurentNeil(1);
+            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(1);
             modifayText = modifayText + "\n" + $"Гвозди 1 ур {neil_1lv} ({currentNeil})";
         }
         if (cloth_1lv > 0)
         {
-            var currentCloth = EventsResources.onGetCurentClouth(1);
+            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(1);
             modifayText = modifayText + "\n" + $"Ткань 1 ур {cloth_1lv} ({currentCloth})";
         }
 
@@ -307,4 +337,64 @@ public class ButtonsController : MonoBehaviour
 
         return completeText;
     }
+
+    private void CompleteFireplaceQuest()
+    {
+        _fireplaceQuestCheckButton.interactable = false;
+        _fireplaceQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+        _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    private void CompleteChairQuest()
+    {
+        _chairQuestCheckButton.interactable = false;
+        _chairQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+        _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    private void CompleteTableQuest()
+    {
+        _tableQuestCheckButton.interactable = false;
+        _tableQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+        _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    private void SaveCurrentQuest()
+    {
+        PlayerPrefs.SetInt("currentQuest", _currentQuest);
+
+        PlayerPrefs.Save();
+    }
+
+    private void ReloadCurrentQuest()
+    {
+
+        if (PlayerPrefs.HasKey("currentQuest"))
+        {
+            _currentQuest = PlayerPrefs.GetInt("currentQuest");
+            Debug.Log($"_currentQuest = {_currentQuest}");
+            CheckStartCraftResouces();
+            UpdateShortQuestText();
+        }
+       
+    }
+
+    private void ClickFireplace()
+    {
+        _currentQuest = 0;
+        UpdateShortQuestText();
+    }
+
+    private void ClickChair()
+    {
+        _currentQuest = 1;
+        UpdateShortQuestText();
+    }
+
+    private void ClickTable()
+    {
+        _currentQuest = 2;
+        UpdateShortQuestText();
+    }
+
 }

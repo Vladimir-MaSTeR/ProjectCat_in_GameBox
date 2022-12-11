@@ -97,12 +97,13 @@ public class UiController : MonoBehaviour
         if (!loadResorces)
         {
             StartResourcesText();
-        } else
+        }
+        else
         {
             LoadResouces();
-        }
+    }
 
-        _menuPanel.SetActive(false);
+    _menuPanel.SetActive(false);
         _resorcesPanel.SetActive(false);
 
         _currentHoldTime = _holdTime;
