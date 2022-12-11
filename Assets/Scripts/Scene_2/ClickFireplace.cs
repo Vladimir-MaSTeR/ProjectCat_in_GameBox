@@ -24,8 +24,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Огонь (Свет)
     /// </summary>
-    [SerializeField]
-    private GameObject _objectLight;
+    /// [SerializeField]     private GameObject _objectLight;
     /// <summary>
     /// Стартовый Уровень обьекта 
     /// </summary>
@@ -71,6 +70,11 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private int _lvObjectNow;
     /// <summary>
+    /// Название ключа для Сохранения уровня обьекта
+    /// </summary>
+    [SerializeField]
+    private string _textLvObject = "lvFireplace";
+    /// <summary>
     /// Анимация при клике на обьект
     /// </summary>
     private Animation _animClick;
@@ -94,10 +98,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         _lvObjectMax = _objectModel.Length - 1;
         AddModel(_lvObjectNow);
-        if (_lvObjectNow == 0)
-        { _objectLight.SetActive(false); }
-        else
-        { _objectLight.SetActive(true); }
+
 
         // _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
         // _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
@@ -227,7 +228,6 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void LvUp()
     {
-        _objectLight.SetActive(true);
         _takeResourceLvUp();
         // EventsResources.onStoneInBucket?.Invoke(_lvObjectNow, _amtRequiredResourceGoLvUp, 0); // Списать русурс для LvUp ;
         //  _amtRequiredResourceGoLvUp = (int)(_amtRequiredResourceGoLvUp * 1.3f); // новое задание
@@ -242,6 +242,9 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     }
 
+    /// <summary>
+    /// истратить ресурсы из сумки для Lv Up
+    /// </summary>
     private void _takeResourceLvUp()
     {
         _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary(1);
@@ -313,27 +316,6 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     }
 
-    private void _scaleActivePosi()
-    {
-        //if (Input.touchCount > 0)
-        //{
-        //Touch[] touchClick = new Touch[Input.touchCount];
-        //for (int i = 0; i < Input.touchCount; i++)
-        //{ 
-        //    touchClick[i] = Input.GetTouch(i);
-        //}
-
-        var touch = Input.GetTouch(0);
-        //if (touch.phase == TouchPhase.Began) /// первое нажание косанием
-        {
-            Vector3 _scalePosi = touch.position;
-            _scalePosi = new(_scalePosi.x, _scalePosi.y, 0);
-            Vector3 _scaleDelta = new Vector3(-100, -200, 0);
-            _scaleProgress.transform.localPosition = _scalePosi + _scaleDelta;
-            // Debug.Log(_scalePosi);
-        }
-        //}
-    }
 
     private void _timeScaleOff()
     {
@@ -370,7 +352,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     private void SaveResources()
     {
-        PlayerPrefs.SetInt("lvFireplace", _lvObjectNow);
+        PlayerPrefs.SetInt(_textLvObject, _lvObjectNow);
         // PlayerPrefs.SetInt("needResourcFireplace", _amtRequiredResourceGoLvUp);
 
         PlayerPrefs.Save();
@@ -380,11 +362,11 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     {
         if (loadResorces)
         {
-            if (PlayerPrefs.HasKey("lvFireplace"))
+            if (PlayerPrefs.HasKey(_textLvObject))
             {
-                _lvObjectNow = PlayerPrefs.GetInt("lvFireplace");
+                _lvObjectNow = PlayerPrefs.GetInt(_textLvObject);
             }
-            if (PlayerPrefs.HasKey("needResourcFireplace"))
+           // if (PlayerPrefs.HasKey("needResourcFireplace"))
             {
                 //       _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcFireplace");
             }

@@ -16,9 +16,11 @@ public class lightFire : MonoBehaviour
     /// <summary>
     /// класс с уровнем предмета
     /// </summary>
+ //   [SerializeField]   private ClickFireplace _clFireplace;
+    /// <summary>
+    /// уровнь предмета
+    /// </summary>
     [SerializeField]
-    private ClickFireplace _clFireplace;
-[SerializeField]
     private int _LvFire ;
     private float _lightMin;
     private float _lightMax;
@@ -26,7 +28,7 @@ public class lightFire : MonoBehaviour
 
     void Awake ()
     {
-        _LvFire = _clFireplace.LvFireplaceNow;
+       // _LvFire = _clFireplace.LvFireplaceNow;
        // _fire = transform.GetComponent<Light>();
 
     }
@@ -35,7 +37,7 @@ public class lightFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _LvFire = _clFireplace.LvFireplaceNow;
+        // _LvFire = _clFireplace.LvFireplaceNow;
         _lightMin = _LvFire * 6 ;
         _lightMax = _LvFire * 9 ;
         var _deltaLight = (_lightMax - _lightMin) / (60*1.5f);
