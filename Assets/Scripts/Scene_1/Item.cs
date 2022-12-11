@@ -21,7 +21,6 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     private void Start()
     {
-        Debug.Log("Сработал метод Start");
         _id = GetInstanceID();
 
         _rectTransform = GetComponent<RectTransform>();
