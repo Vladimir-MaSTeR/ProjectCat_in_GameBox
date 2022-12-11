@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ZoomCamera : MonoBehaviour
 {
+    [Header("Границы камеры")]
+    [SerializeField] private bool onBoundary = true;
+
     [SerializeField] private float _zoomMin = 1;
     [SerializeField] private float _zoomMax = 8;
 
@@ -129,46 +132,48 @@ public class ZoomCamera : MonoBehaviour
     /// <param name="min"></param>
     private void checkingBoundary( float maxX, float minX , float maxY, float minY, float maxZ, float minZ)
     {
-        Vector3 camerPosi = Camera.main.transform.position;
-        Vector3 camerPosiMax = new Vector3(maxX, maxY, maxZ);
-        Vector3 camerPosiMin = new Vector3(minX, minY, minZ);
+        if (onBoundary == true)
+        {
+            Vector3 camerPosi = Camera.main.transform.position;
+            Vector3 camerPosiMax = new Vector3(maxX, maxY, maxZ);
+            Vector3 camerPosiMin = new Vector3(minX, minY, minZ);
 
-        // проверка по оси Х
-        if (camerPosi.x >= camerPosiMax.x)
-        {
-            camerPosi = new Vector3(maxX, camerPosi.y, camerPosi.z);
-            Camera.main.transform.position = camerPosi;
-        }
-        if (camerPosi.x <= camerPosiMin.x)
-        {
-            camerPosi = new Vector3(minX, camerPosi.y, camerPosi.z);
-            Camera.main.transform.position = camerPosi;
-        }
+            // проверка по оси Х
+            if (camerPosi.x >= camerPosiMax.x)
+            {
+                camerPosi = new Vector3(maxX, camerPosi.y, camerPosi.z);
+                Camera.main.transform.position = camerPosi;
+            }
+            if (camerPosi.x <= camerPosiMin.x)
+            {
+                camerPosi = new Vector3(minX, camerPosi.y, camerPosi.z);
+                Camera.main.transform.position = camerPosi;
+            }
 
-        // проверка по оси Y
-        if (camerPosi.y >= camerPosiMax.y)
-        {
-            camerPosi = new Vector3(camerPosi.x, maxY, camerPosi.z);
-            Camera.main.transform.position = camerPosi;
-        }
-        if (camerPosi.y <= camerPosiMin.y)
-        {
-            camerPosi = new Vector3(camerPosi.x, minY, camerPosi.z);
-            Camera.main.transform.position = camerPosi;
-        }
+            // проверка по оси Y
+            if (camerPosi.y >= camerPosiMax.y)
+            {
+                camerPosi = new Vector3(camerPosi.x, maxY, camerPosi.z);
+                Camera.main.transform.position = camerPosi;
+            }
+            if (camerPosi.y <= camerPosiMin.y)
+            {
+                camerPosi = new Vector3(camerPosi.x, minY, camerPosi.z);
+                Camera.main.transform.position = camerPosi;
+            }
 
-        // проверка по оси Z
-        if (camerPosi.z >= camerPosiMax.z)
-        {
-            camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
-            Camera.main.transform.position = camerPosi;
+            // проверка по оси Z
+            if (camerPosi.z >= camerPosiMax.z)
+            {
+                camerPosi = new Vector3(camerPosi.x, camerPosi.y, maxZ);
+                Camera.main.transform.position = camerPosi;
+            }
+            if (camerPosi.z <= camerPosiMin.z)
+            {
+                camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
+                Camera.main.transform.position = camerPosi;
+            }
         }
-        if (camerPosi.z <= camerPosiMin.z)
-        {
-            camerPosi = new Vector3(camerPosi.x, camerPosi.y, minZ);
-            Camera.main.transform.position = camerPosi;
-        }
-
     }
 
     /// <summary>
