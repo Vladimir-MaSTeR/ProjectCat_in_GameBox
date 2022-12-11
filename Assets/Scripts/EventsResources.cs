@@ -47,7 +47,19 @@ public class EventsResources
     [Tooltip("Ёвент передает уровень нужных ресурсов а получает словарь со значение€ми ресурсов дл€ —“ќЋј")]
     public static Func<int, IDictionary<string, int>> onGetTableDictionary;
 
-
     public static Action onUpdateQuest;
+    
+    [Tooltip("Ёвент завершени€ квеста  по апгрейду камина")]
+    public static Action onEndFireplaceQuest;
+
+    [Tooltip("Ёвент завершени€ квеста  по апгрейду стула")]
+    public static Action onEndChairQuest;
+
+    [Tooltip("Ёвент завершени€ квеста  по апгрейду стола")]
+    public static Action onEndTableQuest;
+
+    [Tooltip("Ёвент завершени€ главного квеста")]
+    public static Action onEndMainQuest;
+   
 
 }
