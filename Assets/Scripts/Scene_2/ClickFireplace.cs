@@ -84,7 +84,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     [SerializeField]
     private Animation _animLvUp;
-
+    [Header("Выбрать предмет улучшения")]
     [Tooltip("Улучшение камина")]
     [SerializeField] private bool _fireplaceActiv;
     [Tooltip("Улучшение кресло")]
