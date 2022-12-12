@@ -77,7 +77,13 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Анимация при клике на обьект
     /// </summary>
+    [SerializeField]
     private Animation _animClick;
+    /// <summary>
+    /// Анимация при клике на обьект
+    /// </summary>
+    [SerializeField]
+    private Animation _animLvUp;
 
     [Tooltip("Улучшение камина")]
     [SerializeField] private bool _fireplaceActiv;
@@ -96,7 +102,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        _animClick = GetComponent<Animation>();
+        // _animClick = GetComponent<Animation>();
         if (!loadResorces)
         { _lvObjectNow = _lvObject; }
         else
@@ -129,7 +135,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
             _checkResLvUp == true)  /// проверка ресерса
         {
             _amtAddResource += 1;
-            _animClick.Play("AnimationFireplaceClick");
+            _animClick.Play("AnimationClick"); // "AnimationClick"
 
             if (_scaleProgress.activeSelf == false)
             {
@@ -140,7 +146,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
             }
             else if (_amtAddResource >= _amtClickGoLvUp)
             {
-                _animClick.Play("AnimationFireplaceLvUp");
+                _animClick.Stop("AnimationClick");
+                _animLvUp.Play("AnimationLvUp"); // 
 
                 LvUp();
                 _amtAddResource = 0;
@@ -420,15 +427,15 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         {
             if (_amtClickGoLvUp / 3f <= _amtAddResource)
             {
-                _amtAddResource = _amtAddResource - 0.3f;
+                _amtAddResource = _amtAddResource - 0.25f;
             }
             else if (_amtClickGoLvUp * 2f / 3f <= _amtAddResource)
             {
-                _amtAddResource = _amtAddResource - 0.1f;
+                _amtAddResource = _amtAddResource - 0.05f;
             }
             else
             {
-                _amtAddResource = _amtAddResource - 0.2f;
+                _amtAddResource = _amtAddResource - 0.1f;
             }
             Invoke("_timeScaleOff", 0.1f);
             ScaleProgress(true);
