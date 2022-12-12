@@ -33,7 +33,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Максимальный Уровень обьекта 
     /// </summary>
-    [SerializeField]
+    // [SerializeField]
     private int _lvObjectMax;
     /// <summary>
     ///      Шкала для ремонта активация (канвас)
@@ -55,7 +55,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Количество произведенных кликов для Lv Up (Прогрес заполнения шкалы)
     /// </summary>
-    [SerializeField]
+    // [SerializeField]
     private float _amtAddResource = 0;
 
 
@@ -79,14 +79,20 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private Animation _animClick;
 
-
-    /// <summary>
-    /// Уровень камина (читать)
-    /// </summary>
-    public int LvFireplaceNow
-    {
-        get { return _lvObjectNow; }
-    }
+    [Tooltip("Улучшение камина")]
+    [SerializeField] private bool _fireplaceActiv;
+    [Tooltip("Улучшение кресло")]
+    [SerializeField] private bool _armchairActiv;
+    [Tooltip("Улучшение Кухни")]
+    [SerializeField] private bool _kitchenActiv;
+    [Tooltip("Улучшение Лестница на 2 этаж")]
+    [SerializeField] private bool _ladderGoTo2Activ;
+    [Tooltip("Улучшение кровати")]
+    [SerializeField] private bool _bedActiv;
+    [Tooltip("Улучшение Лестница на 3 этаж")]
+    [SerializeField] private bool _ladderGoTo3Activ;
+    [Tooltip("Улучшение Стол с картой")]
+    [SerializeField] private bool _cupboardActiv;
 
     private void Start()
     {
@@ -117,6 +123,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
+        _activQuests();
 
         if (_lvObjectNow < _lvObjectMax &&
             _checkResLvUp == true)  /// проверка ресерса
@@ -145,7 +152,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         } // русурса не хватает
         else
         {
-
+            _activQuests();
         }
 
 
@@ -153,7 +160,94 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     }
 
 
-    private IDictionary<string, int> _fireplaceDictionary_1lv;
+
+    private void _activQuests ()
+    {
+        
+        if (_fireplaceActiv == true) //"активания квеста  по апгрейду  камина
+        {
+            EventsResources.onFireplaceQuest();
+        }
+        if (_armchairActiv == true) //активания квеста  по апгрейду  кресло
+        {
+            EventsResources.onChairQuest();
+        }
+        if (_kitchenActiv == true) //активания квеста  по апгрейду  Кухни
+        {
+            EventsResources.onTableQuest();
+        }
+        if (_ladderGoTo2Activ == true) //активания квеста  по апгрейду  Лестница на 2 этаж
+        {
+          //  EventsResources. ();
+        }
+        if (_bedActiv == true) //активания квеста  по апгрейду  кровати
+        {
+          //  EventsResources. ();
+        }
+        if (_ladderGoTo3Activ == true) //активания квеста  по апгрейду  Лестница на 3 этаж
+        {
+          //  EventsResources. ();
+        }
+        if (_cupboardActiv == true) //активания квеста  по апгрейду  Стол с картой
+        {
+          //  EventsResources. ();
+        }
+
+    }
+
+
+
+    /// <summary>
+    /// Словарь из квест задания для текущего обьекта
+    /// </summary>
+    private IDictionary<string, int> _resourceDictionary ()
+    {
+        IDictionary<string, int> _resictionary = EventsResources.onGetFireplaceDictionary(1);
+        // Уровнь в квест журнале (слудующий)
+        int _lvResObjUp = _lvObjectNow + 1;
+
+        if (_fireplaceActiv == true) //"Улучшение камина
+        {
+            _resictionary.Clear();
+            _resictionary =  EventsResources.onGetFireplaceDictionary(_lvResObjUp);
+        }
+        if (_armchairActiv == true) //Улучшение кресло
+        {
+            _resictionary.Clear();
+            _resictionary = EventsResources.onGetChairDictionary(_lvResObjUp);
+        }
+        if (_kitchenActiv == true) //Улучшение Кухни
+        {
+            _resictionary.Clear();
+            _resictionary = EventsResources.onGetTableDictionary(_lvResObjUp);
+        }
+        if (_ladderGoTo2Activ == true) //Улучшение Лестница на 2 этаж
+        {
+            _resictionary.Clear();
+            //  _resictionary = EventsResources. (_lvResObjUp);
+        }
+        if (_bedActiv == true) //Улучшение кровати
+        {
+            _resictionary.Clear();
+            //  _resictionary = EventsResources. (_lvResObjUp);
+        }
+        if (_ladderGoTo3Activ == true) //Улучшение Лестница на 3 этаж
+        {
+            _resictionary.Clear();
+            //  _resictionary = EventsResources. (_lvResObjUp);
+        }
+        if (_cupboardActiv == true) //Улучшение Стол с картой
+        {
+            _resictionary.Clear();
+            //  _resictionary = EventsResources. (_lvResObjUp);
+        }
+
+
+
+        return _resictionary;
+
+    }
+
 
 
     /// <summary>
@@ -165,8 +259,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         bool _checkUp = false;
         bool _resUp = true;
 
-        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary(1);
-        var dictionary = _fireplaceDictionary_1lv;
+        var dictionary = _resourceDictionary();
 
 
         var stone_1lv = dictionary[ResourcesTags.Stone_1.ToString()];
@@ -247,8 +340,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void _takeResourceLvUp()
     {
-        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary(1);
-        var dictionary = _fireplaceDictionary_1lv;
+        // _resourceDictionary = EventsResources.onGetFireplaceDictionary(1);
+        var dictionary = _resourceDictionary();
 
 
         var stone_1lv = dictionary[ResourcesTags.Stone_1.ToString()];
@@ -354,7 +447,10 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     {
         PlayerPrefs.SetInt(_textLvObject, _lvObjectNow);
         // PlayerPrefs.SetInt("needResourcFireplace", _amtRequiredResourceGoLvUp);
+        string _textObjectClickGoLvUp = _textLvObject + "ClickGoLvUp";
+         PlayerPrefs.SetFloat(_textObjectClickGoLvUp, _amtClickGoLvUp);
 
+        // 
         PlayerPrefs.Save();
     }
 
@@ -366,9 +462,10 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
             {
                 _lvObjectNow = PlayerPrefs.GetInt(_textLvObject);
             }
-           // if (PlayerPrefs.HasKey("needResourcFireplace"))
+            string _textObjectClickGoLvUp = _textLvObject + "ClickGoLvUp";
+            if (PlayerPrefs.HasKey(_textObjectClickGoLvUp))
             {
-                //       _amtRequiredResourceGoLvUp = PlayerPrefs.GetInt("needResourcFireplace");
+                _amtClickGoLvUp = PlayerPrefs.GetFloat(_textObjectClickGoLvUp);
             }
 
 

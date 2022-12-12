@@ -4450,7 +4450,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4471,7 +4471,7 @@ ParticleSystemRenderer:
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_VertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 3861478300804232965, guid: 5420a73aa123d8b4da9d043a1ed5d853, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -4625,8 +4625,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 0.9
+      scalar: 1.7
+      minScalar: 0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5057,7 +5057,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 50
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 1
@@ -5322,8 +5322,8 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 10
+      minMaxState: 3
+      scalar: 15
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5762,7 +5762,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -9498,7 +9498,7 @@ Transform:
   - {fileID: 1577442512}
   m_Father: {fileID: 1764858794}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.3786006, z: 0}
 --- !u!65 &1437872056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9531,13 +9531,18 @@ MonoBehaviour:
   - {fileID: 6207063349985795717, guid: 1ee9b850d4d75f941b8ac495e020dc66, type: 3}
   _objectNow: {fileID: 1577442511}
   _lvObject: 0
-  _lvObjectMax: 0
   _scaleProgress: {fileID: 988801485}
   _scaleProgressUp: {fileID: 1450430462}
   _amtClickGoLvUp: 10
-  _amtAddResource: 0
   _activTimeGoLvUp: 0
   _textLvObject: lvFireplace
+  _fireplaceActiv: 0
+  _armchairActiv: 0
+  _kitchenActiv: 0
+  _ladderGoTo2Activ: 0
+  _bedActiv: 0
+  _ladderGoTo3Activ: 0
+  _cupboardActiv: 0
 --- !u!111 &1437872058
 Animation:
   m_ObjectHideFlags: 0
