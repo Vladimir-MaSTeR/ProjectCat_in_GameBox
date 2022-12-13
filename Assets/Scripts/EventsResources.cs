@@ -39,6 +39,13 @@ public class EventsResources
     [Tooltip("Эвент передает уровень нужных ресурсов а получает словарь со значениеями ресурсов для СТОЛА")]
     public static Func<int, IDictionary<string, int>> onGetTableDictionary;
 
+    [Tooltip("возвращает подписчику словарь объектов дома и их уровень в доме")]
+    public static Func<int, IDictionary<string, int>> onGetLvObjHome;
+
+    [Tooltip("возвращает подписчику словарь условий для выполнения КВЕСТА")]
+    //public static Func<int, IDictionary<string, int>> onGetQuestsDictionary;
+
+
     public static Action onUpdateQuest;
     
     [Tooltip("Эвент завершения квеста  по апгрейду камина")]
