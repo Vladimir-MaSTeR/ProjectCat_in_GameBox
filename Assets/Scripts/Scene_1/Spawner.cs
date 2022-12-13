@@ -56,11 +56,13 @@ public class Spawner : MonoBehaviour
     private void OnEnable()
     {
         ButtonsEvents.onSaveResouces += SaveItems;
+        EventsResources.onSpawnItem += SpawnItem;
     }
 
     private void OnDisable()
     {
         ButtonsEvents.onSaveResouces -= SaveItems;
+        EventsResources.onSpawnItem -= SpawnItem;
     }
 
     private void SpavnInZeroPoint()
@@ -85,6 +87,27 @@ public class Spawner : MonoBehaviour
         {
             _currentTimeRessItem -= Time.deltaTime;
         }
+    }
+
+    private void SpawnItem(string itemTag)
+    {
+        foreach (var slot in _slots)
+        {
+            if (slot.GetComponentInChildren<CanvasGroup>() == null)
+            {
+                foreach (var item in _combinedList)
+                {
+                        var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+                        if (itemTag == childrenTag)
+                        {
+                            Instantiate(item, slot.rectTransform);
+                            return;
+                        }
+                }
+                return;
+            }
+         }
     }
 
     private void JobBank()
@@ -147,7 +170,12 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        foreach (var dict in reloadDictionary)
+        SpawnReloadItems(reloadDictionary);
+    }
+
+    private void SpawnReloadItems(IDictionary<int, string> dictionary)
+    {
+        foreach (var dict in dictionary)
         {
             var slot = dict.Key;
             var tag = dict.Value;
@@ -166,4 +194,6 @@ public class Spawner : MonoBehaviour
             }
         }
     }
+
+   
 }

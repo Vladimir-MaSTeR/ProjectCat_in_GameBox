@@ -60,6 +60,9 @@ public class EventsResources
     [Tooltip("Эвент активания квеста  по апгрейду стола")]
     public static Action onTableQuest;
 
+    [Tooltip("Эвент для заказа спавна предмета")]
+    public static Action<string> onSpawnItem;
+
 
 
 }
