@@ -133,39 +133,35 @@ public class Spawner : MonoBehaviour
 
     private void ReloadItems()
     {
-        var numberSlot = 0;
-        var level = 0;
-        var tag = "";
-
-        //нужно использовать мапу, ключем будет numberSlot_{i}
+        IDictionary<int, string> reloadDictionary  = new Dictionary<int, string>();
 
         for (int i = 0; i < _slots.Length; i++)
         {
-            if (PlayerPrefs.HasKey($"numberSlot_{i}"))
+            if (PlayerPrefs.HasKey($"numberSlot_{i}") && PlayerPrefs.HasKey($"numberSlot_{i}_tag"))
             {
-                numberSlot = PlayerPrefs.GetInt($"numberSlot_{i}");
-            }
+                var numberSlot = PlayerPrefs.GetInt($"numberSlot_{i}");
+                var tag = PlayerPrefs.GetString($"numberSlot_{i}_tag");
 
-            if (PlayerPrefs.HasKey($"numberSlot_{i}_level"))
-            {
-                level = PlayerPrefs.GetInt($"numberSlot_{i}_level");
+                reloadDictionary.Add(numberSlot, tag);
+                Debug.Log($"Загрузил предмет из памяти для слота {numberSlot} и тегом {tag}");
             }
+        }
 
-            if (PlayerPrefs.HasKey($"numberSlot_{i}_tag"))
-            {
-                tag = PlayerPrefs.GetString($"numberSlot_{i}_tag");
-            }
-
-            Debug.Log($"Загрузил предмет из памяти для слота {numberSlot} с уровнем {level} и тегом {tag}");
+        foreach (var dict in reloadDictionary)
+        {
+            var slot = dict.Key;
+            var tag = dict.Value;
 
             foreach (var item in _combinedList)
             {
-                var currentTag = item.GetComponentInChildren<CanvasGroup>().tag;
+                var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
 
-                if (tag == currentTag)
+                if (tag == childrenTag)
                 {
-                    Instantiate(item, _slots[i].rectTransform);
-                    return;
+                    Instantiate(item, _slots[slot].rectTransform);
+
+                    PlayerPrefs.DeleteKey($"numberSlot_{slot}");
+                    PlayerPrefs.DeleteKey($"numberSlot_{slot}_tag");
                 }
             }
         }
