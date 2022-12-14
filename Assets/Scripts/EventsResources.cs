@@ -4,28 +4,20 @@ using UnityEngine;
 
 public class EventsResources
 {
-    /// <summary>
-    /// Изменить Кол-во Ткани <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>
-    /// </summary>
+    [Tooltip(" Изменить Кол-во Ткани <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>")]
     public static Action<int, int, int> onClouthInBucket; // ТКАНЬ | Первый ар. - Ур предмета.
                                                           //         Второй ар. - колл ресурса.
                                                           //         Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)
-    /// <summary>
-    /// Изменить Кол-во дерева <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>
-    /// </summary>
+    [Tooltip(" Изменить Кол-во дерева <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>")]
     public static Action<int, int, int> onLogInBucket;   // ДЕРЕВО | Первый ар. - Ур предмета.
                                                          //          Второй ар. - колл ресурса.
                                                          //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)   
-    /// <summary>
-    /// Изменить Кол-во каманя <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>
-    /// </summary>
+    [Tooltip("  Изменить Кол-во каманя <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>")]
     public static Action<int, int, int> onStoneInBucket;  // КАМЕНЬ | Первый ар. - Ур предмета.
                                                           //          Второй ар. - колл ресурса.
                                                           //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)  
 
-    /// <summary>
-    /// Изменить Кол-во гвоздей <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>
-    /// </summary>
+    [Tooltip(" Изменить Кол-во гвоздей <Ур предмета, колл ресурса, (0 = убавить. 1 прибавить)>")]
     public static Action<int, int, int> onNeilInBucket;  // ГВОЗДИ | Первый ар. - Ур предмета.
                                                          //          Второй ар. - колл ресурса.
                                                          //          Третий ар. - прибавить или убавить ресурс (0 = убавить. 1 прибавить)
@@ -47,6 +39,13 @@ public class EventsResources
     [Tooltip("Эвент передает уровень нужных ресурсов а получает словарь со значениеями ресурсов для СТОЛА")]
     public static Func<int, IDictionary<string, int>> onGetTableDictionary;
 
+    [Tooltip("возвращает подписчику словарь объектов дома и их уровень в доме")]
+    public static Func<int, IDictionary<string, int>> onGetLvObjHome;
+
+    [Tooltip("возвращает подписчику словарь условий для выполнения КВЕСТА")]
+    //public static Func<int, IDictionary<string, int>> onGetQuestsDictionary;
+
+
     public static Action onUpdateQuest;
     
     [Tooltip("Эвент завершения квеста  по апгрейду камина")]
@@ -67,6 +66,9 @@ public class EventsResources
     public static Action onChairQuest;
     [Tooltip("Эвент активания квеста  по апгрейду стола")]
     public static Action onTableQuest;
+
+    [Tooltip("Эвент для заказа спавна предмета")]
+    public static Action<string> onSpawnItem;
 
 
 
