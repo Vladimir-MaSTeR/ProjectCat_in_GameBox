@@ -53,6 +53,20 @@ public class ButtonsController : MonoBehaviour
     private IDictionary<string, int> _chairDictionary_1lv;
     private IDictionary<string, int> _tableDictionary_1lv;
 
+    private IDictionary<string, int> _fireplaceDictionary_2lv;
+    private IDictionary<string, int> _chairDictionary_2lv;
+    private IDictionary<string, int> _tableDictionary_2lv;
+
+    private IDictionary<string, int> _fireplaceDictionary_3lv;
+    private IDictionary<string, int> _chairDictionary_3lv;
+    private IDictionary<string, int> _tableDictionary_3lv;
+
+
+
+
+
+
+
 
     private void Start()
     {
@@ -294,10 +308,16 @@ public class ButtonsController : MonoBehaviour
     private void CheckStartCraftResouces()
     {
         _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(1);
+        _fireplaceDictionary_2lv = EventsResources.onGetFireplaceDictionary?.Invoke(2);
+        _fireplaceDictionary_3lv = EventsResources.onGetFireplaceDictionary?.Invoke(3);
         Debug.Log($"_fireplaceDictionary_1lv = {_fireplaceDictionary_1lv.Count}");
         _chairDictionary_1lv = EventsResources.onGetChairDictionary?.Invoke(1);
+        _chairDictionary_2lv = EventsResources.onGetChairDictionary?.Invoke(2);
+        _chairDictionary_3lv = EventsResources.onGetChairDictionary?.Invoke(3);
         Debug.Log($"_chairDictionary_1lv = {_chairDictionary_1lv.Count}");
         _tableDictionary_1lv = EventsResources.onGetTableDictionary?.Invoke(1);
+        _tableDictionary_2lv = EventsResources.onGetTableDictionary?.Invoke(2);
+        _tableDictionary_3lv = EventsResources.onGetTableDictionary?.Invoke(3);
         Debug.Log($"_tableDictionary_1lv = {_tableDictionary_1lv.Count}");
     }
 
@@ -379,22 +399,33 @@ public class ButtonsController : MonoBehaviour
        
     }
 
-    private void ClickFireplace()
+    private void ClickFireplace(int level)
     {
-        _currentQuest = 0;
-        UpdateShortQuestText();
+        if (level == 1)
+        {
+            _currentQuest = 0;
+            UpdateShortQuestText();
+        }
+       
     }
 
-    private void ClickChair()
+    private void ClickChair(int level)
     {
-        _currentQuest = 1;
-        UpdateShortQuestText();
+        if (level == 1)
+        {
+            _currentQuest = 1;
+            UpdateShortQuestText();
+        }
     }
 
-    private void ClickTable()
+    private void ClickTable(int level)
     {
-        _currentQuest = 2;
-        UpdateShortQuestText();
+        if (level == 1)
+        {
+            _currentQuest = 2;
+            UpdateShortQuestText();
+        }
+       
     }
 
 }
