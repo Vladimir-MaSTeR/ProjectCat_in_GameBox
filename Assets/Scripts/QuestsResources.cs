@@ -15,6 +15,12 @@ public class QuestsResources : MonoBehaviour
     [SerializeField] private int _fireplaceNeil_2lv = 3; // - 1 значит что ресурс не требуется для починки предмета.
     [SerializeField] private int _fireplaceCloth_2lv = -1;
 
+    [Header("Камин 3ур")]
+    [SerializeField] private int _fireplaceStone_3lv = 15;
+    [SerializeField] private int _fireplaceLog_3lv = 5;
+    [SerializeField] private int _fireplaceNeil_3lv = 3; // - 1 значит что ресурс не требуется для починки предмета.
+    [SerializeField] private int _fireplaceCloth_3lv = -1;
+
     [Header("Стул 1ур")]
     [SerializeField] private int _chairStone_1lv = -1;
     [SerializeField] private int _chairLog_1lv = 8;
@@ -51,6 +57,8 @@ public class QuestsResources : MonoBehaviour
     [Tooltip("Словарь для камина")]
     private IDictionary<string, int> _fireplaceDictionary_1lv = new Dictionary<string, int>();
     private IDictionary<string, int> _fireplaceDictionary_2lv = new Dictionary<string, int>();
+    private IDictionary<string, int> _fireplaceDictionary_3lv = new Dictionary<string, int>();
+
     [Tooltip("Словарь для стула")]
     private IDictionary<string, int> _chairDictionary_1lv = new Dictionary<string, int>();
     private IDictionary<string, int> _chairDictionary_2lv = new Dictionary<string, int>();
@@ -67,6 +75,14 @@ public class QuestsResources : MonoBehaviour
         AddResourcesFireplaceDictionary_1lv(_fireplaceDictionary_1lv);
         AddResourcesChairDictionary_1lv(_chairDictionary_1lv);
         AddResourcesTableDictionary_1lv(_tableDictionary_1lv);
+
+        AddResourcesFireplaceDictionary_2lv(_fireplaceDictionary_2lv);
+        AddResourcesChairDictionary_2lv(_chairDictionary_2lv);
+        AddResourcesTableDictionary_2lv(_tableDictionary_2lv);
+
+        AddResourcesFireplaceDictionary_3lv(_fireplaceDictionary_3lv);
+        AddResourcesChairDictionary_3lv(_chairDictionary_3lv);
+        AddResourcesTableDictionary_3lv(_tableDictionary_3lv);
     }
 
     private void OnEnable()
@@ -104,6 +120,18 @@ public class QuestsResources : MonoBehaviour
             fireplaceDictionary.Add(ResourcesTags.Log_2.ToString(), _fireplaceLog_2lv);
             fireplaceDictionary.Add(ResourcesTags.Neil_2.ToString(), _fireplaceNeil_2lv);
             fireplaceDictionary.Add(ResourcesTags.Cloth_2.ToString(), _fireplaceCloth_2lv);
+        }
+    }
+
+    [Tooltip("Метод добавления ресурсов для камина 3 уровня в словарь")]
+    private void AddResourcesFireplaceDictionary_3lv(IDictionary<string, int> fireplaceDictionary)
+    {
+        if (fireplaceDictionary.Count == 0)
+        {
+            fireplaceDictionary.Add(ResourcesTags.Stone_3.ToString(), _fireplaceStone_3lv);
+            fireplaceDictionary.Add(ResourcesTags.Log_3.ToString(), _fireplaceLog_3lv);
+            fireplaceDictionary.Add(ResourcesTags.Neil_3.ToString(), _fireplaceNeil_3lv);
+            fireplaceDictionary.Add(ResourcesTags.Cloth_3.ToString(), _fireplaceCloth_3lv);
         }
     }
 
@@ -181,16 +209,17 @@ public class QuestsResources : MonoBehaviour
     private IDictionary<string, int> GetFireplaceDictionary(int levelObject)
     {
 
-        if (levelObject == 2)
+        if (levelObject == 3)
+        {
+            AddResourcesFireplaceDictionary_3lv(_fireplaceDictionary_3lv);
+            return _fireplaceDictionary_3lv;
+        }
+        else if (levelObject == 2)
         {
             AddResourcesFireplaceDictionary_2lv(_fireplaceDictionary_2lv);
             return _fireplaceDictionary_2lv;
         }
-        else if (levelObject == 3)
-        {
-           // AddResourcesFireplaceDictionary_3lv(_fireplaceDictionary_3lv);
-           // return _fireplaceDictionary_3lv;
-        }
+
         AddResourcesFireplaceDictionary_1lv(_fireplaceDictionary_1lv);
         return _fireplaceDictionary_1lv;
     }
@@ -201,14 +230,15 @@ public class QuestsResources : MonoBehaviour
         
         if (levelObject == 3)
         {
-            AddResourcesChairDictionary_2lv(_chairDictionary_2lv);
-            return _chairDictionary_2lv;
-        }
-        else if (levelObject == 2)
-        {
             AddResourcesChairDictionary_3lv(_chairDictionary_3lv);
             return _chairDictionary_3lv;
         }
+        else if (levelObject == 2)
+        {
+            AddResourcesChairDictionary_2lv(_chairDictionary_2lv);
+            return _chairDictionary_2lv;
+        }
+
         AddResourcesChairDictionary_1lv(_chairDictionary_1lv);
         return _chairDictionary_1lv;
     }
@@ -219,14 +249,15 @@ public class QuestsResources : MonoBehaviour
 
         if (levelObject == 3)
         {
-            AddResourcesTableDictionary_2lv(_tableDictionary_2lv);
+            AddResourcesTableDictionary_3lv(_tableDictionary_3lv);
             return _tableDictionary_3lv;
         }
         else if (levelObject == 2)
         {
-            AddResourcesTableDictionary_3lv(_tableDictionary_3lv);
-            return _tableDictionary_3lv;
+            AddResourcesTableDictionary_2lv(_tableDictionary_2lv);
+            return _tableDictionary_2lv;
         }
+
         AddResourcesTableDictionary_1lv(_tableDictionary_1lv);
         return _tableDictionary_1lv;
     }
