@@ -12155,7 +12155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 190863713190120979, guid: 8938e63c761fba7428bab87f75c854d2, type: 3}
       propertyPath: loadResorces
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 190863713190120979, guid: 8938e63c761fba7428bab87f75c854d2, type: 3}
       propertyPath: _startStone_1
