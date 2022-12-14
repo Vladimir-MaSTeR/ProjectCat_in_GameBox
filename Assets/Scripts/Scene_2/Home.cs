@@ -95,10 +95,9 @@ public class Home : MonoBehaviour
         }
     }
 
-    bool _checkMainQuests = false;
 
     private void _checkQuests()
-    { if (_checkMainQuests == false)
+    { 
         {
             // onGetQuestsDictionary
             bool _fireplaceQuests = false;
@@ -120,9 +119,8 @@ public class Home : MonoBehaviour
 
             if (_kitchenObje == true && _armchairQuests == true && _fireplaceQuests == true)
             {
-                Debug.Log("Êגוסע ֲûן");
-                _checkMainQuests = true;
-                EventsResources.onEndMainQuest();
+                ///Debug.Log("Êגוסע ֲûן");
+                EventsResources.onEndMainQuest?.Invoke();
 
             }
         }

@@ -84,6 +84,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     [SerializeField]
     private Animation _animLvUp;
+
     [Header("Выбрать предмет улучшения")]
     [Tooltip("Улучшение камина")]
     [SerializeField] private bool _fireplaceActiv;
@@ -110,7 +111,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         _lvObjectMax = _objectModel.Length - 1;
         AddModel(_lvObjectNow);
-
+        _animClick = _objectNow.GetComponent<Animation>();
+        _animLvUp = _objectNow.GetComponent<Animation>();
 
         // _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
         // _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
@@ -195,31 +197,31 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         
         if (_fireplaceActiv == true) //"активания квеста  по апгрейду  камина
         {
-            EventsResources.onFireplaceQuest();
+            EventsResources.onFireplaceQuest?.Invoke();
         }
         if (_armchairActiv == true) //активания квеста  по апгрейду  кресло
         {
-            EventsResources.onChairQuest();
+            EventsResources.onChairQuest?.Invoke();
         }
         if (_kitchenActiv == true) //активания квеста  по апгрейду  Кухни
         {
-            EventsResources.onTableQuest();
+            EventsResources.onTableQuest?.Invoke();
         }
         if (_ladderGoTo2Activ == true) //активания квеста  по апгрейду  Лестница на 2 этаж
         {
-          //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
         if (_bedActiv == true) //активания квеста  по апгрейду  кровати
         {
-          //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
         if (_ladderGoTo3Activ == true) //активания квеста  по апгрейду  Лестница на 3 этаж
         {
-          //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
         if (_cupboardActiv == true) //активания квеста  по апгрейду  Стол с картой
         {
-          //  EventsResources. ();
+          //  EventsResources. ?.Invoke();
         }
 
     }
@@ -232,31 +234,31 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         if (_fireplaceActiv == true) //завершение квеста  по апгрейду  камина
         {
-            EventsResources.onEndFireplaceQuest();
+            EventsResources.onEndFireplaceQuest?.Invoke();
         }
         if (_armchairActiv == true) //завершение квеста  по апгрейду  кресло
         {
-            EventsResources.onEndChairQuest();
+            EventsResources.onEndChairQuest?.Invoke();
         }
         if (_kitchenActiv == true) //завершение квеста  по апгрейду  Кухни
         {
-            EventsResources.onEndTableQuest();
+            EventsResources.onEndTableQuest?.Invoke();
         }
         if (_ladderGoTo2Activ == true) //завершение квеста  по апгрейду  Лестница на 2 этаж
         {
-            //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
         if (_bedActiv == true) //завершение квеста  по апгрейду  кровати
         {
-            //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
         if (_ladderGoTo3Activ == true) //завершение квеста  по апгрейду  Лестница на 3 этаж
         {
-            //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
         if (_cupboardActiv == true) //завершение квеста  по апгрейду  Стол с картой
         {
-            //  EventsResources. ();
+            //  EventsResources. ?.Invoke();
         }
 
     }
@@ -278,37 +280,37 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         if (_fireplaceActiv == true) //"Улучшение камина
         {
             _resictionary.Clear();
-            _resictionary =  EventsResources.onGetFireplaceDictionary(_lvResObjUp);
+            _resictionary =  EventsResources.onGetFireplaceDictionary?.Invoke(_lvResObjUp);
         }
         if (_armchairActiv == true) //Улучшение кресло
         {
             _resictionary.Clear();
-            _resictionary = EventsResources.onGetChairDictionary(_lvResObjUp);
+            _resictionary = EventsResources.onGetChairDictionary?.Invoke(_lvResObjUp);
         }
         if (_kitchenActiv == true) //Улучшение Кухни
         {
             _resictionary.Clear();
-            _resictionary = EventsResources.onGetTableDictionary(_lvResObjUp);
+            _resictionary = EventsResources.onGetTableDictionary?.Invoke(_lvResObjUp);
         }
         if (_ladderGoTo2Activ == true) //Улучшение Лестница на 2 этаж
         {
             _resictionary.Clear();
-            //  _resictionary = EventsResources. (_lvResObjUp);
+            //  _resictionary = EventsResources. ?.Invoke(_lvResObjUp);
         }
         if (_bedActiv == true) //Улучшение кровати
         {
             _resictionary.Clear();
-            //  _resictionary = EventsResources. (_lvResObjUp);
+            //  _resictionary = EventsResources. ?.Invoke(_lvResObjUp);
         }
         if (_ladderGoTo3Activ == true) //Улучшение Лестница на 3 этаж
         {
             _resictionary.Clear();
-            //  _resictionary = EventsResources. (_lvResObjUp);
+            //  _resictionary = EventsResources. ?.Invoke(_lvResObjUp);
         }
         if (_cupboardActiv == true) //Улучшение Стол с картой
         {
             _resictionary.Clear();
-            //  _resictionary = EventsResources. (_lvResObjUp);
+            //  _resictionary = EventsResources. ?.Invoke(_lvResObjUp);
         }
 
 
@@ -361,7 +363,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         if (stone_1lv > 0) // камень 1 ур
         {
-            var currentStone = EventsResources.onGetCurentStone(1);
+            var currentStone = EventsResources.onGetCurentStone?.Invoke(1);
             if (stone_1lv <= currentStone)
             { _resUp = true; }
             else
@@ -371,7 +373,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         }
         if (log_1lv > 0) // Дерево 1ур
         {
-            var currentLog = EventsResources.onGetCurentLog(1);
+            var currentLog = EventsResources.onGetCurentLog?.Invoke(1);
             if (log_1lv <= currentLog)
             { _resUp = true; }
             else
@@ -381,7 +383,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         }
         if (neil_1lv > 0) // Гвозди 1 ур
         {
-            var currentNeil = EventsResources.onGetCurentNeil(1);
+            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(1);
             if (neil_1lv <= currentNeil)
             { _resUp = true; }
             else
@@ -391,7 +393,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         }
         if (cloth_1lv > 0) // Ткань 1 ур
         {
-            var currentCloth = EventsResources.onGetCurentClouth(1);
+            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(1);
             if (cloth_1lv <= currentCloth)
             { _resUp = true; }
             else
@@ -420,6 +422,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         _completedQuests();
         _lvObjectNow += 1;
         AddModel(_lvObjectNow);
+        _animClick = _objectNow.GetComponent<Animation>();
+        _animLvUp = _objectNow.GetComponent<Animation>();
         _amtClickGoLvUp = _clickGoLvUp();
         _amtClickGoLvUp += _lvObjectNow * 2;
         SaveResources();
@@ -465,28 +469,28 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         /// ресурс в сумке рюкзаке
         var _lvRequiredResource = _lvObjectNow + 1;
-        var currentStone = EventsResources.onGetCurentStone(_lvRequiredResource);
-        var currentLog = EventsResources.onGetCurentLog(_lvRequiredResource);
-        var currentNeil = EventsResources.onGetCurentNeil(_lvRequiredResource);
-        var currentCloth = EventsResources.onGetCurentClouth(_lvRequiredResource);
+        var currentStone = EventsResources.onGetCurentStone?.Invoke(_lvRequiredResource);
+        var currentLog = EventsResources.onGetCurentLog?.Invoke(_lvRequiredResource);
+        var currentNeil = EventsResources.onGetCurentNeil?.Invoke(_lvRequiredResource);
+        var currentCloth = EventsResources.onGetCurentClouth?.Invoke(_lvRequiredResource);
 
 
 
         if (stone_1lv < currentStone && stone_1lv > 0 ) // камень  ур
         {
-            EventsResources.onStoneInBucket(1, stone_1lv, 0);
+            EventsResources.onStoneInBucket?.Invoke(1, stone_1lv, 0);
         }
         if (log_1lv < currentLog && log_1lv > 0) // Дерево ур
         {
-            EventsResources.onLogInBucket(1, log_1lv, 0);
+            EventsResources.onLogInBucket?.Invoke(1, log_1lv, 0);
         }
         if (neil_1lv < currentNeil && neil_1lv > 0) // Гвозди  ур
         {
-            EventsResources.onNeilInBucket(1, neil_1lv, 0);
+            EventsResources.onNeilInBucket?.Invoke(1, neil_1lv, 0);
         }
         if (cloth_1lv < currentCloth && cloth_1lv > 0) // Ткань  ур
         {
-            EventsResources.onClouthInBucket(1, cloth_1lv, 0);
+            EventsResources.onClouthInBucket?.Invoke(1, cloth_1lv, 0);
         }
     }
 
