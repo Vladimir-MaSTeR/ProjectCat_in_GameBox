@@ -82,8 +82,8 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Анимация при клике на обьект
     /// </summary>
-    [SerializeField]
-    private Animation _animLvUp;
+    //[SerializeField]
+    //private Animation _animLvUp;
 
     [Header("Выбрать предмет улучшения")]
     [Tooltip("Улучшение камина")]
@@ -112,7 +112,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         _lvObjectMax = _objectModel.Length - 1;
         AddModel(_lvObjectNow);
         _animClick = _objectNow.GetComponent<Animation>();
-        _animLvUp = _objectNow.GetComponent<Animation>();
+     //   _animLvUp = _objectNow.GetComponent<Animation>();
 
         // _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
         // _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
@@ -150,16 +150,23 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData"></param>
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
+        //_animClick.
 
-
-        var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
+                var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
         _activQuests();
 
         if (_lvObjectNow < _lvObjectMax &&
             _checkResLvUp == true)  /// проверка ресерса
         {
             _amtAddResource += 1;
-            _animClick.Play("AnimationClick"); // "AnimationClick"
+            if (_animClick.IsPlaying("AnimationLvUp") == false)
+            {
+                _animClick.Play("AnimationClick"); // "AnimationClick"
+            }
+            else
+            {
+                Debug.Log("AnimationLvUp +");
+            }
 
             if (_scaleProgress.activeSelf == false)
             {
@@ -170,10 +177,11 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
             }
             else if (_amtAddResource >= _amtClickGoLvUp)
             {
-                _animClick.Stop("AnimationClick");
-                _animLvUp.Play("AnimationLvUp"); // 
+                //_animClick.Stop("AnimationClick");
 
                 LvUp();
+                _animClick.Play("AnimationLvUp"); // 
+
                 _amtAddResource = 0;
                 ScaleProgress(false);
             }
@@ -194,34 +202,35 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void _activQuests ()
     {
-        
+        int _lvResObjUp = _lvObjectNow + 1;
+
         if (_fireplaceActiv == true) //"активания квеста  по апгрейду  камина
         {
-            EventsResources.onFireplaceQuest?.Invoke();
+            EventsResources.onFireplaceQuest?.Invoke(_lvResObjUp);
         }
         if (_armchairActiv == true) //активания квеста  по апгрейду  кресло
         {
-            EventsResources.onChairQuest?.Invoke();
+            EventsResources.onChairQuest?.Invoke(_lvResObjUp);
         }
         if (_kitchenActiv == true) //активания квеста  по апгрейду  Кухни
         {
-            EventsResources.onTableQuest?.Invoke();
+            EventsResources.onTableQuest?.Invoke(_lvResObjUp);
         }
         if (_ladderGoTo2Activ == true) //активания квеста  по апгрейду  Лестница на 2 этаж
         {
-            //  EventsResources. ?.Invoke();
+            //  EventsResources. ?.Invoke(_lvResObjUp);
         }
         if (_bedActiv == true) //активания квеста  по апгрейду  кровати
         {
-            //  EventsResources. ?.Invoke();
+            //  EventsResources. ?.Invoke(_lvResObjUp);
         }
         if (_ladderGoTo3Activ == true) //активания квеста  по апгрейду  Лестница на 3 этаж
         {
-            //  EventsResources. ?.Invoke();
+            //  EventsResources. ?.Invoke(_lvResObjUp);
         }
         if (_cupboardActiv == true) //активания квеста  по апгрейду  Стол с картой
         {
-          //  EventsResources. ?.Invoke();
+            //  EventsResources. ?.Invoke(_lvResObjUp);
         }
 
     }
@@ -231,6 +240,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void _completedQuests()
     {
+        int _lvResObjUp = _lvObjectNow + 1;
 
         if (_fireplaceActiv == true) //завершение квеста  по апгрейду  камина
         {
@@ -423,11 +433,10 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         _lvObjectNow += 1;
         AddModel(_lvObjectNow);
         _animClick = _objectNow.GetComponent<Animation>();
-        _animLvUp = _objectNow.GetComponent<Animation>();
+      //  _animLvUp = _objectNow.GetComponent<Animation>();
         _amtClickGoLvUp = _clickGoLvUp();
         _amtClickGoLvUp += _lvObjectNow * 2;
         SaveResources();
-
 
     }
 

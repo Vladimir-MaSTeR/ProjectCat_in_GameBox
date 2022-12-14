@@ -38,9 +38,9 @@ public class lightFire : MonoBehaviour
     void Update()
     {
         // _LvFire = _clFireplace.LvFireplaceNow;
-        _lightMin = _LvFire * 6 ;
-        _lightMax = _LvFire * 9 ;
-        var _deltaLight = (_lightMax - _lightMin) / (60*1.5f);
+        _lightMin = _LvFire*2 + 6 ;
+        _lightMax = _LvFire * 2 + 9 ;
+        var _deltaLight = (_lightMax - _lightMin) / (40*1.5f);
         _dynamicsLight(_lightMin, _lightMax, _deltaLight);
 
 

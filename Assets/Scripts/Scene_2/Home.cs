@@ -117,7 +117,7 @@ public class Home : MonoBehaviour
                 _kitchenQuests = true;
             }
 
-            if (_kitchenObje == true && _armchairQuests == true && _fireplaceQuests == true)
+            if (_kitchenQuests == true && _armchairQuests == true && _fireplaceQuests == true)
             {
                 ///Debug.Log("Êגוסע ֲûן");
                 EventsResources.onEndMainQuest?.Invoke();
