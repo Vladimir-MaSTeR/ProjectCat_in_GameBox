@@ -11,6 +11,7 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private GameObject _questsPanel;
     [SerializeField] private GameObject _mainLongTextPanel;
     [SerializeField] private GameObject _secondLongTextPanel;
+    [SerializeField] private GameObject _turnHomeButtonsPanel;
 
     [Header("Текстовый поля")]
     [SerializeField] private Text _mainLongText;
@@ -32,14 +33,9 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private Button _chairQuestCheckButton;
     [SerializeField] private Button _tableQuestCheckButton;
 
-    
-
     [Header("Звук")]
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _clickButtonClip;
-
-    private const int ONE_SCENE_INDEX = 0;
-    private const int TWO_SCENE_INDEX = 1;
 
     private int _currentQuest = -1; // переменная для отслеживания активного квеста. Начинается с ноля. 
 
@@ -62,12 +58,6 @@ public class ButtonsController : MonoBehaviour
     private IDictionary<string, int> _tableDictionary_3lv;
 
 
-
-
-
-
-
-
     private void Start()
     {
         _menuPanel.SetActive(false);
@@ -75,6 +65,8 @@ public class ButtonsController : MonoBehaviour
         _questsPanel.SetActive(false);
         _mainLongTextPanel.SetActive(false);
         _secondLongTextPanel.SetActive(false);
+
+        CheckSceneForTornHomeButtonsActive();
 
         CheckStartCraftResouces();
         ReloadCurrentQuest();
@@ -116,9 +108,10 @@ public class ButtonsController : MonoBehaviour
         ButtonsEvents.onSaveResouces?.Invoke();
         SaveCurrentQuest();
 
-        if (SceneManager.GetActiveScene().buildIndex != ONE_SCENE_INDEX)
+
+        if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.MEARG_SCENE_INDEX)
         {
-            SceneManager.LoadScene(ONE_SCENE_INDEX);
+            SceneManager.LoadScene(SceneIndexConstants.MEARG_SCENE_INDEX);
         }
     }
 
@@ -127,9 +120,9 @@ public class ButtonsController : MonoBehaviour
         ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
         SaveCurrentQuest();
 
-        if (SceneManager.GetActiveScene().buildIndex != TWO_SCENE_INDEX)
+        if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.HOME_SCENE_INDEX)
         {
-            SceneManager.LoadScene(TWO_SCENE_INDEX);
+            SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
         }
     }
 
@@ -426,6 +419,18 @@ public class ButtonsController : MonoBehaviour
             UpdateShortQuestText();
         }
        
+    }
+
+    private void CheckSceneForTornHomeButtonsActive()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.MEARG_SCENE_INDEX)
+        {
+            _turnHomeButtonsPanel.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.HOME_SCENE_INDEX)
+        {
+            _turnHomeButtonsPanel.SetActive(true);
+        }
     }
 
 }
