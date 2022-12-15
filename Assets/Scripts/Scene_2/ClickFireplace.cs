@@ -195,15 +195,15 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
         
         if (_fireplaceActiv == true) //"активания квеста  по апгрейду  камина
         {
-            EventsResources.onFireplaceQuest();
+            EventsResources.onFireplaceQuest(_lvObjectNow + 1);
         }
         if (_armchairActiv == true) //активания квеста  по апгрейду  кресло
         {
-            EventsResources.onChairQuest();
+            EventsResources.onChairQuest(_lvObjectNow + 1);
         }
         if (_kitchenActiv == true) //активания квеста  по апгрейду  Кухни
         {
-            EventsResources.onTableQuest();
+            EventsResources.onTableQuest(_lvObjectNow + 1);
         }
         if (_ladderGoTo2Activ == true) //активания квеста  по апгрейду  Лестница на 2 этаж
         {
