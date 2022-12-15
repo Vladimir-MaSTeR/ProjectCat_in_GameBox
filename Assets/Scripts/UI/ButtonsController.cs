@@ -334,22 +334,22 @@ public class ButtonsController : MonoBehaviour
         if (stone_1lv > 0)
         {
             var currentStone = EventsResources.onGetCurentStone?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Камни 1ур {stone_1lv} ({currentStone})";
+            modifayText = modifayText + "\n" + $"Треугольная руна 1ур {stone_1lv} ({currentStone})";
         }
         if (log_1lv > 0)
         {
             var currentLog = EventsResources.onGetCurentLog?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Дерево 1ур {log_1lv} ({currentLog})";
+            modifayText = modifayText + "\n" + $"Прямоугольная руна 1ур {log_1lv} ({currentLog})";
         }
         if (neil_1lv > 0)
         {
             var currentNeil = EventsResources.onGetCurentNeil?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Гвозди 1 ур {neil_1lv} ({currentNeil})";
+            modifayText = modifayText + "\n" + $"Квадратная руна 1 ур {neil_1lv} ({currentNeil})";
         }
         if (cloth_1lv > 0)
         {
             var currentCloth = EventsResources.onGetCurentClouth?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Ткань 1 ур {cloth_1lv} ({currentCloth})";
+            modifayText = modifayText + "\n" + $"Круглая руна 1 ур {cloth_1lv} ({currentCloth})";
         }
 
         completeText = modifayText;
