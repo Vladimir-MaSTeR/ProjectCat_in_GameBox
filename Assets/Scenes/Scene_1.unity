@@ -12956,7 +12956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d93ec9bdb1586724796694b1bdc31b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRespavnItem: 3
+  _timeRespavnItem: 8
   _timeMovingYellow: 15
   _slots:
   - {fileID: 8576595994842813759}
@@ -13746,8 +13746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02885dc7bbc23f47a795f4e66241e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 30
-  _countSpawnItem: 2
+  _time: 10
+  _countSpawnItem: 1
   _resTag: Cloth_1
   _completeImage: {fileID: 8792299296002530082}
   _timerTextUI: {fileID: 8792299295993531747}
@@ -14617,8 +14617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02885dc7bbc23f47a795f4e66241e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 30
-  _countSpawnItem: 2
+  _time: 10
+  _countSpawnItem: 1
   _resTag: Log_1
   _completeImage: {fileID: 8792299295890038836}
   _timerTextUI: {fileID: 8792299296671214356}
@@ -14883,8 +14883,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02885dc7bbc23f47a795f4e66241e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 30
-  _countSpawnItem: 2
+  _time: 10
+  _countSpawnItem: 1
   _resTag: Stone_1
   _completeImage: {fileID: 8792299296911387232}
   _timerTextUI: {fileID: 8792299296374474887}
@@ -15142,8 +15142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02885dc7bbc23f47a795f4e66241e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 30
-  _countSpawnItem: 2
+  _time: 10
+  _countSpawnItem: 1
   _resTag: Neil_1
   _completeImage: {fileID: 8792299296465710574}
   _timerTextUI: {fileID: 8792299296389630287}
