@@ -61,11 +61,11 @@ public class EventsResources
     public static Action onEndMainQuest;
 
     [Tooltip("Ёвент активани€ квеста  по апгрейду камина")]
-    public static Action onFireplaceQuest;
+    public static Action<int> onFireplaceQuest;
     [Tooltip("Ёвент активани€ квеста  по апгрейду стула")]
-    public static Action onChairQuest;
+    public static Action<int> onChairQuest;
     [Tooltip("Ёвент активани€ квеста  по апгрейду стола")]
-    public static Action onTableQuest;
+    public static Action<int> onTableQuest;
 
     [Tooltip("Ёвент дл€ заказа спавна предмета")]
     public static Action<string> onSpawnItem;

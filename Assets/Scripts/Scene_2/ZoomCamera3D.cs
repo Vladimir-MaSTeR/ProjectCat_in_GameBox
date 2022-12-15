@@ -30,6 +30,7 @@ public class ZoomCamera3D : MonoBehaviour
 	private float yPositTemp2;
 	private float xPositDelta2;
 	private float yPositDelta2;
+	[SerializeField] private RectTransform _fonObj ;
 
 	[Header("Границы камеры")]
 	[SerializeField] private bool onBoundary = true;
@@ -41,6 +42,7 @@ public class ZoomCamera3D : MonoBehaviour
 	[SerializeField] private float _zoomPosMinY = 1;
 	[SerializeField] private float _zoomPosMaxZ = 8;
 	[SerializeField] private float _zoomPosMinZ = 1;
+
 
 	void Start()
 	{
@@ -286,6 +288,16 @@ public class ZoomCamera3D : MonoBehaviour
 	}
 
 
+	private void checkFonPosit(float _deltaZoom)
+	{
+		float xTurnFon = _fonObj.localPosition.x + ((4500f / 15f) * _deltaZoom);
+
+		var _fonlocalPosition = new Vector3(xTurnFon, _fonObj.localPosition.y, _fonObj.localPosition.z);
+		// Debug.Log(_fonlocalPosition);
+
+		_fonObj.localPosition = _fonlocalPosition;
+	}
+
 	public void clickTurnR(bool _turn)
 	{
 
@@ -296,6 +308,8 @@ public class ZoomCamera3D : MonoBehaviour
 			{
 
 				yZoomDelta = yZoomDelta - 1.5f;
+				checkFonPosit(1.5f);
+
 				// Debug.Log("R+ " + yZoomDelta);
 			}
 			else
@@ -309,9 +323,11 @@ public class ZoomCamera3D : MonoBehaviour
 		{
 			{
 
-				if (yZoomDelta < 18  || yZoomDelta > 360 - 13f) // 15f+3f
+				if (yZoomDelta < 18  || yZoomDelta > 360 - 15f) // 15f+3f
 				{
 					yZoomDelta = yZoomDelta + 1.5f;
+					checkFonPosit(-1.5f);
+
 					// Debug.Log("L+ " + yZoomDelta);
 				}
 				else
@@ -325,7 +341,6 @@ public class ZoomCamera3D : MonoBehaviour
 
 		}
 		_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, yZoomDelta, _objCamera.rotation.z);
-
 
 	}
 
