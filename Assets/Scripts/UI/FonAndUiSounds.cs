@@ -15,13 +15,17 @@ public class FonAndUiSounds : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.MEARG_SCENE_INDEX)
         {
-            _source.PlayOneShot(_mearg_fonClip);
+            _source.clip = _mearg_fonClip;
+            _source.Play();
+           // _source.PlayOneShot(_mearg_fonClip);
             _source.loop = true;
         }
 
         if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.HOME_SCENE_INDEX)
         {
-            _source.PlayOneShot(_home_fonClip);
+            _source.clip = _home_fonClip;
+            _source.Play();
+            // _source.PlayOneShot(_home_fonClip);
             _source.loop = true;
         }
 

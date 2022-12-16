@@ -4,54 +4,54 @@ using UnityEngine;
 public class QuestsResources : MonoBehaviour
 {
     [Header("Камин 1ур")]
-    [SerializeField] private int _fireplaceStone_1lv = 12;
+    [SerializeField] private int _fireplaceStone_1lv = 6;
     [SerializeField] private int _fireplaceLog_1lv = 3;
     [SerializeField] private int _fireplaceNeil_1lv = -1; // - 1 значит что ресурс не требуется для починки предмета.
-    [SerializeField] private int _fireplaceCloth_1lv = -1;
+    [SerializeField] private int _fireplaceCloth_1lv = 3;
 
     [Header("Камин 2ур")]
-    [SerializeField] private int _fireplaceStone_2lv = 15;
+    [SerializeField] private int _fireplaceStone_2lv = 10;
     [SerializeField] private int _fireplaceLog_2lv = 5;
-    [SerializeField] private int _fireplaceNeil_2lv = 3; // - 1 значит что ресурс не требуется для починки предмета.
-    [SerializeField] private int _fireplaceCloth_2lv = -1;
+    [SerializeField] private int _fireplaceNeil_2lv = -1; // - 1 значит что ресурс не требуется для починки предмета.
+    [SerializeField] private int _fireplaceCloth_2lv = 5;
 
     [Header("Камин 3ур")]
-    [SerializeField] private int _fireplaceStone_3lv = 15;
-    [SerializeField] private int _fireplaceLog_3lv = 5;
-    [SerializeField] private int _fireplaceNeil_3lv = 3; // - 1 значит что ресурс не требуется для починки предмета.
-    [SerializeField] private int _fireplaceCloth_3lv = -1;
+    [SerializeField] private int _fireplaceStone_3lv = 14;
+    [SerializeField] private int _fireplaceLog_3lv = 8;
+    [SerializeField] private int _fireplaceNeil_3lv = -1; // - 1 значит что ресурс не требуется для починки предмета.
+    [SerializeField] private int _fireplaceCloth_3lv = 8;
 
     [Header("Стул 1ур")]
-    [SerializeField] private int _chairStone_1lv = -1;
-    [SerializeField] private int _chairLog_1lv = 8;
-    [SerializeField] private int _chairNeil_1lv = 4;
+    [SerializeField] private int _chairStone_1lv = 3;
+    [SerializeField] private int _chairLog_1lv = 4;
+    [SerializeField] private int _chairNeil_1lv = 5;
     [SerializeField] private int _chairCloth_1lv = -1;
     [Header("Стул 2ур")]
-    [SerializeField] private int _chairStone_2lv = -1;
-    [SerializeField] private int _chairLog_2lv = 10;
-    [SerializeField] private int _chairNeil_2lv = 5;
+    [SerializeField] private int _chairStone_2lv = 5;
+    [SerializeField] private int _chairLog_2lv = 6;
+    [SerializeField] private int _chairNeil_2lv = 9;
     [SerializeField] private int _chairCloth_2lv = -1;
     [Header("Стул 3ур")]
-    [SerializeField] private int _chairStone_3lv = -1;
-    [SerializeField] private int _chairLog_3lv = 12;
-    [SerializeField] private int _chairNeil_3lv = 6;
-    [SerializeField] private int _chairCloth_3lv = 3;
+    [SerializeField] private int _chairStone_3lv = 8;
+    [SerializeField] private int _chairLog_3lv = 9;
+    [SerializeField] private int _chairNeil_3lv = 13;
+    [SerializeField] private int _chairCloth_3lv = -1;
 
     [Header("Стол 1ур")]
     [SerializeField] private int _tableStone_1lv = -1;
-    [SerializeField] private int _tableLog_1lv = 8;
+    [SerializeField] private int _tableLog_1lv = 2;
     [SerializeField] private int _tableNeil_1lv = 4;
-    [SerializeField] private int _tableCloth_1lv = -1;
+    [SerializeField] private int _tableCloth_1lv = 6;
     [Header("Стол 2ур")]
     [SerializeField] private int _tableStone_2lv = -1;
-    [SerializeField] private int _tableLog_2lv = 12;
-    [SerializeField] private int _tableNeil_2lv = 5;
-    [SerializeField] private int _tableCloth_2lv = 2;
+    [SerializeField] private int _tableLog_2lv = 4;
+    [SerializeField] private int _tableNeil_2lv = 6;
+    [SerializeField] private int _tableCloth_2lv = 10;
     [Header("Стол 3ур")]
     [SerializeField] private int _tableStone_3lv = -1;
-    [SerializeField] private int _tableLog_3lv = 15;
-    [SerializeField] private int _tableNeil_3lv = 5;
-    [SerializeField] private int _tableCloth_3lv = 7;
+    [SerializeField] private int _tableLog_3lv = 7;
+    [SerializeField] private int _tableNeil_3lv = 9;
+    [SerializeField] private int _tableCloth_3lv = 14;
 
 
     [Tooltip("Словарь для камина")]
@@ -261,5 +261,6 @@ public class QuestsResources : MonoBehaviour
         AddResourcesTableDictionary_1lv(_tableDictionary_1lv);
         return _tableDictionary_1lv;
     }
+
 
 }
