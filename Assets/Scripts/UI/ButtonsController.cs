@@ -57,6 +57,16 @@ public class ButtonsController : MonoBehaviour
     private IDictionary<string, int> _chairDictionary_3lv;
     private IDictionary<string, int> _tableDictionary_3lv;
 
+    private int _currentFireplaceLevel = 0;
+    private int _currentChairLevel = 0;
+    private int _currentTableLevel = 0;
+
+    private bool _fireplaceQuestCopmlete = false;
+    private bool _chairQuestCopmlete = false;
+    private bool _tableQuestCopmlete = false;
+
+   
+
 
     private void Start()
     {
@@ -70,8 +80,27 @@ public class ButtonsController : MonoBehaviour
 
         CheckStartCraftResouces();
         ReloadCurrentQuest();
-        UpdateShortQuestText();       
-       
+        UpdateShortQuestText();
+
+        ReloadsaveQuestComplete();
+        if (_fireplaceQuestCopmlete == true)
+        {
+            CompleteFireplaceQuest();
+            UpdateShortQuestText();
+        }
+
+        if (_chairQuestCopmlete == true)
+        {
+            CompleteChairQuest();
+            UpdateShortQuestText();
+        }
+
+        if (_tableQuestCopmlete == true)
+        {
+            CompleteTableQuest();
+            UpdateShortQuestText();
+        }
+
     }
 
 
@@ -107,6 +136,7 @@ public class ButtonsController : MonoBehaviour
     {
         ButtonsEvents.onSaveResouces?.Invoke();
         SaveCurrentQuest();
+        SaveQuestsComplete();
 
 
         if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.MEARG_SCENE_INDEX)
@@ -119,6 +149,7 @@ public class ButtonsController : MonoBehaviour
     {
         ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
         SaveCurrentQuest();
+        SaveQuestsComplete();
 
         if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.HOME_SCENE_INDEX)
         {
@@ -270,20 +301,20 @@ public class ButtonsController : MonoBehaviour
 
     private void UpdateShortQuestText()
     {
-        if (_currentQuest == INDEX_QUEST_0)
+        if (_currentQuest == INDEX_QUEST_0 && !_fireplaceQuestCopmlete)
         {
             var text = Quests.SECOND_QUEST_0_SHORT;
             var completeText = SecondQuestText(text, _fireplaceDictionary_1lv);
             _questShortText.text = completeText;
         }
-        else if (_currentQuest == INDEX_QUEST_1)
+        else if (_currentQuest == INDEX_QUEST_1 && !_chairQuestCopmlete)
         {
             var text = Quests.SECOND_QUEST_1_SHORT;
             var completeText = SecondQuestText(text, _chairDictionary_1lv);
             _questShortText.text = completeText;
 
         }
-        else if (_currentQuest == INDEX_QUEST_2)
+        else if (_currentQuest == INDEX_QUEST_2 && !_tableQuestCopmlete)
         {
             var text = Quests.SECOND_QUEST_2_SHORT;
             var completeText = SecondQuestText(text, _tableDictionary_1lv);
@@ -303,15 +334,15 @@ public class ButtonsController : MonoBehaviour
         _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(1);
         _fireplaceDictionary_2lv = EventsResources.onGetFireplaceDictionary?.Invoke(2);
         _fireplaceDictionary_3lv = EventsResources.onGetFireplaceDictionary?.Invoke(3);
-        Debug.Log($"_fireplaceDictionary_1lv = {_fireplaceDictionary_1lv.Count}");
+       
         _chairDictionary_1lv = EventsResources.onGetChairDictionary?.Invoke(1);
         _chairDictionary_2lv = EventsResources.onGetChairDictionary?.Invoke(2);
         _chairDictionary_3lv = EventsResources.onGetChairDictionary?.Invoke(3);
-        Debug.Log($"_chairDictionary_1lv = {_chairDictionary_1lv.Count}");
+      
         _tableDictionary_1lv = EventsResources.onGetTableDictionary?.Invoke(1);
         _tableDictionary_2lv = EventsResources.onGetTableDictionary?.Invoke(2);
         _tableDictionary_3lv = EventsResources.onGetTableDictionary?.Invoke(3);
-        Debug.Log($"_tableDictionary_1lv = {_tableDictionary_1lv.Count}");
+        
     }
 
     private string SecondQuestText(string startText, IDictionary<string, int> dictionary)
@@ -353,23 +384,67 @@ public class ButtonsController : MonoBehaviour
 
     private void CompleteFireplaceQuest()
     {
+        _fireplaceQuestCopmlete = true;
+
         _fireplaceQuestCheckButton.interactable = false;
         _fireplaceQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
         _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
     }
 
+    //private void CompleteFireplaceQuest(int fireplaceLevel)
+    //{
+    //    _fireplaceQuestCheckButton.interactable = false;
+    //    _fireplaceQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+    //    _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+
+    //    _currentFireplaceLevel = fireplaceLevel;
+    //    CheckSecondQuestsComplete();
+    //}
+
     private void CompleteChairQuest()
     {
+        _chairQuestCopmlete = true;
+
         _chairQuestCheckButton.interactable = false;
         _chairQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
         _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
     }
 
+    //private void CompleteChairQuest(int chairLevel)
+    //{
+    //    _chairQuestCheckButton.interactable = false;
+    //    _chairQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+    //    _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+
+    //    _currentChairLevel = chairLevel;
+    //    CheckSecondQuestsComplete();
+    //}
+
     private void CompleteTableQuest()
     {
+        _tableQuestCopmlete = true;
+
         _tableQuestCheckButton.interactable = false;
         _tableQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
         _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+    }
+
+    //private void CompleteTableQuest(int tableLevel)
+    //{
+    //    _tableQuestCheckButton.interactable = false;
+    //    _tableQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
+    //    _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
+
+    //    _currentTableLevel = tableLevel;
+    //    CheckSecondQuestsComplete();
+    //}
+
+    private void CheckSecondQuestsComplete()
+    {
+        if (true)
+        {
+
+        }
     }
 
     private void SaveCurrentQuest()
@@ -397,8 +472,13 @@ public class ButtonsController : MonoBehaviour
         if (level == 1)
         {
             _currentQuest = 0;
-            UpdateShortQuestText();
+
+            if (!_fireplaceQuestCopmlete)
+            {
+                UpdateShortQuestText();
+            }
         }
+           
        
     }
 
@@ -407,7 +487,12 @@ public class ButtonsController : MonoBehaviour
         if (level == 1)
         {
             _currentQuest = 1;
-            UpdateShortQuestText();
+
+            if (!_chairQuestCopmlete)
+            {
+                UpdateShortQuestText();
+            }
+           
         }
     }
 
@@ -416,7 +501,12 @@ public class ButtonsController : MonoBehaviour
         if (level == 1)
         {
             _currentQuest = 2;
-            UpdateShortQuestText();
+
+            if (!_tableQuestCopmlete)
+            {
+                UpdateShortQuestText();
+            }
+           
         }
        
     }
@@ -430,6 +520,75 @@ public class ButtonsController : MonoBehaviour
         else if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.HOME_SCENE_INDEX)
         {
             _turnHomeButtonsPanel.SetActive(true);
+        }
+    }
+
+    private void SaveQuestsComplete()
+    {
+        if (_fireplaceQuestCopmlete)
+        {
+            PlayerPrefs.SetInt("fireplaceQuestCopmlete", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("fireplaceQuestCopmlete", 0);
+        }
+
+        if (_chairQuestCopmlete)
+        {
+            PlayerPrefs.SetInt("chairQuestCopmlete", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("chairQuestCopmlete", 0);
+        }
+
+        if (_tableQuestCopmlete)
+        {
+            PlayerPrefs.SetInt("tableQuestCopmlete", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("tableQuestCopmlete", 0);
+        }
+    }
+
+    private void ReloadsaveQuestComplete()
+    {
+        if (PlayerPrefs.HasKey("fireplaceQuestCopmlete"))
+        {
+            if (PlayerPrefs.GetInt("fireplaceQuestCopmlete") == 1)
+            {
+                _fireplaceQuestCopmlete = true;
+            }
+            else
+            {
+                _fireplaceQuestCopmlete = false;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("chairQuestCopmlete"))
+        {
+            if (PlayerPrefs.GetInt("chairQuestCopmlete") == 1)
+            {
+                _chairQuestCopmlete = true;
+            }
+            else
+            {
+                _chairQuestCopmlete = false;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("tableQuestCopmlete"))
+        {
+            if (PlayerPrefs.GetInt("tableQuestCopmlete") == 1)
+            {
+                _tableQuestCopmlete = true;
+            }
+            else
+            {
+                _tableQuestCopmlete = false;
+            }
         }
     }
 

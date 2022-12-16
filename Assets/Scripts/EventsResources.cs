@@ -48,14 +48,24 @@ public class EventsResources
 
     public static Action onUpdateQuest;
     
-    [Tooltip("Ёвент завершени€ квеста  по апгрейду камина")]
+    [Tooltip("Ёвент завершени€ квеста  по апгрейду камина, запуска€ эвент нужно отправить уровень камина")]
     public static Action onEndFireplaceQuest;
 
-    [Tooltip("Ёвент завершени€ квеста  по апгрейду стула")]
+    [Tooltip("Ёвент завершени€ квеста  по апгрейду стула, запуска€ эвент нужно отправить уровень стула")]
     public static Action onEndChairQuest;
 
-    [Tooltip("Ёвент завершени€ квеста  по апгрейду стола")]
+    [Tooltip("Ёвент завершени€ квеста  по апгрейду стола, запуска€ эвент нужно отправить уровень стола")]
     public static Action onEndTableQuest;
+
+    //[Tooltip("Ёвент завершени€ квеста  по апгрейду камина, запуска€ эвент нужно отправить уровень камина")]
+    //public static Action<int> onEndFireplaceQuest;
+
+    //[Tooltip("Ёвент завершени€ квеста  по апгрейду стула, запуска€ эвент нужно отправить уровень стула")]
+    //public static Action<int> onEndChairQuest;
+
+    //[Tooltip("Ёвент завершени€ квеста  по апгрейду стола, запуска€ эвент нужно отправить уровень стола")]
+    //public static Action<int> onEndTableQuest;
+
 
     [Tooltip("Ёвент завершени€ главного квеста")]
     public static Action onEndMainQuest;

@@ -48,10 +48,6 @@ public class UiController : MonoBehaviour
     [SerializeField] private GameObject _menuPanel;
     [SerializeField] private GameObject _resorcesPanel;
 
-    //[Header("Звук")]
-    //[SerializeField] private AudioSource _source;
-    //[SerializeField] private AudioClip _clickButtonClip;
-
     [Header("Таймеры для заморозки корзины")]
     [SerializeField] private float _holdTime = 10;
     [SerializeField] private float _noHoldTime = 5;
@@ -107,7 +103,7 @@ public class UiController : MonoBehaviour
 
     private void Update()
     {
-        HoldTimer();
+       // HoldTimer();
     }
 
     private void OnEnable()
