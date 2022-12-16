@@ -12274,6 +12274,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: UiCanvas 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startLog_1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startLog_2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startLog_3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startNeil_1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startNeil_2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startNeil_3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startStone_1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startStone_2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startStone_3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startCloath_1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startCloath_2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startCloath_3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1240137516645981197, guid: dc43a97e639856f49922bdac672df863, type: 3}
+      propertyPath: _startPrestige
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1240137516645981246, guid: dc43a97e639856f49922bdac672df863, type: 3}
       propertyPath: m_Pivot.x
       value: 0
