@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 using UnityEngine.UI;
 
-public class ClickFireplace : MonoBehaviour, IPointerClickHandler
+public class ClickRepair : MonoBehaviour, IPointerClickHandler
 {
     [Header("Загружать сохранения или стартовые значения ресурсов")]
     [SerializeField] private bool loadResorces = true;
@@ -151,7 +151,6 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         //_animClick.
-        Debug.Log("!!клик!! ");
             var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
         _activQuests();
 
