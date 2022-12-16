@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 using UnityEngine.UI;
 
-public class ClickFireplace : MonoBehaviour, IPointerClickHandler
+public class ClickRepair : MonoBehaviour, IPointerClickHandler
 {
     [Header("Загружать сохранения или стартовые значения ресурсов")]
     [SerializeField] private bool loadResorces = true;
@@ -151,8 +151,7 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         //_animClick.
-
-                var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
+            var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
         _activQuests();
 
         if (_lvObjectNow < _lvObjectMax &&
@@ -283,9 +282,10 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private IDictionary<string, int> _resourceDictionary ()
     {
-        IDictionary<string, int> _resictionary = EventsResources.onGetFireplaceDictionary(1);
-        // Уровнь в квест журнале (слудующий)
         int _lvResObjUp = _lvObjectNow + 1;
+
+        IDictionary<string, int> _resictionary = EventsResources.onGetFireplaceDictionary?.Invoke(_lvResObjUp);
+        // Уровнь в квест журнале (слудующий)
 
         if (_fireplaceActiv == true) //"Улучшение камина
         {
@@ -370,45 +370,46 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
              cloth_1lv = dictionary[ResourcesTags.Cloth_3.ToString()];
         }
 
+        int _lvResObjUp = _lvObjectNow + 1;
 
         if (stone_1lv > 0) // камень 1 ур
         {
-            var currentStone = EventsResources.onGetCurentStone?.Invoke(1);
+            var currentStone = EventsResources.onGetCurentStone?.Invoke(_lvResObjUp);
             if (stone_1lv <= currentStone)
             { _resUp = true; }
             else
             { _resUp = false; }
-            Debug.Log("камень 1 ур " + stone_1lv + "<= " + currentStone);
+            Debug.Log("Треугольная руна  " + stone_1lv + "<= " + currentStone + " ур- " + _lvResObjUp); // камень
 
         }
         if (log_1lv > 0) // Дерево 1ур
         {
-            var currentLog = EventsResources.onGetCurentLog?.Invoke(1);
+            var currentLog = EventsResources.onGetCurentLog?.Invoke(_lvResObjUp);
             if (log_1lv <= currentLog)
             { _resUp = true; }
             else
             { _resUp = false; }
-            Debug.Log("Дерево 1 ур " + log_1lv + "<= " + currentLog);
+            Debug.Log("Прямоугольная руна   " + log_1lv + "<= " + currentLog + " ур- " + _lvResObjUp); // Дерево
 
         }
         if (neil_1lv > 0) // Гвозди 1 ур
         {
-            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(1);
+            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(_lvResObjUp);
             if (neil_1lv <= currentNeil)
             { _resUp = true; }
             else
             { _resUp = false; }
-            Debug.Log("Гвозди 1 ур " + neil_1lv + "<= " + currentNeil);
+            Debug.Log("Квадратная руна     " + neil_1lv + "<= " + currentNeil + " ур- " + _lvResObjUp); //Гвозди
 
         }
         if (cloth_1lv > 0) // Ткань 1 ур
         {
-            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(1);
+            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(_lvResObjUp);
             if (cloth_1lv <= currentCloth)
             { _resUp = true; }
             else
             { _resUp = false; }
-            Debug.Log("Ткань 1 ур " + cloth_1lv + "<= " + currentCloth);
+            Debug.Log("Круглая руна   " + cloth_1lv + "<= " + currentCloth + " ур- " + _lvResObjUp); //Ткань
 
         }
 
@@ -487,19 +488,19 @@ public class ClickFireplace : MonoBehaviour, IPointerClickHandler
 
         if (stone_1lv < currentStone && stone_1lv > 0 ) // камень  ур
         {
-            EventsResources.onStoneInBucket?.Invoke(1, stone_1lv, 0);
+            EventsResources.onStoneInBucket?.Invoke(_lvRequiredResource, stone_1lv, 0);
         }
         if (log_1lv < currentLog && log_1lv > 0) // Дерево ур
         {
-            EventsResources.onLogInBucket?.Invoke(1, log_1lv, 0);
+            EventsResources.onLogInBucket?.Invoke(_lvRequiredResource, log_1lv, 0);
         }
         if (neil_1lv < currentNeil && neil_1lv > 0) // Гвозди  ур
         {
-            EventsResources.onNeilInBucket?.Invoke(1, neil_1lv, 0);
+            EventsResources.onNeilInBucket?.Invoke(_lvRequiredResource, neil_1lv, 0);
         }
         if (cloth_1lv < currentCloth && cloth_1lv > 0) // Ткань  ур
         {
-            EventsResources.onClouthInBucket?.Invoke(1, cloth_1lv, 0);
+            EventsResources.onClouthInBucket?.Invoke(_lvRequiredResource, cloth_1lv, 0);
         }
     }
 

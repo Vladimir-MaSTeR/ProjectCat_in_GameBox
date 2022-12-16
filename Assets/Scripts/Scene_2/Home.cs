@@ -78,20 +78,20 @@ public class Home : MonoBehaviour
     {
         if (homeDictionary.Count == 0)
         {
-            homeDictionary.Add(_fireplaceObje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                                _fireplaceObje.GetComponent<ClickFireplace>().LvObj);
-            homeDictionary.Add(_armchairObje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                                _armchairObje.GetComponent<ClickFireplace>().LvObj);
-            homeDictionary.Add(_kitchenObje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                                _kitchenObje.GetComponent<ClickFireplace>().LvObj);
-            homeDictionary.Add(_ladderGoTo2Obje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                                _ladderGoTo2Obje.GetComponent<ClickFireplace>().LvObj);
-            homeDictionary.Add(_bedObje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                                _bedObje.GetComponent<ClickFireplace>().LvObj);
-            homeDictionary.Add(_ladderGoTo3Obje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                                _ladderGoTo3Obje.GetComponent<ClickFireplace>().LvObj);
-            homeDictionary.Add(_cupboardObje.GetComponent<ClickFireplace>().NameObject.ToString(),
-                               _cupboardObje.GetComponent<ClickFireplace>().LvObj);
+            homeDictionary.Add(_fireplaceObje.GetComponent<ClickRepair>().NameObject.ToString(),
+                                _fireplaceObje.GetComponent<ClickRepair>().LvObj);
+            homeDictionary.Add(_armchairObje.GetComponent<ClickRepair>().NameObject.ToString(),
+                                _armchairObje.GetComponent<ClickRepair>().LvObj);
+            homeDictionary.Add(_kitchenObje.GetComponent<ClickRepair>().NameObject.ToString(),
+                                _kitchenObje.GetComponent<ClickRepair>().LvObj);
+            homeDictionary.Add(_ladderGoTo2Obje.GetComponent<ClickRepair>().NameObject.ToString(),
+                                _ladderGoTo2Obje.GetComponent<ClickRepair>().LvObj);
+            homeDictionary.Add(_bedObje.GetComponent<ClickRepair>().NameObject.ToString(),
+                                _bedObje.GetComponent<ClickRepair>().LvObj);
+            homeDictionary.Add(_ladderGoTo3Obje.GetComponent<ClickRepair>().NameObject.ToString(),
+                                _ladderGoTo3Obje.GetComponent<ClickRepair>().LvObj);
+            homeDictionary.Add(_cupboardObje.GetComponent<ClickRepair>().NameObject.ToString(),
+                               _cupboardObje.GetComponent<ClickRepair>().LvObj);
         }
     }
 
@@ -104,15 +104,15 @@ public class Home : MonoBehaviour
             bool _armchairQuests = false;
             bool _kitchenQuests = false;
 
-            if (_fireplaceObje.GetComponent<ClickFireplace>().LvObj > 0)
+            if (_fireplaceObje.GetComponent<ClickRepair>().LvObj > 0)
             {
                 _fireplaceQuests = true;
             }
-            if (_armchairObje.GetComponent<ClickFireplace>().LvObj > 0)
+            if (_armchairObje.GetComponent<ClickRepair>().LvObj > 0)
             {
                 _armchairQuests = true;
             }
-            if (_kitchenObje.GetComponent<ClickFireplace>().LvObj > 0)
+            if (_kitchenObje.GetComponent<ClickRepair>().LvObj > 0)
             {
                 _kitchenQuests = true;
             }

@@ -837,19 +837,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadResorces: 1
-  _startCloath_1: 0
-  _startCloath_2: 0
-  _startCloath_3: 0
-  _startLog_1: 0
-  _startLog_2: 0
-  _startLog_3: 0
-  _startNeil_1: 0
-  _startNeil_2: 0
-  _startNeil_3: 0
-  _startStone_1: 0
-  _startStone_2: 0
-  _startStone_3: 0
-  _startPrestige: 0
+  _startCloath_1: 50
+  _startCloath_2: 50
+  _startCloath_3: 50
+  _startLog_1: 50
+  _startLog_2: 50
+  _startLog_3: 50
+  _startNeil_1: 50
+  _startNeil_2: 50
+  _startNeil_3: 50
+  _startStone_1: 50
+  _startStone_2: 50
+  _startStone_3: 50
+  _startPrestige: 50
   _cloath_0_Text: {fileID: 5164688278541241719}
   _cloath_1_Text: {fileID: 5164688279904611937}
   _cloath_2_Text: {fileID: 5164688278455210341}
@@ -1709,8 +1709,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240137517399310199}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4000}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 20000}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1240137516645981246}
@@ -1718,7 +1718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 786.1, y: -0.00036621094}
+  m_AnchoredPosition: {x: -283, y: 3417}
   m_SizeDelta: {x: 3024.3, y: 2561.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1240137517399310196
@@ -6661,42 +6661,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f21e095e179eea41adb78e45483f4be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireplaceStone_1lv: 10
+  _fireplaceStone_1lv: 6
   _fireplaceLog_1lv: 3
   _fireplaceNeil_1lv: -1
-  _fireplaceCloth_1lv: -1
-  _fireplaceStone_2lv: 15
+  _fireplaceCloth_1lv: 3
+  _fireplaceStone_2lv: 10
   _fireplaceLog_2lv: 5
-  _fireplaceNeil_2lv: 3
-  _fireplaceCloth_2lv: -1
-  _fireplaceStone_3lv: 15
-  _fireplaceLog_3lv: 5
-  _fireplaceNeil_3lv: 3
-  _fireplaceCloth_3lv: -1
-  _chairStone_1lv: -1
-  _chairLog_1lv: -1
-  _chairNeil_1lv: 7
+  _fireplaceNeil_2lv: -1
+  _fireplaceCloth_2lv: 5
+  _fireplaceStone_3lv: 14
+  _fireplaceLog_3lv: 8
+  _fireplaceNeil_3lv: -1
+  _fireplaceCloth_3lv: 8
+  _chairStone_1lv: 3
+  _chairLog_1lv: 4
+  _chairNeil_1lv: 5
   _chairCloth_1lv: -1
-  _chairStone_2lv: -1
-  _chairLog_2lv: 10
-  _chairNeil_2lv: 5
+  _chairStone_2lv: 5
+  _chairLog_2lv: 6
+  _chairNeil_2lv: 9
   _chairCloth_2lv: -1
-  _chairStone_3lv: -1
-  _chairLog_3lv: 12
-  _chairNeil_3lv: 6
-  _chairCloth_3lv: 3
+  _chairStone_3lv: 8
+  _chairLog_3lv: 9
+  _chairNeil_3lv: 13
+  _chairCloth_3lv: -1
   _tableStone_1lv: -1
-  _tableLog_1lv: 10
-  _tableNeil_1lv: -1
-  _tableCloth_1lv: -1
+  _tableLog_1lv: 2
+  _tableNeil_1lv: 4
+  _tableCloth_1lv: 6
   _tableStone_2lv: -1
-  _tableLog_2lv: 12
-  _tableNeil_2lv: 5
-  _tableCloth_2lv: 2
+  _tableLog_2lv: 4
+  _tableNeil_2lv: 6
+  _tableCloth_2lv: 10
   _tableStone_3lv: -1
-  _tableLog_3lv: 15
-  _tableNeil_3lv: 5
-  _tableCloth_3lv: 7
+  _tableLog_3lv: 7
+  _tableNeil_3lv: 9
+  _tableCloth_3lv: 14
 --- !u!1 &5164688278363513660
 GameObject:
   m_ObjectHideFlags: 0
@@ -12711,8 +12711,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1504}
-  m_SizeDelta: {x: 0, y: 2557}
+  m_AnchoredPosition: {x: 0, y: 300}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5164688279375502415
 CanvasRenderer:
