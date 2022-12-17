@@ -189,6 +189,10 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         else
         {
             _activQuests();
+            if (_lvObjectNow != _lvObjectMax)
+            {
+                _animClick.Play("AnimationError");
+            }
         }
 
 
@@ -378,7 +382,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (stone_1lv <= currentStone)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Треугольная руна  " + stone_1lv + "<= " + currentStone + " ур- " + _lvResObjUp); // камень
 
         }
@@ -388,7 +394,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (log_1lv <= currentLog)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Прямоугольная руна   " + log_1lv + "<= " + currentLog + " ур- " + _lvResObjUp); // Дерево
 
         }
@@ -398,7 +406,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (neil_1lv <= currentNeil)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Квадратная руна     " + neil_1lv + "<= " + currentNeil + " ур- " + _lvResObjUp); //Гвозди
 
         }
@@ -408,7 +418,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (cloth_1lv <= currentCloth)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Круглая руна   " + cloth_1lv + "<= " + currentCloth + " ур- " + _lvResObjUp); //Ткань
 
         }
