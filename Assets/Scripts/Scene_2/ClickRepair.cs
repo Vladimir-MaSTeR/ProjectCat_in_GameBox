@@ -501,24 +501,24 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         if (stone_1lv < currentStone && stone_1lv > 0 ) // камень  ур
         {
             EventsResources.onStoneInBucket?.Invoke(_lvRequiredResource, stone_1lv, 0);
-            Debug.Log("lv "+ _lvRequiredResource + " Kol-vo " + stone_1lv);
+            Debug.Log("stone lv " + _lvRequiredResource + " Kol-vo " + stone_1lv);
         }
         if (log_1lv < currentLog && log_1lv > 0) // ƒерево ур
         {
             EventsResources.onLogInBucket?.Invoke(_lvRequiredResource, log_1lv, 0);
-            Debug.Log("lv " + _lvRequiredResource + " Kol-vo " + log_1lv);
+            Debug.Log("log lv " + _lvRequiredResource + " Kol-vo " + log_1lv);
 
         }
         if (neil_1lv < currentNeil && neil_1lv > 0) // √возди  ур
         {
             EventsResources.onNeilInBucket?.Invoke(_lvRequiredResource, neil_1lv, 0);
-            Debug.Log("lv " + _lvRequiredResource + " Kol-vo " + neil_1lv);
+            Debug.Log("neil lv " + _lvRequiredResource + " Kol-vo " + neil_1lv);
 
         }
         if (cloth_1lv < currentCloth && cloth_1lv > 0) // “кань  ур
         {
             EventsResources.onClouthInBucket?.Invoke(_lvRequiredResource, cloth_1lv, 0);
-            Debug.Log("lv " + _lvRequiredResource + " Kol-vo " + cloth_1lv);
+            Debug.Log("cloth lv " + _lvRequiredResource + " Kol-vo " + cloth_1lv);
 
         }
     }
