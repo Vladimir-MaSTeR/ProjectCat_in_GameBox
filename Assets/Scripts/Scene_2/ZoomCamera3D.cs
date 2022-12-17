@@ -30,7 +30,7 @@ public class ZoomCamera3D : MonoBehaviour
 	private float yPositTemp2;
 	private float xPositDelta2;
 	private float yPositDelta2;
-	[SerializeField] private RectTransform _fonObj ;
+//	[SerializeField] private RectTransform _fonObj ;
 
 	[Header("Границы камеры")]
 	[SerializeField] private bool onBoundary = true;
@@ -288,61 +288,61 @@ public class ZoomCamera3D : MonoBehaviour
 	}
 
 
-	private void checkFonPosit(float _deltaZoom)
-	{
-		float xTurnFon = _fonObj.localPosition.x + ((4500f / 15f) * _deltaZoom);
+	//private void checkFonPosit(float _deltaZoom)
+	//{
+	//	float xTurnFon = _fonObj.localPosition.x + ((4500f / 15f) * _deltaZoom);
 
-		var _fonlocalPosition = new Vector3(xTurnFon, _fonObj.localPosition.y, _fonObj.localPosition.z);
-		// Debug.Log(_fonlocalPosition);
+	//	var _fonlocalPosition = new Vector3(xTurnFon, _fonObj.localPosition.y, _fonObj.localPosition.z);
+	//	// Debug.Log(_fonlocalPosition);
 
-		_fonObj.localPosition = _fonlocalPosition;
-	}
+	//	_fonObj.localPosition = _fonlocalPosition;
+	//}
 
-	public void clickTurnR(bool _turn)
-	{
+	//public void clickTurnR(bool _turn)
+	//{
 
-		float yZoomDelta = _objCamera.localEulerAngles.y;
-		if (_turn == true )
-		{
-			if (yZoomDelta > 360-12f || yZoomDelta < 20) //-15f+3f
-			{
+	//	float yZoomDelta = _objCamera.localEulerAngles.y;
+	//	if (_turn == true )
+	//	{
+	//		if (yZoomDelta > 360-12f || yZoomDelta < 20) //-15f+3f
+	//		{
 
-				yZoomDelta = yZoomDelta - 1.5f;
-				checkFonPosit(1.5f);
+	//			yZoomDelta = yZoomDelta - 1.5f;
+	//			checkFonPosit(1.5f);
 
-				// Debug.Log("R+ " + yZoomDelta);
-			}
-			else
-			{
-				_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, -12f, _objCamera.rotation.z);
+	//			// Debug.Log("R+ " + yZoomDelta);
+	//		}
+	//		else
+	//		{
+	//			_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, -12f, _objCamera.rotation.z);
 
 
-			}
-		}
-		else // if (_turn == false)
-		{
-			{
+	//		}
+	//	}
+	//	else // if (_turn == false)
+	//	{
+	//		{
 
-				if (yZoomDelta < 18  || yZoomDelta > 360 - 15f) // 15f+3f
-				{
-					yZoomDelta = yZoomDelta + 1.5f;
-					checkFonPosit(-1.5f);
+	//			if (yZoomDelta < 18  || yZoomDelta > 360 - 15f) // 15f+3f
+	//			{
+	//				yZoomDelta = yZoomDelta + 1.5f;
+	//				checkFonPosit(-1.5f);
 
-					// Debug.Log("L+ " + yZoomDelta);
-				}
-				else
-				{
+	//				// Debug.Log("L+ " + yZoomDelta);
+	//			}
+	//			else
+	//			{
 
-					_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, 18f, _objCamera.rotation.z);
+	//				_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, 18f, _objCamera.rotation.z);
 
-				}
+	//			}
 
-			}
+	//		}
 
-		}
-		_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, yZoomDelta, _objCamera.rotation.z);
+	//	}
+	//	_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, yZoomDelta, _objCamera.rotation.z);
 
-	}
+	//}
 
 
 }

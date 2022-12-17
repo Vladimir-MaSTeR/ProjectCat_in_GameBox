@@ -189,6 +189,10 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         else
         {
             _activQuests();
+            if (_lvObjectNow != _lvObjectMax)
+            {
+                _animClick.Play("AnimationError");
+            }
         }
 
 
@@ -378,7 +382,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (stone_1lv <= currentStone)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Треугольная руна  " + stone_1lv + "<= " + currentStone + " ур- " + _lvResObjUp); // камень
 
         }
@@ -388,7 +394,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (log_1lv <= currentLog)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Прямоугольная руна   " + log_1lv + "<= " + currentLog + " ур- " + _lvResObjUp); // Дерево
 
         }
@@ -398,7 +406,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (neil_1lv <= currentNeil)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Квадратная руна     " + neil_1lv + "<= " + currentNeil + " ур- " + _lvResObjUp); //Гвозди
 
         }
@@ -408,7 +418,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (cloth_1lv <= currentCloth)
             { _resUp = true; }
             else
-            { _resUp = false; }
+            { _resUp = false;
+                return _checkUp;
+            }
             Debug.Log("Круглая руна   " + cloth_1lv + "<= " + currentCloth + " ур- " + _lvResObjUp); //Ткань
 
         }
@@ -489,18 +501,25 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         if (stone_1lv < currentStone && stone_1lv > 0 ) // камень  ур
         {
             EventsResources.onStoneInBucket?.Invoke(_lvRequiredResource, stone_1lv, 0);
+            Debug.Log("lv "+ _lvRequiredResource + " Kol-vo " + stone_1lv);
         }
         if (log_1lv < currentLog && log_1lv > 0) // Дерево ур
         {
             EventsResources.onLogInBucket?.Invoke(_lvRequiredResource, log_1lv, 0);
+            Debug.Log("lv " + _lvRequiredResource + " Kol-vo " + log_1lv);
+
         }
         if (neil_1lv < currentNeil && neil_1lv > 0) // Гвозди  ур
         {
             EventsResources.onNeilInBucket?.Invoke(_lvRequiredResource, neil_1lv, 0);
+            Debug.Log("lv " + _lvRequiredResource + " Kol-vo " + neil_1lv);
+
         }
         if (cloth_1lv < currentCloth && cloth_1lv > 0) // Ткань  ур
         {
             EventsResources.onClouthInBucket?.Invoke(_lvRequiredResource, cloth_1lv, 0);
+            Debug.Log("lv " + _lvRequiredResource + " Kol-vo " + cloth_1lv);
+
         }
     }
 
