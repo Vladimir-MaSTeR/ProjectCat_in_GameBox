@@ -110,16 +110,24 @@ public class ButtonsController : MonoBehaviour
     private void Update()
     {
 
-        if (_fireplaceQuestCopmlete && _chairQuestCopmlete && _tableQuestCopmlete)
+        if (_fireplaceQuestCopmlete)
         {
-            _currentFireplaceLevel++;
-            _currentChairLevel++;
-            _currentTableLevel++;
-
-
             //ущё нужно менять текст главного квеста.
+            _currentFireplaceLevel++;
             _fireplaceQuestCopmlete = false;
+        }
+
+        if (_chairQuestCopmlete)
+        {
+            //ущё нужно менять текст главного квеста.
+            _currentChairLevel++;
             _chairQuestCopmlete = false;
+        }
+
+        if (_tableQuestCopmlete)
+        {
+            //ущё нужно менять текст главного квеста.
+            _currentTableLevel++;
             _tableQuestCopmlete = false;
         }
 
@@ -600,23 +608,23 @@ public class ButtonsController : MonoBehaviour
 
     private void ClickFireplace(int level)
     {
-        if (level == 1)
-        {
+        //if (level == 1)
+        //{
             _currentQuest = 0;
 
             if (!_fireplaceQuestCopmlete)
             {
                 UpdateShortQuestText();
             }
-        }
+        //}
            
        
     }
 
     private void ClickChair(int level)
     {
-        if (level == 1)
-        {
+        //if (level == 1)
+        //{
             _currentQuest = 1;
 
             if (!_chairQuestCopmlete)
@@ -624,13 +632,13 @@ public class ButtonsController : MonoBehaviour
                 UpdateShortQuestText();
             }
            
-        }
+        //}
     }
 
     private void ClickTable(int level)
     {
-        if (level == 1)
-        {
+        //if (level == 1)
+        //{
             _currentQuest = 2;
 
             if (!_tableQuestCopmlete)
@@ -638,7 +646,7 @@ public class ButtonsController : MonoBehaviour
                 UpdateShortQuestText();
             }
            
-        }
+        //}
        
     }
 
