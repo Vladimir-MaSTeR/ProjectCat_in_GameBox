@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 847356478593234327}
   - component: {fileID: 847356478593234312}
   - component: {fileID: 847356478593234313}
+  - component: {fileID: 276141128}
+  - component: {fileID: 276141131}
+  - component: {fileID: 276141134}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -42,7 +45,7 @@ Camera:
   m_GameObject: {fileID: 847356478593234314}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -57,15 +60,15 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 2000
   field of view: 60
-  orthographic: 1
-  orthographic size: 5
+  orthographic: 0
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -84,3 +87,63 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847356478593234314}
   m_Enabled: 1
+--- !u!114 &276141128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847356478593234314}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 098c84fd0f69f114daa48c0badd13461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBoundary: 0
+  _zoomMin: 5
+  _zoomMax: 15
+  _zoomPosMaxX: 62
+  _zoomPosMinX: 56
+  _zoomPosMaxY: 38
+  _zoomPosMinY: 23
+  _zoomPosMaxZ: -125
+  _zoomPosMinZ: -125
+  cameraTouchZoomOn: 0
+--- !u!114 &276141131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847356478593234314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
+--- !u!114 &276141134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847356478593234314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9545e24b2fb6646be961b85c2172cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myCamera: {fileID: 847356478593234327}
+  onBoundary: 1
+  _zoomMin: 1
+  _zoomMax: 8
+  _zoomPosMaxX: 7
+  _zoomPosMinX: 0
+  _zoomPosMaxY: 10
+  _zoomPosMinY: 5
+  _zoomPosMaxZ: -20
+  _zoomPosMinZ: -35

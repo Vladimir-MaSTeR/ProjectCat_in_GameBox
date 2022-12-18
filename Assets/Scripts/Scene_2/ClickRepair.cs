@@ -235,6 +235,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         {
             //  EventsResources. ?.Invoke(_lvResObjUp);
         }
+        Debug.Log(_lvResObjUp);
 
     }
 
@@ -244,7 +245,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     private void _completedQuests()
     {
         int _lvResObjUp = _lvObjectNow + 1;
-
+        Debug.Log("completed "+ _lvResObjUp);
         if (_fireplaceActiv == true) //завершение квеста  по апгрейду  камина
         {
             EventsResources.onEndFireplaceQuest?.Invoke();
