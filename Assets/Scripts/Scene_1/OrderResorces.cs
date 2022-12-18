@@ -16,16 +16,21 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     //[SerializeField] private TextMeshPro _timerText;
     [SerializeField] private TextMeshProUGUI _timerTextUI;
 
+    private int _id;
     private float _currentTime;
     private bool _allowOrderResorces = false;
 
     private void Start()
     {
+        _id = GetInstanceID();
+
         _currentTime = _time;
         _timerTextUI.text = _currentTime.ToString();
 
         _completeImage.gameObject.SetActive(false);
         _timerTextUI.gameObject.SetActive(true);
+
+        ReloadSaveTimer();
     }
 
 
@@ -33,6 +38,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     {
         Timer();
     }
+
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -53,6 +59,16 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    private void OnEnable()
+    {
+        ButtonsEvents.onSaveResouces += SaveTimer;
+    }
+
+    private void OnDisable()
+    {
+        ButtonsEvents.onSaveResouces -= SaveTimer;
+    }
+
     private void Timer()
     {
         if (_currentTime > 0 && _allowOrderResorces == false)
@@ -66,6 +82,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
             _completeImage.gameObject.SetActive(true);
         }
     }
+
     private void UpdateTimerText(float time)
     {
         if (time < 0)
@@ -79,5 +96,44 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 
     }
 
-    
+    private void SaveTimer()
+    {
+        var timeName = $"currentTimeOrderResorces {_id}";
+
+        PlayerPrefs.SetFloat("currentTimeOrderResorces", _currentTime);
+
+        if (_allowOrderResorces == true)
+        {
+            PlayerPrefs.SetInt("allowOrderResorces", 1);
+        } else
+        {
+            PlayerPrefs.SetInt("allowOrderResorces", 0);
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private void ReloadSaveTimer()
+    {
+        if (PlayerPrefs.HasKey("currentTimeOrderResorces"))
+        {
+            _currentTime = PlayerPrefs.GetFloat("currentTimeOrderResorces");
+        }
+
+        if (PlayerPrefs.HasKey("allowOrderResorces"))
+        {
+           var currentAllow = PlayerPrefs.GetInt("allowOrderResorces");
+
+            if (currentAllow == 1)
+            {
+                _allowOrderResorces = true;
+            } else
+            {
+                _allowOrderResorces = false;
+            }
+        }
+    }
+
+
+
 }

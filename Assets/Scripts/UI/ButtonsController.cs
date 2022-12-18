@@ -80,9 +80,11 @@ public class ButtonsController : MonoBehaviour
 
         CheckStartCraftResouces();
         ReloadCurrentQuest();
-        UpdateShortQuestText();
 
         ReloadsaveQuestComplete();
+        ReloadSaveCurrentLEvelObjectInHome();
+        UpdateShortQuestText();
+
         if (_fireplaceQuestCopmlete == true)
         {
             CompleteFireplaceQuest();
@@ -101,6 +103,27 @@ public class ButtonsController : MonoBehaviour
             UpdateShortQuestText();
         }
 
+        
+
+    }
+
+    private void Update()
+    {
+
+        if (_fireplaceQuestCopmlete && _chairQuestCopmlete && _tableQuestCopmlete)
+        {
+            _currentFireplaceLevel++;
+            _currentChairLevel++;
+            _currentTableLevel++;
+
+
+            //ущё нужно менять текст главного квеста.
+            _fireplaceQuestCopmlete = false;
+            _chairQuestCopmlete = false;
+            _tableQuestCopmlete = false;
+        }
+
+        UpdateShortQuestText();
     }
 
 
@@ -132,11 +155,39 @@ public class ButtonsController : MonoBehaviour
     }
 
 
+    private void SaveCurrentLEvelObjectInHome ()
+    {
+        PlayerPrefs.SetInt("currentFireplaceLevel", _currentFireplaceLevel);
+        PlayerPrefs.SetInt("currentChairLevel", _currentChairLevel);
+        PlayerPrefs.SetInt("currentTableLevel", _currentTableLevel);
+
+        PlayerPrefs.Save();
+    }
+
+    private void ReloadSaveCurrentLEvelObjectInHome()
+    {
+        if (PlayerPrefs.HasKey("currentFireplaceLevel"))
+        {
+            _currentFireplaceLevel = PlayerPrefs.GetInt("currentFireplaceLevel");
+        }
+
+        if (PlayerPrefs.HasKey("currentChairLevel"))
+        {
+            _currentChairLevel = PlayerPrefs.GetInt("currentChairLevel");
+        }
+
+        if (PlayerPrefs.HasKey("currentTableLevel"))
+        {
+            _currentTableLevel = PlayerPrefs.GetInt("currentTableLevel");
+        }
+    }
+
     public void ClickMeargSceneButton()
     {
         ButtonsEvents.onSaveResouces?.Invoke();
         SaveCurrentQuest();
         SaveQuestsComplete();
+        SaveCurrentLEvelObjectInHome();
 
 
         if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.MEARG_SCENE_INDEX)
@@ -150,6 +201,7 @@ public class ButtonsController : MonoBehaviour
         ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
         SaveCurrentQuest();
         SaveQuestsComplete();
+        SaveCurrentLEvelObjectInHome();
 
         if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.HOME_SCENE_INDEX)
         {
@@ -304,20 +356,68 @@ public class ButtonsController : MonoBehaviour
         if (_currentQuest == INDEX_QUEST_0 && !_fireplaceQuestCopmlete)
         {
             var text = Quests.SECOND_QUEST_0_SHORT;
-            var completeText = SecondQuestText(text, _fireplaceDictionary_1lv);
+            var completeText = "";
+
+            if (_currentFireplaceLevel == 0)
+            {
+                completeText = SecondQuestText(text, 1, _fireplaceDictionary_1lv);
+            }
+
+            if (_currentFireplaceLevel == 1)
+            {
+                completeText = SecondQuestText(text,  2, _fireplaceDictionary_2lv);
+            }
+
+            if (_currentFireplaceLevel == 2)
+            {
+                completeText = SecondQuestText(text, 3, _fireplaceDictionary_3lv);
+            }
+
             _questShortText.text = completeText;
         }
         else if (_currentQuest == INDEX_QUEST_1 && !_chairQuestCopmlete)
         {
             var text = Quests.SECOND_QUEST_1_SHORT;
-            var completeText = SecondQuestText(text, _chairDictionary_1lv);
+            var completeText = "";
+
+            if (_currentChairLevel == 0)
+            {
+                completeText = SecondQuestText(text, 1, _chairDictionary_1lv);
+            }
+
+            if (_currentChairLevel == 1)
+            {
+                completeText = SecondQuestText(text, 2, _chairDictionary_2lv);
+            }
+
+            if (_currentChairLevel == 2)
+            {
+                completeText = SecondQuestText(text, 3, _chairDictionary_3lv);
+            }
+
             _questShortText.text = completeText;
 
         }
         else if (_currentQuest == INDEX_QUEST_2 && !_tableQuestCopmlete)
         {
             var text = Quests.SECOND_QUEST_2_SHORT;
-            var completeText = SecondQuestText(text, _tableDictionary_1lv);
+            var completeText = "";
+
+            if (_currentTableLevel == 0)
+            {
+                completeText = SecondQuestText(text, 1, _tableDictionary_1lv);
+            }
+
+            if (_currentTableLevel == 1)
+            {
+                completeText = SecondQuestText(text, 2, _tableDictionary_2lv);
+            }
+
+            if (_currentTableLevel == 2)
+            {
+                completeText = SecondQuestText(text, 3, _tableDictionary_3lv);
+            }
+
             _questShortText.text = completeText;
 
         }
@@ -345,39 +445,70 @@ public class ButtonsController : MonoBehaviour
         
     }
 
-    private string SecondQuestText(string startText, IDictionary<string, int> dictionary)
+    private string SecondQuestText(string startText, int level, IDictionary<string, int> dictionary)
+    {
+        var stone_1lv = 0;
+        var log_1lv = 0;
+        var neil_1lv = 0;
+        var cloth_1lv = 0;
+
+        if (level == 1)
+        {
+            stone_1lv = dictionary[ResourcesTags.Stone_1.ToString()];
+            log_1lv = dictionary[ResourcesTags.Log_1.ToString()];
+            neil_1lv = dictionary[ResourcesTags.Neil_1.ToString()];
+            cloth_1lv = dictionary[ResourcesTags.Cloth_1.ToString()];
+        }
+
+        if (level == 2)
+        {
+            stone_1lv = dictionary[ResourcesTags.Stone_2.ToString()];
+            log_1lv = dictionary[ResourcesTags.Log_2.ToString()];
+            neil_1lv = dictionary[ResourcesTags.Neil_2.ToString()];
+            cloth_1lv = dictionary[ResourcesTags.Cloth_2.ToString()];
+        }
+
+        if (level == 3)
+        {
+            stone_1lv = dictionary[ResourcesTags.Stone_3.ToString()];
+            log_1lv = dictionary[ResourcesTags.Log_3.ToString()];
+            neil_1lv = dictionary[ResourcesTags.Neil_3.ToString()];
+            cloth_1lv = dictionary[ResourcesTags.Cloth_3.ToString()];
+        }
+
+
+        var completeText = QuestText(stone_1lv, log_1lv, neil_1lv, cloth_1lv, startText, level);
+
+        return completeText;
+    }
+
+    private string QuestText(int stone, int log, int neil, int cloat, string startText, int runsLevel)
     {
         var modifayText = startText;
         var completeText = "";
 
-        var stone_1lv = dictionary[ResourcesTags.Stone_1.ToString()];
-        var log_1lv = dictionary[ResourcesTags.Log_1.ToString()];
-        var neil_1lv = dictionary[ResourcesTags.Neil_1.ToString()];
-        var cloth_1lv = dictionary[ResourcesTags.Cloth_1.ToString()];
-
-        if (stone_1lv > 0)
+        if (stone > 0)
         {
-            var currentStone = EventsResources.onGetCurentStone?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Треугольная руна 1ур {stone_1lv} ({currentStone})";
+            var currentStone = EventsResources.onGetCurentStone?.Invoke(runsLevel);
+            modifayText = modifayText + "\n" + $"Треугольная руна {runsLevel}ур {stone}({currentStone})";
         }
-        if (log_1lv > 0)
+        if (log > 0)
         {
-            var currentLog = EventsResources.onGetCurentLog?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Прямоугольная руна 1ур {log_1lv} ({currentLog})";
+            var currentLog = EventsResources.onGetCurentLog?.Invoke(runsLevel);
+            modifayText = modifayText + "\n" + $"Прямоугольная руна {runsLevel}ур {log}({currentLog})";
         }
-        if (neil_1lv > 0)
+        if (neil > 0)
         {
-            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Квадратная руна 1 ур {neil_1lv} ({currentNeil})";
+            var currentNeil = EventsResources.onGetCurentNeil?.Invoke(runsLevel);
+            modifayText = modifayText + "\n" + $"Квадратная руна {runsLevel}ур {neil}({currentNeil})";
         }
-        if (cloth_1lv > 0)
+        if (cloat > 0)
         {
-            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(1);
-            modifayText = modifayText + "\n" + $"Круглая руна 1 ур {cloth_1lv} ({currentCloth})";
+            var currentCloth = EventsResources.onGetCurentClouth?.Invoke(runsLevel);
+            modifayText = modifayText + "\n" + $"Круглая руна {runsLevel}ур {cloat}({currentCloth})";
         }
 
         completeText = modifayText;
-        
 
         return completeText;
     }
