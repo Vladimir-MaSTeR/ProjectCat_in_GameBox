@@ -80,10 +80,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
                     _currentCountSpawnOnClick = _countSpawnOnClick;
                 }
             }           
-
-           
             
-
             _completeImage.gameObject.SetActive(false);
             //_timerTextUI.gameObject.SetActive(true);
             _currentTime = _time;
