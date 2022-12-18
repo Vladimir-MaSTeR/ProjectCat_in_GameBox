@@ -7,6 +7,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 {
     [Header("Переменные")]
     [SerializeField] private float _time = 90f;
+    [SerializeField] private int _id;
 
     [SerializeField] private int _countSpawnItem = 2;
     [SerializeField] private string _resTag;
@@ -16,19 +17,26 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     //[SerializeField] private TextMeshPro _timerText;
     [SerializeField] private TextMeshProUGUI _timerTextUI;
 
-    private int _id;
+    private int _curent_id;
     private float _currentTime;
     private bool _allowOrderResorces = false;
 
+    private string timeName;
+    private string allowName;
+
     private void Start()
     {
-        _id = GetInstanceID();
+        //_id = GetInstanceID();
+        _curent_id =_id;
 
-        _currentTime = _time;
-        _timerTextUI.text = _currentTime.ToString();
+       timeName = $"currentTimeOrderResorces {_curent_id}";
+       allowName = $"currentAllow {_curent_id}";
 
-        _completeImage.gameObject.SetActive(false);
-        _timerTextUI.gameObject.SetActive(true);
+       _currentTime = _time;
+       _timerTextUI.text = _currentTime.ToString();
+
+       _completeImage.gameObject.SetActive(false);
+       _timerTextUI.gameObject.SetActive(true);
 
         ReloadSaveTimer();
     }
@@ -98,16 +106,18 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 
     private void SaveTimer()
     {
-        var timeName = $"currentTimeOrderResorces {_id}";
+        
 
-        PlayerPrefs.SetFloat("currentTimeOrderResorces", _currentTime);
+        PlayerPrefs.SetFloat(timeName, _currentTime);
 
+
+       
         if (_allowOrderResorces == true)
         {
-            PlayerPrefs.SetInt("allowOrderResorces", 1);
+            PlayerPrefs.SetInt(allowName, 1);
         } else
         {
-            PlayerPrefs.SetInt("allowOrderResorces", 0);
+            PlayerPrefs.SetInt(allowName, 0);
         }
 
         PlayerPrefs.Save();
@@ -115,14 +125,14 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 
     private void ReloadSaveTimer()
     {
-        if (PlayerPrefs.HasKey("currentTimeOrderResorces"))
+        if (PlayerPrefs.HasKey(timeName))
         {
-            _currentTime = PlayerPrefs.GetFloat("currentTimeOrderResorces");
+            _currentTime = PlayerPrefs.GetFloat(timeName);
         }
 
-        if (PlayerPrefs.HasKey("allowOrderResorces"))
+        if (PlayerPrefs.HasKey(allowName))
         {
-           var currentAllow = PlayerPrefs.GetInt("allowOrderResorces");
+           var currentAllow = PlayerPrefs.GetInt(allowName);
 
             if (currentAllow == 1)
             {
