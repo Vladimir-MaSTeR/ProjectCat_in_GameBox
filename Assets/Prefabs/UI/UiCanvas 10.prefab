@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7371071499813011816}
   - component: {fileID: 6204807164099579246}
   - component: {fileID: 7107213136315420145}
+  - component: {fileID: 294225744}
   m_Layer: 5
   m_Name: 'Button (L) '
   m_TagString: Untagged
@@ -120,19 +121,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6204807164099579246}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ZoomCamera3D, Assembly-CSharp
-        m_MethodName: clickTurnR
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &294225744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679291731140729415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0842a0a45003f4ea95d74d4c217a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objCamera: {fileID: 0}
+  _fonObj: {fileID: 3903762325980419529}
+  onRotationRight: 0
 --- !u!1 &1707903962049627359
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,8 +2759,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3903762325980419528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 20000}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3903762327378622081}
@@ -2764,7 +2768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 786.1, y: -0.00036621094}
+  m_AnchoredPosition: {x: -283, y: 3417}
   m_SizeDelta: {x: 3024.3, y: 2561.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3903762325980419531
@@ -3204,7 +3208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3903762326279139589
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9070,7 +9074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6968617866453661438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9108,7 +9112,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6968617866453661437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -14693,6 +14697,7 @@ GameObject:
   - component: {fileID: 812319301627107645}
   - component: {fileID: 8013759564018493075}
   - component: {fileID: 6451082087996831035}
+  - component: {fileID: 2057156237}
   m_Layer: 5
   m_Name: Button (R)
   m_TagString: Untagged
@@ -14801,16 +14806,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8013759564018493075}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ZoomCamera3D, Assembly-CSharp
-        m_MethodName: clickTurnR
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &2057156237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7585427619214127643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0842a0a45003f4ea95d74d4c217a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objCamera: {fileID: 0}
+  _fonObj: {fileID: 3903762325980419529}
+  onRotationRight: 1
