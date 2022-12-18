@@ -104,15 +104,15 @@ public class Home : MonoBehaviour
             bool _armchairQuests = false;
             bool _kitchenQuests = false;
 
-            if (_fireplaceObje.GetComponent<ClickRepair>().LvObj > 0)
+            if (_fireplaceObje.GetComponent<ClickRepair>().LvObj > 2)
             {
                 _fireplaceQuests = true;
             }
-            if (_armchairObje.GetComponent<ClickRepair>().LvObj > 0)
+            if (_armchairObje.GetComponent<ClickRepair>().LvObj > 2)
             {
                 _armchairQuests = true;
             }
-            if (_kitchenObje.GetComponent<ClickRepair>().LvObj > 0)
+            if (_kitchenObje.GetComponent<ClickRepair>().LvObj > 2)
             {
                 _kitchenQuests = true;
             }

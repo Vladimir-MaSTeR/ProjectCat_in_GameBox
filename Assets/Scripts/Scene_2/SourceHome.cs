@@ -1,7 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class FonAndUiSounds : MonoBehaviour
+public class SourceHome : MonoBehaviour
 {
     [SerializeField] private AudioSource _source;
 
