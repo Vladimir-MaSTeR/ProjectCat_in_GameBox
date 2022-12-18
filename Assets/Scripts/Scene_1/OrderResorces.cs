@@ -7,6 +7,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 {
     [Header("Переменные")]
     [SerializeField] private float _time = 90f;
+    [SerializeField] private int _id;
 
     [SerializeField] private int _countSpawnItem = 2;
     [SerializeField] private string _resTag;
@@ -16,16 +17,28 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     //[SerializeField] private TextMeshPro _timerText;
     [SerializeField] private TextMeshProUGUI _timerTextUI;
 
+    private int _curent_id;
     private float _currentTime;
     private bool _allowOrderResorces = false;
 
+    private string timeName;
+    private string allowName;
+
     private void Start()
     {
-        _currentTime = _time;
-        _timerTextUI.text = _currentTime.ToString();
+        //_id = GetInstanceID();
+        _curent_id =_id;
 
-        _completeImage.gameObject.SetActive(false);
-        _timerTextUI.gameObject.SetActive(true);
+       timeName = $"currentTimeOrderResorces {_curent_id}";
+       allowName = $"currentAllow {_curent_id}";
+
+       _currentTime = _time;
+       _timerTextUI.text = _currentTime.ToString();
+
+       _completeImage.gameObject.SetActive(false);
+       _timerTextUI.gameObject.SetActive(true);
+
+        ReloadSaveTimer();
     }
 
 
@@ -33,6 +46,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     {
         Timer();
     }
+
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -53,6 +67,16 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    private void OnEnable()
+    {
+        ButtonsEvents.onSaveResouces += SaveTimer;
+    }
+
+    private void OnDisable()
+    {
+        ButtonsEvents.onSaveResouces -= SaveTimer;
+    }
+
     private void Timer()
     {
         if (_currentTime > 0 && _allowOrderResorces == false)
@@ -66,6 +90,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
             _completeImage.gameObject.SetActive(true);
         }
     }
+
     private void UpdateTimerText(float time)
     {
         if (time < 0)
@@ -79,5 +104,46 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 
     }
 
-    
+    private void SaveTimer()
+    {
+        
+
+        PlayerPrefs.SetFloat(timeName, _currentTime);
+
+
+       
+        if (_allowOrderResorces == true)
+        {
+            PlayerPrefs.SetInt(allowName, 1);
+        } else
+        {
+            PlayerPrefs.SetInt(allowName, 0);
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private void ReloadSaveTimer()
+    {
+        if (PlayerPrefs.HasKey(timeName))
+        {
+            _currentTime = PlayerPrefs.GetFloat(timeName);
+        }
+
+        if (PlayerPrefs.HasKey(allowName))
+        {
+           var currentAllow = PlayerPrefs.GetInt(allowName);
+
+            if (currentAllow == 1)
+            {
+                _allowOrderResorces = true;
+            } else
+            {
+                _allowOrderResorces = false;
+            }
+        }
+    }
+
+
+
 }

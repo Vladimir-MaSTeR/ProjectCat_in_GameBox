@@ -749,10 +749,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 847356478593234312, guid: 4ee55da6b622916409b4043c4da5eeb7, type: 3}
-      propertyPath: far clip plane
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 847356478593234314, guid: 4ee55da6b622916409b4043c4da5eeb7, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -810,6 +806,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1923323632362063970, guid: aa20afbbea719b64f8cfdb737842a7ef, type: 3}
+      propertyPath: _id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923323632442508757, guid: aa20afbbea719b64f8cfdb737842a7ef, type: 3}
+      propertyPath: _id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923323632708962860, guid: aa20afbbea719b64f8cfdb737842a7ef, type: 3}
+      propertyPath: _id
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923323632822803193, guid: aa20afbbea719b64f8cfdb737842a7ef, type: 3}
+      propertyPath: _id
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3903762327378622080, guid: aa20afbbea719b64f8cfdb737842a7ef, type: 3}
       propertyPath: m_Camera
       value: 
