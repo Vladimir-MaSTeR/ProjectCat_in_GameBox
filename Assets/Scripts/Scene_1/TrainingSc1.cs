@@ -49,9 +49,7 @@ public class TrainingSc1 : MonoBehaviour
         if (_currentText == 3)
         {
             _text.text = FOURE;
-            EventsResources.onStoneInBucket?.Invoke(1, 6, 1);
-            EventsResources.onLogInBucket?.Invoke(1, 3, 1);
-            EventsResources.onClouthInBucket?.Invoke(1, 3, 1);
+            
         }
         if (_currentText == 4)
         {
@@ -59,7 +57,9 @@ public class TrainingSc1 : MonoBehaviour
             _oneStart = 2;
             Save();
 
-            
+            EventsResources.onStoneInBucket?.Invoke(1, 6, 1);
+            EventsResources.onLogInBucket?.Invoke(1, 3, 1);
+            EventsResources.onClouthInBucket?.Invoke(1, 3, 1);
 
             ButtonsEvents.onSaveResouces?.Invoke();
 
