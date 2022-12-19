@@ -225,15 +225,17 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void _animReadyUp()
     {
+        if (_lvObjectNow != _lvObjectMax)
+        {
+            _animClick.Play("AnimationReadyUp");
+            if (_checkResourceLvUp() == true) /// true; проверка ресурсов
+            {
+                float pTime = Random.Range(2f, 4f);
+                Invoke("_animReadyUp", pTime);
+            }
 
-        _animClick.Play("AnimationReadyUp");
-
-        float pTime = Random.Range(2f, 4f);
-        Invoke("_animReadyUp", pTime);
-
-
-        // Debug.Log(_lvResObjUp);
-
+            // Debug.Log(_lvResObjUp);
+        }
     }
 
 
@@ -248,7 +250,6 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         //_animClick.
             var _checkResLvUp = _checkResourceLvUp();   /// true; проверка ресурсов
         _activQuests();
-
         if (_lvObjectNow < _lvObjectMax &&
             _checkResLvUp == true)  /// проверка ресерса
         {
@@ -256,6 +257,8 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (_animClick.IsPlaying("AnimationLvUp") == false)
             {
                 _animClick.Play("AnimationClick"); // "AnimationClick"
+                _soundsСlick();
+
             }
             else
             {
@@ -287,6 +290,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             if (_lvObjectNow != _lvObjectMax)
             {
                 _animClick.Play("AnimationError");
+                SourceHome.onSoundsСlickFalseRepair?.Invoke();
             }
         }
 
@@ -330,7 +334,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         {
             //  EventsResources. ?.Invoke(_lvResObjUp);
         }
-        Debug.Log(_lvResObjUp);
+       // Debug.Log(_lvResObjUp);
 
     }
 
@@ -340,7 +344,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     private void _completedQuests()
     {
         int _lvResObjUp = _lvObjectNow + 1;
-        Debug.Log("completed "+ _lvResObjUp);
+       // Debug.Log("completed "+ _lvResObjUp);
         if (_fireplaceActiv == true) //завершение квеста  по апгрейду  камина
         {
             EventsResources.onEndFireplaceQuest?.Invoke();
@@ -373,7 +377,38 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     }
 
 
+      private void _soundsСlick()
+    {
+        if (_fireplaceActiv == true) //"активания квеста  по апгрейду  камина
+        {
+            SourceHome.onSoundsСlickFireplace?.Invoke();
+        }
+        if (_armchairActiv == true) //активания квеста  по апгрейду  кресло
+        {
+            SourceHome.onSoundsСlickRepairObj?.Invoke();
+        }
+        if (_kitchenActiv == true) //активания квеста  по апгрейду  Кухни
+        {
+            SourceHome.onSoundsСlickRepairObj?.Invoke();
+        }
+        if (_ladderGoTo2Activ == true) //активания квеста  по апгрейду  Лестница на 2 этаж
+        {
+            //  EventsResources. ?.Invoke(_lvResObjUp);
+        }
+        if (_bedActiv == true) //активания квеста  по апгрейду  кровати
+        {
+            //  EventsResources. ?.Invoke(_lvResObjUp);
+        }
+        if (_ladderGoTo3Activ == true) //активания квеста  по апгрейду  Лестница на 3 этаж
+        {
+            //  EventsResources. ?.Invoke(_lvResObjUp);
+        }
+        if (_cupboardActiv == true) //активания квеста  по апгрейду  Стол с картой
+        {
+            //  EventsResources. ?.Invoke(_lvResObjUp);
+        }
 
+    }
 
 
 
@@ -540,7 +575,10 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         //  _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
         _completedQuests();
         _lvObjectNow += 1;
+
+        SourceHome.onSoundsСlickLvUpObj?.Invoke();
         AddModel(_lvObjectNow);
+        
         _animClick = _objectNow.GetComponent<Animation>();
       //  _animLvUp = _objectNow.GetComponent<Animation>();
         _amtClickGoLvUp = _clickGoLvUp();

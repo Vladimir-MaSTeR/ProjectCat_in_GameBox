@@ -107,7 +107,7 @@ public class clickRotationCamera : MonoBehaviour, IPointerDownHandler, IPointerU
 
 	private void checkFonPosit(float _deltaZoom)
 	{
-		float xTurnFon = _fonObj.localPosition.x + ((4500f / 15f) * _deltaZoom);
+		float xTurnFon = _fonObj.localPosition.x + ((2600f / 15f) * _deltaZoom); /// 4500f => 2600f
 
 		var _fonlocalPosition = new Vector3(xTurnFon, _fonObj.localPosition.y, _fonObj.localPosition.z);
 		// Debug.Log(_fonlocalPosition);
