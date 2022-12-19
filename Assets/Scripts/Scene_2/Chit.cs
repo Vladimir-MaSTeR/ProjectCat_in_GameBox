@@ -26,21 +26,21 @@ public class Chit : MonoBehaviour, IPointerClickHandler
     {
 
 
-        EventsResources.onStoneInBucket?.Invoke(1, 1, 1);
-        EventsResources.onLogInBucket?.Invoke(1, 1, 1);
-        EventsResources.onNeilInBucket?.Invoke(1, 1, 1);
-        EventsResources.onClouthInBucket?.Invoke(1, 1, 1);
+        //EventsResources.onStoneInBucket?.Invoke(1, 1, 1);
+        //EventsResources.onLogInBucket?.Invoke(1, 1, 1);
+        //EventsResources.onNeilInBucket?.Invoke(1, 1, 1);
+        //EventsResources.onClouthInBucket?.Invoke(1, 1, 1);
 
-        EventsResources.onStoneInBucket?.Invoke(2, 1, 1);
-        EventsResources.onLogInBucket?.Invoke(2, 1, 1);
-        EventsResources.onNeilInBucket?.Invoke(2, 1, 1);
-        EventsResources.onClouthInBucket?.Invoke(2, 1, 1);
+        //EventsResources.onStoneInBucket?.Invoke(2, 1, 1);
+        //EventsResources.onLogInBucket?.Invoke(2, 1, 1);
+        //EventsResources.onNeilInBucket?.Invoke(2, 1, 1);
+        //EventsResources.onClouthInBucket?.Invoke(2, 1, 1);
 
-        EventsResources.onStoneInBucket?.Invoke(3, 1, 1);
-        EventsResources.onLogInBucket?.Invoke(3, 1, 1);
-        EventsResources.onNeilInBucket?.Invoke(3, 1, 1);
-        EventsResources.onClouthInBucket?.Invoke(3, 1, 1);
-
+        //EventsResources.onStoneInBucket?.Invoke(3, 1, 1);
+        //EventsResources.onLogInBucket?.Invoke(3, 1, 1);
+        //EventsResources.onNeilInBucket?.Invoke(3, 1, 1);
+        //EventsResources.onClouthInBucket?.Invoke(3, 1, 1);
+        Debug.Log("×èò?");
     }
 }
 
