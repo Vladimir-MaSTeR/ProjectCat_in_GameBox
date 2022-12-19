@@ -225,16 +225,17 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private void _animReadyUp()
     {
-
-        _animClick.Play("AnimationReadyUp");
-        if (_checkResourceLvUp() == true) /// true; проверка ресурсов
+        if (_lvObjectNow != _lvObjectMax)
         {
-            float pTime = Random.Range(2f, 4f);
-            Invoke("_animReadyUp", pTime);
+            _animClick.Play("AnimationReadyUp");
+            if (_checkResourceLvUp() == true) /// true; проверка ресурсов
+            {
+                float pTime = Random.Range(2f, 4f);
+                Invoke("_animReadyUp", pTime);
+            }
+
+            // Debug.Log(_lvResObjUp);
         }
-
-        // Debug.Log(_lvResObjUp);
-
     }
 
 
