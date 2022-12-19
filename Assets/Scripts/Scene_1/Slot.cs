@@ -43,7 +43,7 @@ public class Slot : MonoBehaviour, IDropHandler
             }
 
             if (parentTag == childrenTag && parentId != childrenId)
-                {
+            {
 
                 CheckResorces(parentTag, ResourcesTags.Log_1.ToString(), ResourcesTags.Log_2.ToString(), ResourcesTags.Log_3.ToString(), _log_2_sprite, _log_3_sprite);
                 CheckResorces(parentTag, ResourcesTags.Cloth_1.ToString(), ResourcesTags.Cloth_2.ToString(), ResourcesTags.Cloth_3.ToString(), _cloth_2_sprite, _cloth_3_sprite);
@@ -63,15 +63,16 @@ public class Slot : MonoBehaviour, IDropHandler
                     gameObject.GetComponentInChildren<Text>().text = currentAmount.ToString();
                     gameObject.GetComponentInChildren<Item>().SetCurrentAmountForText(currentAmount);
 
-                    // EventsForMearge.onPositiveMeargeSound?.Invoke();
+                 SoundsEvents.onPositiveMeargeSound?.Invoke();
 
-                    Destroy(eventData.pointerDrag);
-                }
-                else
+                Destroy(eventData.pointerDrag);
+            }
+             else
                 {
-                    // EventsForMearge.onNoMeargeSound?.Invoke();
-                }
-            
+                SoundsEvents.onNegativeMeargeSound?.Invoke();
+            }
+
+
         }
         
     }

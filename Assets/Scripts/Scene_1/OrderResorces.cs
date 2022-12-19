@@ -59,6 +59,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
         if (_allowOrderResorces == true)
         {
             Debug.Log("еярэ йкхй он опедлерс");
+            SoundsEvents.onTapOrderResouces?.Invoke();
             //_allowOrderResorces = false;
 
             if (_currentCountSpawnOnClick > 0)
