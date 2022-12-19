@@ -77,6 +77,7 @@ public class Spawner : MonoBehaviour
             else
             {
                 Instantiate(_items[_currentItemIndex], _slots[_currentSlotIndex].rectTransform);
+                SoundsEvents.onSpawnRuns?.Invoke();
 
                 _currentTimeRessItem = _timeRespavnItem;
                 _currentSlotIndex = Random.Range(0, _slots.Length);
@@ -102,6 +103,7 @@ public class Spawner : MonoBehaviour
                         if (itemTag == childrenTag)
                         {
                             Instantiate(item, slot.rectTransform);
+                            SoundsEvents.onSpawnRuns?.Invoke();
                             return;
                         }
                 }
