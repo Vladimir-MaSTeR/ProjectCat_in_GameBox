@@ -13,6 +13,9 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private GameObject _secondLongTextPanel;
     [SerializeField] private GameObject _turnHomeButtonsPanel;
 
+    [SerializeField] private GameObject _theGameTextPanel;
+    [SerializeField] private GameObject _autorsTextPanel;
+
     [Header("Текстовый поля")]
     [SerializeField] private Text _mainLongText;
     [SerializeField] private Text _secondLongText;
@@ -75,6 +78,9 @@ public class ButtonsController : MonoBehaviour
         _questsPanel.SetActive(false);
         _mainLongTextPanel.SetActive(false);
         _secondLongTextPanel.SetActive(false);
+
+        _theGameTextPanel.SetActive(false);
+        _autorsTextPanel.SetActive(false);
 
        // CheckSceneForTornHomeButtonsActive();
 
@@ -532,16 +538,6 @@ public class ButtonsController : MonoBehaviour
         _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
     }
 
-    //private void CompleteFireplaceQuest(int fireplaceLevel)
-    //{
-    //    _fireplaceQuestCheckButton.interactable = false;
-    //    _fireplaceQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
-    //    _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
-
-    //    _currentFireplaceLevel = fireplaceLevel;
-    //    CheckSecondQuestsComplete();
-    //}
-
     private void CompleteChairQuest()
     {
         _chairQuestCopmlete = true;
@@ -551,16 +547,6 @@ public class ButtonsController : MonoBehaviour
         _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
     }
 
-    //private void CompleteChairQuest(int chairLevel)
-    //{
-    //    _chairQuestCheckButton.interactable = false;
-    //    _chairQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
-    //    _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
-
-    //    _currentChairLevel = chairLevel;
-    //    CheckSecondQuestsComplete();
-    //}
-
     private void CompleteTableQuest()
     {
         _tableQuestCopmlete = true;
@@ -568,24 +554,6 @@ public class ButtonsController : MonoBehaviour
         _tableQuestCheckButton.interactable = false;
         _tableQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
         _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
-    }
-
-    //private void CompleteTableQuest(int tableLevel)
-    //{
-    //    _tableQuestCheckButton.interactable = false;
-    //    _tableQuestTextButton.text = Quests.SECOND_QUEST_COMPLETE;
-    //    _questShortText.text = Quests.SECOND_QUEST_COMPLETE;
-
-    //    _currentTableLevel = tableLevel;
-    //    CheckSecondQuestsComplete();
-    //}
-
-    private void CheckSecondQuestsComplete()
-    {
-        if (true)
-        {
-
-        }
     }
 
     private void SaveCurrentQuest()
@@ -597,7 +565,6 @@ public class ButtonsController : MonoBehaviour
 
     private void ReloadCurrentQuest()
     {
-
         if (PlayerPrefs.HasKey("currentQuest"))
         {
             _currentQuest = PlayerPrefs.GetInt("currentQuest");
@@ -605,51 +572,36 @@ public class ButtonsController : MonoBehaviour
             CheckStartCraftResouces();
             UpdateShortQuestText();
         }
-       
     }
 
     private void ClickFireplace(int level)
     {
-        //if (level == 1)
-        //{
             _currentQuest = 0;
 
             if (!_fireplaceQuestCopmlete)
             {
                 UpdateShortQuestText();
             }
-        //}
-           
-       
     }
 
     private void ClickChair(int level)
     {
-        //if (level == 1)
-        //{
-            _currentQuest = 1;
+        _currentQuest = 1;
 
-            if (!_chairQuestCopmlete)
-            {
+        if (!_chairQuestCopmlete)
+        {
                 UpdateShortQuestText();
-            }
-           
-        //}
+        }
     }
 
     private void ClickTable(int level)
     {
-        //if (level == 1)
-        //{
-            _currentQuest = 2;
+        _currentQuest = 2;
 
-            if (!_tableQuestCopmlete)
-            {
+        if (!_tableQuestCopmlete)
+        {
                 UpdateShortQuestText();
-            }
-           
-        //}
-       
+        }
     }
 
     private void CheckSceneForTornHomeButtonsActive()
@@ -692,6 +644,8 @@ public class ButtonsController : MonoBehaviour
         {
             PlayerPrefs.SetInt("tableQuestCopmlete", 0);
         }
+
+        PlayerPrefs.Save();
     }
 
     private void ReloadsaveQuestComplete()
@@ -731,6 +685,29 @@ public class ButtonsController : MonoBehaviour
                 _tableQuestCopmlete = false;
             }
         }
+    }
+
+
+    public void ClickAutorButton()
+    {
+        
+        _autorsTextPanel.SetActive(true);
+    }
+
+    public void ClickBackButtonInAutorPanel()
+    {
+        _autorsTextPanel.SetActive(false);
+    }
+
+    public void ClickTheGameButton()
+    {
+
+        _theGameTextPanel.SetActive(true);
+    }
+
+    public void ClickBackButtonInTheGamePanel()
+    {
+        _theGameTextPanel.SetActive(false);
     }
 
 }
