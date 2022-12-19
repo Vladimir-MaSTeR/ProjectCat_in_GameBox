@@ -9,7 +9,8 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     [SerializeField] private float _time = 90f;
     [SerializeField] private int _id;
 
-    [SerializeField] private int _countSpawnItem = 2;
+    [SerializeField] private int _countSpawnItemOneMoment = 2;
+    [SerializeField] private int _countSpawnOnClick = 8;
     [SerializeField] private string _resTag;
     [SerializeField] private Image _completeImage;
 
@@ -20,20 +21,25 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     private int _curent_id;
     private float _currentTime;
     private bool _allowOrderResorces = false;
+    private int _currentCountSpawnOnClick = 8;
 
     private string timeName;
     private string allowName;
+    private string countSpawnOnClickName;
 
     private void Start()
     {
         //_id = GetInstanceID();
         _curent_id =_id;
+       
 
-       timeName = $"currentTimeOrderResorces {_curent_id}";
-       allowName = $"currentAllow {_curent_id}";
+       timeName = $"currentTimeOrderResorces{_curent_id}";
+       allowName = $"currentAllow{_curent_id}";
+       countSpawnOnClickName = $"currentCountSpawnOnClick{_curent_id}";
 
        _currentTime = _time;
-       _timerTextUI.text = _currentTime.ToString();
+        _currentCountSpawnOnClick = _countSpawnOnClick;
+        _timerTextUI.text = _currentTime.ToString();
 
        _completeImage.gameObject.SetActive(false);
        _timerTextUI.gameObject.SetActive(true);
@@ -53,16 +59,30 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
         if (_allowOrderResorces == true)
         {
             Debug.Log("≈—“‹  À»  œŒ œ–≈ƒÃ≈“”");
-            _allowOrderResorces = false;
+            //_allowOrderResorces = false;
 
-            for (int i = 0; i < _countSpawnItem; i++)
+            if (_currentCountSpawnOnClick > 0)
             {
-                EventsResources.onSpawnItem?.Invoke(_resTag);
-            }
-            
+                _timerTextUI.gameObject.SetActive(true);
+               // _timerTextUI.text = _currentCountSpawnOnClick.ToString();
 
+                for (int i = 0; i < _countSpawnItemOneMoment; i++)
+                {
+                    EventsResources.onSpawnItem?.Invoke(_resTag);
+                }
+
+                _currentCountSpawnOnClick--;
+                _timerTextUI.text = _currentCountSpawnOnClick.ToString();
+
+                if (_currentCountSpawnOnClick <= 0)
+                {
+                    _allowOrderResorces = false;
+                    _currentCountSpawnOnClick = _countSpawnOnClick;
+                }
+            }           
+            
             _completeImage.gameObject.SetActive(false);
-            _timerTextUI.gameObject.SetActive(true);
+            //_timerTextUI.gameObject.SetActive(true);
             _currentTime = _time;
         }
     }
@@ -86,7 +106,9 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 
         }  else {
             _allowOrderResorces = true;
-            _timerTextUI.gameObject.SetActive(false);
+            _timerTextUI.text = _currentCountSpawnOnClick.ToString();
+            //_currentCountSpawnOnClick = _countSpawnOnClick;
+            //_timerTextUI.gameObject.SetActive(false);
             _completeImage.gameObject.SetActive(true);
         }
     }
@@ -106,11 +128,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
 
     private void SaveTimer()
     {
-        
-
         PlayerPrefs.SetFloat(timeName, _currentTime);
-
-
        
         if (_allowOrderResorces == true)
         {
@@ -119,6 +137,9 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
         {
             PlayerPrefs.SetInt(allowName, 0);
         }
+
+        PlayerPrefs.SetInt(countSpawnOnClickName, _currentCountSpawnOnClick);
+        Debug.Log($"—Óı‡ÌËÎ countSpawnOnClickName = {_currentCountSpawnOnClick}");
 
         PlayerPrefs.Save();
     }
@@ -141,6 +162,12 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
             {
                 _allowOrderResorces = false;
             }
+        }
+
+        if (PlayerPrefs.HasKey(countSpawnOnClickName))
+        {
+            _currentCountSpawnOnClick = PlayerPrefs.GetInt(countSpawnOnClickName);
+            Debug.Log($"«¿√–”«»À countSpawnOnClickName = {_currentCountSpawnOnClick}");
         }
     }
 
