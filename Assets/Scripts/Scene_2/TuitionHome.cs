@@ -90,6 +90,7 @@ public class TuitionHome : MonoBehaviour
     {
         _LvTuition = _lvT;
         SaveResources();
+        Debug.Log("Прогресс обучения " + _LvTuition);
     }
 
 
