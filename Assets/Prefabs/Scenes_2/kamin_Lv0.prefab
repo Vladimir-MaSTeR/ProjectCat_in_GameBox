@@ -5163,6 +5163,7 @@ Animation:
   - {fileID: 7400000, guid: 16fcd14a54618514bbee60388b92d68d, type: 2}
   - {fileID: 7400000, guid: bb2fdb1203e3e964a9f203366ab40578, type: 2}
   - {fileID: 7400000, guid: 98ba151655c60e2418e91de7a2cb535e, type: 2}
+  - {fileID: 7400000, guid: c2c42cc4fe7ff274aac3af3ecbc66ee4, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

@@ -52,6 +52,7 @@ public class lightFire : MonoBehaviour
 
         if (_LvFire > 0)
         {
+            /// звук камина
             if (_fire.intensity <= _lightMin)
             {
                 _fire.intensity = _lightMin + _deltaLight;

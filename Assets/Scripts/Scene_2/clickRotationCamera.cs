@@ -16,7 +16,7 @@ public class clickRotationCamera : MonoBehaviour, IPointerDownHandler, IPointerU
 	[Header("Поворот в право")]
 	[SerializeField] private bool onRotationRight = true;
 
-	 private bool _clickDown = false;
+	[SerializeField] private bool _clickDown = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -74,6 +74,7 @@ public class clickRotationCamera : MonoBehaviour, IPointerDownHandler, IPointerU
 			{
 				_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, -12f, _objCamera.rotation.z);
 
+				 Debug.Log("R+ " + yZoomDelta);
 
 			}
 		}
@@ -92,6 +93,7 @@ public class clickRotationCamera : MonoBehaviour, IPointerDownHandler, IPointerU
 				{
 
 					_objCamera.rotation = Quaternion.Euler(_objCamera.rotation.x, 18f, _objCamera.rotation.z);
+					// Debug.Log("L+ " + yZoomDelta);
 
 				}
 
