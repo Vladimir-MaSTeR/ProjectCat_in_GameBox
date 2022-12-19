@@ -21,6 +21,17 @@ public class Home : MonoBehaviour
     [Tooltip("объект дома Стол с картой")]
     [SerializeField] private GameObject _cupboardObje;
 
+    [Tooltip("туман на 2 этаже")]
+    [SerializeField] private GameObject _mist2storey;
+    [SerializeField] Animation _anim_Open2storey;
+    [Tooltip("туман на 3 этаже")]
+    [SerializeField] private GameObject _mist3storey;
+    [SerializeField] Animation _anim_Open3storey;
+
+    [SerializeField]
+    private int _openStorey = 0;
+
+
     [Header("Уровень предмет дома")]
     [Tooltip("Уровень камина")]
     private int _fireplaceLv;
@@ -43,12 +54,18 @@ public class Home : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadResouces();
 
+        if (_openStorey >= 1)
+        {
+            offMist2Stroery();
+        }
     }
 
     private void Update()
     {
         _checkQuests();
+
     }
 
     private void OnEnable()
@@ -97,34 +114,55 @@ public class Home : MonoBehaviour
 
 
     private void _checkQuests()
-    { 
+    {
         {
             // onGetQuestsDictionary
             bool _fireplaceQuests = false;
             bool _armchairQuests = false;
             bool _kitchenQuests = false;
+            if (_openStorey == 0) /// Квест - открыть 2 этаж
+            {
+                if (_fireplaceObje.GetComponent<ClickRepair>().LvObj > 0)
+                {
+                    _fireplaceQuests = true;
+                }
+                if (_armchairObje.GetComponent<ClickRepair>().LvObj > 0)
+                {
+                    _armchairQuests = true;
+                }
+                if (_kitchenObje.GetComponent<ClickRepair>().LvObj > 0)
+                {
+                    _kitchenQuests = true;
+                }
 
-            if (_fireplaceObje.GetComponent<ClickRepair>().LvObj > 2)
-            {
-                _fireplaceQuests = true;
-            }
-            if (_armchairObje.GetComponent<ClickRepair>().LvObj > 2)
-            {
-                _armchairQuests = true;
-            }
-            if (_kitchenObje.GetComponent<ClickRepair>().LvObj > 2)
-            {
-                _kitchenQuests = true;
-            }
+                if (_kitchenQuests == true && _armchairQuests == true && _fireplaceQuests == true)
+                {
+                    ///Debug.Log("Квест Вып");
+                    EventsResources.onEndMainQuest?.Invoke();
+                    //_mist2storey.GetComponent<Animator>().enabled = false;
+                    _mist2storey.GetComponent<Animator>().SetBool("OperStorey", true);
+                    _mist2storey.GetComponent<Animator>().SetTrigger("Oper2storey");
 
-            if (_kitchenQuests == true && _armchairQuests == true && _fireplaceQuests == true)
-            {
-                ///Debug.Log("Квест Вып");
-                EventsResources.onEndMainQuest?.Invoke();
+                    //   _anim_Open2storey; //m_Controller
+                    _openStorey = 1;
+                    SaveResources();
+                    Debug.Log("Этаж открыт" + _openStorey + 1);
+                    Invoke("offMist2Stroery", 10f);
+                    Debug.Log("Убрать туман 2 этаж");
 
+                }
             }
         }
     }
+
+
+
+    private void offMist2Stroery()
+    {
+        _mist2storey.SetActive(false);
+    }
+
+
 
 
     /// <summary>
@@ -137,6 +175,27 @@ public class Home : MonoBehaviour
     }
 
 
+    
+    private void SaveResources()
+    {
+        PlayerPrefs.SetInt("OpenHomeStorey", _openStorey);
 
 
+        
+        PlayerPrefs.Save();
+    }
+
+    private void LoadResouces()
+    {
+        
+        {
+            if (PlayerPrefs.HasKey("OpenHomeStorey"))
+            {
+                _openStorey = PlayerPrefs.GetInt("OpenHomeStorey");
+            }
+
+
+
+        }
+    }
 }
