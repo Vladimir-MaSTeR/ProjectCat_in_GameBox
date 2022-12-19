@@ -125,4 +125,18 @@ public class Home : MonoBehaviour
             }
         }
     }
+
+
+    /// <summary>
+    /// Готовность к улучшению (анимация)
+    /// </summary>
+    private void _readyUp()
+    {
+
+
+    }
+
+
+
+
 }

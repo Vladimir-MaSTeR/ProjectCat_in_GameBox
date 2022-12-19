@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -118,6 +117,12 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         // _needResourceBagNow = (int)EventsResources.onGetCurentLog?.Invoke(_lvObjectNow + 1);
 
         _amtClickGoLvUp = _clickGoLvUp();
+
+        if(_checkResourceLvUp() == true) /// true; проверка ресурсов
+        {
+            Invoke("_animReadyUp", 7);
+        }
+        
     }
 
     /// <summary>
@@ -142,6 +147,96 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     {
         get { return _textLvObject; }
     }
+
+
+    private void OnEnable()
+    {
+        if (_fireplaceActiv == true) //"активания анимации  по апгрейду  камина
+        {
+            EventsResources.onAnimationReadyUpFireplace += _animReadyUp;
+        }
+        if (_armchairActiv == true) //активания анимации  по апгрейду  кресло
+        {
+            EventsResources.onAnimationReadyUpChair += _animReadyUp;
+        }
+        if (_kitchenActiv == true) //активания анимации  по апгрейду  Кухни
+        {
+            EventsResources.onAnimationReadyUpTable += _animReadyUp;
+        }
+        if (_ladderGoTo2Activ == true) //активания анимации  по апгрейду  Лестница на 2 этаж
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+        if (_bedActiv == true) //активания анимации  по апгрейду  кровати
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+        if (_ladderGoTo3Activ == true) //активания анимации  по апгрейду  Лестница на 3 этаж
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+        if (_cupboardActiv == true) //активания анимации  по апгрейду  Стол с картой
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+
+
+
+    }
+
+    private void OnDisable()
+    {
+        if (_fireplaceActiv == true) //"активания анимации  по апгрейду  камина
+        {
+            EventsResources.onAnimationReadyUpFireplace -= _animReadyUp;
+        }
+        if (_armchairActiv == true) //активания анимации  по апгрейду  кресло
+        {
+            EventsResources.onAnimationReadyUpChair -= _animReadyUp;
+        }
+        if (_kitchenActiv == true) //активания анимации  по апгрейду  Кухни
+        {
+            EventsResources.onAnimationReadyUpTable -= _animReadyUp;
+        }
+        if (_ladderGoTo2Activ == true) //активания анимации  по апгрейду  Лестница на 2 этаж
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+        if (_bedActiv == true) //активания анимации  по апгрейду  кровати
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+        if (_ladderGoTo3Activ == true) //активания анимации  по апгрейду  Лестница на 3 этаж
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+        if (_cupboardActiv == true) //активания анимации  по апгрейду  Стол с картой
+        {
+            // EventsResources.onAnimationReadyUp
+        }
+
+
+    }
+
+
+
+    /// <summary>
+    /// Анимация готовности к повышению уровня  
+    /// </summary>
+    private void _animReadyUp()
+    {
+
+        _animClick.Play("AnimationReadyUp");
+
+        float pTime = Random.Range(2f, 4f);
+        Invoke("_animReadyUp", pTime);
+
+
+        // Debug.Log(_lvResObjUp);
+
+    }
+
+
 
 
     /// <summary>

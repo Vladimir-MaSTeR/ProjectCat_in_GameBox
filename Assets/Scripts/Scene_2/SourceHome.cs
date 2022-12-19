@@ -5,32 +5,43 @@ public class SourceHome : MonoBehaviour
 {
     [SerializeField] private AudioSource _source;
 
-    [SerializeField] private AudioClip _mearg_fonClip;
-    [SerializeField] private AudioClip _home_fonClip;
+    /// <summary>
+    /// SFX Fireplace amb - звук камина на фоне
+    /// </summary>
+    [Header("SFX Fireplace amb")]
+    [SerializeField] private AudioClip _fon_Fireplace;
+    /// <summary>
+    /// SFX Fireplace interaction - клик по камину
+    /// </summary>
+    [Header("SFX Fireplace")]
+    [SerializeField] private AudioClip _click_Fireplace;
+    /// <summary>
+    /// SFX Fix button - кнопка нажатия во время починки мебели(молоток)
+    /// </summary>
+    [Header("SFX Fix button")]
+    [SerializeField] private AudioClip _click_RepairObj;
+    /// <summary>
+    ///  SFX Furniture fix loop - звук во время починки мебели
+    /// </summary>
+    [Header("SFX Furniture fix loop")]
+    [SerializeField] private AudioClip _fon_RepairObj;
+    /// <summary>
+    /// SFX Furniture upgrade - улучьшение мебели(озвучка момента когда появляется новая мебель, происходит апгрейд)
+    /// </summary>
+    [Header("SFX Furniture upgrade")]
+    [SerializeField] private AudioClip _click_RepairLvUp;    
 
-    //[SerializeField] private AudioClip clip;
+
+
+
+
 
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.MEARG_SCENE_INDEX)
-        {
-            _source.clip = _mearg_fonClip;
-            _source.Play();
-           // _source.PlayOneShot(_mearg_fonClip);
-            _source.loop = true;
-        }
-
-        if (SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.HOME_SCENE_INDEX)
-        {
-            _source.clip = _home_fonClip;
-            _source.Play();
-            // _source.PlayOneShot(_home_fonClip);
-            _source.loop = true;
-        }
+    
 
     }
-
 
 
 }
