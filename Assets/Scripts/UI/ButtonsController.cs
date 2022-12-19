@@ -76,7 +76,7 @@ public class ButtonsController : MonoBehaviour
         _mainLongTextPanel.SetActive(false);
         _secondLongTextPanel.SetActive(false);
 
-        CheckSceneForTornHomeButtonsActive();
+       // CheckSceneForTornHomeButtonsActive();
 
         CheckStartCraftResouces();
         ReloadCurrentQuest();
