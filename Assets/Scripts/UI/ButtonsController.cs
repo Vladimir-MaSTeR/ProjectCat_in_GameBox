@@ -460,6 +460,8 @@ public class ButtonsController : MonoBehaviour
         var neil_1lv = 0;
         var cloth_1lv = 0;
 
+        CheckStartCraftResouces();
+
         if (level == 1)
         {
             stone_1lv = dictionary[ResourcesTags.Stone_1.ToString()];
