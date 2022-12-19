@@ -35,6 +35,14 @@ public class History : MonoBehaviour
         Timer();
     }
 
+    public void ClickMissHisstory()
+    {
+        _oneStart = 1;
+        Save();
+
+        SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+    }
+
     private void UpdateText()
     {
         if (_oneStart == 0)
@@ -75,20 +83,27 @@ public class History : MonoBehaviour
             }
             else if (_curentText == 6)
             {
-                _text.gameObject.SetActive(false);
-                _historyImage.sprite = _historySpriteThree;
-                
-                _currentNextTextTime = 3f;
+                //{
+                //    _text.gameObject.SetActive(false);
+                //    _historyImage.sprite = _historySpriteThree;
 
-                SceneManager.LoadScene(1);
-            }
-            else if (_curentText == 6)
-            {
+                //    _currentNextTextTime = 3f;
+
+                // SceneManager.LoadScene(1);
+
                 _oneStart = 1;
                 Save();
 
                 SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
             }
+
+            //else if (_curentText == 7)
+            //{
+            //    _oneStart = 1;
+            //    Save();
+
+            //    SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+            //}
 
         } else
         {
@@ -101,15 +116,14 @@ public class History : MonoBehaviour
 
         PlayerPrefs.Save();
     }
-
     private void ReloadSave()
     {
         if (PlayerPrefs.HasKey("oneStart"))
         {
             _oneStart = PlayerPrefs.GetInt("oneStart");
+            Debug.Log($"загрузил oneStart = {_oneStart}");
         }
     }
-
 
     private void Timer()
     {
@@ -122,4 +136,6 @@ public class History : MonoBehaviour
             UpdateText();
         }
     }
+
+   
 }
