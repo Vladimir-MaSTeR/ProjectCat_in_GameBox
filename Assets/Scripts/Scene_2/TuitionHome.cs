@@ -17,6 +17,10 @@ public class TuitionHome : MonoBehaviour
     {
         LoadResouces();
 
+        if (_LvTuition > 2)
+        {
+           _dead();
+        }
         ChekTuition();
 
     }
@@ -24,12 +28,16 @@ public class TuitionHome : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_objFireplace.GetComponent<ClickRepair>().LvObj == 1 )
-        {
-            _LvTuition = 2;
-            SaveResources();
-        }
         ChekTuition();
+
+        if (_LvTuition != 2)
+        {
+            if (_objFireplace.GetComponent<ClickRepair>().LvObj == 1)
+            {
+                _LvTuition = 2;
+///                SaveResources();
+            }
+        }
 
     }
 
@@ -37,8 +45,10 @@ public class TuitionHome : MonoBehaviour
     {
         if (_LvTuition > 2)
         {
-            Destroy(transform.gameObject) ;
+            SaveResources();
+            Invoke("_dead", 1.5f);
         }
+
         if (_LvTuition == 0) /// Первая часть обучения до перехода на доску
         {
             _canvasTuitionPart1.SetActive(true);
@@ -68,10 +78,13 @@ public class TuitionHome : MonoBehaviour
 
 
         }
- 
+
     }
 
-
+    private void _dead()
+    {
+        Destroy(transform.gameObject); 
+    }
 
     public void setLvTuition(int _lvT)
     {
