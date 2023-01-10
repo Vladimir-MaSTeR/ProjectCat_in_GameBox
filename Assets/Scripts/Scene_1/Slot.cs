@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,8 +23,12 @@ public class Slot : MonoBehaviour, IDropHandler
         if (gameObject.GetComponentInChildren<CanvasGroup>() == null)
         {
             var otherItemTransform = eventData.pointerDrag.transform;
-            otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя
+            otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
             otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
+
+
+            // три в ряд
+            FindMatch(eventData, Vector2.right);
 
         } else
         {
@@ -70,7 +75,7 @@ public class Slot : MonoBehaviour, IDropHandler
              else
                 {
                 SoundsEvents.onNegativeMeargeSound?.Invoke();
-            }
+                }
 
 
         }
@@ -90,6 +95,28 @@ public class Slot : MonoBehaviour, IDropHandler
             gameObject.GetComponentInChildren<Item>().GetComponentInChildren<Image>().sprite = sp_3;
             gameObject.GetComponentInChildren<CanvasGroup>().tag = threeTag;
         }
+    }
+
+    private List<GameObject> FindMatch(PointerEventData eventData, Vector2 vector)
+    {
+        List<GameObject> cashFindTiles = new List<GameObject>();
+
+        RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector);
+
+        if (hit2D.collider != null)
+        {
+            Debug.Log($"Найденно совпадение в РЯДУ");
+        }
+
+
+        while (hit2D.collider != null && hit2D.collider.gameObject.GetComponentInChildren<CanvasGroup>().tag == gameObject.GetComponentInChildren<CanvasGroup>().tag)
+        {
+            cashFindTiles.Add(hit2D.collider.gameObject);
+            Debug.Log($"Совпадение добавленно в список");
+            hit2D = Physics2D.Raycast(hit2D.collider.gameObject.transform.position, vector);
+        }
+
+        return cashFindTiles;
     }
 
 }

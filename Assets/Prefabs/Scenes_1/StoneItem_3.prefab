@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 1651937052627458771}
   - component: {fileID: 4678681057480393710}
   - component: {fileID: 6968424581479002939}
+  - component: {fileID: 2561333239378803240}
   m_Layer: 5
   m_Name: StoneItem_3
   m_TagString: Stone_3
@@ -232,3 +233,29 @@ MonoBehaviour:
   _text: {fileID: 6994185538034758075}
   _minAmountText: 3
   _maxAmountText: 3
+--- !u!61 &2561333239378803240
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6495332648424932879}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
