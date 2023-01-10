@@ -28,8 +28,7 @@ public class Slot : MonoBehaviour, IDropHandler
 
 
             // три в ряд
-            FindMatch(eventData, Vector2.right);
-
+            FindAllMath(eventData);
         } else
         {
 
@@ -99,24 +98,75 @@ public class Slot : MonoBehaviour, IDropHandler
 
     private List<GameObject> FindMatch(PointerEventData eventData, Vector2 vector)
     {
-        List<GameObject> cashFindTiles = new List<GameObject>();
 
-        RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector);
+        List<GameObject> cashFindTiles = new List<GameObject>();
+        float laserLength = 1.5f;
+        RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector, laserLength);
+        Debug.DrawRay(transform.position, Vector2.right * laserLength, Color.red);
+
+
+
+        var parentTag = "1";
+        var childrenTag = "2";
+
+        var parentId = 1;
+        var childrenId = 1;
 
         if (hit2D.collider != null)
         {
-            Debug.Log($"Найденно совпадение в РЯДУ");
+            //Debug.Log($"Найденно совпадение в РЯДУ");
+
+            parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
+            childrenTag = hit2D.collider.gameObject.GetComponent<CanvasGroup>().tag;
+
+             parentId = gameObject.GetComponentInChildren<Item>().GetItemId();
+             childrenId = hit2D.collider.gameObject.GetComponentInChildren<Item>().GetItemId();
+
+            //Debug.Log($"parentTag = {parentTag}");
+            //Debug.Log($"childrenTag = {childrenTag}");
         }
 
+       
 
-        while (hit2D.collider != null && hit2D.collider.gameObject.GetComponentInChildren<CanvasGroup>().tag == gameObject.GetComponentInChildren<CanvasGroup>().tag)
-        {
+        while (hit2D.collider != null && parentTag == childrenTag && parentId != childrenId)
+        //while (hit2D.collider != null && hit2D.collider.gameObject.GetComponent<CanvasGroup>() == gameObject.GetComponentInChildren<CanvasGroup>())
+            //while (hit2D.collider != null && hit2D.collider.gameObject.GetComponent<CanvasGroup>().CompareTag(gameObject.GetComponentInChildren<CanvasGroup>().tag))
+            //  while (hit2D.collider != null && parentTag == childrenTag)
+            {
             cashFindTiles.Add(hit2D.collider.gameObject);
             Debug.Log($"Совпадение добавленно в список");
-            hit2D = Physics2D.Raycast(hit2D.collider.gameObject.transform.position, vector);
-        }
+
+            hit2D = Physics2D.Raycast(hit2D.collider.gameObject.transform.position, vector, laserLength);
+            childrenTag = hit2D.collider.gameObject.GetComponent<CanvasGroup>().tag;
+            }
 
         return cashFindTiles;
+    }
+
+    private void DeleteSprite(PointerEventData eventData, Vector2[] vectorArray)
+    {
+        List<GameObject> cashFindList = new List<GameObject>();
+
+        for (int i = 0; i < vectorArray.Length; i++)
+        {
+            cashFindList.AddRange(FindMatch(eventData, vectorArray[i]));
+        }
+
+        if (cashFindList.Count >= 2)
+        {
+            for (int i = 0; i < cashFindList.Count; i++)
+            {
+                Destroy(cashFindList[i].gameObject);
+            }
+        }
+    }
+
+    private void FindAllMath(PointerEventData eventData)
+    {
+        DeleteSprite(eventData, new Vector2[2] { Vector2.up, Vector2.down});
+        DeleteSprite(eventData, new Vector2[2] { Vector2.left, Vector2.right});
+
+       // Destroy(eventData.pointerDrag);
     }
 
 }
