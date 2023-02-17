@@ -57,6 +57,28 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     // [SerializeField]
     private float _amtAddResource = 0;
 
+    /// <summary>
+    /// текушая прочность обьекта
+    /// </summary>
+    [SerializeField]
+    private float _healthNow = 10;
+    /// <summary>
+    /// Максимальная прочность обьекта
+    /// </summary>
+    // [SerializeField]
+    private float _healthMax = 10;
+    /// <summary>
+    /// текуший уют обьекта
+    /// </summary>
+    [SerializeField]
+    private float _comfortNow = 10;
+    /// <summary>
+    /// Максимальный уют обьекта
+    /// </summary>
+    // [SerializeField]
+    private float _comfortMax = 10;
+
+
 
     /// <summary>
     ///  Таймер активирован
