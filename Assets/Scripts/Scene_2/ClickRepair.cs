@@ -92,7 +92,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     private int _lvObjectNow;
     /// <summary>
     /// Название ключа для Сохранения уровня обьекта
-    /// </summary>
+    /// </summary> 
     [SerializeField]
     private string _textLvObject ; // = "lvFireplace";
     /// <summary>
@@ -243,6 +243,86 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
 
 
     /// <summary>
+    /// текущий уют в зависимости от количество прочности
+    /// </summary>
+    /// <returns></returns>
+    private float _checkComfort ()
+    {
+        _comfortNow = _comfortMax * (_healthNow / _healthMax);
+
+        return _comfortNow;
+    }
+
+
+    /// <summary>
+    /// Увеличение прочности и комфорт от уровня
+    /// </summary>
+    private void _lvUpComfort(int _lvlObjNow)
+    {
+        float _healthMaxWas = _healthMax;
+
+        _healthMax += 15;
+        _healthNow = _healthNow + (_healthMax - _healthMaxWas);
+
+        /// + УЮТ
+        {
+            if (_fireplaceActiv == true) //  камин Дает Уют
+            {
+                switch (_lvlObjNow)
+                {
+                    case 1: _comfortMax = 80; break;
+                    case 2: _comfortMax += 100; break;
+                    case 3: _comfortMax += 120; break;
+
+                    default:
+                        break;
+                }
+            }
+            if (_armchairActiv == true) //  кресло Дает Уют
+            {
+                switch (_lvlObjNow)
+                {
+                    case 1: _comfortMax = 40; break;
+                    case 2: _comfortMax += 100; break;
+                    case 3: _comfortMax += 120; break;
+
+                    default:
+                        break;
+                }
+            }
+            if (_kitchenActiv == true) //  Кухня Дает Уют
+            {
+                switch (_lvlObjNow)
+                {
+                    case 1: _comfortMax = 60+20; break; ///с тол + буфет
+                    case 2: _comfortMax += 100; break;
+                    case 3: _comfortMax += 120; break;
+
+                    default:
+                        break;
+                }
+            }
+            if (_ladderGoTo2Activ == true) //  Лестница на 2 этаж Дает Уют
+            {
+            }
+            if (_bedActiv == true) //  кровать  Дает Уют
+            {
+            }
+            if (_ladderGoTo3Activ == true) //  Лестница на 3 этаж Дает Уют
+            {
+            }
+            if (_cupboardActiv == true) //  Стол с картой Дает Уют
+            {
+            }
+        }
+
+
+
+
+    }
+
+
+    /// <summary>
     /// Анимация готовности к повышению уровня  
     /// </summary>
     private void _animReadyUp()
@@ -319,6 +399,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
 
 
     }
+
 
 
     /// <summary>
@@ -398,34 +479,36 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
 
     }
 
-
+    /// <summary>
+    /// звук при нажатии на обьект
+    /// </summary>
       private void _soundsСlick()
     {
-        if (_fireplaceActiv == true) //"активания квеста  по апгрейду  камина
+        if (_fireplaceActiv == true) //звук при нажатии на камин
         {
             SourceHome.onSoundsСlickFireplace?.Invoke();
         }
-        if (_armchairActiv == true) //активания квеста  по апгрейду  кресло
+        if (_armchairActiv == true) // звук при нажатии на кресло
         {
             SourceHome.onSoundsСlickRepairObj?.Invoke();
         }
-        if (_kitchenActiv == true) //активания квеста  по апгрейду  Кухни
+        if (_kitchenActiv == true) //звук при нажатии на  Кухни
         {
             SourceHome.onSoundsСlickRepairObj?.Invoke();
         }
-        if (_ladderGoTo2Activ == true) //активания квеста  по апгрейду  Лестница на 2 этаж
+        if (_ladderGoTo2Activ == true) //звук при нажатии на  Лестница на 2 этаж
         {
             //  EventsResources. ?.Invoke(_lvResObjUp);
         }
-        if (_bedActiv == true) //активания квеста  по апгрейду  кровати
+        if (_bedActiv == true) //звук при нажатии на  кровати
         {
             //  EventsResources. ?.Invoke(_lvResObjUp);
         }
-        if (_ladderGoTo3Activ == true) //активания квеста  по апгрейду  Лестница на 3 этаж
+        if (_ladderGoTo3Activ == true) //звук при нажатии на  Лестница на 3 этаж
         {
             //  EventsResources. ?.Invoke(_lvResObjUp);
         }
-        if (_cupboardActiv == true) //активания квеста  по апгрейду  Стол с картой
+        if (_cupboardActiv == true) //звук при нажатии на  Стол с картой
         {
             //  EventsResources. ?.Invoke(_lvResObjUp);
         }
@@ -597,7 +680,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         //  _needTimeGoLvUp = _amtRequiredResourceGoLvUp / 5;
         _completedQuests();
         _lvObjectNow += 1;
-
+        _lvUpComfort(_lvObjectNow);
         SourceHome.onSoundsСlickLvUpObj?.Invoke();
         AddModel(_lvObjectNow);
         

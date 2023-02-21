@@ -38,7 +38,16 @@ public class Altar : MonoBehaviour, IPointerClickHandler
     /// </summary>
     [SerializeField]
     private GameObject _scaleProgressUp;
-
+    /// <summary>
+    ///      Шкала для заполнения может быть запушенны 
+    /// </summary>
+    [SerializeField]
+    private bool _progressActivat;
+    /// <summary>
+    ///      Шкала для заполнения будет доспупен после  время.
+    /// </summary>
+    [SerializeField]
+     private float _progressActivatTime;
 
     /// <summary>
     /// Количество необходимых кликов для Lv Up (шкалы)
@@ -136,6 +145,50 @@ public class Altar : MonoBehaviour, IPointerClickHandler
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
 
+        if (_progressActivat == true)
+        {
+            _amtAddResource += 1;
+
+            if (_scaleProgress.activeSelf == false)
+            {
+                //Invoke("_timeScaleOff", _needTimeGoLvUp);
+                _activTimeGoLvUp = true; 
+                                
+                ScaleProgress(true);
+                _timeScaleOff();
+            }
+            else if (_amtAddResource >= _amtClickGoLvUp)
+            {
+                //_animClick.Stop("AnimationClick");
+
+                _addRunes();
+                //_animClick.Play("AnimationLvUp"); // 
+
+                _amtAddResource = 0;
+                ScaleProgress(false);
+            }
+            Debug.Log("КЛИК !! " + _amtAddResource);
+
+
+        }
+    }
+
+
+    private void _addRunes()
+    {
+        _progressActivat = false;
+        
+        Invoke("_addRunesThroughTime", _progressActivatTime);
+    }
+
+
+    private void _addRunesThroughTime()
+    {
+        Debug.Log("добавление рунн");
+
+        _progressActivat = true;
+
+
     }
 
 
@@ -197,7 +250,8 @@ public class Altar : MonoBehaviour, IPointerClickHandler
             _scaleProgress.SetActive(true);
             _scaleProgressUp.SetActive(true);
             float _progressResource = _amtAddResource / _amtClickGoLvUp;
-            { _scaleProgressUp.GetComponent<Image>().fillAmount = _progressResource; }
+            Debug.Log(_progressResource);   
+            _scaleProgressUp.GetComponent<Image>().fillAmount = _progressResource; 
         }
         else
         {
