@@ -28,7 +28,7 @@ public class Slot : MonoBehaviour, IDropHandler
 
 
             // три в ряд
-            FindAllMath(eventData);
+            //FindAllMath(eventData);
         } else
         {
 
