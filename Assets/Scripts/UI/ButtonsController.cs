@@ -40,6 +40,14 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _clickButtonClip;
 
+    [Header("Картинки для кнопки смены сцен")]
+    [SerializeField]
+    private Image _imageButtonScene;
+    [SerializeField]
+    private Sprite _iconInButtonMeargScene;
+    [SerializeField]
+    private Sprite _iconInButtonHomeScene;
+
     private int _currentQuest = -1; // переменная для отслеживания активного квеста. Начинается с ноля. 
 
     private const int INDEX_QUEST_NO_QUEST = -1;
@@ -67,6 +75,8 @@ public class ButtonsController : MonoBehaviour
     private bool _fireplaceQuestCopmlete = false;
     private bool _chairQuestCopmlete = false;
     private bool _tableQuestCopmlete = false;
+
+    private Sprite _currentIconInButtonScene;
 
    
 
@@ -109,7 +119,9 @@ public class ButtonsController : MonoBehaviour
             UpdateShortQuestText();
         }
 
-        
+        IconInButtonSceneToStart();
+
+
 
     }
 
@@ -210,6 +222,16 @@ public class ButtonsController : MonoBehaviour
         }
     }
 
+    private void IconInButtonSceneToStart() {
+        if(SceneManager.GetActiveScene().buildIndex == SceneIndexConstants.MEARG_SCENE_INDEX) {
+            _currentIconInButtonScene = _iconInButtonHomeScene;
+            _imageButtonScene.sprite = _currentIconInButtonScene;
+        } else {
+            _currentIconInButtonScene = _iconInButtonMeargScene;
+            _imageButtonScene.sprite = _currentIconInButtonScene;
+        }
+    }
+
     public void ClickHomeSceneButton()
     {
         ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
@@ -220,6 +242,23 @@ public class ButtonsController : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != SceneIndexConstants.HOME_SCENE_INDEX)
         {
             SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+        } 
+    }
+
+    public void ClickLoadNewSceneButton() {
+        ButtonsEvents.onSaveResouces?.Invoke(); // событие на сохранение
+        SaveCurrentQuest();
+        SaveQuestsComplete();
+        SaveCurrentLEvelObjectInHome();
+
+        var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if(currentSceneIndex == SceneIndexConstants.MEARG_SCENE_INDEX) {
+            SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+        } 
+
+        if(currentSceneIndex == SceneIndexConstants.HOME_SCENE_INDEX) {
+            SceneManager.LoadScene(SceneIndexConstants.MEARG_SCENE_INDEX);
         }
     }
 
