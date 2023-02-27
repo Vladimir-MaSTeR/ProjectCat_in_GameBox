@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -99,10 +100,15 @@ public class Altar : MonoBehaviour, IPointerClickHandler
     //private Animation _animLvUp;
 
     [Header("Выбрать предмет улучшения")]
-    [Tooltip("Улучшение 1 алтаря")]
+    [Tooltip("Улучшение 1 алтаря круглая руна")]
     [SerializeField] private bool _altar_1;
-
-
+    [Tooltip("Улучшение 2 алтаря квадратная руна")]
+    [SerializeField] private bool _altar_2;
+    [Tooltip("Улучшение 3 алтаря прямоугольная руна")]
+    [SerializeField] private bool _altar_3;
+    [Tooltip("Улучшение 4 алтаря треугольная руна")]
+    [SerializeField] private bool _altar_4;
+    private int _typeAltar;
 
 
     // Start is called before the first frame update
@@ -117,24 +123,52 @@ public class Altar : MonoBehaviour, IPointerClickHandler
         AddModel(_lvObjectNow);
 
 
+        /// определяем тип алтаря
+        if (_altar_1 == true)
+            _typeAltar = 1;
+        if (_altar_2 == true)
+            _typeAltar = 2;
+        if (_altar_3 == true)
+            _typeAltar = 3;
+        if (_altar_4 == true)
+            _typeAltar = 4;
+        _checkAltarActivate();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (_progressActivat == false)
+        {
+            _checkAltarActivate();
+
+        }
+
     }
 
     private void OnEnable()
     {
-    
+        AltarTimer.onTimerAltarOff += _altarActivate;
     }
 
     private void OnDisable()
     {
-    
+        AltarTimer.onTimerAltarOff -= _altarActivate;
+
     }
 
+    /// <summary>
+    /// проверка на активность алтаря (отправляет номер алтар получаем время до выдачи рун)
+    /// </summary>
+    public static Func<int,float> onCheckAltarActivate;
+
+
+
+    /// <summary>
+    /// добавить руны (int уровень алтаря,int тип алтаря)
+    /// </summary>
+    public static Action <int,int> onAddRunse;
 
 
 
@@ -173,23 +207,48 @@ public class Altar : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
+    /// <summary>
+    /// завершение накопления кликов, готовность выдать руны
+    /// </summary>
     private void _addRunes()
     {
         _progressActivat = false;
-        
-        Invoke("_addRunesThroughTime", _progressActivatTime);
+        onAddRunse?.Invoke(_lvObjectNow,_typeAltar );  //(int Lv, int number);
+
+
     }
 
-
-    private void _addRunesThroughTime()
+    /// <summary>
+    /// Проверка на активность (руны с алтаря выданы или нет если нет то алтарь не активен)
+    /// </summary>
+    private void _checkAltarActivate ()
     {
-        Debug.Log("добавление рунн");
+        if (onCheckAltarActivate?.Invoke(_typeAltar) > 0)
+        { 
+            _progressActivat = false;
+        }
+        else
+        {
+            _progressActivat = true;
+        }
 
-        _progressActivat = true;
+
 
 
     }
+
+
+
+    private void _altarActivate (int typeAltar)
+    {
+        if(typeAltar == _typeAltar)
+        {
+            _progressActivat = true;
+
+        }
+
+    }
+
 
 
 
@@ -250,7 +309,7 @@ public class Altar : MonoBehaviour, IPointerClickHandler
             _scaleProgress.SetActive(true);
             _scaleProgressUp.SetActive(true);
             float _progressResource = _amtAddResource / _amtClickGoLvUp;
-            Debug.Log(_progressResource);   
+           // Debug.Log(_progressResource);   
             _scaleProgressUp.GetComponent<Image>().fillAmount = _progressResource; 
         }
         else
