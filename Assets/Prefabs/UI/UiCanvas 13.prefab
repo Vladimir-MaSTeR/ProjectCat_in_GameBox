@@ -17804,6 +17804,9 @@ MonoBehaviour:
   _tableQuestCheckButton: {fileID: 4537673951905235632}
   _source: {fileID: 7521148038690622710}
   _clickButtonClip: {fileID: 8300000, guid: 0db9d46e7a041d44fb41f3d75fd75b38, type: 3}
+  _imageButtonScene: {fileID: 0}
+  _iconInButtonMeargScene: {fileID: 0}
+  _iconInButtonHomeScene: {fileID: 0}
 --- !u!1 &7521148038763536894
 GameObject:
   m_ObjectHideFlags: 0

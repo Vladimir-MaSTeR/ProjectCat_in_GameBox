@@ -1612,12 +1612,12 @@ MonoBehaviour:
   _lvObject: 0
   _scaleProgress: {fileID: 389646419}
   _scaleProgressUp: {fileID: 842314273}
+  _activTimeGoLvUp: 1
   _progressActivat: 1
   _progressActivatTime: 5
-  _amtClickGoLvUp: 10
+  _amtClickGoLvUp: 5
   _healthNow: 10
-  _activTimeGoLvUp: 1
-  _textLvObject: lvAltar
+  _textNameObject: lvAltar
   _animClick: {fileID: 0}
   _altar_1: 0
   _altar_2: 1
@@ -3278,6 +3278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488849556}
   - component: {fileID: 488849557}
+  - component: {fileID: 488849558}
   m_Layer: 0
   m_Name: Home
   m_TagString: Untagged
@@ -3332,6 +3333,21 @@ MonoBehaviour:
   _mist3storey: {fileID: 959015229}
   _anim_Open3storey: {fileID: 0}
   _openStorey: 0
+--- !u!114 &488849558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488849555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a58f509e16f9e34ba2f83afe0d9b265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deltaTimeSpawnSpider: 000000000000000000000000
+  nameObjHome: []
+  statusObjHome: 
 --- !u!1001 &507353290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9032,11 +9048,11 @@ MonoBehaviour:
   _lvObject: 0
   _scaleProgress: {fileID: 1543950476}
   _scaleProgressUp: {fileID: 1683224267}
+  _activTimeGoLvUp: 0
   _amtClickGoLvUp: 10
   _healthNow: 10
   _comfortNow: 10
-  _activTimeGoLvUp: 0
-  _textLvObject: lvArmchair
+  _textNameObject: lvArmchair
   _animClick: {fileID: 0}
   _fireplaceActiv: 0
   _armchairActiv: 1
@@ -10319,11 +10335,11 @@ MonoBehaviour:
   _lvObject: 0
   _scaleProgress: {fileID: 988801485}
   _scaleProgressUp: {fileID: 1450430462}
+  _activTimeGoLvUp: 0
   _amtClickGoLvUp: 10
   _healthNow: 10
   _comfortNow: 10
-  _activTimeGoLvUp: 0
-  _textLvObject: lvFireplace
+  _textNameObject: lvFireplace
   _animClick: {fileID: 0}
   _fireplaceActiv: 1
   _armchairActiv: 0
@@ -11656,11 +11672,11 @@ MonoBehaviour:
   _lvObject: 0
   _scaleProgress: {fileID: 974272501}
   _scaleProgressUp: {fileID: 149021736}
+  _activTimeGoLvUp: 0
   _amtClickGoLvUp: 10
   _healthNow: 10
   _comfortNow: 10
-  _activTimeGoLvUp: 0
-  _textLvObject: lvKitchen
+  _textNameObject: lvKitchen
   _animClick: {fileID: 0}
   _fireplaceActiv: 0
   _armchairActiv: 0
@@ -12438,11 +12454,11 @@ MonoBehaviour:
   _lvObject: 0
   _scaleProgress: {fileID: 953564347}
   _scaleProgressUp: {fileID: 2034798298}
+  _activTimeGoLvUp: 0
   _amtClickGoLvUp: 10
   _healthNow: 10
   _comfortNow: 10
-  _activTimeGoLvUp: 0
-  _textLvObject: 
+  _textNameObject: 
   _animClick: {fileID: 0}
   _fireplaceActiv: 0
   _armchairActiv: 0
@@ -14205,6 +14221,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1713670546}
     m_Modifications:
+    - target: {fileID: 758734178045103764, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1129523466047255735, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -14225,17 +14245,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2093312517670855020, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156273850078591270, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2240812935277852890, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2281293571913412832, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2847099171794162406, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
       propertyPath: m_Name
       value: Kyxni_Lv0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3382370157511888970, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3497768654543964964, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4198038064122376111, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
       propertyPath: m_IsActive
@@ -14258,6 +14294,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5824559354733489614, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452271779128641607, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6679012148726152052, guid: 162d6bda0c12eab468bb4cc5d1562b32, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
