@@ -50,6 +50,10 @@ public class AltarTimer : MonoBehaviour
     {
         LoadResouces();
 
+        //Debug.Log("Алтарь 1 " + _timerRunse01_circleNow + " " + _addAmountRunse01_circle);
+        //Debug.Log("Алтарь 2 " + _timerRunse02_squareNow + " " + _addAmountRunse02_square);
+        //Debug.Log("Алтарь 3 " + _timerRunse03_rectangleNow + " " + _addAmountRunse03_rectangle);
+        //Debug.Log("Алтарь 4 " + _addAmountRunse04_triangle + " " + _addAmountRunse04_triangle);
     }
 
     private void Update()
@@ -58,23 +62,30 @@ public class AltarTimer : MonoBehaviour
         
         if (_timerRunse01_circleNow > 0)
         {
-            timerAltar (_timerRunse01_circleNow, _addAmountRunse01_circle,1);
+            _timerRunse01_circleNow = timerAltar(_timerRunse01_circleNow, _addAmountRunse01_circle,1);
+
         }
         if (_timerRunse02_squareNow > 0)
         {
-            timerAltar (_timerRunse02_squareNow, _addAmountRunse02_square,2);
+            _timerRunse02_squareNow = timerAltar(_timerRunse02_squareNow, _addAmountRunse02_square,2);
+
         }
         if (_timerRunse03_rectangleNow > 0)
         {
-            timerAltar(_timerRunse03_rectangleNow, _addAmountRunse03_rectangle, 3);
+            _timerRunse03_rectangleNow =  timerAltar(_timerRunse03_rectangleNow, _addAmountRunse03_rectangle, 3);
         }
         if (_addAmountRunse04_triangle > 0)
         {
-            timerAltar(_addAmountRunse04_triangle, _addAmountRunse04_triangle, 4);
+            _timerRunse04_triangleNow = timerAltar(_timerRunse04_triangleNow, _addAmountRunse04_triangle, 4);
         }
 
 
+
+
     }
+
+    [Tooltip("Таймер закончен включить алтарь (int номер алтаря)")]
+    public static Action<int> onTimerAltarOff;
 
     private void OnEnable()
     {
@@ -90,7 +101,6 @@ public class AltarTimer : MonoBehaviour
 
     }
 
-    public static Action<int> onTimerAltarOff;
 
 
     /// <summary>
@@ -138,19 +148,19 @@ public class AltarTimer : MonoBehaviour
     /// <param name="_timerRunse"></param>
     /// <param name="_addAmountRunse"></param>
     /// <param name="numberAltar"></param>
-    private void timerAltar( float _timerRunse ,int _addAmountRunse, int numberAltar)
+    private float timerAltar( float _timerRunse ,int _addAmountRunse, int numberAltar)
     {
-        _timerRunse -= Time.deltaTime;
-
+        _timerRunse = _timerRunse - Time.deltaTime;
+        SaveResources(); /// временно
         if (_timerRunse <= 0)
         {
             _timerRunse = 0;
-            /// Выдать круглае руны в колличестве _addAmountRunse  
-            /// Активировать аларь numberAltar
+    //!      /// Выдать круглае руны в колличестве _addAmountRunse  
             onTimerAltarOff?.Invoke(numberAltar);
-            SaveResources();
+            SaveResources(); 
 
         }
+        return _timerRunse;
     }
 
 
@@ -207,7 +217,7 @@ public class AltarTimer : MonoBehaviour
 
 
 
-    PlayerPrefs.Save();
+        PlayerPrefs.Save();
     }
 
     private void LoadResouces()
