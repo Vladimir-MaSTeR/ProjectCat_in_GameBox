@@ -14,10 +14,13 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private int _id;
     private int _currentAmountForText;
 
+    private float currentTransLocalPosX = 0f;
+    private float currentTransLocalPosY = 0f;
+
     private Canvas _mainCanvas;
     private CanvasGroup _canvasGroup;
 
-    private RectTransform _rectTransform;
+    private RectTransform _rectTransform; // 2d
 
     private void Start()
     {
@@ -33,24 +36,24 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+
         var slottransform = _rectTransform.parent;
         slottransform.SetAsLastSibling();
 
         _canvasGroup.blocksRaycasts = false;
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        _rectTransform.anchoredPosition += eventData.delta / _mainCanvas.scaleFactor;
+    public void OnDrag(PointerEventData eventData) {
+        _rectTransform.anchoredPosition += eventData.delta / _mainCanvas.scaleFactor; //2d
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
+    public void OnEndDrag(PointerEventData eventData) {  
         transform.localPosition = Vector3.zero;
 
         _canvasGroup.blocksRaycasts = true;
 
-        // EventsForMearge.onEndDragSound?.Invoke();
+     // EventsForMearge.onEndDragSound?.Invoke();
+        
     }
 
     public int GetCurrentAmountForText()
@@ -68,5 +71,13 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         return _id;
     }
 
-   
+    public float GetItemLocalPositionX() {
+        return currentTransLocalPosX;
+    }
+
+    public float GetItemLocalPositionY() {
+        return currentTransLocalPosY;
+    }
+
+
 }
