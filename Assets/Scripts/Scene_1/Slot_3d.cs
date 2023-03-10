@@ -3,18 +3,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot_3d : MonoBehaviour, IDropHandler {
-    [SerializeField] private Sprite _log_2_sprite;
-    [SerializeField] private Sprite _log_3_sprite;
+public class Slot_3d : MonoBehaviour, IDropHandler { 
 
-    [SerializeField] private Sprite _cloth_2_sprite;
-    [SerializeField] private Sprite _cloth_3_sprite;
 
-    [SerializeField] private Sprite _stone_2_sprite;
-    [SerializeField] private Sprite _stone_3_sprite;
+    [Header("»‰ÂÌÚËÙËÍ‡ÚÓ ÒÎÓÚ‡")]
+    [SerializeField]
+    private int _ID;
 
-    [SerializeField] private Sprite _neil_2_sprite;
-    [SerializeField] private Sprite _neil_3_sprite;
+    //[SerializeField] private Sprite _log_2_sprite;
+    //[SerializeField] private Sprite _log_3_sprite;
+
+    //[SerializeField] private Sprite _cloth_2_sprite;
+    //[SerializeField] private Sprite _cloth_3_sprite;
+
+    //[SerializeField] private Sprite _stone_2_sprite;
+    //[SerializeField] private Sprite _stone_3_sprite;
+
+    //[SerializeField] private Sprite _neil_2_sprite;
+    //[SerializeField] private Sprite _neil_3_sprite;
 
     public void OnDrop(PointerEventData eventData) {
 
@@ -54,27 +60,12 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
                  * **/
 
 
-                //Ã≈–ƒ∆ 2‰
-                //CheckResorces(parentTag, ResourcesTags.Log_1.ToString(), ResourcesTags.Log_2.ToString(), ResourcesTags.Log_3.ToString(), _log_2_sprite, _log_3_sprite);
-                //CheckResorces(parentTag, ResourcesTags.Cloth_1.ToString(), ResourcesTags.Cloth_2.ToString(), ResourcesTags.Cloth_3.ToString(), _cloth_2_sprite, _cloth_3_sprite);
-                //CheckResorces(parentTag, ResourcesTags.Stone_1.ToString(), ResourcesTags.Stone_2.ToString(), ResourcesTags.Stone_3.ToString(), _stone_2_sprite, _stone_3_sprite);
-                //CheckResorces(parentTag, ResourcesTags.Neil_1.ToString(), ResourcesTags.Neil_2.ToString(), ResourcesTags.Neil_3.ToString(), _neil_2_sprite, _neil_3_sprite);
-
-                //–¿¡Œ“¿ — “≈ —“ŒÃ
-                //var childAmount = eventData.pointerDrag.GetComponentInChildren<Item>().GetCurrentAmountForText();
-                //var parentAmount = gameObject.GetComponentInChildren<Item>().GetCurrentAmountForText();
-                //var currentAmount = childAmount + parentAmount;
-
-                //if(currentAmount > 3) {
-                //    currentAmount = 3;
-                //}
-
-                //gameObject.GetComponentInChildren<Text>().text = currentAmount.ToString();
-                //gameObject.GetComponentInChildren<Item>().SetCurrentAmountForText(currentAmount);
-
                 SoundsEvents.onPositiveMeargeSound?.Invoke();
-
                 Destroy(eventData.pointerDrag);
+                Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+
+                InvokeEventSpavnItem(childrenTag);
+
             } else {
                 SoundsEvents.onNegativeMeargeSound?.Invoke();
             }
@@ -83,6 +74,44 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
         }
 
 
+    }
+
+    private void InvokeEventSpavnItem(string tag) {
+        if(ResourcesTags.Cloth_1.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Cloth_2.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Cloth_2.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Cloth_3.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Log_1.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Log_2.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Log_2.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Log_3.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Neil_1.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Neil_2.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Neil_2.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Neil_3.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Stone_1.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Stone_2.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Stone_2.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Stone_3.ToString(), _ID);
+        }
+    }
+
+    public int GetSlotID() {
+        return _ID;
     }
 
     private void CheckResorces(string parentTag, string oneTag, string twoTag, string threeTag, Sprite sp_2, Sprite sp_3) {
