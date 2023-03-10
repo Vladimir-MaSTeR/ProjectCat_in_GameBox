@@ -368,14 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 2
 --- !u!1 &36181952
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,14 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 8
 --- !u!1 &78177400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,14 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 3
 --- !u!1 &384816316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,14 +1940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 6
 --- !u!1 &440020798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2832,14 +2804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 1
 --- !u!1 &637090938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3964,14 +3929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 10
 --- !u!1 &899216860
 GameObject:
   m_ObjectHideFlags: 0
@@ -5160,14 +5118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 15
 --- !u!1 &1250993606
 GameObject:
   m_ObjectHideFlags: 0
@@ -5257,14 +5208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 11
 --- !u!1 &1274505963
 GameObject:
   m_ObjectHideFlags: 0
@@ -5434,14 +5378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 7
 --- !u!1 &1297607065
 GameObject:
   m_ObjectHideFlags: 0
@@ -5843,14 +5780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 5
 --- !u!1 &1362001945
 GameObject:
   m_ObjectHideFlags: 0
@@ -6256,14 +6186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 18
 --- !u!1 &1455418872
 GameObject:
   m_ObjectHideFlags: 0
@@ -6847,14 +6770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 17
 --- !u!1 &1522259480
 GameObject:
   m_ObjectHideFlags: 0
@@ -7024,14 +6940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 9
 --- !u!1 &1563942205
 GameObject:
   m_ObjectHideFlags: 0
@@ -7277,14 +7186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 20
 --- !u!1 &1592359612
 GameObject:
   m_ObjectHideFlags: 0
@@ -7686,14 +7588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 14
 --- !u!1 &1653254435
 GameObject:
   m_ObjectHideFlags: 0
@@ -8084,14 +7979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 16
 --- !u!1 &1749927451
 GameObject:
   m_ObjectHideFlags: 0
@@ -8257,14 +8145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 13
 --- !u!114 &1776618863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9009,14 +8890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 12
 --- !u!1 &1968931603
 GameObject:
   m_ObjectHideFlags: 0
@@ -9184,14 +9058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 19
 --- !u!1 &1993371482
 GameObject:
   m_ObjectHideFlags: 0
@@ -9435,14 +9302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b9acb8d43c4374b8c8ec1a7308eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _log_2_sprite: {fileID: 21300000, guid: b0b37fe0f71be0948a2f28e516b5ffc4, type: 3}
-  _log_3_sprite: {fileID: 21300000, guid: 6be2d926ab45e464ebc38a37771533a2, type: 3}
-  _cloth_2_sprite: {fileID: 21300000, guid: 1b4c94c91d71e45418a44d0019de5061, type: 3}
-  _cloth_3_sprite: {fileID: 21300000, guid: f507e31961986f54f9a2dce357531772, type: 3}
-  _stone_2_sprite: {fileID: 21300000, guid: e3845c330089b564d83aa7ffcbaea3a8, type: 3}
-  _stone_3_sprite: {fileID: 21300000, guid: 8df96008dcc64ed48be6637648c59105, type: 3}
-  _neil_2_sprite: {fileID: 21300000, guid: 035948970232b7e4fa816c8ad6a10830, type: 3}
-  _neil_3_sprite: {fileID: 21300000, guid: 9af4f6c7476e9284fbde13cfc0c14150, type: 3}
+  _ID: 4
 --- !u!1 &2062647260
 GameObject:
   m_ObjectHideFlags: 0
@@ -9532,6 +9392,7 @@ GameObject:
   - component: {fileID: 2069760134}
   - component: {fileID: 2069760133}
   - component: {fileID: 2069760132}
+  - component: {fileID: 2069760136}
   m_Layer: 5
   m_Name: Grid_3d
   m_TagString: Untagged
@@ -9586,7 +9447,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069760130}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d93ec9bdb1586724796694b1bdc31b95, type: 3}
   m_Name: 
@@ -9690,6 +9551,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069760130}
   m_CullTransparentMesh: 1
+--- !u!114 &2069760136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069760130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a71c7eeea39441f41894835dfb85d058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeRespavnItem: 3
+  _slots:
+  - {fileID: 622194683}
+  - {fileID: 18381831}
+  - {fileID: 382737470}
+  - {fileID: 2061803053}
+  - {fileID: 1354662645}
+  - {fileID: 422694366}
+  - {fileID: 1282672026}
+  - {fileID: 50671273}
+  - {fileID: 1548923527}
+  - {fileID: 895228299}
+  - {fileID: 1250993606}
+  - {fileID: 1966430123}
+  - {fileID: 1760568045}
+  - {fileID: 1640222233}
+  - {fileID: 1206849197}
+  - {fileID: 1725915384}
+  - {fileID: 1516923414}
+  - {fileID: 1390320267}
+  - {fileID: 1976208237}
+  - {fileID: 1586253995}
+  _items:
+  - {fileID: 7912180061658586504, guid: 203b18e7b64b1764fbf5730d281faa06, type: 3}
+  - {fileID: 2905733868424001502, guid: 793e6ccef83c853428fb8547166656c5, type: 3}
+  - {fileID: 2459365576290939943, guid: 6f6aefebe91a9574585e23c641a7a393, type: 3}
+  - {fileID: 5087455687853295957, guid: e1a659076421e0e4ab2f832cf7a5c082, type: 3}
+  _items_2lv:
+  - {fileID: 4500801433134342950, guid: f288239a8cadb954088ef12ea7ff2e44, type: 3}
+  - {fileID: 6743299197375236614, guid: 999ab6e2b1d13564aa33d6372754eb8a, type: 3}
+  - {fileID: 103407689195672351, guid: e6c46c9f5773f3b4fb5e0a5913e54d05, type: 3}
+  - {fileID: 1436474545195894844, guid: 31fa6ec68fa6b8d4eafb391e51857abc, type: 3}
+  _items_3lv: []
 --- !u!1 &2123542481
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,8 +95,12 @@ public class EventsResources
     [Tooltip("Ёвент активани€ квеста  по апгрейду стола")]
     public static Action<int> onTableQuest;
 
-    [Tooltip("Ёвент дл€ заказа спавна предмета")]
+    [Tooltip("Ёвент дл€ заказа спавна предмета, передаем тег ресурса, который хотим заспавнить")]
     public static Action<string> onSpawnItem;
+
+    [Tooltip("Ёвент дл€ заказа спавна предмета, передаем тег ресурса, " +
+             "который хотим заспавнить и идентификатор слота в котором нужно заспавнить")]
+    public static Action<string, int> onSpawnItemToSlot;
 
 
 
