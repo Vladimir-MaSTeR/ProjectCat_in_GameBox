@@ -3796,11 +3796,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d94d47b551659848ad8f21c0b6a559b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.42
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d94d47b551659848ad8f21c0b6a559b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.29
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6d94d47b551659848ad8f21c0b6a559b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9408,7 +9408,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069760130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 467}
+  m_LocalPosition: {x: 0, y: 0, z: 468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11291,7 +11291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireplaceStone_1lv: 6
   _fireplaceLog_1lv: 3
-  _fireplaceNeil_1lv: -1
+  _fireplaceNeil_1lv: 0
   _fireplaceCloth_1lv: 3
   _fireplaceStone_2lv: 10
   _fireplaceLog_2lv: 5

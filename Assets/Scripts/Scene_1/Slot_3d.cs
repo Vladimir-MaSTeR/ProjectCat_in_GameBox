@@ -31,13 +31,13 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
 
 
             // три в ряд
-            //FindAllMath(eventData);
+            FindAllMath(eventData);
         } else {
 
             var parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
             var childrenTag = eventData.pointerDrag.tag;
-            Debug.Log($"Родительский тег = {parentTag}");
-            Debug.Log($"Тег предмета = {childrenTag}");
+            //Debug.Log($"Родительский тег = {parentTag}");
+            //Debug.Log($"Тег предмета = {childrenTag}");
 
             var parentId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
             var childrenId = eventData.pointerDrag.GetComponentInChildren<Item_3d>().GetItemId();
@@ -57,6 +57,8 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
                  *      в каком слоте заспанить(ID)
                  *      какой уровень руны заспавнить(подумать :) )
                  *      какую руну заспавнить (таг)
+                 *      
+                 *      РЕАЛИЗОВАННО!!!
                  * **/
 
 
@@ -129,11 +131,12 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
     private List<GameObject> FindMatch(PointerEventData eventData, Vector2 vector) {
 
         List<GameObject> cashFindTiles = new List<GameObject>();
-        float laserLength = 1.5f;
-        RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector, laserLength);
-        Debug.DrawRay(transform.position, Vector2.right * laserLength, Color.red);
+        float laserLength = 1.3f;
 
+        //RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector, laserLength); 2d
 
+        Ray ray = new Ray(eventData.pointerDrag.transform.position, vector);
+        Debug.DrawRay(transform.position, vector * laserLength, Color.red);
 
         var parentTag = "1";
         var childrenTag = "2";
@@ -141,31 +144,37 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
         var parentId = 1;
         var childrenId = 1;
 
-        if(hit2D.collider != null) {
-            //Debug.Log($"Найденно совпадение в РЯДУ");
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, laserLength)) {
+            Debug.Log("Лучь во что-то попал");
 
-            parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
-            childrenTag = hit2D.collider.gameObject.GetComponent<CanvasGroup>().tag;
+            parentTag = this.gameObject.GetComponentInChildren<CanvasGroup>().tag;
+            childrenTag = hit.collider.gameObject.GetComponent<CanvasGroup>().tag;
 
-            parentId = gameObject.GetComponentInChildren<Item>().GetItemId();
-            childrenId = hit2D.collider.gameObject.GetComponentInChildren<Item>().GetItemId();
+            parentId = this.gameObject.GetComponentInChildren<Item_3d>().GetItemId();
+            childrenId = hit.collider.gameObject.GetComponent<Item_3d>().GetItemId();
 
             //Debug.Log($"parentTag = {parentTag}");
-            //Debug.Log($"childrenTag = {childrenTag}");
-        }
+            //Debug.Log($"childrenTag = {childrenTag}"); 
 
+            //Debug.Log($"parentId = {parentId}");
+            //Debug.Log($"childrenId = {childrenId}");
 
+        
 
-        while(hit2D.collider != null && parentTag == childrenTag && parentId != childrenId)
-            //while (hit2D.collider != null && hit2D.collider.gameObject.GetComponent<CanvasGroup>() == gameObject.GetComponentInChildren<CanvasGroup>())
-            //while (hit2D.collider != null && hit2D.collider.gameObject.GetComponent<CanvasGroup>().CompareTag(gameObject.GetComponentInChildren<CanvasGroup>().tag))
-            //  while (hit2D.collider != null && parentTag == childrenTag)
-            {
-            cashFindTiles.Add(hit2D.collider.gameObject);
-            Debug.Log($"Совпадение добавленно в список");
+            while(parentTag == childrenTag && parentId != childrenId) {               
+                cashFindTiles.Add(hit.collider.gameObject);
 
-            hit2D = Physics2D.Raycast(hit2D.collider.gameObject.transform.position, vector, laserLength);
-            childrenTag = hit2D.collider.gameObject.GetComponent<CanvasGroup>().tag;
+                Debug.Log($"Совпадение добавленно в список");
+                Debug.Log($"Список размером = {cashFindTiles.Count}");
+
+                ray = new Ray(hit.collider.gameObject.transform.position, vector);
+                if(Physics.Raycast(ray, out hit, laserLength)) {
+                    childrenTag = hit.collider.gameObject.GetComponent<CanvasGroup>().tag;
+                } else {
+                    childrenTag = "2";
+                }
+            }
         }
 
         return cashFindTiles;
@@ -178,18 +187,69 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
             cashFindList.AddRange(FindMatch(eventData, vectorArray[i]));
         }
 
-        if(cashFindList.Count >= 2) {
+        if(cashFindList.Count >= 2) {           
             for(int i = 0; i < cashFindList.Count; i++) {
+                //отправлять евент на сбор рун
+                AddResouces(cashFindList[i].gameObject.tag);
                 Destroy(cashFindList[i].gameObject);
             }
+
+            AddResouces(eventData.pointerDrag.gameObject.tag);
+            Destroy(eventData.pointerDrag.gameObject);          
         }
     }
 
     private void FindAllMath(PointerEventData eventData) {
+        //Debug.Log($"НАЧАТ ПОИСК СОВПАДЕНИЙ СВЕРХУ И СНИЗУ");
         DeleteSprite(eventData, new Vector2[2] { Vector2.up, Vector2.down });
+
+        //Debug.Log($"НАЧАТ ПОИСК СОВПАДЕНИЙ С ЛЕВА И С ПРАВА");
         DeleteSprite(eventData, new Vector2[2] { Vector2.left, Vector2.right });
 
-        // Destroy(eventData.pointerDrag);
+        //Destroy(eventData.pointerDrag);
+    }
+
+    private void AddResouces(string tag) {
+        if(ResourcesTags.Cloth_1.ToString() == tag) {
+            EventsResources.onClouthInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Cloth_2.ToString() == tag) {
+            EventsResources.onClouthInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Cloth_3.ToString() == tag) {
+            EventsResources.onClouthInBucket?.Invoke(3, 1, 1);
+        }
+
+        if(ResourcesTags.Log_1.ToString() == tag) {
+            EventsResources.onLogInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Log_2.ToString() == tag) {
+            EventsResources.onLogInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Log_3.ToString() == tag) {
+            EventsResources.onLogInBucket?.Invoke(3, 1, 1);
+        }
+
+        if(ResourcesTags.Neil_1.ToString() == tag) {
+            EventsResources.onNeilInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Neil_2.ToString() == tag) {
+            EventsResources.onNeilInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Neil_3.ToString() == tag) {
+            EventsResources.onNeilInBucket?.Invoke(3, 1, 1);
+        }
+
+        if(ResourcesTags.Stone_1.ToString() == tag) {
+            EventsResources.onStoneInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Stone_2.ToString() == tag) {
+            EventsResources.onStoneInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Stone_3.ToString() == tag) {
+            EventsResources.onStoneInBucket?.Invoke(3, 1, 1);
+        }
+
     }
 
 }
