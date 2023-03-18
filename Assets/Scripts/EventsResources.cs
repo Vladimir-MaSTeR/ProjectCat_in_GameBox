@@ -38,12 +38,15 @@ public class EventsResources
     public static Action<int, bool> onAddOrDeductComfortValue; // Изменяет Кол-во Уюта
                                                                //   Первый ар. - кол-во ресурса.
                                                                //   Второй ар. - прибавить или убавить ресурс.(true = прибавить. false убавить)
+    public static Action<int> onUpdateComfortValue; // эвент вызывается для обновления текста уюта
 
     public static Func<int> onGetSparkCurrentValue;   // возвращает подписчику текущее колличество Искорок
     public static Action<int, bool> onAddOrDeductSparkValue; // Изменяет Кол-во Искорки
                                                              //   Первый ар. - кол-во ресурса.
                                                              //   Второй ар. - прибавить или убавить ресурс.(true = прибавить. false убавить)
-                                                             //---------------------------------------------------------------------------------------------------------------------------------
+    public static Action<int> onUpdateSparkValue; // эвент вызывается для обновления текста искорки
+
+    //---------------------------------------------------------------------------------------------------------------------------------
 
     [Tooltip("Эвент передает уровень нужных ресурсов а получает словарь со значениеями ресурсов для КАМИНА")]
     public static Func<int, IDictionary<string, int>> onGetFireplaceDictionary;

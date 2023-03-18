@@ -109,6 +109,8 @@ public class Economics : MonoBehaviour {
                 _currentComfortValue = 0;
             }
         }
+
+        EventsResources.onUpdateComfortValue?.Invoke(_currentComfortValue);
     }
 
     /// <summary>
@@ -134,6 +136,8 @@ public class Economics : MonoBehaviour {
                 _currentSparkValue = 0;
             }
         }
+
+        EventsResources.onUpdateSparkValue?.Invoke(_currentSparkValue);
     }
 
     /// <summary>
@@ -154,6 +158,9 @@ public class Economics : MonoBehaviour {
     private void ReloadValue() {
         _currentComfortValue = ReloadPlayerPrefs(NAME_COMFORT_VALUE_FOR_SAVE, _comfortStartValue);
         _currentSparkValue = ReloadPlayerPrefs(NAME_SPARK_VALUE_FOR_SAVE, _sparkStartValue);
+
+        EventsResources.onUpdateComfortValue?.Invoke(_currentComfortValue);
+        EventsResources.onUpdateSparkValue?.Invoke(_currentSparkValue);
 
     }
       
