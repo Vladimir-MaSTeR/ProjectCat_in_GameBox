@@ -24044,8 +24044,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _time: 30
-  _minusTimeInSpark: 10
-  _countSpawnItemOneMoment: 5
+  _minusTimeInSpark: 30
+  _countSpawnItemOneMoment: 4
   _countSpawnOnClick: 1
   _resTag: Cloth_1
   _completeImage: {fileID: 4971283265575785878}
