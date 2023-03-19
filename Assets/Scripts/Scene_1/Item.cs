@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Amount Text")]
-    [SerializeField] private Text _text;
+   // [SerializeField] private Text _text;
 
     [Header("Start amount count")]
     [SerializeField] private int _minAmountText = 1;
@@ -31,7 +31,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         _canvasGroup = GetComponent<CanvasGroup>();
 
         _currentAmountForText = Random.Range(_minAmountText, _maxAmountText);
-        _text.text = _currentAmountForText.ToString();
+      //  _text.text = _currentAmountForText.ToString();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

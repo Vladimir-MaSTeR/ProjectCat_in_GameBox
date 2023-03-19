@@ -10,71 +10,61 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
     [SerializeField]
     private int _ID;
 
-    //[SerializeField] private Sprite _log_2_sprite;
-    //[SerializeField] private Sprite _log_3_sprite;
-
-    //[SerializeField] private Sprite _cloth_2_sprite;
-    //[SerializeField] private Sprite _cloth_3_sprite;
-
-    //[SerializeField] private Sprite _stone_2_sprite;
-    //[SerializeField] private Sprite _stone_3_sprite;
-
-    //[SerializeField] private Sprite _neil_2_sprite;
-    //[SerializeField] private Sprite _neil_3_sprite;
 
     public void OnDrop(PointerEventData eventData) {
+        if(ResourcesTags.Spark.ToString() != eventData.pointerDrag.tag) {
 
-        if(gameObject.GetComponentInChildren<CanvasGroup>() == null) {
-            var otherItemTransform = eventData.pointerDrag.transform;
-            otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
-            otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
-
-
-            // три в ряд
-            FindAllMath(eventData);
-        } else {
-
-            var parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
-            var childrenTag = eventData.pointerDrag.tag;
-            //Debug.Log($"Родительский тег = {parentTag}");
-            //Debug.Log($"Тег предмета = {childrenTag}");
-
-            var parentId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
-            var childrenId = eventData.pointerDrag.GetComponentInChildren<Item_3d>().GetItemId();
-
-            if(parentTag == ResourcesTags.Log_3.ToString() || parentTag == ResourcesTags.Cloth_3.ToString()
-             || parentTag == ResourcesTags.Stone_3.ToString() || parentTag == ResourcesTags.Neil_3.ToString()) {
-                return;
-            }
-
-            if(parentTag == childrenTag && parentId != childrenId) {
-
-                //МЕРДЖ 3д
-                /**
-                 * Идея следующая: Каждому слоту сделать ID. Соответственно при  мердже, 
-                 * в этом классе удалять руну которую тащили и руну стоящую в текущем слоте,
-                 * затем посылать ивент для спавна новой руны с информацией: 
-                 *      в каком слоте заспанить(ID)
-                 *      какой уровень руны заспавнить(подумать :) )
-                 *      какую руну заспавнить (таг)
-                 *      
-                 *      РЕАЛИЗОВАННО!!!
-                 * **/
+            if(gameObject.GetComponentInChildren<CanvasGroup>() == null) {
+                var otherItemTransform = eventData.pointerDrag.transform;
+                otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
+                otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
 
 
-                SoundsEvents.onPositiveMeargeSound?.Invoke();
-                Destroy(eventData.pointerDrag);
-                Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
-
-                InvokeEventSpavnItem(childrenTag);
-
+                // три в ряд
+                FindAllMath(eventData);
             } else {
-                SoundsEvents.onNegativeMeargeSound?.Invoke();
+
+                var parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
+                var childrenTag = eventData.pointerDrag.tag;
+                //Debug.Log($"Родительский тег = {parentTag}");
+                //Debug.Log($"Тег предмета = {childrenTag}");
+
+                var parentId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
+                var childrenId = eventData.pointerDrag.GetComponentInChildren<Item_3d>().GetItemId();
+
+                if(parentTag == ResourcesTags.Log_3.ToString() || parentTag == ResourcesTags.Cloth_3.ToString()
+                 || parentTag == ResourcesTags.Stone_3.ToString() || parentTag == ResourcesTags.Neil_3.ToString()) {
+                    return;
+                }
+
+                if(parentTag == childrenTag && parentId != childrenId) {
+
+                    //МЕРДЖ 3д
+                    /**
+                     * Идея следующая: Каждому слоту сделать ID. Соответственно при  мердже, 
+                     * в этом классе удалять руну которую тащили и руну стоящую в текущем слоте,
+                     * затем посылать ивент для спавна новой руны с информацией: 
+                     *      в каком слоте заспанить(ID)
+                     *      какой уровень руны заспавнить(подумать :) )
+                     *      какую руну заспавнить (таг)
+                     *      
+                     *      РЕАЛИЗОВАННО!!!
+                     * **/
+
+
+                    SoundsEvents.onPositiveMeargeSound?.Invoke();
+                    Destroy(eventData.pointerDrag);
+                    Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+
+                    InvokeEventSpavnItem(childrenTag);
+
+                } else {
+                    SoundsEvents.onNegativeMeargeSound?.Invoke();
+                }
+
+
             }
-
-
         }
-
 
     }
 
@@ -187,7 +177,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
             cashFindList.AddRange(FindMatch(eventData, vectorArray[i]));
         }
 
-        if(cashFindList.Count >= 2) {           
+        if(cashFindList.Count >= 2) {
+            UpdateSparks(cashFindList.Count);
+
             for(int i = 0; i < cashFindList.Count; i++) {
                 //отправлять евент на сбор рун
                 AddResouces(cashFindList[i].gameObject.tag);
@@ -207,6 +199,21 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
         DeleteSprite(eventData, new Vector2[2] { Vector2.left, Vector2.right });
 
         //Destroy(eventData.pointerDrag);
+    }
+
+    private void UpdateSparks(int count) {
+        if(count == 2) {
+            EventsResources.onAddOrDeductSparkValue?.Invoke(1, true);
+            Debug.Log($"Увеличиваем искорки на {1}");
+        }
+        if(count == 3) {
+            EventsResources.onAddOrDeductSparkValue?.Invoke(3, true);
+            Debug.Log($"Увеличиваем искорки на {3}");
+        }
+        if(count == 4) {
+            EventsResources.onAddOrDeductSparkValue?.Invoke(5, true);
+            Debug.Log($"Увеличиваем искорки на {5}");
+        }
     }
 
     private void AddResouces(string tag) {

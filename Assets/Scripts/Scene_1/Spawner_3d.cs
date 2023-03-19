@@ -43,13 +43,17 @@ public class Spawner_3d : MonoBehaviour
 
     private void OnEnable() {
         ButtonsEvents.onSaveResouces += SaveItems;
-        EventsResources.onSpawnItem += SpawnItem;
+        //EventsResources.onSpawnItem += SpawnItem;
+        //EventsResources.onSpawnItem += SpawnItemRandomSlotToTag;
+        EventsResources.onSpawnItem += SpawnItemRandomSlot;
         EventsResources.onSpawnItemToSlot += SpawnItemToSlot;
     }
 
     private void OnDisable() {
         ButtonsEvents.onSaveResouces -= SaveItems;
-        EventsResources.onSpawnItem -= SpawnItem;
+        //EventsResources.onSpawnItem -= SpawnItem;
+        //EventsResources.onSpawnItem -= SpawnItemRandomSlotToTag;
+        EventsResources.onSpawnItem -= SpawnItemRandomSlot;
         EventsResources.onSpawnItemToSlot -= SpawnItemToSlot;
     }
 
@@ -73,7 +77,7 @@ public class Spawner_3d : MonoBehaviour
     }
 
     /// <summary>
-    /// Метод для спавна одной руны в первой попавшейся, свободной клетке. (ВОЗМЛЖНО СТОИТ ПЕРЕДЕЛАТЬ НА РАНДОМНЫЙ ВЫБОР КЛЕТКИ)
+    /// Метод для спавна одной руны в первой попавшейся, свободной клетке.
     /// </summary>
     /// <param name="itemTag">тег руны которую нужно заспавнить</param>
     private void SpawnItem(string itemTag) {
@@ -90,6 +94,47 @@ public class Spawner_3d : MonoBehaviour
                 }
                 return;
             }
+        }
+    }
+
+    /// <summary>
+    /// Метод для спавна руны в рандомной, свободной клетке.
+    /// </summary>
+    /// <param name="itemTag">тег руны которую нужно заспавнить</param>
+    private void SpawnItemRandomSlotToTag(string itemTag) {
+        if(_slots[_currentSlotIndex].GetComponentInChildren<CanvasGroup>() != null) {
+            _currentSlotIndex = Random.Range(0, _slots.Length);
+        } else {
+
+            foreach(var item in _combinedList) {
+                var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+                if(itemTag == childrenTag) {
+                    Instantiate(item, _slots[_currentSlotIndex].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();
+                    _currentSlotIndex = Random.Range(0, _slots.Length);
+                    return;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Метод для спавна рандомной руны в рандомной, свободной клетке. 
+    /// ПОКА ИСПОЛЬЗУЮ СТАРЫЙ ЭВЕНТ С ПАРАМЕТРОМ ПОТОМ ПЕРЕДЕЛАТЬ, ТАК КАК ПАРАМЕТР/АРГУМЕНТ НЕ ИСПОЛЬЗУЕТСЯ В МЕТОДЕ
+    /// </summary>
+    private void SpawnItemRandomSlot(string itemTag) {
+        if(_slots[_currentSlotIndex].GetComponentInChildren<CanvasGroup>() != null) {
+            _currentSlotIndex = Random.Range(0, _slots.Length);
+            _currentItemIndex = Random.Range(0, _items.Length);
+            SpawnItemRandomSlot("");
+        } else {
+            Instantiate(_items[_currentItemIndex], _slots[_currentSlotIndex].transform);
+            SoundsEvents.onSpawnRuns?.Invoke();
+
+            _currentTimeRessItem = _timeRespavnItem;
+            _currentSlotIndex = Random.Range(0, _slots.Length);
+            _currentItemIndex = Random.Range(0, _items.Length);
         }
     }
 

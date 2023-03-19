@@ -17,6 +17,7 @@ TagManager:
   - Cloth_1
   - Cloth_2
   - Cloth_3
+  - Spark
   layers:
   - Default
   - TransparentFX
