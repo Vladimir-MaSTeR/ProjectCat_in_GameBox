@@ -3,14 +3,19 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class OrderResorces : MonoBehaviour, IPointerDownHandler
-{
+public class OrderResorces : MonoBehaviour, IPointerDownHandler, IDropHandler {
     [Header("Переменные")]
-    [SerializeField] private float _time = 90f;
     [SerializeField] private int _id;
 
+    [Space(20)] // отступ в инспекторе между полями
+    [SerializeField] private float _time = 90f;
+    [SerializeField] private float _minusTimeInSpark = 5;
+
+    [Space(20)] // отступ в инспекторе между полями
     [SerializeField] private int _countSpawnItemOneMoment = 2;
     [SerializeField] private int _countSpawnOnClick = 8;
+
+    [Space(20)] // отступ в инспекторе между полями
     [SerializeField] private string _resTag;
     [SerializeField] private Image _completeImage;
 
@@ -58,7 +63,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
     {
         if (_allowOrderResorces == true)
         {
-            Debug.Log("ЕСТЬ КЛИК ПО ПРЕДМЕТУ");
+           // Debug.Log("ЕСТЬ КЛИК ПО ПРЕДМЕТУ");
             SoundsEvents.onTapOrderResouces?.Invoke();
             //_allowOrderResorces = false;
 
@@ -85,6 +90,18 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
             _completeImage.gameObject.SetActive(false);
             //_timerTextUI.gameObject.SetActive(true);
             _currentTime = _time;
+        }
+    }
+
+    public void OnDrop(PointerEventData eventData) {
+        if(ResourcesTags.Spark.ToString() == eventData.pointerDrag.tag) {
+
+            eventData.pointerDrag.transform.localPosition = Vector3.zero;
+            eventData.pointerDrag.GetComponent<CanvasGroup>().blocksRaycasts = true; //_canvasGroup.blocksRaycasts = true;
+
+            MinusTime(_minusTimeInSpark);
+
+           // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
         }
     }
 
@@ -172,6 +189,15 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    private void MinusTime(float time) {
+        if(_currentTime > 0) {
+            _currentTime -= time;
+            Debug.Log($"Время таймера уменьшено на {time} сек");
 
+            //вызывать эвент уменьшения искорки.
+            EventsResources.onAddOrDeductSparkValue?.Invoke(1, false);
+        }
+    }
 
+    
 }

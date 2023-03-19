@@ -17,57 +17,57 @@ public class TrainingSc1 : MonoBehaviour
     private int _oneStart = 0;
     private int _currentText = 0;
 
-    private void Start()
-    {
-        ReloadSave();
+    //private void Start()
+    //{
+    //    ReloadSave();
 
-        if (_oneStart == 1)
-        {
-            _trainingPanel.SetActive(true);
+    //    if (_oneStart == 1)
+    //    {
+    //        _trainingPanel.SetActive(true);
             
-        }
-        else
-        {
-            _trainingPanel.SetActive(false);
-        }
-    }
+    //    }
+    //    else
+    //    {
+    //        _trainingPanel.SetActive(false);
+    //    }
+    //}
 
-    private void Update()
-    {
-        if (_currentText == 0)
-        {
-            _text.text = ONE;
-        }
-        if (_currentText == 1)
-        {
-            _text.text = TWO;
-        }
-        if (_currentText == 2)
-        {
-            _text.text = THREE;
-        }
-        if (_currentText == 3)
-        {
-            _text.text = FOURE;
+    //private void Update()
+    //{
+    //    if (_currentText == 0)
+    //    {
+    //        _text.text = ONE;
+    //    }
+    //    if (_currentText == 1)
+    //    {
+    //        _text.text = TWO;
+    //    }
+    //    if (_currentText == 2)
+    //    {
+    //        _text.text = THREE;
+    //    }
+    //    if (_currentText == 3)
+    //    {
+    //        _text.text = FOURE;
             
-        }
-        if (_currentText == 4)
-        {
-            _currentText++;
-            _oneStart = 2;
-            Save();
+    //    }
+    //    if (_currentText == 4)
+    //    {
+    //        _currentText++;
+    //        _oneStart = 2;
+    //        Save();
 
-            EventsResources.onStoneInBucket?.Invoke(1, 6, 1);
-            EventsResources.onLogInBucket?.Invoke(1, 3, 1);
-            EventsResources.onClouthInBucket?.Invoke(1, 3, 1);
+    //        EventsResources.onStoneInBucket?.Invoke(1, 6, 1);
+    //        EventsResources.onLogInBucket?.Invoke(1, 3, 1);
+    //        EventsResources.onClouthInBucket?.Invoke(1, 3, 1);
 
-            ButtonsEvents.onSaveResouces?.Invoke();
+    //        ButtonsEvents.onSaveResouces?.Invoke();
 
-            SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+    //        SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
 
-            //добавить ресурсов и переместить на сцену с домом.
-        }
-    }
+    //        //добавить ресурсов и переместить на сцену с домом.
+    //    }
+    //}
 
     public void ClickNextButton()
     {

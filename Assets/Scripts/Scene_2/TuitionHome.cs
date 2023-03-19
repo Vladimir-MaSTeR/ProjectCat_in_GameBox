@@ -13,33 +13,36 @@ public class TuitionHome : MonoBehaviour
     [SerializeField] GameObject _canvasTuitionPart3;
     [SerializeField] GameObject _objFireplace;
 
-    void Start()
-    {
-        LoadResouces();
 
-        if (_LvTuition > 2)
-        {
-           _dead();
-        }
-        ChekTuition();
+    // ÇÀÊÎÌÅÍÒÈÐÎÂÀË ×ÒÎ ÁÛ ÑÄÅËÀÒÜ ÁÈËÄ ÁÅÇ ÑÒÀÐÎÂÀ ÎÁÓ×ÅÍÈß È ÄËß ÒÎÃÎ ×ÒÎ ÁÛ ÑÈËÜÍÎ ÍÅ ÊÎÏÀÒÜÑß Â ÒÂÎÅÌ ÊÎÄÅ.
 
-    }
+    //void Start()
+    //{
+    //    LoadResouces();
+
+    //    if (_LvTuition > 2)
+    //    {
+    //       _dead();
+    //    }
+    //    ChekTuition();
+
+    //}
 
     // Update is called once per frame
-    void Update()
-    {
-        ChekTuition();
+//    void Update()
+//    {
+//        ChekTuition();
 
-        if (_LvTuition != 2)
-        {
-            if (_objFireplace.GetComponent<ClickRepair>().LvObj == 1)
-            {
-                _LvTuition = 2;
-///                SaveResources();
-            }
-        }
+//        if (_LvTuition != 2)
+//        {
+//            if (_objFireplace.GetComponent<ClickRepair>().LvObj == 1)
+//            {
+//                _LvTuition = 2;
+/////                SaveResources();
+//            }
+//        }
 
-    }
+//    }
 
     private void ChekTuition()
     {
