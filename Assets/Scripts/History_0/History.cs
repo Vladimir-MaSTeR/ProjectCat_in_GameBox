@@ -40,7 +40,8 @@ public class History : MonoBehaviour
         _oneStart = 1;
         Save();
 
-        SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+        //SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+        SceneManager.LoadScene(SceneIndexConstants.MEARG_SCENE_INDEX); // Потом вернуть
     }
 
     private void UpdateText()
@@ -94,8 +95,9 @@ public class History : MonoBehaviour
                 _oneStart = 1;
                 Save();
 
-                SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
-            }
+                //SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+                SceneManager.LoadScene(SceneIndexConstants.MEARG_SCENE_INDEX); // Потом вернуть
+            } 
 
             //else if (_curentText == 7)
             //{
@@ -107,7 +109,8 @@ public class History : MonoBehaviour
 
         } else
         {
-            SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+            //SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+            SceneManager.LoadScene(SceneIndexConstants.MEARG_SCENE_INDEX); // Потом вернуть
         }
     }
     private void Save()

@@ -99,7 +99,8 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler, IDropHandler {
             eventData.pointerDrag.transform.localPosition = Vector3.zero;
             eventData.pointerDrag.GetComponent<CanvasGroup>().blocksRaycasts = true; //_canvasGroup.blocksRaycasts = true;
 
-            MinusTime(_minusTimeInSpark);
+            //MinusTime(_minusTimeInSpark);
+            SpawnForSparks(_time);
 
            // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
         }
@@ -199,5 +200,20 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler, IDropHandler {
         }
     }
 
-    
+    private void SpawnForSparks(float time) {
+        if(_currentTime > 0) {
+
+            for(int i = 0; i < _countSpawnItemOneMoment; i++) {
+                EventsResources.onSpawnItem?.Invoke(_resTag);
+            }
+
+            _currentTime = time;
+            Debug.Log($"Таймер перезаупщен и = {_currentTime}");
+
+            //вызывать эвент уменьшения искорки.
+            EventsResources.onAddOrDeductSparkValue?.Invoke(1, false);
+        }
+    }
+
+
 }
