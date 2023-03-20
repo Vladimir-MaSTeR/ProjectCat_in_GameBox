@@ -3,25 +3,82 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot_3d : MonoBehaviour, IDropHandler { 
+public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler { 
 
 
     [Header("Идентификатор слота")]
     [SerializeField]
     private int _ID;
 
+    public void OnPointerDown(PointerEventData eventData) {    
 
+        if(gameObject.GetComponentInChildren<CanvasGroup>() == null) { //если пустая
+            //Debug.Log($"Eть клик по пустой клетке с идентификатогром = {_ID}");
+
+            //GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+            //if(oldObject != null) {
+            //    Debug.Log($"Тег выделенной руны =  {oldObject.tag}");
+            //}
+            GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+            DragObject(oldObject);
+            MeargGameEvents.onClearVariables?.Invoke();
+           
+        } else {
+            GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+            var oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+
+            //var oldSlot2 = oldObject.GetComponentInParent<Slot_3d>().gameObject.transform;
+            //if(oldSlot) {
+            //    Debug.Log($"Трансформ выбранной руны = {oldSlot.transform}");
+            //}
+
+            //Debug.Log($"Трансформ222 выбранной руны = {oldSlot2}");
+
+            if(oldObject != null) {
+                var oldRuneTag = oldObject.tag;
+                var currentRuneTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
+
+                //Debug.Log($"Тег выбранной руны = {oldRuneTag}");
+                //Debug.Log($"Тег руны с которой хотим поменяться местами = {currentRuneTag}");
+
+                if(oldRuneTag != currentRuneTag) {
+
+                    var oldPosition = oldObject.transform;
+
+                    var oldSlotPosition = gameObject.GetComponentInChildren<CanvasGroup>().gameObject.transform;
+
+                    var otherItemTransform = oldPosition;
+                    otherItemTransform.SetParent(transform);
+                    otherItemTransform.localPosition = Vector3.zero;
+
+                    var currentObject = oldSlotPosition;
+                    currentObject.SetParent(oldSlot.transform);
+                    currentObject.localPosition = Vector3.zero;
+
+
+                   //gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
+                    //MeargGameEvents.onClearVariables?.Invoke();
+
+                    FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+                }
+            }
+
+            GameObject pointerObject = gameObject.GetComponentInChildren<CanvasGroup>().gameObject;
+            MeargGameEvents.onSelectedSlot?.Invoke(_ID, pointerObject);
+        }
+
+    }
     public void OnDrop(PointerEventData eventData) {
         if(ResourcesTags.Spark.ToString() != eventData.pointerDrag.tag) {
 
             if(gameObject.GetComponentInChildren<CanvasGroup>() == null) {
-                var otherItemTransform = eventData.pointerDrag.transform;
-                otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
-                otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
+                //var otherItemTransform = eventData.pointerDrag.transform;
+                //otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
+                //otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
 
 
-                // три в ряд
-                FindAllMath(eventData);
+                //// три в ряд
+                //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
             } else {
 
                 var parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
@@ -55,6 +112,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
                     SoundsEvents.onPositiveMeargeSound?.Invoke();
                     Destroy(eventData.pointerDrag);
                     Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+
+                    MeargGameEvents.onClearVariables?.Invoke();
+                    MeargGameEvents.onGetOldObject?.Invoke();
 
                     InvokeEventSpavnItem(childrenTag);
 
@@ -106,6 +166,26 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
         return _ID;
     }
 
+    public void SelectSlot() {
+        this.gameObject.GetComponent<Image>().color = new Vector4(79 / 255.0f, 165 / 255.0f, 63 / 255.0f, 0.3f);
+    }
+
+    public void DeselectSlot() {
+        this.gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
+    }
+
+    public void DragObject(GameObject oldgameObject) {
+        if(oldgameObject != null) {
+            var otherItemTransform = oldgameObject.transform;
+            otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
+            otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
+
+            
+            FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+            
+        }
+    }
+
     private void CheckResorces(string parentTag, string oneTag, string twoTag, string threeTag, Sprite sp_2, Sprite sp_3) {
         if(parentTag == oneTag) {
             gameObject.GetComponentInChildren<Item>().GetComponentInChildren<Image>().sprite = sp_2;
@@ -118,14 +198,15 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
         }
     }
 
-    private List<GameObject> FindMatch(PointerEventData eventData, Vector2 vector) {
+    
+    private List<GameObject> FindMatch(GameObject eventData, Vector2 vector) {
 
         List<GameObject> cashFindTiles = new List<GameObject>();
-        float laserLength = 1.3f;
+        float laserLength = 1.5f;
 
         //RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector, laserLength); 2d
 
-        Ray ray = new Ray(eventData.pointerDrag.transform.position, vector);
+        Ray ray = new Ray(eventData.transform.position, vector);
         Debug.DrawRay(transform.position, vector * laserLength, Color.red);
 
         var parentTag = "1";
@@ -136,7 +217,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
 
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, laserLength)) {
-            Debug.Log("Лучь во что-то попал");
+            //Debug.Log("Лучь во что-то попал");
 
             parentTag = this.gameObject.GetComponentInChildren<CanvasGroup>().tag;
             childrenTag = hit.collider.gameObject.GetComponent<CanvasGroup>().tag;
@@ -150,9 +231,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
             //Debug.Log($"parentId = {parentId}");
             //Debug.Log($"childrenId = {childrenId}");
 
-        
 
-            while(parentTag == childrenTag && parentId != childrenId) {               
+
+            while(parentTag == childrenTag && parentId != childrenId) {
                 cashFindTiles.Add(hit.collider.gameObject);
 
                 Debug.Log($"Совпадение добавленно в список");
@@ -170,7 +251,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
         return cashFindTiles;
     }
 
-    private void DeleteSprite(PointerEventData eventData, Vector2[] vectorArray) {
+    private void DeleteSprite(GameObject eventData, Vector2[] vectorArray) {
         List<GameObject> cashFindList = new List<GameObject>();
 
         for(int i = 0; i < vectorArray.Length; i++) {
@@ -186,12 +267,12 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
                 Destroy(cashFindList[i].gameObject);
             }
 
-            AddResouces(eventData.pointerDrag.gameObject.tag);
-            Destroy(eventData.pointerDrag.gameObject);          
+            AddResouces(eventData.tag);
+            Destroy(eventData);          
         }
     }
 
-    private void FindAllMath(PointerEventData eventData) {
+    private void FindAllMath(GameObject eventData) {
         //Debug.Log($"НАЧАТ ПОИСК СОВПАДЕНИЙ СВЕРХУ И СНИЗУ");
         DeleteSprite(eventData, new Vector2[2] { Vector2.up, Vector2.down });
 
@@ -259,4 +340,5 @@ public class Slot_3d : MonoBehaviour, IDropHandler {
 
     }
 
+   
 }

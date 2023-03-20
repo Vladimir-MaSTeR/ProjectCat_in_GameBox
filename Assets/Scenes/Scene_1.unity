@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.40491277, b: 0.40491277, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -2212,7 +2212,6 @@ GameObject:
   - component: {fileID: 460971112}
   - component: {fileID: 460971111}
   - component: {fileID: 460971110}
-  - component: {fileID: 460971109}
   m_Layer: 5
   m_Name: BoxImage
   m_TagString: Spark
@@ -2240,19 +2239,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &460971109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460971107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9199e1f9bf65fe4fa8986353d22dcaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _economicsScript: {fileID: 1776618864}
 --- !u!225 &460971110
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5111,8 +5097,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: 0}
-  m_SizeDelta: {x: 330, y: 200}
+  m_AnchoredPosition: {x: 147.58, y: 0}
+  m_SizeDelta: {x: 295.17, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091442528
 MonoBehaviour:
@@ -5139,7 +5125,7 @@ MonoBehaviour:
     m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 30
+    m_MinSize: 20
     m_MaxSize: 60
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -5147,8 +5133,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u041F\u043E\u0447\u0438\u043D\u0438\u0442\u044C \u043A\u0430\u043C\u0438\u043D
-    \n1 \u0443\u0440\n"
+  m_Text: "\u041F\u043E\u043A\u0430 \u043D\u0435 \u0440\u0430\u0431\u043E\u0442\u0430\u044E\u0442
+    \u0436\u0434\u0435\u043C \u0434\u043E\u043C\n"
 --- !u!222 &1091442529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7911,8 +7897,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000000034924597, y: -180}
-  m_SizeDelta: {x: 1000.6, y: 200}
+  m_AnchoredPosition: {x: -0.00079536, y: -180}
+  m_SizeDelta: {x: 899.17, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1686468912
 MonoBehaviour:
@@ -9838,8 +9824,8 @@ GameObject:
   - component: {fileID: 2069760135}
   - component: {fileID: 2069760134}
   - component: {fileID: 2069760133}
-  - component: {fileID: 2069760132}
   - component: {fileID: 2069760136}
+  - component: {fileID: 2069760137}
   m_Layer: 5
   m_Name: Grid_3d
   m_TagString: Untagged
@@ -9887,55 +9873,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3.1, y: 48}
   m_SizeDelta: {x: 1125.3, y: 1610.9}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2069760132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069760130}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93ec9bdb1586724796694b1bdc31b95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeRespavnItem: 5
-  _slots:
-  - {fileID: 622194686}
-  - {fileID: 18381834}
-  - {fileID: 382737473}
-  - {fileID: 2061803056}
-  - {fileID: 1354662648}
-  - {fileID: 422694369}
-  - {fileID: 1282672029}
-  - {fileID: 50671276}
-  - {fileID: 1548923530}
-  - {fileID: 895228302}
-  - {fileID: 1250993609}
-  - {fileID: 1966430126}
-  - {fileID: 1760568048}
-  - {fileID: 1640222236}
-  - {fileID: 1206849200}
-  - {fileID: 1725915387}
-  - {fileID: 1516923417}
-  - {fileID: 1390320270}
-  - {fileID: 1976208240}
-  - {fileID: 1586253998}
-  _items:
-  - {fileID: 7912180061658586504, guid: 203b18e7b64b1764fbf5730d281faa06, type: 3}
-  - {fileID: 2905733868424001502, guid: 793e6ccef83c853428fb8547166656c5, type: 3}
-  - {fileID: 2459365576290939943, guid: 6f6aefebe91a9574585e23c641a7a393, type: 3}
-  - {fileID: 5087455687853295957, guid: e1a659076421e0e4ab2f832cf7a5c082, type: 3}
-  _items_2lv:
-  - {fileID: 4500801433134342950, guid: f288239a8cadb954088ef12ea7ff2e44, type: 3}
-  - {fileID: 6743299197375236614, guid: 999ab6e2b1d13564aa33d6372754eb8a, type: 3}
-  - {fileID: 103407689195672351, guid: e6c46c9f5773f3b4fb5e0a5913e54d05, type: 3}
-  - {fileID: 1436474545195894844, guid: 31fa6ec68fa6b8d4eafb391e51857abc, type: 3}
-  _items_3lv:
-  - {fileID: 7837800797250407700, guid: 7634c0cd6ae4f9842950a1fcbd491763, type: 3}
-  - {fileID: 3388276953230274769, guid: 55303fedce08c6a49b5753c27b622505, type: 3}
-  - {fileID: 63893303125916275, guid: ccbb8f18e11f2f84e8e225fc013fe04b, type: 3}
-  - {fileID: 6495332648424932879, guid: e686c2b31573fd74db5afef433f04a02, type: 3}
 --- !u!114 &2069760133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10010,7 +9947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71c7eeea39441f41894835dfb85d058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRespavnItem: 50000
+  _timeRespavnItem: 5000010
   _slots:
   - {fileID: 622194683}
   - {fileID: 18381831}
@@ -10043,6 +9980,39 @@ MonoBehaviour:
   - {fileID: 103407689195672351, guid: e6c46c9f5773f3b4fb5e0a5913e54d05, type: 3}
   - {fileID: 1436474545195894844, guid: 31fa6ec68fa6b8d4eafb391e51857abc, type: 3}
   _items_3lv: []
+--- !u!114 &2069760137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069760130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977f0fbd8313cfe4686cb79d5f1d129f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slots:
+  - {fileID: 622194683}
+  - {fileID: 18381831}
+  - {fileID: 382737470}
+  - {fileID: 2061803053}
+  - {fileID: 1354662645}
+  - {fileID: 422694366}
+  - {fileID: 1282672026}
+  - {fileID: 50671273}
+  - {fileID: 1548923527}
+  - {fileID: 895228299}
+  - {fileID: 1250993606}
+  - {fileID: 1966430123}
+  - {fileID: 1760568045}
+  - {fileID: 1640222233}
+  - {fileID: 1206849197}
+  - {fileID: 1725915384}
+  - {fileID: 1516923414}
+  - {fileID: 1390320267}
+  - {fileID: 1976208237}
+  - {fileID: 1586253995}
 --- !u!1 &2123542481
 GameObject:
   m_ObjectHideFlags: 0
@@ -24407,7 +24377,7 @@ GameObject:
   - component: {fileID: 4971283265749183957}
   m_Layer: 5
   m_Name: ResPanel (0)
-  m_TagString: Untagged
+  m_TagString: Spark
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24465,7 +24435,7 @@ MonoBehaviour:
   _id: 0
   _time: 30
   _minusTimeInSpark: 30
-  _countSpawnItemOneMoment: 4
+  _countSpawnItemOneMoment: 3
   _countSpawnOnClick: 1
   _resTag: Cloth_1
   _completeImage: {fileID: 4971283265575785878}
