@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: kamin_repaired_low_kamin_repaired
     second: {fileID: 2100000, guid: 87d6877706af8454399cad2e82377768, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood_5
+    second: {fileID: 2100000, guid: 87d6877706af8454399cad2e82377768, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
