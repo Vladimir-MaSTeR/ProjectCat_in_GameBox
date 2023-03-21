@@ -9947,7 +9947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71c7eeea39441f41894835dfb85d058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRespavnItem: 2
+  _timeRespavnItem: 5000000
   _slots:
   - {fileID: 622194683}
   - {fileID: 18381831}
