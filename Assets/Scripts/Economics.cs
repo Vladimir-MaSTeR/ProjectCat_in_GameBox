@@ -29,7 +29,7 @@ public class Economics : MonoBehaviour {
 
 
 
-        TEST();
+        //TEST();
     }
 
     //метод для проверки.
@@ -176,7 +176,6 @@ public class Economics : MonoBehaviour {
 
         PlayerPrefs.Save();
     }
-
 
 
     /// <summary>

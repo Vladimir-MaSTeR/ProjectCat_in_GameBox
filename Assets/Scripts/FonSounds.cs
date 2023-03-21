@@ -8,10 +8,9 @@ public class FonSounds : MonoBehaviour
     [SerializeField] private AudioClip _mearg_fonClip;
     [SerializeField] private AudioClip _home_fonClip;
 
-    private float _currentVol = 0.5f;
+    private float _currentVol = 0.02f;
 
     //[SerializeField] private AudioClip clip;
-
 
     private void Start()
     {
@@ -22,7 +21,8 @@ public class FonSounds : MonoBehaviour
         {
             _fonSource.clip = _mearg_fonClip;
             _fonSource.Play();
-           
+            gameObject.GetComponent<AudioSource>().volume = _currentVol;
+
             _fonSource.loop = true;
         }
 

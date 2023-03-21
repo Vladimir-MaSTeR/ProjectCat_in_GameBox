@@ -30,7 +30,8 @@ public class StargGame : MonoBehaviour
             _historyPanel.SetActive(true);
         } else
         {
-            SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+            //SceneManager.LoadScene(SceneIndexConstants.HOME_SCENE_INDEX);
+            SceneManager.LoadScene(SceneIndexConstants.MEARG_SCENE_INDEX); // Потом вернуть
         }
     }
 

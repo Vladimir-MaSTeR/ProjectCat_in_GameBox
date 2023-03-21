@@ -1,6 +1,5 @@
 
-public enum ResourcesTags
-{
+public enum ResourcesTags {
     Cloth_1,
     Cloth_2,
     Cloth_3,
@@ -15,6 +14,7 @@ public enum ResourcesTags
 
     Neil_1,
     Neil_2,
-    Neil_3
+    Neil_3,
 
+    Spark
 }
