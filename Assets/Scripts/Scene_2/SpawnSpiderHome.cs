@@ -31,8 +31,13 @@ public class SpawnSpiderHome : MonoBehaviour
 
     }
 
+
+
     //[Tooltip("запрос на статус объекта в доме")]
     //public static Func<string> onStatusSpiderHome;
+    [Tooltip("атака пауков на обьект")]
+    public static Action<string, int, DateTime> onAtackSpiderHome;
+
 
     private void OnEnable()
     {
@@ -62,6 +67,10 @@ public class SpawnSpiderHome : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// проверка сколько раз произошло действие через период deltaTimeSpawnSpider
+    /// (сколько раз пауки напали за прошедшее/отсутствующее время)
+    /// </summary>
     private void checkTimer()
     {
         /// Время сейчас
@@ -77,6 +86,8 @@ public class SpawnSpiderHome : MonoBehaviour
             if (_dateTimeStart >= _dateTimeNow)
             {
                 /// Время работы до Спавна
+                var _timeWork = spawnTimePassedWork(_dateTimeStart);
+                addSpawnSpider(_timeWork);
                 //var spawnTime = spawnTimePassedWork(_dateTimeStart);
                 Debug.Log("+1");
             }
@@ -92,14 +103,18 @@ public class SpawnSpiderHome : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// добавить паука на предмет 
+    /// </summary>
+    /// <param name="_timePassed">время до появления паука</param>
     private void addSpawnSpider(int _timePassed)
     {
         if (checkAllSpider() == false)
         {
-
+            /// атакованный предмет 
+            var _atackObj = checkLackSpider();
             int timeMinutes;
-
+           // onAtackSpiderHome();
 
 
         }
@@ -125,6 +140,8 @@ public class SpawnSpiderHome : MonoBehaviour
         }
         return true;
     }
+
+
     /// <summary>
     /// целый предметов в доме
     /// </summary>
@@ -150,7 +167,7 @@ public class SpawnSpiderHome : MonoBehaviour
 
 
     /// <summary>
-    /// Прошло времени работы до спавна
+    /// Прошло времени работы до спавна (сек)
     /// </summary>
     /// <param name="startSpider"></param>
     /// <returns></returns>
