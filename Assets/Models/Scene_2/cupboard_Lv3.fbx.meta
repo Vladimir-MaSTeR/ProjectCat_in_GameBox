@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: cupboard_6
+    second: {fileID: 2100000, guid: b98621127290b6d448fdfd0bd4a64556, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: lambert1
     second: {fileID: 2100000, guid: 2b7b2925de7721b4f83c70c4d7efc52b, type: 2}
   materials:

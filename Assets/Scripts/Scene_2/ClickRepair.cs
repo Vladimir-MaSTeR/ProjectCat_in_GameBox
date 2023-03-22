@@ -44,6 +44,9 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     private float _healthMax = 10;
     [Tooltip("Атакован пауками")]
     private bool _AtackSpider = false;
+    [Tooltip("Атакован пауками")]
+    private DateTime _timeAtackSpider;
+
 
     [Tooltip("текуший уют обьекта")]
     [SerializeField]
@@ -112,6 +115,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         if (_AtackSpider == true)
         { typeStatus = 2; }
         onStatusSpiderHome?.Invoke(_textNameObject, typeStatus);
+        onStatusComfortHome?.Invoke(_textNameObject, _healthNow, _comfortMax);
     }
 
     /// <summary>
@@ -141,9 +145,11 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
     }
     #endregion
 
-    [Tooltip("Статус объекта в доме")]
+    [Tooltip("Статус объекта в доме на нападение(целосность)")]
     public static Action<string, int> onStatusSpiderHome;
-
+    [Tooltip("Статус объекта в доме прочность, уют")]
+    public static Action<string,float, float> onStatusComfortHome;
+    
 
     private void OnEnable()
     {
@@ -177,7 +183,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
         }
 
 
-
+       // SpawnSpiderHome.onAtackSpiderHome += atackSpider;
     }
 
     private void OnDisable()
@@ -211,6 +217,7 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             // EventsResources.onAnimationReadyUp
         }
 
+       // SpawnSpiderHome.onAtackSpiderHome -= atackSpider;
 
     }
 
@@ -273,7 +280,11 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
 
     #region прочность и уют
 
+    private void atackSpider()
+    {
 
+
+    }
 
     /// <summary>
     /// текущий уют в зависимости от количество прочности
@@ -348,9 +359,6 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             {
             }
         }
-
-
-
 
     }
 #endregion
@@ -817,21 +825,35 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
 
     private void SaveResources()
     {
-        string _textKey = _textNameObject + "LvNow"; // _textLvObject
+        string _textKey = _textNameObject + "LvNow"; // _textLvObject Уровень
         PlayerPrefs.SetInt(_textKey, _lvObjectNow);
-        _textKey = _textNameObject + "ClickGoLvUp"; // _textObjectClickGoLvUp
+        _textKey = _textNameObject + "ClickGoLvUp"; // _textObjectClickGoLvUp клик до нов уровня
         PlayerPrefs.SetFloat(_textKey, _amtClickGoLvUp);
-        _textKey = _textNameObject + "HpNow"; // _textHpObject
+        _textKey = _textNameObject + "HpNow"; // _textHpObject // прочность
         PlayerPrefs.SetFloat(_textKey, _healthNow);
-        _textKey = _textNameObject + "AtackSpider";
+        _textKey = _textNameObject + "_comfortMax"; // максимальный уют  
+        PlayerPrefs.SetFloat(_textKey, _comfortMax);
+       ///
+        _textKey = _textNameObject + "AtackSpider"; // атакован или нет пауками
         if (_AtackSpider == false)
-        {
-            PlayerPrefs.SetInt(_textKey, 0);
-        }
+        {           PlayerPrefs.SetInt(_textKey, 0);}
         else
+        {            PlayerPrefs.SetInt(_textKey, 1);}
+        if (_AtackSpider == true)
         {
-            PlayerPrefs.SetInt(_textKey, 1);
+            _textKey = _textNameObject + "timeAtackSpider"; // время атаки пауков
+            PlayerPrefs.SetInt(_textKey + "Year", _timeAtackSpider.Year);
+            PlayerPrefs.SetInt(_textKey + "Month", _timeAtackSpider.Month);
+            PlayerPrefs.SetInt(_textKey + "Day", _timeAtackSpider.Day);
+            PlayerPrefs.SetInt(_textKey + "Hour", _timeAtackSpider.Hour);
+            PlayerPrefs.SetInt(_textKey + "Minute", _timeAtackSpider.Minute);
+            PlayerPrefs.SetInt(_textKey + "Second", _timeAtackSpider.Second);
+
+
+
         }
+
+
 
         //
         PlayerPrefs.Save();
@@ -854,8 +876,14 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
             _textKey = _textNameObject + "HpNow"; // _textHpObject
             if (PlayerPrefs.HasKey(_textKey))
             {
-                _amtClickGoLvUp = PlayerPrefs.GetFloat(_textKey);
+                _healthNow = PlayerPrefs.GetFloat(_textKey);
             }
+            _textKey = _textNameObject + "_comfortMax"; // максимальный уют  
+            if (PlayerPrefs.HasKey(_textKey))
+            {
+                _comfortMax = PlayerPrefs.GetFloat(_textKey);
+            }
+            ///
             _textKey = _textNameObject + "AtackSpider"; // _textLvObject
             if (PlayerPrefs.HasKey(_textKey))
             {
@@ -865,7 +893,24 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler
                 else
                 { _AtackSpider = true; }
             }
-        }
+            _textKey = _textNameObject + "timeAtackSpider" ; // время атаки пауков
+            if (PlayerPrefs.HasKey(_textKey + "Year"))
+            {
+                int _timeAtackSpiderYear = PlayerPrefs.GetInt(_textKey + "Year");
+                int _timeAtackSpiderMonth = PlayerPrefs.GetInt(_textKey + "Month");
+                int _timeAtackSpiderDay = PlayerPrefs.GetInt(_textKey + "Day");
+                int _timeAtackSpiderHour = PlayerPrefs.GetInt(_textKey + "Hour");
+                int _timeAtackSpiderMinute = PlayerPrefs.GetInt(_textKey + "Minute");
+                int _timeAtackSpiderSecond = PlayerPrefs.GetInt(_textKey + "Second");
+
+                _timeAtackSpider = new DateTime(_timeAtackSpiderYear,_timeAtackSpiderMonth, _timeAtackSpiderDay,
+                    _timeAtackSpiderHour, _timeAtackSpiderMinute, _timeAtackSpiderSecond);
+            }
+
+
+
+
+            }
     }
     
     #endregion
