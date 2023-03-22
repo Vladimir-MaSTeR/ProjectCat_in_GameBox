@@ -4329,10 +4329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1c5039c88088b46a3ac1f9563e3c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRespOneColumn: 3
-  _timeRespTwoColumn: 4
-  _timeRespThreeColumn: 3
-  _timeRespFourColumn: 4
+  _timeRespOneColumn: 5
+  _timeRespTwoColumn: 5
+  _timeRespThreeColumn: 5
+  _timeRespFourColumn: 5
   _allSlots:
   - {fileID: 622194683}
   - {fileID: 18381831}
