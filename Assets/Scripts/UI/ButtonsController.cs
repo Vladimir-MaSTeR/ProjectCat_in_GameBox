@@ -726,7 +726,6 @@ public class ButtonsController : MonoBehaviour
         }
     }
 
-
     public void ClickAutorButton()
     {
         
