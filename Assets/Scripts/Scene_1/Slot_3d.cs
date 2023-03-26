@@ -56,10 +56,41 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
                     currentObject.localPosition = Vector3.zero;
 
 
-                   //gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
+                    //gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
                     //MeargGameEvents.onClearVariables?.Invoke();
 
                     FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+                } else {
+                    var oldRuneId = oldObject.GetComponent<Item_3d>().GetItemId();
+                    var currentRuneId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
+
+                    if(oldRuneId != currentRuneId) {
+                        //МЕРДЖ 3д
+                        /**
+                         * Идея следующая: Каждому слоту сделать ID. Соответственно при  мердже, 
+                         * в этом классе удалять руну которую тащили и руну стоящую в текущем слоте,
+                         * затем посылать ивент для спавна новой руны с информацией: 
+                         *      в каком слоте заспанить(ID)
+                         *      какой уровень руны заспавнить(подумать :) )
+                         *      какую руну заспавнить (таг)
+                         *      
+                         *      РЕАЛИЗОВАННО!!!
+                         * **/
+
+
+                        SoundsEvents.onPositiveMeargeSound?.Invoke();
+                        //Destroy(eventData.pointerDrag);
+                        Destroy(oldObject);
+                        MeargGameEvents.onGetOldObject?.Invoke();
+                        MeargGameEvents.onClearVariables?.Invoke();
+                        Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+                        
+                       
+
+                        InvokeEventSpavnItem(currentRuneTag);
+                    } else {
+                        SoundsEvents.onNegativeMeargeSound?.Invoke();
+                    }
                 }
             }
 
@@ -68,63 +99,64 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         }
 
     }
+
     public void OnDrop(PointerEventData eventData) {
-        if(ResourcesTags.Spark.ToString() != eventData.pointerDrag.tag) {
+    //    if(ResourcesTags.Spark.ToString() != eventData.pointerDrag.tag) {
 
-            if(gameObject.GetComponentInChildren<CanvasGroup>() == null) {
-                //var otherItemTransform = eventData.pointerDrag.transform;
-                //otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
-                //otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
-
-
-                //// три в ряд
-                //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
-            } else {
-
-                var parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
-                var childrenTag = eventData.pointerDrag.tag;
-                //Debug.Log($"Родительский тег = {parentTag}");
-                //Debug.Log($"Тег предмета = {childrenTag}");
-
-                var parentId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
-                var childrenId = eventData.pointerDrag.GetComponentInChildren<Item_3d>().GetItemId();
-
-                if(parentTag == ResourcesTags.Log_3.ToString() || parentTag == ResourcesTags.Cloth_3.ToString()
-                 || parentTag == ResourcesTags.Stone_3.ToString() || parentTag == ResourcesTags.Neil_3.ToString()) {
-                    return;
-                }
-
-                if(parentTag == childrenTag && parentId != childrenId) {
-
-                    //МЕРДЖ 3д
-                    /**
-                     * Идея следующая: Каждому слоту сделать ID. Соответственно при  мердже, 
-                     * в этом классе удалять руну которую тащили и руну стоящую в текущем слоте,
-                     * затем посылать ивент для спавна новой руны с информацией: 
-                     *      в каком слоте заспанить(ID)
-                     *      какой уровень руны заспавнить(подумать :) )
-                     *      какую руну заспавнить (таг)
-                     *      
-                     *      РЕАЛИЗОВАННО!!!
-                     * **/
+    //        if(gameObject.GetComponentInChildren<CanvasGroup>() == null) {
+    //            //var otherItemTransform = eventData.pointerDrag.transform;
+    //            //otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
+    //            //otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
 
 
-                    SoundsEvents.onPositiveMeargeSound?.Invoke();
-                    Destroy(eventData.pointerDrag);
-                    Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+    //            //// три в ряд
+    //            //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+    //        } else {
 
-                    MeargGameEvents.onClearVariables?.Invoke();
-                    MeargGameEvents.onGetOldObject?.Invoke();
+    //            var parentTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
+    //            var childrenTag = eventData.pointerDrag.tag;
+    //            //Debug.Log($"Родительский тег = {parentTag}");
+    //            //Debug.Log($"Тег предмета = {childrenTag}");
 
-                    InvokeEventSpavnItem(childrenTag);
+    //            var parentId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
+    //            var childrenId = eventData.pointerDrag.GetComponentInChildren<Item_3d>().GetItemId();
 
-                } else {
-                    SoundsEvents.onNegativeMeargeSound?.Invoke();
-                }
+    //            if(parentTag == ResourcesTags.Log_3.ToString() || parentTag == ResourcesTags.Cloth_3.ToString()
+    //             || parentTag == ResourcesTags.Stone_3.ToString() || parentTag == ResourcesTags.Neil_3.ToString()) {
+    //                return;
+    //            }
+
+    //            if(parentTag == childrenTag && parentId != childrenId) {
+
+    //                //МЕРДЖ 3д
+    //                /**
+    //                 * Идея следующая: Каждому слоту сделать ID. Соответственно при  мердже, 
+    //                 * в этом классе удалять руну которую тащили и руну стоящую в текущем слоте,
+    //                 * затем посылать ивент для спавна новой руны с информацией: 
+    //                 *      в каком слоте заспанить(ID)
+    //                 *      какой уровень руны заспавнить(подумать :) )
+    //                 *      какую руну заспавнить (таг)
+    //                 *      
+    //                 *      РЕАЛИЗОВАННО!!!
+    //                 * **/
 
 
-            }
-        }
+    //                SoundsEvents.onPositiveMeargeSound?.Invoke();
+    //                Destroy(eventData.pointerDrag);
+    //                Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+
+    //                MeargGameEvents.onClearVariables?.Invoke();
+    //                MeargGameEvents.onGetOldObject?.Invoke();
+
+    //                InvokeEventSpavnItem(childrenTag);
+
+    //            } else {
+    //                SoundsEvents.onNegativeMeargeSound?.Invoke();
+    //            }
+
+
+    //        }
+    //    }
 
     }
 
@@ -236,12 +268,14 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             while(parentTag == childrenTag && parentId != childrenId) {
                 cashFindTiles.Add(hit.collider.gameObject);
 
-                Debug.Log($"Совпадение добавленно в список");
-                Debug.Log($"Список размером = {cashFindTiles.Count}");
+                Debug.Log($"А МОЖЕТ БЫТЬ И ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
+               // Debug.Log($"Совпадение добавленно в список");
+              //  Debug.Log($"Список размером = {cashFindTiles.Count}");
 
                 ray = new Ray(hit.collider.gameObject.transform.position, vector);
                 if(Physics.Raycast(ray, out hit, laserLength)) {
                     childrenTag = hit.collider.gameObject.GetComponent<CanvasGroup>().tag;
+                    childrenId = hit.collider.gameObject.GetComponent<Item_3d>().GetItemId();
                 } else {
                     childrenTag = "2";
                 }
@@ -255,6 +289,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         List<GameObject> cashFindList = new List<GameObject>();
 
         for(int i = 0; i < vectorArray.Length; i++) {
+            Debug.Log($"ВОЗМОЖНО ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
             cashFindList.AddRange(FindMatch(eventData, vectorArray[i]));
         }
 
@@ -262,6 +297,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             UpdateSparks(cashFindList.Count);
 
             for(int i = 0; i < cashFindList.Count; i++) {
+                Debug.Log($"ИЛИ ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
                 //отправлять евент на сбор рун
                 AddResouces(cashFindList[i].gameObject.tag);
                 Destroy(cashFindList[i].gameObject);

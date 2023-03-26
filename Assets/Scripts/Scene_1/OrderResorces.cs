@@ -108,7 +108,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler, IDropHandler {
 
     private void OnEnable()
     {
-        ButtonsEvents.onSaveResouces += SaveTimer;
+        ButtonsEvents.onSaveResouces += SaveTimer;      
     }
 
     private void OnDisable()
@@ -132,8 +132,7 @@ public class OrderResorces : MonoBehaviour, IPointerDownHandler, IDropHandler {
         }
     }
 
-    private void UpdateTimerText(float time)
-    {
+    private void UpdateTimerText(float time) {
         if (time < 0)
         {
             time = 0;
