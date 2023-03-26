@@ -28,35 +28,29 @@ public class Item_3d : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         _mainCanvas = GetComponentInParent<Canvas>();
         _canvasGroup = GetComponent<CanvasGroup>();
 
-        //_currentAmountForText = Random.Range(_minAmountText, _maxAmountText);
-        //_text.text = _currentAmountForText.ToString();
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
 
-        var slottransform = _transform.parent;
-        slottransform.SetAsLastSibling();
+        //var slottransform = _transform.parent;
+        //slottransform.SetAsLastSibling();
 
-        _canvasGroup.blocksRaycasts = false;
+        //_canvasGroup.blocksRaycasts = false;
     }
 
-    public void OnDrag(PointerEventData eventData) {
-        //_rectTransform.anchoredPosition += eventData.delta / _mainCanvas.scaleFactor; 2d
+    public void OnDrag(PointerEventData eventData) {   
 
-        //Vector2 vector = new Vector2();
-        //vector = eventData.delta / _mainCanvas.scaleFactor;
-
-        _transform.localPosition += new Vector3(eventData.delta.x / _mainCanvas.scaleFactor, 
-                                                eventData.delta.y / _mainCanvas.scaleFactor, 
-                                                0);
+        //_transform.localPosition += new Vector3(eventData.delta.x / _mainCanvas.scaleFactor, 
+        //                                        eventData.delta.y / _mainCanvas.scaleFactor, 
+        //                                        0);
     }
 
     public void OnEndDrag(PointerEventData eventData) {
 
        
-        transform.localPosition = Vector3.zero;
+        //transform.localPosition = Vector3.zero;
 
-        _canvasGroup.blocksRaycasts = true;
+        //_canvasGroup.blocksRaycasts = true;
 
         // EventsForMearge.onEndDragSound?.Invoke();
 

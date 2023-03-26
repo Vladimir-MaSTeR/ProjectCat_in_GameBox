@@ -8,4 +8,6 @@ public class MeargGameEvents
     public static Action onClearVariables;
     public static Func<GameObject> onGetOldObject;
     public static Func<Slot_3d> onGetOldSlot;
+    public static Func<float> onGetCurrentTimeSpawnOldColumn;
+    public static Action<float> onSetTimeToSpawnRuns;
 }
