@@ -162,14 +162,14 @@ public class Spawner_3d : MonoBehaviour
     private void SaveItems() {
         for(int i = 0; i < _slots.Length; i++) {
             if(_slots[i].GetComponentInChildren<CanvasGroup>() != null) {
-                var level = _slots[i].GetComponentInChildren<Item>().GetCurrentAmountForText();
+                //var level = _slots[i].GetComponentInChildren<Item>().GetCurrentAmountForText();
                 var tag = _slots[i].GetComponentInChildren<CanvasGroup>().tag;
 
                 PlayerPrefs.SetInt($"numberSlot_{i}", i);
-                PlayerPrefs.SetInt($"numberSlot_{i}_level", level);
+                //PlayerPrefs.SetInt($"numberSlot_{i}_level", level);
                 PlayerPrefs.SetString($"numberSlot_{i}_tag", tag);
 
-                Debug.Log($"сохранил предмет в слоте {i} с уровнем {level} и тегом {tag}");
+                //Debug.Log($"сохранил предмет в слоте {i} с уровнем {level} и тегом {tag}");
             }
         }
     }

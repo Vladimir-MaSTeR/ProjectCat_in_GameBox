@@ -103,9 +103,19 @@ public class SpawnRuns_3d : MonoBehaviour {
         SpawnFourColumnRuns();
     }
 
+    private void OnEnable() {
+        MeargGameEvents.onGetCurrentTimeSpawnOldColumn += GetCurrentTimer;
+        MeargGameEvents.onSetTimeToSpawnRuns += SetCurrentTimeOldColumn;
+    }
+
+    private void OnDisable() {
+        MeargGameEvents.onGetCurrentTimeSpawnOldColumn -= GetCurrentTimer;
+        MeargGameEvents.onSetTimeToSpawnRuns -= SetCurrentTimeOldColumn;
+    }
+
 
     /// <summary>
-    /// метод для спавна рун первого рядя и их движения
+    /// метод для спавна рун первой колонки и их движения
     /// </summary>
     private void SpawnOneColumnRuns() {
         if(_currentTimeRespOneColumn <= 0) {
@@ -140,13 +150,14 @@ public class SpawnRuns_3d : MonoBehaviour {
                     }
                 }                         
             }
-
-
         } else {
             _currentTimeRespOneColumn -= Time.deltaTime;
         }
     }
 
+    /// <summary>
+    /// метод для спавна рун второй колонки и их движения
+    /// </summary>
     private void SpawnTwoColumnRuns() {
         if(_currentTimeRespTwoColumn <= 0) {
             if(_twoColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
@@ -187,6 +198,9 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// метод для спавна рун третьей колонки и их движения
+    /// </summary>
     private void SpawnThreeColumnRuns() {
         if(_currentTimeRespThreeColumn <= 0) {
             if(_threeColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
@@ -227,6 +241,9 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// метод для спавна рун четвертой колонки и их движения
+    /// </summary>
     private void SpawnFourColumnRuns() {
         if(_currentTimeRespFourColumn <= 0) {
             if(_fourColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
@@ -482,11 +499,26 @@ public class SpawnRuns_3d : MonoBehaviour {
         GameObject returneObject = items[Random.Range(0, items.Length)];
 
         while(returneObject.tag == tag) {
+            Debug.Log("Возможно зависаем из за этой падлюки");
             returneObject = items[Random.Range(0, items.Length)];
         }
 
         return returneObject;
     }
 
+    /// <summary>
+    /// Возвращает текущее время таймера певой колонки.
+    /// </summary>
+    /// <returns></returns>
+    private float GetCurrentTimer() {
+        //return _currentTimeRespOneColumn;
+        return _timeRespOneColumn;
+    }
 
+    private void SetCurrentTimeOldColumn(float currentTime) {
+        _currentTimeRespOneColumn = currentTime;
+        _currentTimeRespTwoColumn = currentTime;
+        _currentTimeRespThreeColumn = currentTime;
+        _currentTimeRespFourColumn = currentTime;
+    }
 }
