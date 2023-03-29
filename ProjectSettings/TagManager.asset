@@ -18,6 +18,7 @@ TagManager:
   - Cloth_2
   - Cloth_3
   - Spark
+  - Spider
   layers:
   - Default
   - TransparentFX
