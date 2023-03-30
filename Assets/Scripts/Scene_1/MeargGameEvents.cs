@@ -13,9 +13,12 @@ public class MeargGameEvents
 
     //Spider
     public static Func<float> onGetSpiderTime;
+    public static Func<int> onGetTiefRunsCount;
     public static Action onStartSpidersTime;
 
     public static Action onHoldSpider;   // вызов замараживающего паука
     public static Action onRandomSpider; // вызов перемешивающего руны паука
     public static Action onThiefSpider;  // вызов ворующего руны пауыка
+
+    public static Action onTiefRuns;    // эвент для воровства рун
 }

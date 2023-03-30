@@ -2978,6 +2978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _emergenceTime: 3
+  _tiefRunsCount: 5
 --- !u!1 &547061189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4865,9 +4866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeRespOneColumn: 3
-  _timeRespTwoColumn: 5
-  _timeRespThreeColumn: 8
-  _timeRespFourColumn: 14
+  _timeRespTwoColumn: 3
+  _timeRespThreeColumn: 3
+  _timeRespFourColumn: 3
   _allSlots:
   - {fileID: 622194683}
   - {fileID: 18381831}
@@ -11182,7 +11183,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069760130}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a71c7eeea39441f41894835dfb85d058, type: 3}
   m_Name: 
@@ -29315,8 +29316,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7661305893455435303}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -9.25, z: 12}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 1.76, y: 8.08, z: 12}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6154198719119611896}
@@ -31505,6 +31506,15 @@ MonoBehaviour:
   _randomSpiderPoints:
   - {x: 0, y: -9, z: 12}
   - {x: 0, y: 9, z: 12}
+  _HoldSpiderPoints:
+  - {x: -1.73, y: -7.94, z: 12}
+  - {x: -1.73, y: 7.73, z: 12}
+  - {x: -0.55, y: -7.86, z: 12}
+  - {x: -0.55, y: 7.44, z: 12}
+  - {x: 0.58, y: -7.79, z: 12}
+  - {x: 0.58, y: 7.83, z: 12}
+  - {x: 1.76, y: -8.02, z: 12}
+  - {x: 1.76, y: 8.08, z: 12}
 --- !u!65 &7661305893455435306
 BoxCollider:
   m_ObjectHideFlags: 0

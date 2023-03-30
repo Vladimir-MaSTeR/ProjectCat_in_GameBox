@@ -106,11 +106,39 @@ public class SpawnRuns_3d : MonoBehaviour {
     private void OnEnable() {
         MeargGameEvents.onGetCurrentTimeSpawnOldColumn += GetCurrentTimer;
         MeargGameEvents.onSetTimeToSpawnRuns += SetCurrentTimeOldColumn;
+        EventsResources.onSpawnItemToSlot += SpawnItemToSlot;
+
+        MeargGameEvents.onTiefRuns += TiefRuns;
     }
 
     private void OnDisable() {
         MeargGameEvents.onGetCurrentTimeSpawnOldColumn -= GetCurrentTimer;
         MeargGameEvents.onSetTimeToSpawnRuns -= SetCurrentTimeOldColumn;
+        EventsResources.onSpawnItemToSlot -= SpawnItemToSlot;
+
+        MeargGameEvents.onTiefRuns += TiefRuns;
+    }
+
+    /// <summary>
+    /// Метод спавнит одну руну в КОНКРЕТНОЙ ячейке
+    /// </summary>
+    /// <param name="itemTag">тег руны которую нужно заспавнить</param>
+    /// <param name="slotId">идентификатор слота в котором спавнить руну</param>
+    private void SpawnItemToSlot(string itemTag, int slotId) {
+        foreach(var slot in _allSlots) {
+            if(slot.GetComponentInChildren<Slot_3d>().GetSlotID() == slotId) {
+                foreach(var item in _combinedList) {
+                    var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+                    if(itemTag == childrenTag) {
+                        Instantiate(item, slot.transform);
+                        SoundsEvents.onSpawnRuns?.Invoke();
+                        return;
+                    }
+                }
+                return;
+            }
+        }
     }
 
 
@@ -514,11 +542,23 @@ public class SpawnRuns_3d : MonoBehaviour {
         //return _currentTimeRespOneColumn;
         return _timeRespOneColumn;
     }
-
     private void SetCurrentTimeOldColumn(float currentTime) {
         _currentTimeRespOneColumn = currentTime;
         _currentTimeRespTwoColumn = currentTime;
         _currentTimeRespThreeColumn = currentTime;
         _currentTimeRespFourColumn = currentTime;
+    }
+
+    /// <summary>
+    /// Метод воровства рун
+    /// </summary>
+    private void TiefRuns() {
+        var randomSelectedRuns = Random.Range(0, _allSlots.Length);
+
+        if(_allSlots[randomSelectedRuns].GetComponentInChildren<CanvasGroup>() == null) {
+            TiefRuns();
+        } else {
+            Destroy(_allSlots[randomSelectedRuns].GetComponentInChildren<CanvasGroup>().gameObject);
+        }
     }
 }

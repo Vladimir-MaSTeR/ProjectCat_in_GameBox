@@ -5,6 +5,10 @@ public class Spiders : MonoBehaviour {
     [Tooltip("¬рем€ через которое по€витс€ паук")]
     private float _emergenceTime;
 
+    [SerializeField]
+    [Tooltip(" олличество рун которое варует паук")]
+    private int _tiefRunsCount = 1;
+
     private float _currentTime;
     private int _currentSpider; // переменна€ отвечает за рандомный выбор паука 0 = морозный паук. 1 = ворующий паук. 2 = перемешивающий руны паук.
 
@@ -21,33 +25,33 @@ public class Spiders : MonoBehaviour {
     private void OnEnable() {
         MeargGameEvents.onGetSpiderTime += GetSpiderTime;
         MeargGameEvents.onStartSpidersTime += StartSpidersTime;
+        MeargGameEvents.onGetTiefRunsCount += GetTiefRunsCount;
     }
 
     private void OnDisable() {
         MeargGameEvents.onGetSpiderTime -= GetSpiderTime;
         MeargGameEvents.onStartSpidersTime -= StartSpidersTime;
-
+        MeargGameEvents.onGetTiefRunsCount -= GetTiefRunsCount;
     }
 
     private void TimerEmergenceSpiders() {
         if(_currentTime <= 0) {
             if(_startTimer) {
-                _currentSpider = Random.Range(0, 2);
-                //вызывать эвент по€влени€ паука. ¬ зависимости от рандомного значени€ переменной.
-
-                //if(_currentSpider == 0) {
-                //    MeargGameEvents.onHoldSpider?.Invoke();
-                //} else if(_currentSpider == 1) {
-                //    MeargGameEvents.onThiefSpider?.Invoke();
-                //} else if(_currentSpider == 2) {
-                //    MeargGameEvents.onRandomSpider?.Invoke();
-                //}
+                _currentSpider = Random.Range(0, 3); //дл€ int,а максимальное значение не включительно
+                                                     //вызывать эвент по€влени€ паука. ¬ зависимости от рандомного значени€ переменной.
 
                 if(_currentSpider == 0) {
-                    MeargGameEvents.onThiefSpider?.Invoke();
+                    MeargGameEvents.onHoldSpider?.Invoke();
                 } else if(_currentSpider == 1) {
+                    MeargGameEvents.onThiefSpider?.Invoke();
+                } else if(_currentSpider == 2) {
                     MeargGameEvents.onRandomSpider?.Invoke();
                 }
+
+                //MeargGameEvents.onHoldSpider?.Invoke();
+                //MeargGameEvents.onThiefSpider?.Invoke();
+                //MeargGameEvents.onRandomSpider?.Invoke();
+
                 _startTimer = false;
             }
         } else {
@@ -62,5 +66,9 @@ public class Spiders : MonoBehaviour {
 
     private float GetSpiderTime() {
         return _emergenceTime;
+    }
+
+    private int GetTiefRunsCount() {
+        return _tiefRunsCount;
     }
 }
