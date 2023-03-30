@@ -4,20 +4,12 @@ public class Spider : MonoBehaviour
 {
     #region Переменные движка
     [Header("Переменные")]
-
-    //[SerializeField]
-    //[Tooltip("Время через которое появится паук")]
-    //private float _emergenceTime;
-
     [SerializeField]
     [Tooltip("Скорость паука")]
-    private float _speed;
+    private float _speed = 2.5f;
+    
 
     // задумка следующая, певое число - спавн, второе куда следовать паку.
-    //[SerializeField]
-    //[Tooltip("Точки передвижения пака (Нечетные - точки спавна), (Четные - точки следования)")]  
-    //private Vector3[] _movePoints;
-
     [SerializeField]
     [Tooltip("Кординаты паука ВОРА (Нечетные - точки спавна), (Четные - точки следования)")]
     private Vector3[] _tiefSpiderPoints;
@@ -26,16 +18,21 @@ public class Spider : MonoBehaviour
     [Tooltip("Кординаты паука ПЕРЕМЕШИВАТЕЛЯ (Нечетные - точки спавна), (Четные - точки следования)")]
     private Vector3[] _randomSpiderPoints;
 
+    [SerializeField]
+    [Tooltip("Кординаты паука ЗАМОРАЖИВАЮЩЕГО (Нечетные - точки спавна), (Четные - точки следования)")]
+    private Vector3[] _HoldSpiderPoints;
+
     #endregion
 
     #region Приватные переменные
 
     private bool _startTiefSpider = false;
     private bool _startRandomSpider = false;
+    private bool _startHoldSpider = false;
 
-    private float _currentSpeed;
+    //private float _currentSpeed;
 
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
 
 
     //private Vector3 oneSpawnPointTiefSpider;
@@ -43,17 +40,18 @@ public class Spider : MonoBehaviour
 
     private Vector3 _currentMovePointTiefSpider;
     private Vector3 _currentMovePointRandomSpider;
+    private Vector3 _currentMovePointHoldSpider;
     //private Vector3 twoMovePointTiefSpider;
 
     #endregion
 
-    private void Awake() {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
+    //private void Awake() {
+    //    _rigidbody = GetComponent<Rigidbody>();
+    //}
 
-    private void Start() {
-        _currentSpeed = _speed;
-    }
+    //private void Start() {
+    //    _currentSpeed = _speed;
+    //}
 
     private void FixedUpdate() {
         if(_startTiefSpider) {
@@ -64,17 +62,87 @@ public class Spider : MonoBehaviour
             RandomSpiderMove(_currentMovePointRandomSpider);
         }
 
+        if(_startHoldSpider) {
+            HoldSpiderMove(_currentMovePointHoldSpider);
+        }
+
     }
 
     private void OnEnable() {
         MeargGameEvents.onThiefSpider += StartTiefSpider;
         MeargGameEvents.onRandomSpider += StartRandomSpider;
+        MeargGameEvents.onHoldSpider += StartHoldSpider;
     }
 
     private void OnDisable() {
         MeargGameEvents.onThiefSpider -= StartTiefSpider;
         MeargGameEvents.onRandomSpider -= StartRandomSpider;
+        MeargGameEvents.onHoldSpider -= StartHoldSpider;
     }
+
+    #region ПАУК ЗАМОРАЖИВАЮЩИЙ методы
+
+    private void StartHoldSpider() {
+        HoldSpider();
+        _startHoldSpider = true;
+    }
+
+    private void HoldSpider() {
+        if(_HoldSpiderPoints != null) {
+            this.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+
+            if(_HoldSpiderPoints.Length >= 8) {
+                Vector3 oneSpawnPointTiefSpider = _HoldSpiderPoints[0];
+                Vector3 oneMovePointTiefSpider = _HoldSpiderPoints[1];
+
+                Vector3 twoSpawnPointTiefSpider = _HoldSpiderPoints[2];
+                Vector3 twoMovePointTiefSpider = _HoldSpiderPoints[3];
+
+                Vector3 threeSpawnPointTiefSpider = _HoldSpiderPoints[4];
+                Vector3 threeMovePointTiefSpider = _HoldSpiderPoints[5];
+
+                Vector3 fourSpawnPointTiefSpider = _HoldSpiderPoints[6];
+                Vector3 fourMovePointTiefSpider = _HoldSpiderPoints[7];
+
+                var currentSpawnPoint = Random.Range(0, 5); // для интов максимальная граница НЕ ВКЛЮЧИТЕЛЬНО
+                //Debug.Log($"currentSpawnPoint = {currentSpawnPoint}");
+
+                if(currentSpawnPoint == 0) {
+                    this.transform.position = oneSpawnPointTiefSpider;
+                    _currentMovePointHoldSpider = oneMovePointTiefSpider;                   
+                } else if(currentSpawnPoint == 1) {
+                    this.transform.position = twoSpawnPointTiefSpider;
+                    _currentMovePointHoldSpider = twoMovePointTiefSpider;                  
+                } else if(currentSpawnPoint == 2) {
+                    this.transform.position = threeSpawnPointTiefSpider;
+                    _currentMovePointHoldSpider = threeMovePointTiefSpider;
+                } else if(currentSpawnPoint == 3) {
+                    this.transform.position = fourSpawnPointTiefSpider;
+                    _currentMovePointHoldSpider = fourMovePointTiefSpider;
+                }
+            } else {
+                Vector3 oneSpawnPointTiefSpider = _HoldSpiderPoints[0];
+                Vector3 oneMovePointTiefSpider = _HoldSpiderPoints[1];
+
+                this.transform.position = oneSpawnPointTiefSpider;
+                _currentMovePointHoldSpider = oneMovePointTiefSpider;
+            }
+        }
+    }
+
+    private void HoldSpiderMove(Vector3 movePoint) {
+        this.transform.LookAt(movePoint);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+
+        if(this.transform.position == movePoint) {
+            //вызывать эвент вредительства и эвент обновления времени воявления паука
+            MeargGameEvents.onStartSpidersTime?.Invoke();
+            _startHoldSpider = false;
+        }
+    }
+
+
+    #endregion
 
     #region ПАУК ПЕРЕМЕШИВАЛЬЩИК методы
     private void StartRandomSpider() {
@@ -152,9 +220,16 @@ public class Spider : MonoBehaviour
 
         if(this.transform.position == movePoint) {
             //вызывать эвент вредительства и эвент обновления времени воявления паука
+
+            int tiefRunsCount = (int)(MeargGameEvents.onGetTiefRunsCount?.Invoke()); // Получаем кол-во рун для  кражи
+            for(int i = 0; i < tiefRunsCount; i++) {
+                MeargGameEvents.onTiefRuns?.Invoke();
+            }
+
             MeargGameEvents.onStartSpidersTime?.Invoke();
             _startTiefSpider = false;
         }
     }
     #endregion
+
 }
