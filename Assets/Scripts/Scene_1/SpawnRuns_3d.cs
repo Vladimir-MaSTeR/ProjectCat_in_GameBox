@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnRuns_3d : MonoBehaviour {
@@ -75,6 +76,8 @@ public class SpawnRuns_3d : MonoBehaviour {
     private float _currentTimeRespThreeColumn;
     private float _currentTimeRespFourColumn;
 
+    private bool _startTimer = true;
+
     private int _currentSlotIndex;
     private int _currentItemIndex;
     private float _currentTimeRessItem;
@@ -93,30 +96,62 @@ public class SpawnRuns_3d : MonoBehaviour {
         _currentTimeRespThreeColumn = _timeRespThreeColumn;
         _currentTimeRespFourColumn = _timeRespFourColumn;
 
-        //ReloadItems();
+        _currentSlotIndex = Random.Range(0, _allSlots.Length);
+
+        ReloadItems();
     }
 
     private void Update() {
-        SpawnOneColumnRuns();
-        SpawnTwoColumnRuns();
-        SpawnThreeColumnRuns();
-        SpawnFourColumnRuns();
+        if(_startTimer) {
+            SpawnOneColumnRuns();
+            SpawnTwoColumnRuns();
+            SpawnThreeColumnRuns();
+            SpawnFourColumnRuns();
+        }       
     }
 
     private void OnEnable() {
+        ButtonsEvents.onSaveResouces += SaveItems;
+
         MeargGameEvents.onGetCurrentTimeSpawnOldColumn += GetCurrentTimer;
         MeargGameEvents.onSetTimeToSpawnRuns += SetCurrentTimeOldColumn;
         EventsResources.onSpawnItemToSlot += SpawnItemToSlot;
 
         MeargGameEvents.onTiefRuns += TiefRuns;
+        MeargGameEvents.onRandomRuns += RandomRuns;
     }
 
     private void OnDisable() {
+        ButtonsEvents.onSaveResouces -= SaveItems;
+
         MeargGameEvents.onGetCurrentTimeSpawnOldColumn -= GetCurrentTimer;
         MeargGameEvents.onSetTimeToSpawnRuns -= SetCurrentTimeOldColumn;
         EventsResources.onSpawnItemToSlot -= SpawnItemToSlot;
 
-        MeargGameEvents.onTiefRuns += TiefRuns;
+        MeargGameEvents.onTiefRuns -= TiefRuns;
+        MeargGameEvents.onRandomRuns -= RandomRuns;
+    }
+
+    /// <summary>
+    /// Метод для спавна руны в рандомной, свободной клетке.
+    /// </summary>
+    /// <param name="itemTag">тег руны которую нужно заспавнить</param>
+    private void SpawnItemRandomSlotToTag(string itemTag) {
+        if(_allSlots[_currentSlotIndex].GetComponentInChildren<CanvasGroup>() != null) {
+            _currentSlotIndex = Random.Range(0, _allSlots.Length);
+        } else {
+
+            foreach(var item in _combinedList) {
+                var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+                if(itemTag == childrenTag) {
+                    Instantiate(item, _allSlots[_currentSlotIndex].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();
+                    _currentSlotIndex = Random.Range(0, _allSlots.Length);
+                    break;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -559,6 +594,99 @@ public class SpawnRuns_3d : MonoBehaviour {
             TiefRuns();
         } else {
             Destroy(_allSlots[randomSelectedRuns].GetComponentInChildren<CanvasGroup>().gameObject);
+            Debug.Log("ПАУК УКРАЛ РУНЫ");
         }
     }
+
+    /// <summary>
+    /// Метод перемешивания рун на доске
+    /// </summary>
+    private void RandomRuns() {
+        _startTimer = false;
+
+        List<string> tagRuns = new List<string>();
+        List<int> slotRunsList = new List<int>();
+        HashSet<int> slotNUmbers = new HashSet<int>();
+
+        foreach(var slot in _allSlots) {
+            if(slot.GetComponentInChildren<CanvasGroup>() != null) {
+                tagRuns.Add(slot.GetComponentInChildren<CanvasGroup>().tag);
+                Destroy(slot.GetComponentInChildren<CanvasGroup>().gameObject);
+            }
+        }
+
+        while(slotNUmbers.Count < tagRuns.Count) {
+            slotNUmbers.Add(Random.Range(0, _allSlots.Length));
+        }
+
+        slotRunsList = slotNUmbers.ToList();
+        for(int i = 0; i < tagRuns.Count; i++) {
+            var tag = tagRuns[i];
+
+            foreach(var runs in _combinedList) {
+                var runTag = runs.GetComponentInChildren<CanvasGroup>().tag;
+
+                if(tag == runTag) {
+                    Instantiate(runs, _allSlots[slotRunsList[i]].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();                
+                    break;
+                }
+            }
+        }
+
+        Debug.Log("ПАУК ПЕРЕМЕШАЛ РУНЫ");
+
+        _startTimer = true;
+    }
+
+    #region СОХРАНЕНИЕ И ЗАГРУЗКА РУН НА ДОСКЕ
+    private void SaveItems() {
+        for(int i = 0; i < _allSlots.Length; i++) {
+            if(_allSlots[i].GetComponentInChildren<CanvasGroup>() != null) {
+                //var level = _slots[i].GetComponentInChildren<Item>().GetCurrentAmountForText();
+                var tag = _allSlots[i].GetComponentInChildren<CanvasGroup>().tag;
+
+                PlayerPrefs.SetInt($"numberSlot_{i}", i);
+                //PlayerPrefs.SetInt($"numberSlot_{i}_level", level);
+                PlayerPrefs.SetString($"numberSlot_{i}_tag", tag);
+
+                //Debug.Log($"сохранил предмет в слоте {i} с уровнем {level} и тегом {tag}");
+            }
+        }
+    }
+
+    private void ReloadItems() {
+        IDictionary<int, string> reloadDictionary = new Dictionary<int, string>();
+
+        for(int i = 0; i < _allSlots.Length; i++) {
+            if(PlayerPrefs.HasKey($"numberSlot_{i}") && PlayerPrefs.HasKey($"numberSlot_{i}_tag")) {
+                var numberSlot = PlayerPrefs.GetInt($"numberSlot_{i}");
+                var tag = PlayerPrefs.GetString($"numberSlot_{i}_tag");
+
+                reloadDictionary.Add(numberSlot, tag);
+                Debug.Log($"Загрузил предмет из памяти для слота {numberSlot} и тегом {tag}");
+            }
+        }
+
+        SpawnReloadItems(reloadDictionary);
+    }
+
+    private void SpawnReloadItems(IDictionary<int, string> dictionary) {
+        foreach(var dict in dictionary) {
+            var slot = dict.Key;
+            var tag = dict.Value;
+
+            foreach(var item in _combinedList) {
+                var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+                if(tag == childrenTag) {
+                    Instantiate(item, _allSlots[slot].transform);
+
+                    PlayerPrefs.DeleteKey($"numberSlot_{slot}");
+                    PlayerPrefs.DeleteKey($"numberSlot_{slot}_tag");
+                }
+            }
+        }
+    }
+    #endregion
 }

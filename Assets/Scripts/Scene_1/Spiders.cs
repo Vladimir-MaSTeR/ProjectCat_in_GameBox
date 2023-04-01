@@ -48,8 +48,8 @@ public class Spiders : MonoBehaviour {
                     MeargGameEvents.onRandomSpider?.Invoke();
                 }
 
-                //MeargGameEvents.onHoldSpider?.Invoke();
-                //MeargGameEvents.onThiefSpider?.Invoke();
+                ////MeargGameEvents.onHoldSpider?.Invoke();
+                ////MeargGameEvents.onThiefSpider?.Invoke();
                 //MeargGameEvents.onRandomSpider?.Invoke();
 
                 _startTimer = false;

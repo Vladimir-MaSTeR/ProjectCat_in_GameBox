@@ -169,6 +169,7 @@ public class Spider : MonoBehaviour
 
         if(this.transform.position == movePoint) {
             //вызывать эвент вредительства и эвент обновления времени воявления паука
+            MeargGameEvents.onRandomRuns?.Invoke();
             MeargGameEvents.onStartSpidersTime?.Invoke();
             _startRandomSpider = false;
         }
@@ -215,11 +216,9 @@ public class Spider : MonoBehaviour
     }
 
     private void TiefSpiderMove(Vector3 movePoint) {
-        //this.transform.LookAt(movePoint);
         this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
 
         if(this.transform.position == movePoint) {
-            //вызывать эвент вредительства и эвент обновления времени воявления паука
 
             int tiefRunsCount = (int)(MeargGameEvents.onGetTiefRunsCount?.Invoke()); // Получаем кол-во рун для  кражи
             for(int i = 0; i < tiefRunsCount; i++) {
