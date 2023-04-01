@@ -2977,8 +2977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fafa4c2e1ac4494bad7f78be8fe08c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emergenceTime: 3
-  _tiefRunsCount: 5
+  _emergenceTime: 20
+  _tiefRunsCount: 3
 --- !u!1 &547061189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4865,10 +4865,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1c5039c88088b46a3ac1f9563e3c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRespOneColumn: 3
-  _timeRespTwoColumn: 3
-  _timeRespThreeColumn: 3
-  _timeRespFourColumn: 3
+  _timeRespOneColumn: 15
+  _timeRespTwoColumn: 15
+  _timeRespThreeColumn: 15
+  _timeRespFourColumn: 15
   _allSlots:
   - {fileID: 622194683}
   - {fileID: 18381831}

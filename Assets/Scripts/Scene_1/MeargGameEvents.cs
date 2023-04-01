@@ -21,4 +21,5 @@ public class MeargGameEvents
     public static Action onThiefSpider;  // вызов ворующего руны пауыка
 
     public static Action onTiefRuns;    // эвент для воровства рун
+    public static Action onRandomRuns;    // эвент для воровства рун
 }
