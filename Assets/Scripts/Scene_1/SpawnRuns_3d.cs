@@ -77,6 +77,12 @@ public class SpawnRuns_3d : MonoBehaviour {
     private float _currentTimeRespFourColumn;
 
     private bool _startTimer = true;
+    private bool _holdColumn = false;
+
+    private bool _holdOneColumn = false;
+    private bool _holdTwoColumn = false;
+    private bool _holdThreeColumn = false;
+    private bool _holdFourColumn = false;
 
     private int _currentSlotIndex;
     private int _currentItemIndex;
@@ -103,10 +109,10 @@ public class SpawnRuns_3d : MonoBehaviour {
 
     private void Update() {
         if(_startTimer) {
-            SpawnOneColumnRuns();
-            SpawnTwoColumnRuns();
-            SpawnThreeColumnRuns();
-            SpawnFourColumnRuns();
+                SpawnOneColumnRuns();
+                SpawnTwoColumnRuns();
+                SpawnThreeColumnRuns();
+                SpawnFourColumnRuns();
         }       
     }
 
@@ -119,6 +125,8 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         MeargGameEvents.onTiefRuns += TiefRuns;
         MeargGameEvents.onRandomRuns += RandomRuns;
+        MeargGameEvents.onAiceRuns += HoldColumn;
+        MeargGameEvents.onFalseHoldColumn += SetFalseHoldColumn;
     }
 
     private void OnDisable() {
@@ -130,6 +138,38 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         MeargGameEvents.onTiefRuns -= TiefRuns;
         MeargGameEvents.onRandomRuns -= RandomRuns;
+        MeargGameEvents.onAiceRuns -= HoldColumn;
+        MeargGameEvents.onFalseHoldColumn -= SetFalseHoldColumn;
+    }
+
+    private void HoldColumn() {
+        var currentSpawnPointHoldSpider = MeargGameEvents.onGetCurrentSpawnPointHoldSpider?.Invoke();
+
+        if(currentSpawnPointHoldSpider == 0) {
+            _holdOneColumn = true;
+        } else if(currentSpawnPointHoldSpider == 1) {
+            _holdTwoColumn = true;
+        } else if(currentSpawnPointHoldSpider == 2) {
+            _holdThreeColumn = true;
+        } else if(currentSpawnPointHoldSpider == 3) {
+            _holdFourColumn = true;
+        }
+    }
+
+    private void SetFalseHoldColumn(int column) {
+        if(column == 0) {
+            _holdOneColumn = false;
+            SetCurrentTimeOldColumn(_currentTimeRespTwoColumn);
+        } else if(column == 1) {
+            _holdTwoColumn = false;
+            SetCurrentTimeOldColumn(_currentTimeRespOneColumn);
+        } else if(column == 2) {
+            _holdThreeColumn = false;
+            SetCurrentTimeOldColumn(_currentTimeRespOneColumn);
+        } else if(column == 3) {
+            _holdFourColumn = false;
+            SetCurrentTimeOldColumn(_currentTimeRespOneColumn);
+        }
     }
 
     /// <summary>
@@ -176,45 +216,46 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
     }
 
-
     /// <summary>
     /// метод для спавна рун первой колонки и их движения
     /// </summary>
     private void SpawnOneColumnRuns() {
-        if(_currentTimeRespOneColumn <= 0) {
-            if(_oneColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
-                Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _oneColumSlots[0].transform);
-                SoundsEvents.onSpawnRuns?.Invoke();
+        if(_holdOneColumn == false) {
+            if(_currentTimeRespOneColumn <= 0) {
+                if(_oneColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
+                    Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _oneColumSlots[0].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();
 
-                _currentTimeRespOneColumn = _timeRespOneColumn;
-
-            } else {
-                if(_oneColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
-                    OneCirculeSelected(_oneColumSlots, _items_1lv);
                     _currentTimeRespOneColumn = _timeRespOneColumn;
 
                 } else {
-                    if(_oneColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
-                        TwoCirculeSelected(_oneColumSlots, _items_1lv);
-                        _currentTimeRespOneColumn = _timeRespOneColumn;                      
+                    if(_oneColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
+                        OneCirculeSelected(_oneColumSlots, _items_1lv);
+                        _currentTimeRespOneColumn = _timeRespOneColumn;
+
                     } else {
-                        if(_oneColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
-                            ThreeCirculeSelected(_oneColumSlots, _items_1lv);
+                        if(_oneColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
+                            TwoCirculeSelected(_oneColumSlots, _items_1lv);
                             _currentTimeRespOneColumn = _timeRespOneColumn;
                         } else {
-                            if(_oneColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
-                                FoureCirculeSelected(_oneColumSlots, _items_1lv);
+                            if(_oneColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
+                                ThreeCirculeSelected(_oneColumSlots, _items_1lv);
                                 _currentTimeRespOneColumn = _timeRespOneColumn;
                             } else {
-                                FiveCirculeSelected(_oneColumSlots, _items_1lv);
-                                _currentTimeRespOneColumn = _timeRespOneColumn;
+                                if(_oneColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
+                                    FoureCirculeSelected(_oneColumSlots, _items_1lv);
+                                    _currentTimeRespOneColumn = _timeRespOneColumn;
+                                } else {
+                                    FiveCirculeSelected(_oneColumSlots, _items_1lv);
+                                    _currentTimeRespOneColumn = _timeRespOneColumn;
+                                }
                             }
                         }
                     }
-                }                         
+                }
+            } else {
+                _currentTimeRespOneColumn -= Time.deltaTime;
             }
-        } else {
-            _currentTimeRespOneColumn -= Time.deltaTime;
         }
     }
 
@@ -222,42 +263,44 @@ public class SpawnRuns_3d : MonoBehaviour {
     /// метод для спавна рун второй колонки и их движения
     /// </summary>
     private void SpawnTwoColumnRuns() {
-        if(_currentTimeRespTwoColumn <= 0) {
-            if(_twoColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
-                Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _twoColumSlots[0].transform);
-                SoundsEvents.onSpawnRuns?.Invoke();
+        if(_holdTwoColumn == false) {
+            if(_currentTimeRespTwoColumn <= 0) {
+                if(_twoColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
+                    Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _twoColumSlots[0].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();
 
-                _currentTimeRespTwoColumn = _timeRespTwoColumn;
-
-            } else {
-                if(_twoColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
-                    OneCirculeSelected(_twoColumSlots, _items_1lv);
                     _currentTimeRespTwoColumn = _timeRespTwoColumn;
 
                 } else {
-                    if(_twoColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
-                        TwoCirculeSelected(_twoColumSlots, _items_1lv);
+                    if(_twoColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
+                        OneCirculeSelected(_twoColumSlots, _items_1lv);
                         _currentTimeRespTwoColumn = _timeRespTwoColumn;
+
                     } else {
-                        if(_twoColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
-                            ThreeCirculeSelected(_twoColumSlots, _items_1lv);
+                        if(_twoColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
+                            TwoCirculeSelected(_twoColumSlots, _items_1lv);
                             _currentTimeRespTwoColumn = _timeRespTwoColumn;
                         } else {
-                            if(_twoColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
-                                FoureCirculeSelected(_twoColumSlots, _items_1lv);
+                            if(_twoColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
+                                ThreeCirculeSelected(_twoColumSlots, _items_1lv);
                                 _currentTimeRespTwoColumn = _timeRespTwoColumn;
                             } else {
-                                FiveCirculeSelected(_twoColumSlots, _items_1lv);
-                                _currentTimeRespTwoColumn = _timeRespTwoColumn;
+                                if(_twoColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
+                                    FoureCirculeSelected(_twoColumSlots, _items_1lv);
+                                    _currentTimeRespTwoColumn = _timeRespTwoColumn;
+                                } else {
+                                    FiveCirculeSelected(_twoColumSlots, _items_1lv);
+                                    _currentTimeRespTwoColumn = _timeRespTwoColumn;
+                                }
                             }
                         }
                     }
                 }
+
+
+            } else {
+                _currentTimeRespTwoColumn -= Time.deltaTime;
             }
-
-
-        } else {
-            _currentTimeRespTwoColumn -= Time.deltaTime;
         }
     }
 
@@ -265,42 +308,44 @@ public class SpawnRuns_3d : MonoBehaviour {
     /// метод для спавна рун третьей колонки и их движения
     /// </summary>
     private void SpawnThreeColumnRuns() {
-        if(_currentTimeRespThreeColumn <= 0) {
-            if(_threeColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
-                Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _threeColumSlots[0].transform);
-                SoundsEvents.onSpawnRuns?.Invoke();
+        if(_holdThreeColumn == false) {
+            if(_currentTimeRespThreeColumn <= 0) {
+                if(_threeColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
+                    Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _threeColumSlots[0].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();
 
-                _currentTimeRespThreeColumn = _timeRespThreeColumn;
-
-            } else {
-                if(_threeColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
-                    OneCirculeSelected(_threeColumSlots, _items_1lv);
                     _currentTimeRespThreeColumn = _timeRespThreeColumn;
 
                 } else {
-                    if(_threeColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
-                        TwoCirculeSelected(_threeColumSlots, _items_1lv);
+                    if(_threeColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
+                        OneCirculeSelected(_threeColumSlots, _items_1lv);
                         _currentTimeRespThreeColumn = _timeRespThreeColumn;
+
                     } else {
-                        if(_threeColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
-                            ThreeCirculeSelected(_threeColumSlots, _items_1lv);
+                        if(_threeColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
+                            TwoCirculeSelected(_threeColumSlots, _items_1lv);
                             _currentTimeRespThreeColumn = _timeRespThreeColumn;
                         } else {
-                            if(_threeColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
-                                FoureCirculeSelected(_threeColumSlots, _items_1lv);
+                            if(_threeColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
+                                ThreeCirculeSelected(_threeColumSlots, _items_1lv);
                                 _currentTimeRespThreeColumn = _timeRespThreeColumn;
                             } else {
-                                FiveCirculeSelected(_threeColumSlots, _items_1lv);
-                                _currentTimeRespThreeColumn = _timeRespThreeColumn;
+                                if(_threeColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
+                                    FoureCirculeSelected(_threeColumSlots, _items_1lv);
+                                    _currentTimeRespThreeColumn = _timeRespThreeColumn;
+                                } else {
+                                    FiveCirculeSelected(_threeColumSlots, _items_1lv);
+                                    _currentTimeRespThreeColumn = _timeRespThreeColumn;
+                                }
                             }
                         }
                     }
                 }
+
+
+            } else {
+                _currentTimeRespThreeColumn -= Time.deltaTime;
             }
-
-
-        } else {
-            _currentTimeRespThreeColumn -= Time.deltaTime;
         }
     }
 
@@ -308,42 +353,44 @@ public class SpawnRuns_3d : MonoBehaviour {
     /// метод для спавна рун четвертой колонки и их движения
     /// </summary>
     private void SpawnFourColumnRuns() {
-        if(_currentTimeRespFourColumn <= 0) {
-            if(_fourColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
-                Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _fourColumSlots[0].transform);
-                SoundsEvents.onSpawnRuns?.Invoke();
+        if(_holdFourColumn == false) {
+            if(_currentTimeRespFourColumn <= 0) {
+                if(_fourColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
+                    Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _fourColumSlots[0].transform);
+                    SoundsEvents.onSpawnRuns?.Invoke();
 
-                _currentTimeRespFourColumn = _timeRespFourColumn;
-
-            } else {
-                if(_fourColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
-                    OneCirculeSelected(_fourColumSlots, _items_1lv);
                     _currentTimeRespFourColumn = _timeRespFourColumn;
 
                 } else {
-                    if(_fourColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
-                        TwoCirculeSelected(_fourColumSlots, _items_1lv);
+                    if(_fourColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
+                        OneCirculeSelected(_fourColumSlots, _items_1lv);
                         _currentTimeRespFourColumn = _timeRespFourColumn;
+
                     } else {
-                        if(_fourColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
-                            ThreeCirculeSelected(_fourColumSlots, _items_1lv);
+                        if(_fourColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
+                            TwoCirculeSelected(_fourColumSlots, _items_1lv);
                             _currentTimeRespFourColumn = _timeRespFourColumn;
                         } else {
-                            if(_fourColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
-                                FoureCirculeSelected(_fourColumSlots, _items_1lv);
+                            if(_fourColumSlots[3].GetComponentInChildren<CanvasGroup>() == null) {
+                                ThreeCirculeSelected(_fourColumSlots, _items_1lv);
                                 _currentTimeRespFourColumn = _timeRespFourColumn;
                             } else {
-                                FiveCirculeSelected(_fourColumSlots, _items_1lv);
-                                _currentTimeRespFourColumn = _timeRespFourColumn;
+                                if(_fourColumSlots[4].GetComponentInChildren<CanvasGroup>() == null) {
+                                    FoureCirculeSelected(_fourColumSlots, _items_1lv);
+                                    _currentTimeRespFourColumn = _timeRespFourColumn;
+                                } else {
+                                    FiveCirculeSelected(_fourColumSlots, _items_1lv);
+                                    _currentTimeRespFourColumn = _timeRespFourColumn;
+                                }
                             }
                         }
                     }
                 }
+
+
+            } else {
+                _currentTimeRespFourColumn -= Time.deltaTime;
             }
-
-
-        } else {
-            _currentTimeRespFourColumn -= Time.deltaTime;
         }
     }
 

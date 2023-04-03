@@ -40,15 +40,15 @@ public class Spiders : MonoBehaviour {
                 _currentSpider = Random.Range(0, 3); //для int,а максимальное значение не включительно
                                                      //вызывать эвент появления паука. В зависимости от рандомного значения переменной.
 
-                if(_currentSpider == 0) {
-                    MeargGameEvents.onHoldSpider?.Invoke();
-                } else if(_currentSpider == 1) {
-                    MeargGameEvents.onThiefSpider?.Invoke();
-                } else if(_currentSpider == 2) {
-                    MeargGameEvents.onRandomSpider?.Invoke();
-                }
+                //if(_currentSpider == 0) {
+                //    MeargGameEvents.onHoldSpider?.Invoke();
+                //} else if(_currentSpider == 1) {
+                //    MeargGameEvents.onThiefSpider?.Invoke();
+                //} else if(_currentSpider == 2) {
+                //    MeargGameEvents.onRandomSpider?.Invoke();
+                //}
 
-                ////MeargGameEvents.onHoldSpider?.Invoke();
+                MeargGameEvents.onHoldSpider?.Invoke();
                 ////MeargGameEvents.onThiefSpider?.Invoke();
                 //MeargGameEvents.onRandomSpider?.Invoke();
 

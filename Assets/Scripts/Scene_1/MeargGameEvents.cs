@@ -14,7 +14,10 @@ public class MeargGameEvents
     //Spider
     public static Func<float> onGetSpiderTime;
     public static Func<int> onGetTiefRunsCount;
+    public static Func<int> onGetCurrentSpawnPointHoldSpider;
+    public static Func<int> onGetdefrostCount; // возвращает кол-во тапов по льду для его разморозки
     public static Action onStartSpidersTime;
+    public static Action<int> onFalseHoldColumn; // разморозить колонку
 
     public static Action onHoldSpider;   // вызов замараживающего паука
     public static Action onRandomSpider; // вызов перемешивающего руны паука
@@ -22,4 +25,5 @@ public class MeargGameEvents
 
     public static Action onTiefRuns;    // эвент для воровства рун
     public static Action onRandomRuns;    // эвент для воровства рун
+    public static Action onAiceRuns;    // эвент для воровства рун
 }
