@@ -48,10 +48,6 @@ public class SelectedAndMeargItem : MonoBehaviour
                     currentGameObject = null;
                 }
 
-                //currentGameObject = gameObject;
-
-                //slot.SelectSlot();
-
                 //Debug.Log($"Идунтификатор выбранного слота = {oldSelectedSloId}");
                 //Debug.Log($"Tag выбранного слота = {currentGameObject.tag}");
 
@@ -59,8 +55,6 @@ public class SelectedAndMeargItem : MonoBehaviour
             }
         }
     }
-
-
 
     private GameObject GetOldGameObject() {
 
@@ -72,11 +66,6 @@ public class SelectedAndMeargItem : MonoBehaviour
     }
 
     private Slot_3d GetOldSlot() {
-
-        //if(oldSlot != null) {
-        //    oldSlot.DeselectSlot();
-        //}
-
         return oldSlot;
     }
 

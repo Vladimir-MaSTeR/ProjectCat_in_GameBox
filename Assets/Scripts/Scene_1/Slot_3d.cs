@@ -15,22 +15,14 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         if(gameObject.GetComponentInChildren<CanvasGroup>() == null) { //если пустая
             //Debug.Log($"Eть клик по пустой клетке с идентификатогром = {_ID}");
 
-            //GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
-            //if(oldObject != null) {
-            //    Debug.Log($"Тег выделенной руны =  {oldObject.tag}");
-            //}
             GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
             DragObject(oldObject);
+            //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
             MeargGameEvents.onClearVariables?.Invoke();
            
         } else {
             GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
             var oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
-
-            //var oldSlot2 = oldObject.GetComponentInParent<Slot_3d>().gameObject.transform;
-            //if(oldSlot) {
-            //    Debug.Log($"Трансформ выбранной руны = {oldSlot.transform}");
-            //}
 
             //Debug.Log($"Трансформ222 выбранной руны = {oldSlot2}");
 
@@ -50,16 +42,15 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
                     var otherItemTransform = oldPosition;
                     otherItemTransform.SetParent(transform);
                     otherItemTransform.localPosition = Vector3.zero;
-
+                    
                     var currentObject = oldSlotPosition;
                     currentObject.SetParent(oldSlot.transform);
                     currentObject.localPosition = Vector3.zero;
 
+                    FindAllMath(oldObject); // 3 в ряд //не сработало получилось тоже самое что и строка ниже
+                    //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+                    //FindAllMath(oldSlot.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд //не сработало
 
-                    //gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
-                    //MeargGameEvents.onClearVariables?.Invoke();
-
-                    FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
                 } else {
                     var oldRuneId = oldObject.GetComponent<Item_3d>().GetItemId();
                     var currentRuneId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
@@ -212,9 +203,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             otherItemTransform.SetParent(transform);                    // Ставим в текущий слот назначая родителя         
             otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
 
-            
+
             FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
-            
+
         }
     }
 
@@ -236,7 +227,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         List<GameObject> cashFindTiles = new List<GameObject>();
         float laserLength = 1.5f;
 
-        //RaycastHit2D hit2D = Physics2D.Raycast(eventData.pointerDrag.transform.position, vector, laserLength); 2d
+        RaycastHit2D hit2D = Physics2D.Raycast(eventData.transform.position, vector, laserLength);
 
         Ray ray = new Ray(eventData.transform.position, vector);
         Debug.DrawRay(transform.position, vector * laserLength, Color.red);
@@ -375,6 +366,5 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         }
 
     }
-
    
 }

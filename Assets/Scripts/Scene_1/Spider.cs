@@ -30,28 +30,13 @@ public class Spider : MonoBehaviour
     private bool _startRandomSpider = false;
     private bool _startHoldSpider = false;
 
-    //private float _currentSpeed;
-
-    //private Rigidbody _rigidbody;
-
-
-    //private Vector3 oneSpawnPointTiefSpider;
-    //private Vector3 twoSpawnPointTiefSpider;
-
     private Vector3 _currentMovePointTiefSpider;
     private Vector3 _currentMovePointRandomSpider;
     private Vector3 _currentMovePointHoldSpider;
-    //private Vector3 twoMovePointTiefSpider;
+
+    private int currentSpawnPointHoldSpider;
 
     #endregion
-
-    //private void Awake() {
-    //    _rigidbody = GetComponent<Rigidbody>();
-    //}
-
-    //private void Start() {
-    //    _currentSpeed = _speed;
-    //}
 
     private void FixedUpdate() {
         if(_startTiefSpider) {
@@ -72,12 +57,14 @@ public class Spider : MonoBehaviour
         MeargGameEvents.onThiefSpider += StartTiefSpider;
         MeargGameEvents.onRandomSpider += StartRandomSpider;
         MeargGameEvents.onHoldSpider += StartHoldSpider;
+        MeargGameEvents.onGetCurrentSpawnPointHoldSpider += GetCurrentSpawnPointHoldSpider;
     }
 
     private void OnDisable() {
         MeargGameEvents.onThiefSpider -= StartTiefSpider;
         MeargGameEvents.onRandomSpider -= StartRandomSpider;
         MeargGameEvents.onHoldSpider -= StartHoldSpider;
+        MeargGameEvents.onGetCurrentSpawnPointHoldSpider -= GetCurrentSpawnPointHoldSpider;
     }
 
     #region ПАУК ЗАМОРАЖИВАЮЩИЙ методы
@@ -104,19 +91,19 @@ public class Spider : MonoBehaviour
                 Vector3 fourSpawnPointTiefSpider = _HoldSpiderPoints[6];
                 Vector3 fourMovePointTiefSpider = _HoldSpiderPoints[7];
 
-                var currentSpawnPoint = Random.Range(0, 5); // для интов максимальная граница НЕ ВКЛЮЧИТЕЛЬНО
+                currentSpawnPointHoldSpider = Random.Range(0, 4); // для интов максимальная граница НЕ ВКЛЮЧИТЕЛЬНО
                 //Debug.Log($"currentSpawnPoint = {currentSpawnPoint}");
 
-                if(currentSpawnPoint == 0) {
+                if(currentSpawnPointHoldSpider == 0) {
                     this.transform.position = oneSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = oneMovePointTiefSpider;                   
-                } else if(currentSpawnPoint == 1) {
+                } else if(currentSpawnPointHoldSpider == 1) {
                     this.transform.position = twoSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = twoMovePointTiefSpider;                  
-                } else if(currentSpawnPoint == 2) {
+                } else if(currentSpawnPointHoldSpider == 2) {
                     this.transform.position = threeSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = threeMovePointTiefSpider;
-                } else if(currentSpawnPoint == 3) {
+                } else if(currentSpawnPointHoldSpider == 3) {
                     this.transform.position = fourSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = fourMovePointTiefSpider;
                 }
@@ -136,9 +123,14 @@ public class Spider : MonoBehaviour
 
         if(this.transform.position == movePoint) {
             //вызывать эвент вредительства и эвент обновления времени воявления паука
+            MeargGameEvents.onAiceRuns?.Invoke();
             MeargGameEvents.onStartSpidersTime?.Invoke();
             _startHoldSpider = false;
         }
+    }
+
+    private int GetCurrentSpawnPointHoldSpider() {
+        return currentSpawnPointHoldSpider;
     }
 
 
