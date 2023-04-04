@@ -2978,10 +2978,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fafa4c2e1ac4494bad7f78be8fe08c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emergenceTime: 10
+  _emergenceTime: 30
   _speed: 2.5
   _health: 100
-  _damage: 7
+  _damage: 25
   _tiefRunsCount: 3
 --- !u!1 &547061189
 GameObject:
@@ -4869,10 +4869,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1c5039c88088b46a3ac1f9563e3c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRespOneColumn: 10
-  _timeRespTwoColumn: 10
-  _timeRespThreeColumn: 10
-  _timeRespFourColumn: 10
+  _timeRespOneColumn: 15
+  _timeRespTwoColumn: 15
+  _timeRespThreeColumn: 15
+  _timeRespFourColumn: 15
   _allSlots:
   - {fileID: 622194683}
   - {fileID: 18381831}
@@ -20289,7 +20289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -21.99974, y: 17}
+  m_AnchoredPosition: {x: -21.999756, y: 17}
   m_SizeDelta: {x: 0, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4537673951352197340

@@ -113,6 +113,18 @@ public class SpawnRuns_3d : MonoBehaviour {
                 SpawnTwoColumnRuns();
                 SpawnThreeColumnRuns();
                 SpawnFourColumnRuns();
+
+            //новый мердж3
+            Mearg3Column(_oneColumSlots);
+            Mearg3Column(_twoColumSlots);
+            Mearg3Column(_threeColumSlots);
+            Mearg3Column(_fourColumSlots);
+
+            Mearg3Row(0);
+            Mearg3Row(1);
+            Mearg3Row(2);
+            Mearg3Row(3);
+            Mearg3Row(4);
         }       
     }
 
@@ -142,6 +154,9 @@ public class SpawnRuns_3d : MonoBehaviour {
         MeargGameEvents.onFalseHoldColumn -= SetFalseHoldColumn;
     }
 
+    /// <summary>
+    /// метод заморозки колонки
+    /// </summary>
     private void HoldColumn() {
         var currentSpawnPointHoldSpider = MeargGameEvents.onGetCurrentSpawnPointHoldSpider?.Invoke();
 
@@ -156,6 +171,9 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// метод разморозки колонки
+    /// </summary>
     private void SetFalseHoldColumn(int column) {
         if(column == 0) {
             _holdOneColumn = false;
@@ -171,6 +189,287 @@ public class SpawnRuns_3d : MonoBehaviour {
             SetCurrentTimeOldColumn(_currentTimeRespOneColumn);
         }
     }
+
+    /// <summary>
+    /// новый 3 в ряд, какашка на ифах для колонн
+    private void Mearg3Column(GameObject[] columSlots) {
+        //вызываем эвент для поиска 3 в ряд
+
+        GameObject object0 = null;
+        GameObject object1 = null;
+        GameObject object2 = null;
+        GameObject object3 = null;
+        GameObject object4 = null;
+
+        if(columSlots[0].GetComponentInChildren<CanvasGroup>() != null) {
+            //MeargGameEvents.onStartMeargThree?.Invoke(_oneColumSlots[0].GetComponentInChildren<CanvasGroup>().gameObject);
+
+            object0 = columSlots[0].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(columSlots[1].GetComponentInChildren<CanvasGroup>() != null) {
+            //MeargGameEvents.onStartMeargThree?.Invoke(_oneColumSlots[1].GetComponentInChildren<CanvasGroup>().gameObject);
+            object1 = columSlots[1].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(columSlots[2].GetComponentInChildren<CanvasGroup>() != null) {
+            //MeargGameEvents.onStartMeargThree?.Invoke(_oneColumSlots[2].GetComponentInChildren<CanvasGroup>().gameObject);
+            object2 = columSlots[2].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(columSlots[3].GetComponentInChildren<CanvasGroup>() != null) {
+            //MeargGameEvents.onStartMeargThree?.Invoke(_oneColumSlots[3].GetComponentInChildren<CanvasGroup>().gameObject);
+            object3 = columSlots[3].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(columSlots[4].GetComponentInChildren<CanvasGroup>() != null) {
+            //MeargGameEvents.onStartMeargThree?.Invoke(_oneColumSlots[4].GetComponentInChildren<CanvasGroup>().gameObject);
+            object4 = columSlots[4].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        // 5 в ряд
+        if(object0 != null && object1 != null && object2 != null && object3 != null && object4 != null) {
+            if(object0.tag == object1.tag && object0.tag == object2.tag && object0.tag == object3.tag && object0.tag == object4.tag) {
+                Debug.Log("5 В РЯД ПО ВЕРТИКАЛИ");
+                AddResouces(object0.tag);
+                AddResouces(object1.tag);
+                AddResouces(object2.tag);
+                AddResouces(object3.tag);
+                AddResouces(object4.tag);
+
+                Destroy(object0);
+                Destroy(object1);
+                Destroy(object2);
+                Destroy(object3);
+                Destroy(object4);
+
+                UpdateSparks(4);
+            }
+        }
+
+        // 4 в ряд
+        if(object0 != null && object1 != null && object2 != null && object3 != null) {
+            if(object0.tag == object1.tag && object0.tag == object2.tag && object0.tag == object3.tag) {
+                Debug.Log("4 В РЯД ПО ВЕРТИКАЛИ");
+                AddResouces(object0.tag);
+                AddResouces(object1.tag);
+                AddResouces(object2.tag);
+                AddResouces(object3.tag);
+
+                Destroy(object0);
+                Destroy(object1);
+                Destroy(object2);
+                Destroy(object3);
+
+                UpdateSparks(3);
+            }
+        }
+
+        if(object1 != null && object2 != null && object3 != null && object4 != null) {
+            if(object1.tag == object2.tag && object1.tag == object3.tag && object1.tag == object4.tag) {
+                Debug.Log("4 В РЯД ПО ВЕРТИКАЛИ");
+                AddResouces(object1.tag);
+                AddResouces(object2.tag);
+                AddResouces(object3.tag);
+                AddResouces(object4.tag);
+
+                Destroy(object1);
+                Destroy(object2);
+                Destroy(object3);
+                Destroy(object4);
+
+                UpdateSparks(3);
+            }
+        }
+
+        // 3 в ряд
+        if(object0 != null && object1 != null && object2 != null) {
+            if(object0.tag == object1.tag && object0.tag == object2.tag) { //3 в ряд
+                Debug.Log("3 В РЯД ПО ВЕРТИКАЛИ");
+
+                AddResouces(object0.tag);
+                AddResouces(object1.tag);
+                AddResouces(object2.tag);
+
+                Destroy(object0);
+                Destroy(object1);
+                Destroy(object2);
+
+                UpdateSparks(2);
+            }
+        }
+
+        if(object1 != null && object2 != null && object3) {
+            if(object1.tag == object2.tag && object1.tag == object3.tag) {
+                Debug.Log("3 В РЯД ПО ВЕРТИКАЛИ");
+
+                AddResouces(object1.tag);
+                AddResouces(object2.tag);
+                AddResouces(object3.tag);
+
+                Destroy(object1);
+                Destroy(object2);
+                Destroy(object3);
+
+                UpdateSparks(2);
+            }
+        }
+
+        if(object2 != null && object3 != null && object4 != null) {
+            if(object2.tag == object3.tag && object2.tag == object4.tag) {
+                Debug.Log("3 В РЯД ПО ВЕРТИКАЛИ");
+
+                AddResouces(object2.tag);
+                AddResouces(object3.tag);
+                AddResouces(object4.tag);
+
+                Destroy(object2);
+                Destroy(object3);
+                Destroy(object4);
+
+                UpdateSparks(2);
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// новый 3 в ряд, какашка на ифах для рядов
+    /// </summary> 
+    private void Mearg3Row(int index) {
+        //вызываем эвент для поиска 3 в ряд
+
+        GameObject object0Column0 = null;
+        GameObject object0Column1 = null;
+        GameObject object0Column2 = null;
+        GameObject object0Column3 = null;
+
+
+        if(_oneColumSlots[index].GetComponentInChildren<CanvasGroup>() != null) {
+            object0Column0 = _oneColumSlots[index].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(_twoColumSlots[index].GetComponentInChildren<CanvasGroup>() != null) {
+            object0Column1 = _twoColumSlots[index].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(_threeColumSlots[index].GetComponentInChildren<CanvasGroup>() != null) {
+            object0Column2 = _threeColumSlots[index].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+
+        if(_fourColumSlots[index].GetComponentInChildren<CanvasGroup>() != null) {
+            object0Column3 = _fourColumSlots[index].GetComponentInChildren<CanvasGroup>().gameObject;
+        }
+        // 4 в ряд
+        if(object0Column0 != null && object0Column1 != null && object0Column2 != null && object0Column3 != null) {
+            if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag && object0Column0.tag == object0Column3.tag) {
+                Debug.Log("4 В РЯД ПО ГОРИЗОНТАЛИ");
+                AddResouces(object0Column0.tag);
+                AddResouces(object0Column1.tag);
+                AddResouces(object0Column2.tag);
+                AddResouces(object0Column3.tag);
+
+                Destroy(object0Column0);
+                Destroy(object0Column1);
+                Destroy(object0Column2);
+                Destroy(object0Column3);
+
+                UpdateSparks(3);
+            }
+        }
+
+        // 3 в ряд
+        if(object0Column0 != null && object0Column1 != null && object0Column2 != null) {
+            if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag) {
+                Debug.Log("3 В РЯД ПО ГОРИЗОНТАЛИ");
+                AddResouces(object0Column0.tag);
+                AddResouces(object0Column1.tag);
+                AddResouces(object0Column2.tag);
+
+                Destroy(object0Column0);
+                Destroy(object0Column1);
+                Destroy(object0Column2);
+
+                UpdateSparks(2);
+            }
+        }
+
+        if(object0Column1 != null && object0Column2 != null && object0Column3 != null) {
+            if(object0Column1.tag == object0Column2.tag && object0Column1.tag == object0Column3.tag) {
+                Debug.Log("3 В РЯД ПО ГОРИЗОНТАЛИ");
+              
+                AddResouces(object0Column1.tag);
+                AddResouces(object0Column2.tag);
+                AddResouces(object0Column3.tag);
+
+               
+                Destroy(object0Column1);
+                Destroy(object0Column2);
+                Destroy(object0Column3);
+
+                UpdateSparks(2);
+            }
+        }
+    }
+
+    private void UpdateSparks(int count) {
+        if(count == 2) {
+            EventsResources.onAddOrDeductSparkValue?.Invoke(1, true);
+            Debug.Log($"Увеличиваем искорки на {1}");
+        }
+        if(count == 3) {
+            EventsResources.onAddOrDeductSparkValue?.Invoke(3, true);
+            Debug.Log($"Увеличиваем искорки на {3}");
+        }
+        if(count == 4) {
+            EventsResources.onAddOrDeductSparkValue?.Invoke(5, true);
+            Debug.Log($"Увеличиваем искорки на {5}");
+        }
+    }
+
+    private void AddResouces(string tag) {
+        if(ResourcesTags.Cloth_1.ToString() == tag) {
+            EventsResources.onClouthInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Cloth_2.ToString() == tag) {
+            EventsResources.onClouthInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Cloth_3.ToString() == tag) {
+            EventsResources.onClouthInBucket?.Invoke(3, 1, 1);
+        }
+
+        if(ResourcesTags.Log_1.ToString() == tag) {
+            EventsResources.onLogInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Log_2.ToString() == tag) {
+            EventsResources.onLogInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Log_3.ToString() == tag) {
+            EventsResources.onLogInBucket?.Invoke(3, 1, 1);
+        }
+
+        if(ResourcesTags.Neil_1.ToString() == tag) {
+            EventsResources.onNeilInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Neil_2.ToString() == tag) {
+            EventsResources.onNeilInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Neil_3.ToString() == tag) {
+            EventsResources.onNeilInBucket?.Invoke(3, 1, 1);
+        }
+
+        if(ResourcesTags.Stone_1.ToString() == tag) {
+            EventsResources.onStoneInBucket?.Invoke(1, 1, 1);
+        }
+        if(ResourcesTags.Stone_2.ToString() == tag) {
+            EventsResources.onStoneInBucket?.Invoke(2, 1, 1);
+        }
+        if(ResourcesTags.Stone_3.ToString() == tag) {
+            EventsResources.onStoneInBucket?.Invoke(3, 1, 1);
+        }
+
+    }
+    
 
     /// <summary>
     /// Метод для спавна руны в рандомной, свободной клетке.
@@ -225,12 +524,12 @@ public class SpawnRuns_3d : MonoBehaviour {
                 if(_oneColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
                     Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _oneColumSlots[0].transform);
                     SoundsEvents.onSpawnRuns?.Invoke();
-
+                    
                     _currentTimeRespOneColumn = _timeRespOneColumn;
-
                 } else {
                     if(_oneColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
                         OneCirculeSelected(_oneColumSlots, _items_1lv);
+
                         _currentTimeRespOneColumn = _timeRespOneColumn;
 
                     } else {
@@ -253,6 +552,9 @@ public class SpawnRuns_3d : MonoBehaviour {
                         }
                     }
                 }
+
+                //Mearg3OneColumn();
+
             } else {
                 _currentTimeRespOneColumn -= Time.deltaTime;
             }
@@ -313,9 +615,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                 if(_threeColumSlots[0].GetComponentInChildren<CanvasGroup>() == null) {
                     Instantiate(_items_1lv[Random.Range(0, _items_1lv.Length)], _threeColumSlots[0].transform);
                     SoundsEvents.onSpawnRuns?.Invoke();
-
+                    
                     _currentTimeRespThreeColumn = _timeRespThreeColumn;
-
                 } else {
                     if(_threeColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
                         OneCirculeSelected(_threeColumSlots, _items_1lv);
@@ -342,6 +643,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                     }
                 }
 
+                //Mearg3ThreeColumn();
 
             } else {
                 _currentTimeRespThreeColumn -= Time.deltaTime;
@@ -609,7 +911,7 @@ public class SpawnRuns_3d : MonoBehaviour {
         GameObject returneObject = items[Random.Range(0, items.Length)];
 
         while(returneObject.tag == tag) {
-            Debug.Log("Возможно зависаем из за этой падлюки");
+            //Debug.Log("Возможно зависаем из за этой падлюки");
             returneObject = items[Random.Range(0, items.Length)];
         }
 

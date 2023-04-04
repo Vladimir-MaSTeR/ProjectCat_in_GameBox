@@ -11,6 +11,8 @@ public class MeargGameEvents
     public static Func<float> onGetCurrentTimeSpawnOldColumn;
     public static Action<float> onSetTimeToSpawnRuns;
 
+    public static Action<GameObject> onStartMeargThree;
+
     //Spider
     public static Func<float> onGetSpiderTime;
     public static Func<int> onGetTiefRunsCount;

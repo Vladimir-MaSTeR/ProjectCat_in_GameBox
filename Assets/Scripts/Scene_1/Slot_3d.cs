@@ -10,6 +10,14 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
     [SerializeField]
     private int _ID;
 
+    private void OnEnable() {
+        MeargGameEvents.onStartMeargThree += FindAllMath;
+    }
+
+    private void OnDisable() {
+        MeargGameEvents.onStartMeargThree -= FindAllMath;
+    }
+
     public void OnPointerDown(PointerEventData eventData) {    
 
         if(gameObject.GetComponentInChildren<CanvasGroup>() == null) { //если пустая
@@ -47,9 +55,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
                     currentObject.SetParent(oldSlot.transform);
                     currentObject.localPosition = Vector3.zero;
 
-                    FindAllMath(oldObject); // 3 в ряд //не сработало получилось тоже самое что и строка ниже
-                    //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
-                    //FindAllMath(oldSlot.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд //не сработало
+                    //FindAllMath(oldObject); // 3 в ряд //не сработало получилось тоже самое что и строка ниже
+                       //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+                       //FindAllMath(oldSlot.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд //не сработало
 
                 } else {
                     var oldRuneId = oldObject.GetComponent<Item_3d>().GetItemId();
@@ -204,7 +212,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             otherItemTransform.localPosition = Vector3.zero;            // И обнуляем его позицию
 
 
-            FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+            //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
 
         }
     }
@@ -242,26 +250,24 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         if(Physics.Raycast(ray, out hit, laserLength)) {
             //Debug.Log("Лучь во что-то попал");
 
-            parentTag = this.gameObject.GetComponentInChildren<CanvasGroup>().tag;
+            parentTag = eventData.GetComponentInChildren<CanvasGroup>().tag;
             childrenTag = hit.collider.gameObject.GetComponent<CanvasGroup>().tag;
 
-            parentId = this.gameObject.GetComponentInChildren<Item_3d>().GetItemId();
+            parentId = eventData.GetComponentInChildren<Item_3d>().GetItemId();
             childrenId = hit.collider.gameObject.GetComponent<Item_3d>().GetItemId();
 
             //Debug.Log($"parentTag = {parentTag}");
-            //Debug.Log($"childrenTag = {childrenTag}"); 
+            //Debug.Log($"childrenTag = {childrenTag}");
 
             //Debug.Log($"parentId = {parentId}");
             //Debug.Log($"childrenId = {childrenId}");
 
-
-
             while(parentTag == childrenTag && parentId != childrenId) {
                 cashFindTiles.Add(hit.collider.gameObject);
 
-                Debug.Log($"А МОЖЕТ БЫТЬ И ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
-               // Debug.Log($"Совпадение добавленно в список");
-              //  Debug.Log($"Список размером = {cashFindTiles.Count}");
+                //Debug.Log($"А МОЖЕТ БЫТЬ И ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
+                //Debug.Log($"Совпадение добавленно в список");
+                //Debug.Log($"Список размером = {cashFindTiles.Count}");
 
                 ray = new Ray(hit.collider.gameObject.transform.position, vector);
                 if(Physics.Raycast(ray, out hit, laserLength)) {
@@ -280,7 +286,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         List<GameObject> cashFindList = new List<GameObject>();
 
         for(int i = 0; i < vectorArray.Length; i++) {
-            Debug.Log($"ВОЗМОЖНО ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
+            //Debug.Log($"ВОЗМОЖНО ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
             cashFindList.AddRange(FindMatch(eventData, vectorArray[i]));
         }
 
@@ -288,7 +294,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             UpdateSparks(cashFindList.Count);
 
             for(int i = 0; i < cashFindList.Count; i++) {
-                Debug.Log($"ИЛИ ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
+                //Debug.Log($"ИЛИ ИЗ ЗА ЭТОГО ЦИКЛА ЗАВИСАЕМ");
                 //отправлять евент на сбор рун
                 AddResouces(cashFindList[i].gameObject.tag);
                 Destroy(cashFindList[i].gameObject);

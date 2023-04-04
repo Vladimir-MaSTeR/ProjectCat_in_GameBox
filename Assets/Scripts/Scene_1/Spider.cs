@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class Spider : MonoBehaviour, IPointerDownHandler {
     #region Переменные движка
 
-
     [SerializeField]
     [Tooltip("Объект на котором лежит скрипт с настройками для паука")]
     private Spiders _settingsSpider;
