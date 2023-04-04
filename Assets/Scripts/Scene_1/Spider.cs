@@ -1,12 +1,23 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Spider : MonoBehaviour
-{
+public class Spider : MonoBehaviour, IPointerDownHandler {
     #region Переменные движка
+
+
+    [SerializeField]
+    [Tooltip("Объект на котором лежит скрипт с настройками для паука")]
+    private Spiders _settingsSpider;
+
     [Header("Переменные")]
     [SerializeField]
-    [Tooltip("Скорость паука")]
-    private float _speed = 2.5f;
+    [Tooltip("Полоска жизней паука")]
+    private GameObject _healthBarObject;
+
+    [SerializeField]
+    [Tooltip("Картинка заполнения для жизней")]
+    private Image _imageHealthBar;
     
 
     // задумка следующая, певое число - спавн, второе куда следовать паку.
@@ -26,6 +37,8 @@ public class Spider : MonoBehaviour
 
     #region Приватные переменные
 
+    private Animator animator;
+
     private bool _startTiefSpider = false;
     private bool _startRandomSpider = false;
     private bool _startHoldSpider = false;
@@ -34,9 +47,28 @@ public class Spider : MonoBehaviour
     private Vector3 _currentMovePointRandomSpider;
     private Vector3 _currentMovePointHoldSpider;
 
-    private int currentSpawnPointHoldSpider;
+    private int _currentSpawnPointHoldSpider;
+
+
+    private float _currentHealth;
+    private float _maxHealth;
+
+    private float _currentSpeed;
+    private float _currentDamage;
 
     #endregion
+
+    private void Start() {
+        animator = GetComponent<Animator>();
+
+        _currentSpeed = _settingsSpider.GetSpeedSpiders();
+        _maxHealth = _settingsSpider.GetHealthSpiders();
+        _currentHealth = _maxHealth;
+        _currentDamage = _settingsSpider.GetDamageSpiders();
+
+        _healthBarObject.SetActive(false);
+
+    }
 
     private void FixedUpdate() {
         if(_startTiefSpider) {
@@ -50,7 +82,20 @@ public class Spider : MonoBehaviour
         if(_startHoldSpider) {
             HoldSpiderMove(_currentMovePointHoldSpider);
         }
+    }
 
+    private void Update() {
+        CheckDeathSpider();
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+        //Debug.Log("ЕСТЬ КЛИК ПО ПАУКУ");
+        _healthBarObject.SetActive(true);
+
+        if(_currentHealth > 0) {
+            _currentHealth -= _currentDamage;
+            _imageHealthBar.fillAmount = _currentHealth / _maxHealth;
+        }
     }
 
     private void OnEnable() {
@@ -67,11 +112,61 @@ public class Spider : MonoBehaviour
         MeargGameEvents.onGetCurrentSpawnPointHoldSpider -= GetCurrentSpawnPointHoldSpider;
     }
 
+    #region ПАУЧЬЯ СМЕРТЬ
+    /// <summary>
+    /// Отслеживает смерть пака
+    /// </summary>
+    private void CheckDeathSpider() {
+        if(_currentHealth <= 0) {
+            Debug.Log("ПАУК УМЕР");
+
+            // вызвать анимацию смерти
+            animator.SetBool("Death", true);
+
+            // прервать его движение
+            MeargGameEvents.onStartSpidersTime?.Invoke();
+            _startTiefSpider = false;
+            _startRandomSpider = false;
+            _startHoldSpider = false;
+
+            
+            // проиграть звук
+
+            // переместить паука в дефолтную позицию. и обновить параметры жизней и скрыть их
+            //CheckEndAnimDeath();
+            //// переместить паука в дефолтную позицию.
+            //Vector3 defaultPosition = _HoldSpiderPoints[0];        
+            //this.transform.position = defaultPosition;
+
+            //// обновить параметры жизней и скрыть их
+            //UpdateSpiderHealthValue();
+        } 
+    }
+
+    private void CheckEndAnimDeath() {
+        // обновить параметры жизней и скрыть их
+        UpdateSpiderHealthValue();
+
+        // переместить паука в дефолтную позицию.
+        Vector3 defaultPosition = _HoldSpiderPoints[0];
+        this.transform.position = defaultPosition;
+    } 
+
+    private void UpdateSpiderHealthValue() {
+        // обновить параметры жизней и скрыть их
+        animator.SetBool("Death", false);
+        _currentHealth = _maxHealth;
+        _imageHealthBar.fillAmount = _currentHealth / _maxHealth;
+        _healthBarObject.SetActive(false);
+    }
+    #endregion
+
     #region ПАУК ЗАМОРАЖИВАЮЩИЙ методы
 
     private void StartHoldSpider() {
         HoldSpider();
         _startHoldSpider = true;
+        UpdateSpiderHealthValue();
     }
 
     private void HoldSpider() {
@@ -91,19 +186,19 @@ public class Spider : MonoBehaviour
                 Vector3 fourSpawnPointTiefSpider = _HoldSpiderPoints[6];
                 Vector3 fourMovePointTiefSpider = _HoldSpiderPoints[7];
 
-                currentSpawnPointHoldSpider = Random.Range(0, 4); // для интов максимальная граница НЕ ВКЛЮЧИТЕЛЬНО
+                _currentSpawnPointHoldSpider = Random.Range(0, 4); // для интов максимальная граница НЕ ВКЛЮЧИТЕЛЬНО
                 //Debug.Log($"currentSpawnPoint = {currentSpawnPoint}");
 
-                if(currentSpawnPointHoldSpider == 0) {
+                if(_currentSpawnPointHoldSpider == 0) {
                     this.transform.position = oneSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = oneMovePointTiefSpider;                   
-                } else if(currentSpawnPointHoldSpider == 1) {
+                } else if(_currentSpawnPointHoldSpider == 1) {
                     this.transform.position = twoSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = twoMovePointTiefSpider;                  
-                } else if(currentSpawnPointHoldSpider == 2) {
+                } else if(_currentSpawnPointHoldSpider == 2) {
                     this.transform.position = threeSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = threeMovePointTiefSpider;
-                } else if(currentSpawnPointHoldSpider == 3) {
+                } else if(_currentSpawnPointHoldSpider == 3) {
                     this.transform.position = fourSpawnPointTiefSpider;
                     _currentMovePointHoldSpider = fourMovePointTiefSpider;
                 }
@@ -119,7 +214,8 @@ public class Spider : MonoBehaviour
 
     private void HoldSpiderMove(Vector3 movePoint) {
         this.transform.LookAt(movePoint);
-        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+        //this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _currentSpeed * Time.deltaTime);
 
         if(this.transform.position == movePoint) {
             //вызывать эвент вредительства и эвент обновления времени воявления паука
@@ -130,7 +226,7 @@ public class Spider : MonoBehaviour
     }
 
     private int GetCurrentSpawnPointHoldSpider() {
-        return currentSpawnPointHoldSpider;
+        return _currentSpawnPointHoldSpider;
     }
 
 
@@ -140,6 +236,7 @@ public class Spider : MonoBehaviour
     private void StartRandomSpider() {
         RandomSpider();
         _startRandomSpider = true;
+        UpdateSpiderHealthValue();
     }
 
     private void RandomSpider() {
@@ -157,7 +254,8 @@ public class Spider : MonoBehaviour
 
     private void RandomSpiderMove(Vector3 movePoint) {
         this.transform.LookAt(movePoint);
-        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+        //this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _currentSpeed * Time.deltaTime);
 
         if(this.transform.position == movePoint) {
             //вызывать эвент вредительства и эвент обновления времени воявления паука
@@ -172,6 +270,7 @@ public class Spider : MonoBehaviour
     private void StartTiefSpider() {
         TiefSpider();
         _startTiefSpider = true;
+        UpdateSpiderHealthValue();
     }
 
     private void TiefSpider() {       
@@ -208,7 +307,8 @@ public class Spider : MonoBehaviour
     }
 
     private void TiefSpiderMove(Vector3 movePoint) {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+        //this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _speed * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, movePoint, _currentSpeed * Time.deltaTime);
 
         if(this.transform.position == movePoint) {
 

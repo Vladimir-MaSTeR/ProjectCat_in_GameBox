@@ -6,6 +6,17 @@ public class Spiders : MonoBehaviour {
     private float _emergenceTime;
 
     [SerializeField]
+    [Tooltip("Скорость паука")]
+    private float _speed = 2.5f;
+
+    [SerializeField]
+    [Tooltip("Здоровье паука")]
+    private float _health = 100f;
+    [SerializeField]
+    [Tooltip("Урон пауку за один тап по нему")]
+    private float _damage = 5f;
+
+    [SerializeField]
     [Tooltip("Колличество рун которое варует паук")]
     private int _tiefRunsCount = 1;
 
@@ -40,15 +51,15 @@ public class Spiders : MonoBehaviour {
                 _currentSpider = Random.Range(0, 3); //для int,а максимальное значение не включительно
                                                      //вызывать эвент появления паука. В зависимости от рандомного значения переменной.
 
-                //if(_currentSpider == 0) {
-                //    MeargGameEvents.onHoldSpider?.Invoke();
-                //} else if(_currentSpider == 1) {
-                //    MeargGameEvents.onThiefSpider?.Invoke();
-                //} else if(_currentSpider == 2) {
-                //    MeargGameEvents.onRandomSpider?.Invoke();
-                //}
+                if(_currentSpider == 0) {
+                    MeargGameEvents.onHoldSpider?.Invoke();
+                } else if(_currentSpider == 1) {
+                    MeargGameEvents.onThiefSpider?.Invoke();
+                } else if(_currentSpider == 2) {
+                    MeargGameEvents.onRandomSpider?.Invoke();
+                }
 
-                MeargGameEvents.onHoldSpider?.Invoke();
+                //MeargGameEvents.onHoldSpider?.Invoke();
                 ////MeargGameEvents.onThiefSpider?.Invoke();
                 //MeargGameEvents.onRandomSpider?.Invoke();
 
@@ -70,5 +81,17 @@ public class Spiders : MonoBehaviour {
 
     private int GetTiefRunsCount() {
         return _tiefRunsCount;
+    }
+
+    public float GetSpeedSpiders() {
+        return _speed;
+    }
+
+    public float GetHealthSpiders() {
+        return _health;
+    }
+
+    public float GetDamageSpiders() {
+        return _damage;
     }
 }
