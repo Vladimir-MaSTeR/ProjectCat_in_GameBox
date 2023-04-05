@@ -10,8 +10,10 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
     [SerializeField]
     private int _ID;
 
+    private bool _selectedSlot = false;
+
     private void OnEnable() {
-        MeargGameEvents.onStartMeargThree += FindAllMath;
+        MeargGameEvents.onStartMeargThree += FindAllMath; // скорей всего стало рудиментом.
     }
 
     private void OnDisable() {
@@ -197,12 +199,21 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         return _ID;
     }
 
+    public bool GetSelected() {
+        return _selectedSlot;
+    }
+
     public void SelectSlot() {
+        _selectedSlot = true;
         this.gameObject.GetComponent<Image>().color = new Vector4(79 / 255.0f, 165 / 255.0f, 63 / 255.0f, 0.3f);
+
+        //MeargGameEvents.onGetOldObject?.Invoke();
+        //MeargGameEvents.onClearVariables?.Invoke();
     }
 
     public void DeselectSlot() {
         this.gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
+        _selectedSlot = false;
     }
 
     public void DragObject(GameObject oldgameObject) {
