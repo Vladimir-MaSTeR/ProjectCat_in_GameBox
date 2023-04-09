@@ -10,56 +10,97 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
     [SerializeField]
     private int _ID;
 
+    #region Для скрипта SelectedAndMeargItem
+    [Header("Объктн на котором скрипт SelectedAndMeargItem")]
+
+    [Tooltip("Для скрипта SelectedAndMeargItem")]
+    [SerializeField]
+    private SelectedAndMeargItem _selectedAndMeargItem;
+    #endregion
+
+    private bool _selectedSlot = false;
+
     private void OnEnable() {
-        MeargGameEvents.onStartMeargThree += FindAllMath;
+        //MeargGameEvents.onStartGame += Game; // скорей всего стало рудиментом.
+        //MeargGameEvents.onStartEventSetOldObject += StartEventSetOldObject; // проба - удалить
     }
 
     private void OnDisable() {
-        MeargGameEvents.onStartMeargThree -= FindAllMath;
+        //MeargGameEvents.onStartGame -= Game;
+        //MeargGameEvents.onStartEventSetOldObject -= StartEventSetOldObject;
     }
 
-    public void OnPointerDown(PointerEventData eventData) {    
+    public void OnPointerDown(PointerEventData eventData) {
+        Game(this.gameObject.GetComponentInChildren<CanvasGroup>());
+    }
 
-        if(gameObject.GetComponentInChildren<CanvasGroup>() == null) { //если пустая
-            //Debug.Log($"Eть клик по пустой клетке с идентификатогром = {_ID}");
+    private void Game(CanvasGroup сanvasGroupObject) {
+        Debug.Log($"Клик по клетке");
 
-            GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
-            DragObject(oldObject);
-            //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
-            MeargGameEvents.onClearVariables?.Invoke();
-           
-        } else {
-            GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
-            var oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+        //var currentRuns = this.gameObject.GetComponentInChildren<CanvasGroup>();
+        CanvasGroup currentRuns = сanvasGroupObject;
+        // получаем старые руну и слот 
+        GameObject oldObject = null;
+        Slot_3d oldSlot = null;
 
-            //Debug.Log($"Трансформ222 выбранной руны = {oldSlot2}");
+        if(currentRuns != null) { // если кликнули по руне
+            SelectSlot(this.gameObject); // выделяем слот с руной
+            //MeargGameEvents.onSelectedSlot?.Invoke(_ID, currentRuns.gameObject); // запоминаем какую руну выбрали
+            _selectedAndMeargItem.CheckSelectedInSlot(_ID, currentRuns.gameObject);
 
+            // получаем старые руну и слот 
+            //oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+            oldObject = _selectedAndMeargItem.GetOldGameObject();
+            Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО ОБЪЕКТА = {oldObject}");
+            //oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+            oldSlot = _selectedAndMeargItem.GetOldSlot();
+            Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО СЛОТА = {oldSlot}");
+
+            // если старый слот сущесвует и не равен текущему слоту то перестаем его выделять
+            if(oldSlot != null && oldSlot.gameObject != this.gameObject) {
+                DeselectSlot(oldSlot.gameObject);
+                Debug.Log($"Перестал выделять слот{oldSlot}");
+            }
+
+            // если старый объект существует это значит что нужно руны поменять местами или смерджить
             if(oldObject != null) {
+                //Получаем теги рун
                 var oldRuneTag = oldObject.tag;
                 var currentRuneTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
 
                 //Debug.Log($"Тег выбранной руны = {oldRuneTag}");
                 //Debug.Log($"Тег руны с которой хотим поменяться местами = {currentRuneTag}");
 
+                //Если теги не равны значит их нужно поменять местами.
                 if(oldRuneTag != currentRuneTag) {
+                    Debug.Log($"МЕТОД--Game: ТЕГИ СОВПАЛИ БЕДЕМ МЕНЯТЬ МЕСТАМИ");
 
-                    var oldPosition = oldObject.transform;
-
+                    var oldPositionTransform = oldObject.transform;
                     var oldSlotPosition = gameObject.GetComponentInChildren<CanvasGroup>().gameObject.transform;
 
-                    var otherItemTransform = oldPosition;
+                    var otherItemTransform = oldPositionTransform;
                     otherItemTransform.SetParent(transform);
                     otherItemTransform.localPosition = Vector3.zero;
-                    
+                    Debug.Log($"Переставил руну в клетку которую кликнули");
+
                     var currentObject = oldSlotPosition;
                     currentObject.SetParent(oldSlot.transform);
                     currentObject.localPosition = Vector3.zero;
+                    Debug.Log($"Переставил руну в старую клетку");
 
-                    //FindAllMath(oldObject); // 3 в ряд //не сработало получилось тоже самое что и строка ниже
-                       //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
-                       //FindAllMath(oldSlot.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд //не сработало
+                    //перестаем выделять текущий и старый слоты после перестановки рун
+                    DeselectSlot(this.gameObject);
+                    Debug.Log($"Отменил выделение текущей клетки{this.gameObject}");
+                    DeselectSlot(oldSlot.gameObject);
+                    Debug.Log($"Отменил выделение старой клетки{oldSlot.gameObject}");
 
+                    
+                    _selectedAndMeargItem.ClearVariables();
+                    _selectedAndMeargItem.ClearSlot();
+
+                    //Если теги оказались равны, значит руны нужно смерджить.
                 } else {
+                    Debug.Log($"МЕТОД--Game: ТЕГИ НЕ СОВПАЛИ БУДЕМ МЕРДЖИТЬ");
                     var oldRuneId = oldObject.GetComponent<Item_3d>().GetItemId();
                     var currentRuneId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
 
@@ -78,26 +119,140 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
 
                         SoundsEvents.onPositiveMeargeSound?.Invoke();
-                        //Destroy(eventData.pointerDrag);
                         Destroy(oldObject);
-                        MeargGameEvents.onGetOldObject?.Invoke();
-                        MeargGameEvents.onClearVariables?.Invoke();
                         Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
-                        
-                       
 
                         InvokeEventSpavnItem(currentRuneTag);
+
+                        //перестаем выделять текущий слот после мерджа
+                        DeselectSlot(this.gameObject);
+
+                        _selectedAndMeargItem.ClearVariables();
+                        _selectedAndMeargItem.ClearSlot();
                     } else {
                         SoundsEvents.onNegativeMeargeSound?.Invoke();
                     }
                 }
             }
 
-            GameObject pointerObject = gameObject.GetComponentInChildren<CanvasGroup>().gameObject;
-            MeargGameEvents.onSelectedSlot?.Invoke(_ID, pointerObject);
+
         }
 
+        if(currentRuns == null) { //если кликнули по пустой ячейке
+            //Debug.Log($"Eть клик по пустой клетке с идентификатогром = {_ID}");
+            //MeargGameEvents.onSelectedSlot?.Invoke(_ID, null);
+            _selectedAndMeargItem.CheckSelectedInSlot(_ID, null);
+            Debug.Log($"МЕТОД--Game: КЛИКНУЛИ ПО ПУСТОЙ КЛЕТКЕ");
+
+            //oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+            oldObject = _selectedAndMeargItem.GetOldGameObject();
+            Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО ОБЪЕКТА ПРИ КЛИКЕ НА ПУСТУЮ КЛЕТКУ = {oldObject}");
+            //oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+
+            //oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+            oldSlot = _selectedAndMeargItem.GetOldSlot();
+            Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО СЛОТА ПРИ КЛИКЕ НА ПУСТУЮ КЛЕТКУ= {oldSlot}");
+
+            if(oldObject != null) {
+                DragObject(oldObject);
+                DeselectSlot(oldSlot.gameObject);
+
+                _selectedAndMeargItem.ClearVariables();
+                _selectedAndMeargItem.ClearSlot();
+            }
+        }
     }
+
+    //public void OnPointerDown(PointerEventData eventData) {    
+
+    //    if(gameObject.GetComponentInChildren<CanvasGroup>() == null) { //если пустая
+    //        //Debug.Log($"Eть клик по пустой клетке с идентификатогром = {_ID}");
+
+    //        GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+    //        var oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+    //        DragObject(oldObject);
+    //        //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+    //        MeargGameEvents.onClearVariables?.Invoke();
+    //        //DeselectSlot(oldSlot.gameObject);
+
+    //    } else {
+    //        //SelectSlot(this.gameObject);
+
+    //        GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+    //        var oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+
+    //        //Debug.Log($"Трансформ222 выбранной руны = {oldSlot2}");
+
+    //        if(oldObject != null) {
+    //            var oldRuneTag = oldObject.tag;
+    //            var currentRuneTag = gameObject.GetComponentInChildren<CanvasGroup>().tag;
+
+    //            //Debug.Log($"Тег выбранной руны = {oldRuneTag}");
+    //            //Debug.Log($"Тег руны с которой хотим поменяться местами = {currentRuneTag}");
+
+    //            if(oldRuneTag != currentRuneTag) {
+
+    //                var oldPosition = oldObject.transform;
+
+    //                var oldSlotPosition = gameObject.GetComponentInChildren<CanvasGroup>().gameObject.transform;
+
+    //                var otherItemTransform = oldPosition;
+    //                otherItemTransform.SetParent(transform);
+    //                otherItemTransform.localPosition = Vector3.zero;
+
+    //                var currentObject = oldSlotPosition;
+    //                currentObject.SetParent(oldSlot.transform);
+    //                currentObject.localPosition = Vector3.zero;
+
+    //                //DeselectSlot(oldSlot.gameObject);
+    //                //DeselectSlot(this.gameObject);
+    //                MeargGameEvents.onClearVariables?.Invoke();
+
+    //                //FindAllMath(oldObject); // 3 в ряд //не сработало получилось тоже самое что и строка ниже
+    //                //FindAllMath(gameObject.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд
+    //                //FindAllMath(oldSlot.GetComponentInChildren<CanvasGroup>().gameObject); // 3 в ряд //не сработало
+
+    //            } else {
+    //                var oldRuneId = oldObject.GetComponent<Item_3d>().GetItemId();
+    //                var currentRuneId = gameObject.GetComponentInChildren<Item_3d>().GetItemId();
+
+    //                if(oldRuneId != currentRuneId) {
+    //                    //МЕРДЖ 3д
+    //                    /**
+    //                     * Идея следующая: Каждому слоту сделать ID. Соответственно при  мердже, 
+    //                     * в этом классе удалять руну которую тащили и руну стоящую в текущем слоте,
+    //                     * затем посылать ивент для спавна новой руны с информацией: 
+    //                     *      в каком слоте заспанить(ID)
+    //                     *      какой уровень руны заспавнить(подумать :) )
+    //                     *      какую руну заспавнить (таг)
+    //                     *      
+    //                     *      РЕАЛИЗОВАННО!!!
+    //                     * **/
+
+
+    //                    SoundsEvents.onPositiveMeargeSound?.Invoke();
+    //                    //Destroy(eventData.pointerDrag);
+    //                    Destroy(oldObject);
+    //                    MeargGameEvents.onGetOldObject?.Invoke();
+    //                    MeargGameEvents.onClearVariables?.Invoke();
+    //                    Destroy(this.gameObject.GetComponentInChildren<CanvasGroup>().gameObject);
+
+
+
+    //                    InvokeEventSpavnItem(currentRuneTag);
+    //                    //DeselectSlot(oldSlot.gameObject);
+    //                    //DeselectSlot(this.gameObject);
+    //                } else {
+    //                    SoundsEvents.onNegativeMeargeSound?.Invoke();
+    //                }
+    //            }
+    //        }
+
+    //        GameObject pointerObject = gameObject.GetComponentInChildren<CanvasGroup>().gameObject;
+    //        MeargGameEvents.onSelectedSlot?.Invoke(_ID, pointerObject);
+    //    }
+
+    //}
 
     public void OnDrop(PointerEventData eventData) {
     //    if(ResourcesTags.Spark.ToString() != eventData.pointerDrag.tag) {
@@ -193,16 +348,33 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         }
     }
 
+    //private void StartEventSetOldObject(GameObject currentObject) {
+    //    MeargGameEvents.onSetOldObject?.Invoke(currentObject);
+    //}
     public int GetSlotID() {
         return _ID;
     }
 
-    public void SelectSlot() {
-        this.gameObject.GetComponent<Image>().color = new Vector4(79 / 255.0f, 165 / 255.0f, 63 / 255.0f, 0.3f);
+    public bool GetSelected() {
+        return _selectedSlot;
     }
 
-    public void DeselectSlot() {
-        this.gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
+    public void SetSelected(bool value) {
+        _selectedSlot = value;
+    }
+
+    public void SelectSlot(GameObject slot) {
+        //_selectedSlot = true;
+        slot.GetComponentInChildren<Slot_3d>().SetSelected(true);
+        slot.GetComponent<Image>().color = new Vector4(79 / 255.0f, 165 / 255.0f, 63 / 255.0f, 0.3f);
+
+        //MeargGameEvents.onGetOldObject?.Invoke();
+        //MeargGameEvents.onClearVariables?.Invoke();
+    }
+
+    public void DeselectSlot(GameObject gameObject) {
+        gameObject.GetComponent<Image>().color = new Vector4(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 0f);
+        gameObject.GetComponentInChildren<Slot_3d>().SetSelected(false);
     }
 
     public void DragObject(GameObject oldgameObject) {

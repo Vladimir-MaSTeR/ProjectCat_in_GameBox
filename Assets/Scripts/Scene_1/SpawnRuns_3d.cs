@@ -71,6 +71,14 @@ public class SpawnRuns_3d : MonoBehaviour {
     [Space(20)] // îòñòóï â èíñïåêòîğå ìåæäó ïîëÿìè
     #endregion
 
+    #region Äëÿ ñêğèïòà SelectedAndMeargItem
+    [Header("Îáúêòí íà êîòîğîì ñêğèïò SelectedAndMeargItem")]
+
+    [Tooltip("Äëÿ ñêğèïòà SelectedAndMeargItem")]
+    [SerializeField]
+    private SelectedAndMeargItem _selectedAndMeargItem;
+    #endregion
+
     private float _currentTimeRespOneColumn;
     private float _currentTimeRespTwoColumn;
     private float _currentTimeRespThreeColumn;
@@ -107,13 +115,17 @@ public class SpawnRuns_3d : MonoBehaviour {
         ReloadItems();
     }
 
+    private void FixedUpdate() {
+        if(_startTimer) {
+            SpawnOneColumnRuns();
+            SpawnTwoColumnRuns();
+            SpawnThreeColumnRuns();
+            SpawnFourColumnRuns();
+        }
+    }
+
     private void Update() {
         if(_startTimer) {
-                SpawnOneColumnRuns();
-                SpawnTwoColumnRuns();
-                SpawnThreeColumnRuns();
-                SpawnFourColumnRuns();
-
             //íîâûé ìåğäæ3
             Mearg3Column(_oneColumSlots);
             Mearg3Column(_twoColumSlots);
@@ -125,6 +137,8 @@ public class SpawnRuns_3d : MonoBehaviour {
             Mearg3Row(2);
             Mearg3Row(3);
             Mearg3Row(4);
+
+            //MoveSelecteSlot(_allSlots);
         }       
     }
 
@@ -529,9 +543,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 } else {
                     if(_oneColumSlots[1].GetComponentInChildren<CanvasGroup>() == null) {
                         OneCirculeSelected(_oneColumSlots, _items_1lv);
-
                         _currentTimeRespOneColumn = _timeRespOneColumn;
-
                     } else {
                         if(_oneColumSlots[2].GetComponentInChildren<CanvasGroup>() == null) {
                             TwoCirculeSelected(_oneColumSlots, _items_1lv);
@@ -551,10 +563,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                             }
                         }
                     }
+                    MoveSelecteSlot(_oneColumSlots);
                 }
-
-                //Mearg3OneColumn();
-
             } else {
                 _currentTimeRespOneColumn -= Time.deltaTime;
             }
@@ -597,9 +607,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                             }
                         }
                     }
+                    MoveSelecteSlot(_twoColumSlots);
                 }
-
-
             } else {
                 _currentTimeRespTwoColumn -= Time.deltaTime;
             }
@@ -641,10 +650,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                             }
                         }
                     }
+                    MoveSelecteSlot(_threeColumSlots);
                 }
-
-                //Mearg3ThreeColumn();
-
             } else {
                 _currentTimeRespThreeColumn -= Time.deltaTime;
             }
@@ -687,13 +694,116 @@ public class SpawnRuns_3d : MonoBehaviour {
                             }
                         }
                     }
+                    MoveSelecteSlot(_fourColumSlots);
                 }
-
-
             } else {
                 _currentTimeRespFourColumn -= Time.deltaTime;
             }
         }
+    }
+
+    /// <summary>
+    /// Ìåòîä ïåğåìåùàåò âûäåëåííûé ñëîò âìåñòå ñ ïåğåìåùåíèå ğóí
+    /// </summary>
+    /// <param name="columSlots"></param>
+    private void MoveSelecteSlot(GameObject[] columSlots) {
+
+        //GameObject currentObject = MeargGameEvents.onGetCurrentObject?.Invoke();
+        GameObject currentObject = _selectedAndMeargItem.GetCurrentGameObject();
+
+        Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ĞÓÍÀ = {currentObject}");
+
+        //var currentSlot = MeargGameEvents.onGetCurrentSlot?.Invoke();
+        var currentSlot = _selectedAndMeargItem.GetCurrentSlot();
+        Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÑËÎÒ = {currentSlot}");
+
+        for(int i = 0; i < columSlots.Length; i++) {
+
+            Slot_3d slot = columSlots[i].GetComponentInChildren<Slot_3d>();
+
+            
+                if(currentSlot != null && slot.GetSlotID() == currentSlot.GetSlotID() ) {
+
+                if(i + 1 < columSlots.Length) {
+                    Slot_3d nextSlot = columSlots[i + 1].GetComponentInChildren<Slot_3d>();
+                    var nextRuns = columSlots[i + 1].GetComponentInChildren<CanvasGroup>();
+
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÂÛÇÂÀËÈ İÂÅÍÒ ÎÒÌÅÍÛ ÂÛÄÅËÅÍÈß ÊËÅÒÊÈ");
+                    slot.DeselectSlot(slot.gameObject);
+
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÂÛÇÂÀËÈ İÂÅÍÒÛ Î×ÈÙÅÍÈß ĞÓÍ È ÎÁÚÅÊÒÎÂ = {nextRuns.gameObject}");
+                    //MeargGameEvents.onClearVariables?.Invoke();
+                    _selectedAndMeargItem.ClearVariables();
+                    //MeargGameEvents.onClearOldSlot?.Invoke();
+                    _selectedAndMeargItem.ClearSlot();
+
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÂÛÇÂÀËÈ İÂÅÍÒ ÇÀÏÎÌÈÍÀÍÈß ĞÓÍÛ = {nextRuns.gameObject}");
+                    //MeargGameEvents.onSelectedSlot?.Invoke(nextSlot.GetSlotID(), currentObject);
+                    _selectedAndMeargItem.CheckSelectedInSlot(nextSlot.GetSlotID(), nextRuns.gameObject);
+
+
+                    //MeargGameEvents.onSetOldObject?.Invoke(currentObject);
+                    _selectedAndMeargItem.SetOldObject(nextRuns.gameObject);
+                    //MeargGameEvents.onStartEventSetOldObject?.Invoke(currentObject); // Óáğàòü äåëàëîñü íà ïğîáó
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÂÛÇÂÀËÈ İÂÅÍÒ ÍÀÇÍÀ×ÅÍÈß ÑÒÀĞÎÃÎ ÎÁÚÅÊÒÀ = {nextRuns.gameObject}");
+
+                    //MeargGameEvents.onSetOldSlot?.Invoke(nextSlot);
+                    _selectedAndMeargItem.SetOldSlot(nextSlot);
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÂÛÇÂÀËÈ İÂÅÍÒ ÍÀÇÍÀ×ÅÍÈß ÑÒÀĞÎÃÎ ÑËÎÒÀ = {nextSlot}");
+                    //MeargGameEvents.onSelectedSlot?.Invoke(nextSlot.GetSlotID(), currentObject);
+
+                    //Slot_3d oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
+                    Slot_3d oldSlot = _selectedAndMeargItem.GetOldSlot();
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÑÒÀĞÛÉ ÑËÎÒ = {oldSlot}");
+                    //GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
+                    GameObject oldObject = _selectedAndMeargItem.GetOldGameObject();
+                    Debug.Log($"ÌÅÒÎÄ  MoveSelecteSlot: ÑÒÀĞÀß ĞÓÍÀ = {oldObject}");
+
+                    nextSlot.SelectSlot(nextSlot.gameObject);
+
+                    break;
+                } else {
+                    Debug.Log("Ïîñëåäíÿÿ êëåòêà â êîëîíêå");
+                    slot.DeselectSlot(slot.gameObject);
+
+                    _selectedAndMeargItem.ClearVariables();
+                    _selectedAndMeargItem.ClearSlot();
+
+                    Debug.Log("ÏÛÒÀÅÌÑß ÎÁÍÓËÈÒÜ ÑÒÀĞÛÉ ÑËÎÒ");
+                    break;
+                }
+            }
+        }
+
+
+        //for(int i = 0; i < columSlots.Length; i++) {
+
+        //    Slot_3d oldSlot = columSlots[i].GetComponentInChildren<Slot_3d>();
+        //    //Debug.Log("ÌÎÆÅÒ ÁÛÒÜ ÌÛ ÍÅ ÇÀÏÓÑÊÀÅÌÑß");
+
+        //    if(oldSlot.GetSelected() == true) {
+        //        Debug.Log($"èäåíòèôèêàòîğ âûäåëåííîãî ñëîòà = {oldSlot}");
+
+        //        if(i + 1 < columSlots.Length) {
+        //            Slot_3d slot = columSlots[i + 1].GetComponent<Slot_3d>();
+        //            //Debug.Log("ÌÎÆÅÒ ÁÛÒÜ ÌÛ ÑŞÄÀ ÍÅ ÇÀÕÎÄÈÌ");
+        //            GameObject pointerObject = columSlots[i + 1].GetComponentInChildren<CanvasGroup>().gameObject;
+
+        //            //MeargGameEvents.onClearOldSlot?.Invoke();
+        //            MeargGameEvents.onSelectedSlot?.Invoke(slot.GetSlotID(), pointerObject);
+        //            slot.SelectSlot(slot.gameObject);
+        //            oldSlot.DeselectSlot(oldSlot.gameObject);
+
+        //            break;
+        //        } else {
+        //            oldSlot.DeselectSlot(oldSlot.gameObject);
+        //            MeargGameEvents.onClearOldSlot?.Invoke();
+        //            //Debug.Log("ÏÛÒÀÅÌÑß ÎÁÍÓËÈÒÜ ÑÒÀĞÛÉ ÑËÎÒ");
+
+        //            break;
+        //        }
+        //    }
+        //}
     }
 
     private void OneCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
@@ -712,20 +822,33 @@ public class SpawnRuns_3d : MonoBehaviour {
                 break;
             }
         }
+
+        //MoveSelecteSlot(columSlots);
     }
     private void TwoCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
         var twoSlotRuneTag = columSlots[1].GetComponentInChildren<CanvasGroup>().tag;
 
-        foreach(var combin in _combinedList) {
-            var childrenTag = combin.GetComponentInChildren<CanvasGroup>().tag;
+        //Debug.Log("ÒÓÒ ÅÑÒÜ ÏĞÎÁËÅÌÀ");
+
+        foreach(var item in _combinedList) {
+            var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
 
             if(twoSlotRuneTag == childrenTag) {
                 Destroy(columSlots[0].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[1].GetComponentInChildren<CanvasGroup>().gameObject);
-                Instantiate(combin, columSlots[2].transform);
-                SoundsEvents.onSpawnRuns?.Invoke();
+                //Debug.Log("ÓÄÀËÈË  ÄÂÅ ĞÓÍÛ");
+                break;
+            }
+        }
 
+        foreach(var item in _combinedList) {
+            var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+            if(twoSlotRuneTag == childrenTag) {
+                Instantiate(item, columSlots[2].transform);
+                SoundsEvents.onSpawnRuns?.Invoke();
+                //Debug.Log("ÇÀÑÏÀÂÍÈË ĞÓÍÓ Â ÒĞÅÒÜÅÌ ÑËÎÒÅ");
                 break;
             }
         }
@@ -737,11 +860,12 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Instantiate(item, columSlots[1].transform);
                 Instantiate(SelectRuns(childrenTag, itemsLvl), columSlots[0].transform);
                 SoundsEvents.onSpawnRuns?.Invoke();
-
+                //Debug.Log("ÇÀÑÏÀÂÍÈË ĞÓÍÛ ÂÎ ÂÒÎĞÎÌ È ÏÅĞÂÎÌ ÑËÎÒÅ");
                 //currentTime = startTime;
                 break;
             }
         }
+        //MoveSelecteSlot(columSlots);
     }
     private void ThreeCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
@@ -751,10 +875,17 @@ public class SpawnRuns_3d : MonoBehaviour {
         foreach(var item in _combinedList) {
             var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
 
-            if(threeSlotRuneTag == childrenTag) {
+            if(twoSlotRuneTag == childrenTag) {
                 Destroy(columSlots[0].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[1].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[2].GetComponentInChildren<CanvasGroup>().gameObject);
+            }
+        }
+
+        foreach(var item in _combinedList) {
+            var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+            if(threeSlotRuneTag == childrenTag) {
                 Instantiate(item, columSlots[3].transform);
                 SoundsEvents.onSpawnRuns?.Invoke();
 
@@ -765,7 +896,7 @@ public class SpawnRuns_3d : MonoBehaviour {
         foreach(var item in _combinedList) {
             var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
 
-            if(twoSlotRuneTag == childrenTag) {              
+            if(twoSlotRuneTag == childrenTag) {
                 Instantiate(item, columSlots[2].transform);
                 SoundsEvents.onSpawnRuns?.Invoke();
 
@@ -785,6 +916,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                 break;
             }
         }
+
+        //MoveSelecteSlot(columSlots);
     }
     private void FoureCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
@@ -795,11 +928,18 @@ public class SpawnRuns_3d : MonoBehaviour {
         foreach(var item in _combinedList) {
             var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
 
-            if(foureSlotRuneTag == childrenTag) {
+            if(twoSlotRuneTag == childrenTag) {
                 Destroy(columSlots[0].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[1].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[2].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[3].GetComponentInChildren<CanvasGroup>().gameObject);
+            }
+        }
+
+        foreach(var item in _combinedList) {
+            var childrenTag = item.GetComponentInChildren<CanvasGroup>().tag;
+
+            if(foureSlotRuneTag == childrenTag) {
                 Instantiate(item, columSlots[4].transform);
                 SoundsEvents.onSpawnRuns?.Invoke();
 
@@ -841,6 +981,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                 break;
             }
         }
+
+        //MoveSelecteSlot(columSlots);
     }
     private void FiveCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
@@ -858,6 +1000,8 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(columSlots[2].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[3].GetComponentInChildren<CanvasGroup>().gameObject);
                 Destroy(columSlots[4].GetComponentInChildren<CanvasGroup>().gameObject);
+
+                break;
             }
         }
 
@@ -901,11 +1045,12 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Instantiate(item, columSlots[1].transform);
                 Instantiate(SelectRuns(childrenTag, itemsLvl), columSlots[0].transform);
                 SoundsEvents.onSpawnRuns?.Invoke();
-
-                //currentTime = startTime;
+               
                 break;
             }
         }
+
+        //MoveSelecteSlot(columSlots);
     }
     private GameObject SelectRuns(string  tag, GameObject[] items) {
         GameObject returneObject = items[Random.Range(0, items.Length)];

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class Item_3d : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class Item_3d : MonoBehaviour {//, IPointerDownHandler {
     [Header("Amount Text")]
     //[SerializeField] private Text _text;
 
@@ -30,31 +30,10 @@ public class Item_3d : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     }
 
-    public void OnBeginDrag(PointerEventData eventData) {
+    //public void OnPointerDown(PointerEventData eventData) {
+    //    //throw new System.NotImplementedException();
+    //}
 
-        //var slottransform = _transform.parent;
-        //slottransform.SetAsLastSibling();
-
-        //_canvasGroup.blocksRaycasts = false;
-    }
-
-    public void OnDrag(PointerEventData eventData) {   
-
-        //_transform.localPosition += new Vector3(eventData.delta.x / _mainCanvas.scaleFactor, 
-        //                                        eventData.delta.y / _mainCanvas.scaleFactor, 
-        //                                        0);
-    }
-
-    public void OnEndDrag(PointerEventData eventData) {
-
-       
-        //transform.localPosition = Vector3.zero;
-
-        //_canvasGroup.blocksRaycasts = true;
-
-        // EventsForMearge.onEndDragSound?.Invoke();
-
-    }
 
     public int GetCurrentAmountForText() {
         return _currentAmountForText;
@@ -76,4 +55,5 @@ public class Item_3d : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         return currentTransLocalPosY;
     }
 
+   
 }
