@@ -9,67 +9,101 @@ public class SelectedAndMeargItem : MonoBehaviour
     private GameObject[] _slots;
 
     private Slot_3d oldSlot;
+    private Slot_3d currentSlot;
     private int oldSelectedSloId;
     private GameObject oldGameObject;
     private GameObject currentGameObject;
+
+    private void Start() {
+        oldGameObject = null;
+        currentGameObject = null;
+    }
 
     private void OnEnable() {
         MeargGameEvents.onSelectedSlot += CheckSelectedInSlot;
         MeargGameEvents.onGetOldObject += GetOldGameObject;
         MeargGameEvents.onClearVariables += ClearVariables;
+        MeargGameEvents.onClearOldSlot += ClearSlot;
         MeargGameEvents.onGetOldSlot += GetOldSlot;
+        MeargGameEvents.onGetCurrentSlot += GetCurrentSlot;
+        MeargGameEvents.onGetCurrentObject += GetCurrentGameObject;
+
+        MeargGameEvents.onSetOldObject += SetOldObject;
+        MeargGameEvents.onSetOldSlot += SetOldSlot;
     }
 
     private void OnDisable() {
         MeargGameEvents.onSelectedSlot -= CheckSelectedInSlot;
         MeargGameEvents.onGetOldObject -= GetOldGameObject;
         MeargGameEvents.onClearVariables -= ClearVariables;
+        MeargGameEvents.onClearOldSlot -= ClearSlot;
         MeargGameEvents.onGetOldSlot -= GetOldSlot;
+        MeargGameEvents.onGetCurrentSlot -= GetCurrentSlot;
+        MeargGameEvents.onGetCurrentObject -= GetCurrentGameObject;
+
+        MeargGameEvents.onSetOldObject -= SetOldObject;
+        MeargGameEvents.onSetOldSlot -= SetOldSlot;
     }
 
-    private void CheckSelectedInSlot(int slotId, GameObject gameObject) {
+    public void CheckSelectedInSlot(int slotId, GameObject gameObject) {
         foreach(var item in _slots) {
             var slot = item.GetComponent<Slot_3d>();
 
             if(slotId == slot.GetSlotID()) {
-                oldSelectedSloId = slotId;
+                Debug.Log($"СТАРЫЙ-СТАРЫЙ СЛОТ = {oldSlot}");
+                Debug.Log($"ТЕКУЩИЙ-ТЕКУЩИЙ СЛОТ = {currentSlot}");
+                oldSlot = currentSlot;
+                currentSlot = slot;
 
-                if(oldSlot != null) {
-                    oldSlot.DeselectSlot();
-                }
+                Debug.Log($"СТАРЫЙ-СТАРЫЙ ОБЪЕКТ = {oldGameObject}");
+                Debug.Log($"ТЕКУЩИЙ-ТЕКУЩИЙ ОБЪЕКТ = {currentGameObject}");
+                oldGameObject = currentGameObject;
+                currentGameObject = gameObject;
 
-                oldSlot = slot;
+                Debug.Log($"Старый слот = {oldSlot}");
+                Debug.Log($"Новый слот = {currentSlot}");
 
-                if(gameObject != currentGameObject) {
-                    slot.SelectSlot();
-                    currentGameObject = gameObject;
-                } else {
-                    slot.DeselectSlot();
-                    currentGameObject = null;
-                }
-
-                //Debug.Log($"Идунтификатор выбранного слота = {oldSelectedSloId}");
+                Debug.Log($"Старый объект = {oldGameObject}");
+                Debug.Log($"Новый объект = {currentGameObject}");
                 //Debug.Log($"Tag выбранного слота = {currentGameObject.tag}");
 
-                return;
+                break;
             }
         }
     }
 
-    private GameObject GetOldGameObject() {
+    public GameObject GetOldGameObject() {
+        return oldGameObject;
+    }
 
-        if(oldSlot != null) {
-            oldSlot.DeselectSlot();
-        }
+    public void SetOldObject(GameObject gameObj) {
+        oldGameObject = gameObj;
+        //currentGameObject = gameObj;
+    }
 
+    public GameObject GetCurrentGameObject() {
         return currentGameObject;
     }
 
-    private Slot_3d GetOldSlot() {
+    public Slot_3d GetOldSlot() {
         return oldSlot;
     }
 
-    private void ClearVariables() {
+    public void SetOldSlot(Slot_3d slot) {
+        oldSlot = slot;
+    }
+
+    public Slot_3d GetCurrentSlot() {
+        return currentSlot;
+    }
+
+    public void ClearVariables() {
         currentGameObject = null;
+        oldGameObject = null;
+    }
+
+    public void ClearSlot() {
+        currentSlot = null;
+        oldSlot = null;
     }
 }

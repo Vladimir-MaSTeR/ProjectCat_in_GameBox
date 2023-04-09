@@ -6,12 +6,19 @@ public class MeargGameEvents
     public static Action<int, GameObject> onSelectedSlot;
     public static Action<int> onSelectedNullSlot;
     public static Action onClearVariables;
+    public static Action onClearOldSlot;
     public static Func<GameObject> onGetOldObject;
+    public static Func<GameObject> onGetCurrentObject;
+    public static Action<GameObject> onSetOldObject;
+    public static Action<GameObject> onStartEventSetOldObject;
     public static Func<Slot_3d> onGetOldSlot;
+    public static Func<Slot_3d> onGetCurrentSlot;
+    public static Action<Slot_3d> onSetOldSlot;
     public static Func<float> onGetCurrentTimeSpawnOldColumn;
     public static Action<float> onSetTimeToSpawnRuns;
 
-    public static Action<GameObject> onStartMeargThree;
+
+    //public static Action<CanvasGroup> onStartGame;
 
     //Spider
     public static Func<float> onGetSpiderTime;
