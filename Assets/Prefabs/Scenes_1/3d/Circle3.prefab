@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3607155491125308737}
   m_Layer: 5
   m_Name: Circle3
-  m_TagString: Cloth_3
+  m_TagString: Neil_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

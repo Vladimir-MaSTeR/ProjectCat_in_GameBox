@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1334317172531582209}
   m_Layer: 5
   m_Name: Triangle3
-  m_TagString: Stone_3
+  m_TagString: Neil_4
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -19,6 +19,10 @@ TagManager:
   - Cloth_3
   - Spark
   - Spider
+  - Log_4
+  - Neil_4
+  - Stone_4
+  - Cloth_4
   layers:
   - Default
   - TransparentFX

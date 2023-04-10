@@ -60,13 +60,17 @@ public class SpawnRuns_3d : MonoBehaviour {
     [SerializeField] 
     private GameObject[] _items_1lv;
 
-    [Tooltip("Руны первого уровня")]
+    [Tooltip("Руны второго уровня")]
     [SerializeField] 
     private GameObject[] _items_2lv;
 
-    [Tooltip("Руны первого уровня")]
+    [Tooltip("Руны третьего уровня")]
     [SerializeField] 
     private GameObject[] _items_3lv;
+
+    [Tooltip("Руны четвертого уровня")]
+    [SerializeField]
+    private GameObject[] _items_4lv;
 
     [Space(20)] // отступ в инспекторе между полями
     #endregion
@@ -104,6 +108,7 @@ public class SpawnRuns_3d : MonoBehaviour {
         _combinedList.AddRange(_items_1lv);
         _combinedList.AddRange(_items_2lv);
         _combinedList.AddRange(_items_3lv);
+        _combinedList.AddRange(_items_4lv);
 
         _currentTimeRespOneColumn = _timeRespOneColumn;
         _currentTimeRespTwoColumn = _timeRespTwoColumn;

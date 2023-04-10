@@ -322,6 +322,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         if(ResourcesTags.Cloth_2.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Cloth_3.ToString(), _ID);
         }
+        if(ResourcesTags.Cloth_3.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Cloth_4.ToString(), _ID);
+        }
 
         if(ResourcesTags.Log_1.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Log_2.ToString(), _ID);
@@ -329,6 +332,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
         if(ResourcesTags.Log_2.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Log_3.ToString(), _ID);
+        }
+        if(ResourcesTags.Log_3.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Log_4.ToString(), _ID);
         }
 
         if(ResourcesTags.Neil_1.ToString().Equals(tag)) {
@@ -338,6 +344,9 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         if(ResourcesTags.Neil_2.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Neil_3.ToString(), _ID);
         }
+        if(ResourcesTags.Neil_3.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Neil_3.ToString(), _ID);
+        }
 
         if(ResourcesTags.Stone_1.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Stone_2.ToString(), _ID);
@@ -345,6 +354,10 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
         if(ResourcesTags.Stone_2.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Stone_3.ToString(), _ID);
+        }
+
+        if(ResourcesTags.Stone_3.ToString().Equals(tag)) {
+            EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Stone_4.ToString(), _ID);
         }
     }
 
