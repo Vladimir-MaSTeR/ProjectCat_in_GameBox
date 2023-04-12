@@ -32,6 +32,10 @@ public class Altar_1 : MonoBehaviour, IDropHandler, IPointerDownHandler {
     private string allowName;
     #endregion
 
+    private void FixedUpdate() {
+        Timer();
+    }
+
     private void Start() {
         _curent_id = _id;
 
@@ -41,14 +45,24 @@ public class Altar_1 : MonoBehaviour, IDropHandler, IPointerDownHandler {
         _currentTime = 0;
 
         //_completeImage.gameObject.SetActive(false);
-        //_timerTextUI.gameObject.SetActive(true);
+        _timerTextUI.gameObject.SetActive(true);
 
         ReloadSaveTimer();
     }
 
-    //private void Update() {
-    //    Timer();
-    //}
+    private void OnEnable() {
+        ButtonsEvents.onSaveResouces += SaveTimer;
+        MeargGameEvents.onSetTimeToSpawnRuns += UpdateCurrentTime;
+        MeargGameEvents.onSaveAltarTime += SaveTimer;
+        MeargGameEvents.onReloadAltarTime += ReloadSaveTimer;
+    }
+
+    private void OnDisable() {
+        ButtonsEvents.onSaveResouces -= SaveTimer;
+        MeargGameEvents.onSetTimeToSpawnRuns -= UpdateCurrentTime;
+        MeargGameEvents.onSaveAltarTime -= SaveTimer;
+        MeargGameEvents.onReloadAltarTime -= ReloadSaveTimer;
+    }
 
     public void OnDrop(PointerEventData eventData) {
         if(ResourcesTags.Spark.ToString() == eventData.pointerDrag.tag) {
@@ -73,17 +87,11 @@ public class Altar_1 : MonoBehaviour, IDropHandler, IPointerDownHandler {
         var currentSparcs = EventsResources.onGetSparkCurrentValue?.Invoke();
 
         if(currentSparcs > 0) {
-
-            //Возвращаем искорку на своё место
-            //eventData.pointerDrag.transform.localPosition = Vector3.zero;
-            //eventData.pointerDrag.GetComponent<CanvasGroup>().blocksRaycasts = true;
-
             //вызываем эвент мгновенно сдвига вниз рун на одну строчку и обнуляе счетчик до следующего “сдвига” до изначального
             MeargGameEvents.onSetTimeToSpawnRuns?.Invoke(0);
 
             //вызывать эвент уменьшения искорки.
             EventsResources.onAddOrDeductSparkValue?.Invoke(1, false);
-
 
             // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
         } else {
@@ -91,41 +99,31 @@ public class Altar_1 : MonoBehaviour, IDropHandler, IPointerDownHandler {
         }
     }
 
-private void OnEnable() {
-        ButtonsEvents.onSaveResouces += SaveTimer;
-        //MeargGameEvents.onSetTimeToSpawnRuns += UpdateCurrentTime;
+    private void UpdateCurrentTime(float time) {
+        _currentTime = time;
     }
 
-    private void OnDisable() {
-        ButtonsEvents.onSaveResouces -= SaveTimer;
-        //MeargGameEvents.onSetTimeToSpawnRuns -= UpdateCurrentTime;
+    private void Timer() {
+        if(_currentTime > 0) {
+            _currentTime -= Time.deltaTime;
+            UpdateTimerText(_currentTime);
+
+        } else {
+            _currentTime = (float)(MeargGameEvents.onGetCurrentTimeSpawnOldColumn?.Invoke());
+            //_completeImage.gameObject.SetActive(true);
+        }
     }
 
-    //private void UpdateCurrentTime(float time) {
-    //    _currentTime = time;
-    //}
+    private void UpdateTimerText(float time) {
+        if(time < 0) {
+            time = 0;
+        }
 
-    //private void Timer() {
-    //    if(_currentTime > 0) {
-    //        _currentTime -= Time.deltaTime;
-    //        UpdateTimerText(_currentTime);
+        var minutes = Mathf.FloorToInt(time / 60);
+        var seconds = Mathf.FloorToInt(time % 60);
+        _timerTextUI.text = string.Format("{0:00} : {1:00}", minutes, seconds);
 
-    //    } else {
-    //        _currentTime = (float)(MeargGameEvents.onGetCurrentTimeSpawnOldColumn?.Invoke());
-    //        //_completeImage.gameObject.SetActive(true);
-    //    }
-    //}
-
-    //private void UpdateTimerText(float time) {
-    //    if(time < 0) {
-    //        time = 0;
-    //    }
-
-    //    var minutes = Mathf.FloorToInt(time / 60);
-    //    var seconds = Mathf.FloorToInt(time % 60);
-    //    _timerTextUI.text = string.Format("{0:00} : {1:00}", minutes, seconds);
-
-    //}
+    }
 
     private void SaveTimer() {
         PlayerPrefs.SetFloat(timeName, _currentTime);
@@ -136,6 +134,7 @@ private void OnEnable() {
     private void ReloadSaveTimer() {
         if(PlayerPrefs.HasKey(timeName)) {
             _currentTime = PlayerPrefs.GetFloat(timeName);
+            MeargGameEvents.onSetTimeToSpawnRuns?.Invoke(_currentTime);
         }
     }
 }

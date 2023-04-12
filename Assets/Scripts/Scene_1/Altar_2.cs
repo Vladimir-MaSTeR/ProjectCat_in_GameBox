@@ -14,7 +14,7 @@ public class Altar_2 : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
     #region Приватные переменные
     private int _curent_id;
-   
+
     #endregion
 
     private void Start() {
@@ -23,9 +23,7 @@ public class Altar_2 : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
 
     public void OnDrop(PointerEventData eventData) {
-        var currentSparcs = EventsResources.onGetSparkCurrentValue?.Invoke();
-
-        if(currentSparcs > 0) {
+        if(ResourcesTags.Spark.ToString() == eventData.pointerDrag.tag) {
 
             //Возвращаем искорку на своё место
             eventData.pointerDrag.transform.localPosition = Vector3.zero;
@@ -40,13 +38,13 @@ public class Altar_2 : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
 
             // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
-        } else {
-            //Проигрывать звук отказа использования алтаря 
         }
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        if(ResourcesTags.Spark.ToString() == eventData.pointerDrag.tag) {
+        var currentSparcs = EventsResources.onGetSparkCurrentValue?.Invoke();
+
+        if(currentSparcs > 0) {
 
             //Возвращаем искорку на своё место
             //eventData.pointerDrag.transform.localPosition = Vector3.zero;
@@ -61,6 +59,8 @@ public class Altar_2 : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
 
             // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
+        } else {
+            //Проигрывать звук отказа использования алтаря 
         }
     }
 }

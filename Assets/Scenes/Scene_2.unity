@@ -2527,10 +2527,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4537673950998442772, guid: 68a0d70b25c5797408deed9df195f18f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7521148037128662927, guid: 68a0d70b25c5797408deed9df195f18f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -14261,6 +14257,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: acaa261ab25af3b4183ea5e694f094fb, type: 3}
       propertyPath: m_Name
       value: walls 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874595167309799817, guid: acaa261ab25af3b4183ea5e694f094fb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7874595167309799817, guid: acaa261ab25af3b4183ea5e694f094fb, type: 3}
       propertyPath: m_Materials.Array.data[0]

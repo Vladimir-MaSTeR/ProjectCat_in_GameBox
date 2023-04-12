@@ -16,6 +16,14 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private GameObject _theGameTextPanel;
     [SerializeField] private GameObject _autorsTextPanel;
 
+    [Header("Алтари")]
+
+    [Tooltip("Первый алиарь")]
+    [SerializeField] private GameObject _altar_1;
+
+    [Tooltip("Второй алиарь")]
+    [SerializeField] private GameObject _altar_2;
+
     [Header("Текстовый поля")]
     [SerializeField] private Text _mainLongText;
     [SerializeField] private Text _secondLongText;
@@ -91,6 +99,9 @@ public class ButtonsController : MonoBehaviour
 
         _theGameTextPanel.SetActive(false);
         _autorsTextPanel.SetActive(false);
+
+        _altar_1.SetActive(true);
+        _altar_2.SetActive(true);
 
        // CheckSceneForTornHomeButtonsActive();
 
@@ -276,7 +287,12 @@ public class ButtonsController : MonoBehaviour
     public void ClickResoucesButton()
     {
         // Возможно стоит ставить паузу
+
+        MeargGameEvents.onSaveAltarTime?.Invoke();
         _resorcesPanel.SetActive(true);
+        _altar_1.SetActive(false);
+        _altar_2.SetActive(false);
+
         ButtonsEvents.onReloadResources?.Invoke(); // событие на загрузку сохранений
         UpdateShortQuestText();
     }
@@ -284,6 +300,9 @@ public class ButtonsController : MonoBehaviour
     public void ClickBackButtonResoucesPanel()
     {
         _resorcesPanel.SetActive(false);
+        _altar_1.SetActive(true);
+        _altar_2.SetActive(true);
+        MeargGameEvents.onReloadAltarTime?.Invoke();
     }
 
     public void ClickQuestButton()

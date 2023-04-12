@@ -139,19 +139,19 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
         }
 
         if(currentRuns == null) { //ЕЯКХ ЙКХЙМСКХ ОН ОСЯРНИ ЪВЕИЙЕ
-            //Debug.Log($"EРЭ ЙКХЙ ОН ОСЯРНИ ЙКЕРЙЕ Я ХДЕМРХТХЙЮРНЦПНЛ = {_ID}");
+            
             //MeargGameEvents.onSelectedSlot?.Invoke(_ID, null);
             _selectedAndMeargItem.CheckSelectedInSlot(_ID, null);
-            Debug.Log($"лернд--Game: йкхймскх он осярни йкерйе");
+            //Debug.Log($"лернд--Game: йкхймскх он осярни йкерйе");
 
             //oldObject = MeargGameEvents.onGetOldObject?.Invoke();
             oldObject = _selectedAndMeargItem.GetOldGameObject();
-            Debug.Log($"лернд--Game: бшгбюкх щбемр онксвемхъ ярюпнцн назейрю опх йкхйе мю осярсч йкерйс = {oldObject}");
+            //Debug.Log($"лернд--Game: бшгбюкх щбемр онксвемхъ ярюпнцн назейрю опх йкхйе мю осярсч йкерйс = {oldObject}");
             //oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
 
             //oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
             oldSlot = _selectedAndMeargItem.GetOldSlot();
-            Debug.Log($"лернд--Game: бшгбюкх щбемр онксвемхъ ярюпнцн якнрю опх йкхйе мю осярсч йкерйс= {oldSlot}");
+            //Debug.Log($"лернд--Game: бшгбюкх щбемр онксвемхъ ярюпнцн якнрю опх йкхйе мю осярсч йкерйс= {oldSlot}");
 
             if(oldObject != null) {
                 DragObject(oldObject);
@@ -162,6 +162,8 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             }
         }
     }
+
+    #region ярюпне йюмдхдюр мю сдюкемхе
 
     //public void OnPointerDown(PointerEventData eventData) {    
 
@@ -314,6 +316,8 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
     }
 
+    #endregion
+
     private void InvokeEventSpavnItem(string tag) {
         if(ResourcesTags.Cloth_1.ToString().Equals(tag)) {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Cloth_2.ToString(), _ID);
@@ -360,10 +364,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             EventsResources.onSpawnItemToSlot?.Invoke(ResourcesTags.Stone_4.ToString(), _ID);
         }
     }
-
-    //private void StartEventSetOldObject(GameObject currentObject) {
-    //    MeargGameEvents.onSetOldObject?.Invoke(currentObject);
-    //}
+    
     public int GetSlotID() {
         return _ID;
     }
@@ -377,12 +378,8 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
     }
 
     public void SelectSlot(GameObject slot) {
-        //_selectedSlot = true;
         slot.GetComponentInChildren<Slot_3d>().SetSelected(true);
         slot.GetComponent<Image>().color = new Vector4(79 / 255.0f, 165 / 255.0f, 63 / 255.0f, 0.3f);
-
-        //MeargGameEvents.onGetOldObject?.Invoke();
-        //MeargGameEvents.onClearVariables?.Invoke();
     }
 
     public void DeselectSlot(GameObject gameObject) {
