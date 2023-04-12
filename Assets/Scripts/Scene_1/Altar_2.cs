@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Altar_2 : MonoBehaviour, IDropHandler
-{
+public class Altar_2 : MonoBehaviour, IDropHandler, IPointerDownHandler {
     #region Переменные движка
     [Header("Настройки")]
 
@@ -24,11 +23,34 @@ public class Altar_2 : MonoBehaviour, IDropHandler
 
 
     public void OnDrop(PointerEventData eventData) {
-        if(ResourcesTags.Spark.ToString() == eventData.pointerDrag.tag) {
+        var currentSparcs = EventsResources.onGetSparkCurrentValue?.Invoke();
+
+        if(currentSparcs > 0) {
 
             //Возвращаем искорку на своё место
             eventData.pointerDrag.transform.localPosition = Vector3.zero;
             eventData.pointerDrag.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+            //вызываем эвент обнуления счетчик спавна рун до изначального значения
+            float startTimeSpawnRuns = (float)(MeargGameEvents.onGetCurrentTimeSpawnOldColumn?.Invoke());
+            MeargGameEvents.onSetTimeToSpawnRuns?.Invoke(startTimeSpawnRuns);
+
+            //вызывать эвент уменьшения искорки.
+            EventsResources.onAddOrDeductSparkValue?.Invoke(1, false);
+
+
+            // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
+        } else {
+            //Проигрывать звук отказа использования алтаря 
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+        if(ResourcesTags.Spark.ToString() == eventData.pointerDrag.tag) {
+
+            //Возвращаем искорку на своё место
+            //eventData.pointerDrag.transform.localPosition = Vector3.zero;
+            //eventData.pointerDrag.GetComponent<CanvasGroup>().blocksRaycasts = true;
 
             //вызываем эвент обнуления счетчик спавна рун до изначального значения
             float startTimeSpawnRuns = (float)(MeargGameEvents.onGetCurrentTimeSpawnOldColumn?.Invoke());

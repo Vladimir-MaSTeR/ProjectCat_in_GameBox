@@ -263,6 +263,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object4);
 
                 UpdateSparks(4);
+                return;
             }
         }
 
@@ -281,6 +282,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object3);
 
                 UpdateSparks(3);
+                return;
             }
         }
 
@@ -298,6 +300,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object4);
 
                 UpdateSparks(3);
+                return;
             }
         }
 
@@ -315,6 +318,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object2);
 
                 UpdateSparks(2);
+                return;
             }
         }
 
@@ -331,6 +335,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object3);
 
                 UpdateSparks(2);
+                return;
             }
         }
 
@@ -347,6 +352,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object4);
 
                 UpdateSparks(2);
+                return;
             }
         }
 
@@ -394,6 +400,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object0Column3);
 
                 UpdateSparks(3);
+                return;
             }
         }
 
@@ -410,6 +417,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object0Column2);
 
                 UpdateSparks(2);
+                return;
             }
         }
 
@@ -427,6 +435,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 Destroy(object0Column3);
 
                 UpdateSparks(2);
+                return;
             }
         }
     }
@@ -716,11 +725,11 @@ public class SpawnRuns_3d : MonoBehaviour {
         //GameObject currentObject = MeargGameEvents.onGetCurrentObject?.Invoke();
         GameObject currentObject = _selectedAndMeargItem.GetCurrentGameObject();
 
-        Debug.Log($"лернд  MoveSelecteSlot: псмю = {currentObject}");
+        //Debug.Log($"лернд  MoveSelecteSlot: псмю = {currentObject}");
 
         //var currentSlot = MeargGameEvents.onGetCurrentSlot?.Invoke();
         var currentSlot = _selectedAndMeargItem.GetCurrentSlot();
-        Debug.Log($"лернд  MoveSelecteSlot: якнр = {currentSlot}");
+        //Debug.Log($"лернд  MoveSelecteSlot: якнр = {currentSlot}");
 
         for(int i = 0; i < columSlots.Length; i++) {
 
@@ -733,16 +742,14 @@ public class SpawnRuns_3d : MonoBehaviour {
                     Slot_3d nextSlot = columSlots[i + 1].GetComponentInChildren<Slot_3d>();
                     var nextRuns = columSlots[i + 1].GetComponentInChildren<CanvasGroup>();
 
-                    Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр нрлемш бшдекемхъ йкерйх");
+                    //Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр нрлемш бшдекемхъ йкерйх");
                     slot.DeselectSlot(slot.gameObject);
 
-                    Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемрш нвхыемхъ псм х назейрнб = {nextRuns.gameObject}");
-                    //MeargGameEvents.onClearVariables?.Invoke();
+                    //Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемрш нвхыемхъ псм х назейрнб = {nextRuns.gameObject}");
                     _selectedAndMeargItem.ClearVariables();
-                    //MeargGameEvents.onClearOldSlot?.Invoke();
                     _selectedAndMeargItem.ClearSlot();
 
-                    Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр гюонлхмюмхъ псмш = {nextRuns.gameObject}");
+                    //Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр гюонлхмюмхъ псмш = {nextRuns.gameObject}");
                     //MeargGameEvents.onSelectedSlot?.Invoke(nextSlot.GetSlotID(), currentObject);
                     _selectedAndMeargItem.CheckSelectedInSlot(nextSlot.GetSlotID(), nextRuns.gameObject);
 
@@ -750,31 +757,31 @@ public class SpawnRuns_3d : MonoBehaviour {
                     //MeargGameEvents.onSetOldObject?.Invoke(currentObject);
                     _selectedAndMeargItem.SetOldObject(nextRuns.gameObject);
                     //MeargGameEvents.onStartEventSetOldObject?.Invoke(currentObject); // сАПЮРЭ ДЕКЮКНЯЭ МЮ ОПНАС
-                    Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр мюгмювемхъ ярюпнцн назейрю = {nextRuns.gameObject}");
+                    //Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр мюгмювемхъ ярюпнцн назейрю = {nextRuns.gameObject}");
 
                     //MeargGameEvents.onSetOldSlot?.Invoke(nextSlot);
                     _selectedAndMeargItem.SetOldSlot(nextSlot);
-                    Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр мюгмювемхъ ярюпнцн якнрю = {nextSlot}");
+                    //Debug.Log($"лернд  MoveSelecteSlot: бшгбюкх щбемр мюгмювемхъ ярюпнцн якнрю = {nextSlot}");
                     //MeargGameEvents.onSelectedSlot?.Invoke(nextSlot.GetSlotID(), currentObject);
 
                     //Slot_3d oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
                     Slot_3d oldSlot = _selectedAndMeargItem.GetOldSlot();
-                    Debug.Log($"лернд  MoveSelecteSlot: ярюпши якнр = {oldSlot}");
+                    //Debug.Log($"лернд  MoveSelecteSlot: ярюпши якнр = {oldSlot}");
                     //GameObject oldObject = MeargGameEvents.onGetOldObject?.Invoke();
                     GameObject oldObject = _selectedAndMeargItem.GetOldGameObject();
-                    Debug.Log($"лернд  MoveSelecteSlot: ярюпюъ псмю = {oldObject}");
+                    //Debug.Log($"лернд  MoveSelecteSlot: ярюпюъ псмю = {oldObject}");
 
                     nextSlot.SelectSlot(nextSlot.gameObject);
 
                     break;
                 } else {
-                    Debug.Log("оНЯКЕДМЪЪ ЙКЕРЙЮ Б ЙНКНМЙЕ");
+                    //Debug.Log("оНЯКЕДМЪЪ ЙКЕРЙЮ Б ЙНКНМЙЕ");
                     slot.DeselectSlot(slot.gameObject);
 
                     _selectedAndMeargItem.ClearVariables();
                     _selectedAndMeargItem.ClearSlot();
 
-                    Debug.Log("ошрюеляъ намскхрэ ярюпши якнр");
+                    //Debug.Log("ошрюеляъ намскхрэ ярюпши якнр");
                     break;
                 }
             }
