@@ -248,7 +248,10 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         // 5 â ğÿä
         if(object0 != null && object1 != null && object2 != null && object3 != null && object4 != null) {
-            if(object0.tag == object1.tag && object0.tag == object2.tag && object0.tag == object3.tag && object0.tag == object4.tag) {
+            if(object0.tag == object1.tag && object0.tag == object2.tag && object0.tag == object3.tag && object0.tag == object4.tag
+                && object1.tag == object2.tag && object1.tag == object3.tag && object1.tag == object4.tag
+                && object2.tag == object3.tag && object2.tag == object4.tag
+                && object3.tag == object4.tag) {
                 Debug.Log("5 Â ĞßÄ ÏÎ ÂÅĞÒÈÊÀËÈ");
                 AddResouces(object0.tag);
                 AddResouces(object1.tag);
@@ -269,7 +272,9 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         // 4 â ğÿä
         if(object0 != null && object1 != null && object2 != null && object3 != null) {
-            if(object0.tag == object1.tag && object0.tag == object2.tag && object0.tag == object3.tag) {
+            if(object0.tag == object1.tag && object0.tag == object2.tag && object0.tag == object3.tag
+                && object1.tag == object2.tag && object1.tag == object3.tag
+                && object2.tag == object3.tag) {
                 Debug.Log("4 Â ĞßÄ ÏÎ ÂÅĞÒÈÊÀËÈ");
                 AddResouces(object0.tag);
                 AddResouces(object1.tag);
@@ -287,7 +292,9 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
 
         if(object1 != null && object2 != null && object3 != null && object4 != null) {
-            if(object1.tag == object2.tag && object1.tag == object3.tag && object1.tag == object4.tag) {
+            if(object1.tag == object2.tag && object1.tag == object3.tag && object1.tag == object4.tag
+                && object2.tag == object3.tag && object2.tag == object4.tag
+                && object3.tag == object4.tag) {
                 Debug.Log("4 Â ĞßÄ ÏÎ ÂÅĞÒÈÊÀËÈ");
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
@@ -306,7 +313,7 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         // 3 â ğÿä
         if(object0 != null && object1 != null && object2 != null) {
-            if(object0.tag == object1.tag && object0.tag == object2.tag) { //3 â ğÿä
+            if(object0.tag == object1.tag && object0.tag == object2.tag && object1.tag == object2.tag) { //3 â ğÿä
                 Debug.Log("3 Â ĞßÄ ÏÎ ÂÅĞÒÈÊÀËÈ");
 
                 AddResouces(object0.tag);
@@ -323,7 +330,7 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
 
         if(object1 != null && object2 != null && object3) {
-            if(object1.tag == object2.tag && object1.tag == object3.tag) {
+            if(object1.tag == object2.tag && object1.tag == object3.tag && object2.tag == object3.tag) {
                 Debug.Log("3 Â ĞßÄ ÏÎ ÂÅĞÒÈÊÀËÈ");
 
                 AddResouces(object1.tag);
@@ -340,7 +347,7 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
 
         if(object2 != null && object3 != null && object4 != null) {
-            if(object2.tag == object3.tag && object2.tag == object4.tag) {
+            if(object2.tag == object3.tag && object2.tag == object4.tag && object3.tag == object4.tag) {
                 Debug.Log("3 Â ĞßÄ ÏÎ ÂÅĞÒÈÊÀËÈ");
 
                 AddResouces(object2.tag);
@@ -387,7 +394,8 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
         // 4 â ğÿä
         if(object0Column0 != null && object0Column1 != null && object0Column2 != null && object0Column3 != null) {
-            if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag && object0Column0.tag == object0Column3.tag) {
+            if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag && object0Column0.tag == object0Column3.tag 
+                && object0Column1.tag == object0Column2.tag && object0Column1.tag == object0Column3.tag && object0Column2.tag == object0Column3.tag) {
                 Debug.Log("4 Â ĞßÄ ÏÎ ÃÎĞÈÇÎÍÒÀËÈ");
                 AddResouces(object0Column0.tag);
                 AddResouces(object0Column1.tag);
@@ -406,7 +414,8 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         // 3 â ğÿä
         if(object0Column0 != null && object0Column1 != null && object0Column2 != null) {
-            if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag) {
+            if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag &&
+                object0Column1.tag == object0Column2.tag) {
                 Debug.Log("3 Â ĞßÄ ÏÎ ÃÎĞÈÇÎÍÒÀËÈ");
                 AddResouces(object0Column0.tag);
                 AddResouces(object0Column1.tag);
@@ -422,7 +431,8 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
 
         if(object0Column1 != null && object0Column2 != null && object0Column3 != null) {
-            if(object0Column1.tag == object0Column2.tag && object0Column1.tag == object0Column3.tag) {
+            if(object0Column1.tag == object0Column2.tag && object0Column1.tag == object0Column3.tag 
+                && object0Column2.tag == object0Column3.tag) {
                 Debug.Log("3 Â ĞßÄ ÏÎ ÃÎĞÈÇÎÍÒÀËÈ");
               
                 AddResouces(object0Column1.tag);
@@ -837,6 +847,7 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         //MoveSelecteSlot(columSlots);
     }
+
     private void TwoCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
         var twoSlotRuneTag = columSlots[1].GetComponentInChildren<CanvasGroup>().tag;
@@ -879,6 +890,7 @@ public class SpawnRuns_3d : MonoBehaviour {
         }
         //MoveSelecteSlot(columSlots);
     }
+
     private void ThreeCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
         var twoSlotRuneTag = columSlots[1].GetComponentInChildren<CanvasGroup>().tag;
@@ -931,6 +943,7 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         //MoveSelecteSlot(columSlots);
     }
+
     private void FoureCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
         var twoSlotRuneTag = columSlots[1].GetComponentInChildren<CanvasGroup>().tag;
@@ -996,6 +1009,7 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         //MoveSelecteSlot(columSlots);
     }
+
     private void FiveCirculeSelected(GameObject[] columSlots, GameObject[] itemsLvl) {
         var oneSlotRuneTag = columSlots[0].GetComponentInChildren<CanvasGroup>().tag;
         var twoSlotRuneTag = columSlots[1].GetComponentInChildren<CanvasGroup>().tag;
@@ -1083,6 +1097,11 @@ public class SpawnRuns_3d : MonoBehaviour {
         //return _currentTimeRespOneColumn;
         return _timeRespOneColumn;
     }
+
+    /// <summary>
+    /// Óñòàíàâëèâàåò òåêóùåå âğåìÿ òàéìåğà äëÿ ñäâèãà âñåõ êîëîíîê ğóí
+    /// </summary>
+    /// <param name="currentTime"></param>
     private void SetCurrentTimeOldColumn(float currentTime) {
         _currentTimeRespOneColumn = currentTime;
         _currentTimeRespTwoColumn = currentTime;

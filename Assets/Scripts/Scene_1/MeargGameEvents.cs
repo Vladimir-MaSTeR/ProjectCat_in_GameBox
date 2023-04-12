@@ -17,6 +17,9 @@ public class MeargGameEvents
     public static Func<float> onGetCurrentTimeSpawnOldColumn;
     public static Action<float> onSetTimeToSpawnRuns;
 
+    public static Action onSaveAltarTime;
+    public static Action onReloadAltarTime;
+
 
     //public static Action<CanvasGroup> onStartGame;
 
