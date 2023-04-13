@@ -142,6 +142,9 @@ public class Spider : MonoBehaviour, IPointerDownHandler {
         } 
     }
 
+    /// <summary>
+    /// ћетод вызываетс€ из аниматора, после анимации смерти паука. 
+    /// </summary>
     private void CheckEndAnimDeath() {
         // обновить параметры жизней и скрыть их
         UpdateSpiderHealthValue();
