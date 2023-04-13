@@ -12,6 +12,7 @@ public class ButtonsController : MonoBehaviour
     [SerializeField] private GameObject _mainLongTextPanel;
     [SerializeField] private GameObject _secondLongTextPanel;
     [SerializeField] private GameObject _turnHomeButtonsPanel;
+    [SerializeField] private GameObject _sparkSopPanel;
 
     [SerializeField] private GameObject _theGameTextPanel;
     [SerializeField] private GameObject _autorsTextPanel;
@@ -96,6 +97,7 @@ public class ButtonsController : MonoBehaviour
         _questsPanel.SetActive(false);
         _mainLongTextPanel.SetActive(false);
         _secondLongTextPanel.SetActive(false);
+        _sparkSopPanel.SetActive(false);
 
         _theGameTextPanel.SetActive(false);
         _autorsTextPanel.SetActive(false);
@@ -304,6 +306,28 @@ public class ButtonsController : MonoBehaviour
         _altar_2.SetActive(true);
         MeargGameEvents.onReloadAltarTime?.Invoke();
     }
+
+    #region МАГАЗИН ИСКОРОК
+    public void ClickSparkShop() {
+        //возможно стоит ставить паузу
+        MeargGameEvents.onSaveAltarTime?.Invoke();
+
+        _sparkSopPanel.SetActive(true);
+        MeargGameEvents.onActiveSparkShopPanel?.Invoke();
+
+        _altar_1.SetActive(false);
+        _altar_2.SetActive(false);
+    }
+
+    public void ClickBackButtonSparkShop() {
+        //если будет решено ставить паузу то незабыть убрать с паузы.
+        _sparkSopPanel.SetActive(false);
+
+        _altar_1.SetActive(true);
+        _altar_2.SetActive(true);
+        MeargGameEvents.onReloadAltarTime?.Invoke();
+    }
+    #endregion
 
     public void ClickQuestButton()
     {
