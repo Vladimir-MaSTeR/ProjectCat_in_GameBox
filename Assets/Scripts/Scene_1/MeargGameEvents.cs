@@ -20,6 +20,9 @@ public class MeargGameEvents
     public static Action onSaveAltarTime;
     public static Action onReloadAltarTime;
 
+    //SPARK
+    public static Action onActiveSparkShopPanel;
+
 
     //public static Action<CanvasGroup> onStartGame;
 
