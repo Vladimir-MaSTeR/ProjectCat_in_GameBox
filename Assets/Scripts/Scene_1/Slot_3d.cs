@@ -35,7 +35,7 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
     }
 
     private void Game(CanvasGroup сanvasGroupObject) {
-        Debug.Log($"Клик по клетке");
+        //Debug.Log($"Клик по клетке");
 
         //var currentRuns = this.gameObject.GetComponentInChildren<CanvasGroup>();
         CanvasGroup currentRuns = сanvasGroupObject;
@@ -51,15 +51,15 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
             // получаем старые руну и слот 
             //oldObject = MeargGameEvents.onGetOldObject?.Invoke();
             oldObject = _selectedAndMeargItem.GetOldGameObject();
-            Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО ОБЪЕКТА = {oldObject}");
+            //Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО ОБЪЕКТА = {oldObject}");
             //oldSlot = MeargGameEvents.onGetOldSlot?.Invoke();
             oldSlot = _selectedAndMeargItem.GetOldSlot();
-            Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО СЛОТА = {oldSlot}");
+            //Debug.Log($"МЕТОД--Game: ВЫЗВАЛИ ЭВЕНТ ПОЛУЧЕНИЯ СТАРОГО СЛОТА = {oldSlot}");
 
             // если старый слот сущесвует и не равен текущему слоту то перестаем его выделять
             if(oldSlot != null && oldSlot.gameObject != this.gameObject) {
                 DeselectSlot(oldSlot.gameObject);
-                Debug.Log($"Перестал выделять слот{oldSlot}");
+                //Debug.Log($"Перестал выделять слот{oldSlot}");
             }
 
             // если старый объект существует это значит что нужно руны поменять местами или смерджить
@@ -81,18 +81,18 @@ public class Slot_3d : MonoBehaviour, IDropHandler, IPointerDownHandler {
                     var otherItemTransform = oldPositionTransform;
                     otherItemTransform.SetParent(transform);
                     otherItemTransform.localPosition = Vector3.zero;
-                    Debug.Log($"Переставил руну в клетку которую кликнули");
+                    //Debug.Log($"Переставил руну в клетку которую кликнули");
 
                     var currentObject = oldSlotPosition;
                     currentObject.SetParent(oldSlot.transform);
                     currentObject.localPosition = Vector3.zero;
-                    Debug.Log($"Переставил руну в старую клетку");
+                    //Debug.Log($"Переставил руну в старую клетку");
 
                     //перестаем выделять текущий и старый слоты после перестановки рун
                     DeselectSlot(this.gameObject);
-                    Debug.Log($"Отменил выделение текущей клетки{this.gameObject}");
+                    //Debug.Log($"Отменил выделение текущей клетки{this.gameObject}");
                     DeselectSlot(oldSlot.gameObject);
-                    Debug.Log($"Отменил выделение старой клетки{oldSlot.gameObject}");
+                    //Debug.Log($"Отменил выделение старой клетки{oldSlot.gameObject}");
 
                     
                     _selectedAndMeargItem.ClearVariables();

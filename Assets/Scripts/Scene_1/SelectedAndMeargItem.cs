@@ -50,21 +50,21 @@ public class SelectedAndMeargItem : MonoBehaviour
             var slot = item.GetComponent<Slot_3d>();
 
             if(slotId == slot.GetSlotID()) {
-                Debug.Log($"ярюпши-ярюпши якнр = {oldSlot}");
-                Debug.Log($"рейсыхи-рейсыхи якнр = {currentSlot}");
+                //    Debug.Log($"ярюпши-ярюпши якнр = {oldSlot}");
+                //    Debug.Log($"рейсыхи-рейсыхи якнр = {currentSlot}");
                 oldSlot = currentSlot;
                 currentSlot = slot;
 
-                Debug.Log($"ярюпши-ярюпши назейр = {oldGameObject}");
-                Debug.Log($"рейсыхи-рейсыхи назейр = {currentGameObject}");
+                //Debug.Log($"ярюпши-ярюпши назейр = {oldGameObject}");
+                //Debug.Log($"рейсыхи-рейсыхи назейр = {currentGameObject}");
                 oldGameObject = currentGameObject;
                 currentGameObject = gameObject;
 
-                Debug.Log($"яРЮПШИ ЯКНР = {oldSlot}");
-                Debug.Log($"мНБШИ ЯКНР = {currentSlot}");
+                //Debug.Log($"яРЮПШИ ЯКНР = {oldSlot}");
+                //Debug.Log($"мНБШИ ЯКНР = {currentSlot}");
 
-                Debug.Log($"яРЮПШИ НАЗЕЙР = {oldGameObject}");
-                Debug.Log($"мНБШИ НАЗЕЙР = {currentGameObject}");
+                //Debug.Log($"яРЮПШИ НАЗЕЙР = {oldGameObject}");
+                //Debug.Log($"мНБШИ НАЗЕЙР = {currentGameObject}");
                 //Debug.Log($"Tag БШАПЮММНЦН ЯКНРЮ = {currentGameObject.tag}");
 
                 break;
