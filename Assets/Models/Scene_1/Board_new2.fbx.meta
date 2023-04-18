@@ -1,74 +1,9 @@
 fileFormatVersion: 2
-guid: 12584707d3659ac49a3ad3947a740f5a
+guid: c072e4cec8b938f429684922a0ca6a38
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board10_low
-    second: {fileID: 2100000, guid: e6705b1eef59d6846bb9dc22feb40264, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board11_low
-    second: {fileID: 2100000, guid: 16d2524b24c4fb9409e7b2e0a18bd778, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board12_low
-    second: {fileID: 2100000, guid: e8210d01b162bf541b059c396d66aa49, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board1_low
-    second: {fileID: 2100000, guid: 58e900d76f1a2874ca86b2963c762140, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board2_low
-    second: {fileID: 2100000, guid: 0f4d811f3b4a706418f933d7fbf9a2c1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board3_low
-    second: {fileID: 2100000, guid: f6030e0fa20b26d4393a768270726156, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board4_low
-    second: {fileID: 2100000, guid: dbce3dbffcaa8cf4ba2878f6b22735c6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board5_low
-    second: {fileID: 2100000, guid: 42b8305d3b9584a4c9158d00dbc8ceaf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board6_low
-    second: {fileID: 2100000, guid: 34a286e6171d51340a99a9d878f01d6b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board7_low
-    second: {fileID: 2100000, guid: d32781380bb94304bae0c9da2be5e9df, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board8_low
-    second: {fileID: 2100000, guid: b5e61ba01fcb9f646b044f7565edaa9e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board9_low
-    second: {fileID: 2100000, guid: d1648f67dfb77bc4e914ce97a97c8c16, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Board_low
-    second: {fileID: 2100000, guid: a7025b8a5e79cdc48baedb299a2d183c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
