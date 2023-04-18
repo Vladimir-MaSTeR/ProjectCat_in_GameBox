@@ -68,7 +68,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Board_low
-    second: {fileID: 2100000, guid: 8ca67b472f22dcd49ae2e96e7e981ce3, type: 2}
+    second: {fileID: 2100000, guid: a7025b8a5e79cdc48baedb299a2d183c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
