@@ -33,11 +33,11 @@ public class UiController : MonoBehaviour
     [SerializeField] private Text _log_0_Text;
     [SerializeField] private Text _log_1_Text;
     [SerializeField] private Text _log_2_Text;
-    
+
     [SerializeField] private Text _neil_0_Text;
     [SerializeField] private Text _neil_1_Text;
     [SerializeField] private Text _neil_2_Text;
-    
+
     [SerializeField] private Text _stone_0_Text;
     [SerializeField] private Text _stone_1_Text;
     [SerializeField] private Text _stone_2_Text;
@@ -48,13 +48,13 @@ public class UiController : MonoBehaviour
     [SerializeField] private GameObject _menuPanel;
     [SerializeField] private GameObject _resorcesPanel;
 
-    [Header("Таймеры для заморозки корзины")]
-    [SerializeField] private float _holdTime = 10;
-    [SerializeField] private float _noHoldTime = 5;
+    //[Header("Таймеры для заморозки корзины")]
+    //[SerializeField] private float _holdTime = 10;
+    //[SerializeField] private float _noHoldTime = 5;
 
-    [Header("Текст о Заморзке")]
-    [SerializeField] private Text _infoText;
-    [SerializeField] private Text _clockHoldText;
+    //[Header("Текст о Заморзке")]
+    //[SerializeField] private Text _infoText;
+    //[SerializeField] private Text _clockHoldText;
 
 
     private const string HOLD_BUCKET_TEXT = "Корзина заморожена пауком";
@@ -97,8 +97,8 @@ public class UiController : MonoBehaviour
     _menuPanel.SetActive(false);
         _resorcesPanel.SetActive(false);
 
-        _currentHoldTime = _holdTime;
-        _currentNoHoldTime = _noHoldTime;
+        //_currentHoldTime = _holdTime;
+        //_currentNoHoldTime = _noHoldTime;
     }
 
     private void Update()
@@ -287,115 +287,95 @@ public class UiController : MonoBehaviour
        // _prestigeText.text = _currentPrestige.ToString();
     }
 
-    private void HoldTimer()
-    {
+    //private void HoldTimer()
+    //{
 
 
-        if (_currentNoHoldTime <= 0)
-        {
-           
+    //    if (_currentNoHoldTime <= 0)
+    //    {
 
-            _holdBucket = true;
-            EventsResources.onHoldBucket?.Invoke(_holdBucket);
-            _infoText.text = HOLD_BUCKET_TEXT;
 
-            UpdateTimerText(_currentHoldTime);
-            _currentHoldTime -= Time.deltaTime;
+    //        _holdBucket = true;
+    //        EventsResources.onHoldBucket?.Invoke(_holdBucket);
+    //        _infoText.text = HOLD_BUCKET_TEXT;
 
-            if (_currentHoldTime <= 0)
-            {
-                
-                _holdBucket = false;
-                EventsResources.onHoldBucket?.Invoke(_holdBucket);
-                _currentNoHoldTime = _noHoldTime;
-            }
-        } else
-        {
-            _holdBucket = false;
-            EventsResources.onHoldBucket?.Invoke(_holdBucket);
-            _infoText.text = NO_HOLD_BUCKET_TEXT;
+    //        UpdateTimerText(_currentHoldTime);
+    //        _currentHoldTime -= Time.deltaTime;
 
-            UpdateTimerText(_currentNoHoldTime);
-            _currentNoHoldTime -= Time.deltaTime;
-            _currentHoldTime = _holdTime;
-        }
-    }
+    //        if (_currentHoldTime <= 0)
+    //        {
 
-    private void ReloadLogText(int levelResouces, int count, int plusOrMinus)
-    {
-        if (levelResouces == 1)
-        {
-            _currentLog_1 = plusOrMinus == 1? _currentLog_1 += count : _currentLog_1 -= count;
+    //            _holdBucket = false;
+    //            EventsResources.onHoldBucket?.Invoke(_holdBucket);
+    //            _currentNoHoldTime = _noHoldTime;
+    //        }
+    //    } else
+    //    {
+    //        _holdBucket = false;
+    //        EventsResources.onHoldBucket?.Invoke(_holdBucket);
+    //        _infoText.text = NO_HOLD_BUCKET_TEXT;
+
+    //        UpdateTimerText(_currentNoHoldTime);
+    //        _currentNoHoldTime -= Time.deltaTime;
+    //        _currentHoldTime = _holdTime;
+    //    }
+    //}
+
+    private void ReloadLogText(int levelResouces, int count, int plusOrMinus) {
+        if(levelResouces == 1) {
+            _currentLog_1 = plusOrMinus == 1 ? _currentLog_1 += count : _currentLog_1 -= count;
             _log_0_Text.text = _currentLog_1.ToString();
 
-        } else if (levelResouces == 2)
-        {
+        } else if(levelResouces == 2) {
             _currentLog_2 = plusOrMinus == 1 ? _currentLog_2 += count : _currentLog_2 -= count;
             _log_1_Text.text = _currentLog_2.ToString();
-        
-        } else if (levelResouces == 3)
-        {
+
+        } else if(levelResouces == 3) {
             _currentLog_3 = plusOrMinus == 1 ? _currentLog_3 += count : _currentLog_3 -= count;
             _log_2_Text.text = _currentLog_3.ToString();
         }
     }
 
-    private void ReloadNeilText(int levelResouces, int count, int plusOrMinus)
-    {
-        if (levelResouces == 1)
-        {
+    private void ReloadNeilText(int levelResouces, int count, int plusOrMinus) {
+        if(levelResouces == 1) {
             _currentNeil_1 = plusOrMinus == 1 ? _currentNeil_1 += count : _currentNeil_1 -= count;
             _neil_0_Text.text = _currentNeil_1.ToString();
 
-        } else if (levelResouces == 2)
-        {
+        } else if(levelResouces == 2) {
             _currentNeil_2 = plusOrMinus == 1 ? _currentNeil_2 += count : _currentNeil_2 -= count;
             _neil_1_Text.text = _currentNeil_2.ToString();
 
-        } else if (levelResouces == 3)
-        {
+        } else if(levelResouces == 3) {
             _currentNeil_3 = plusOrMinus == 1 ? _currentNeil_3 += count : _currentNeil_3 -= count;
             _neil_2_Text.text = _currentNeil_3.ToString();
         }
     }
 
-    private void ReloadClouthText(int levelResouces, int count, int plusOrMinus)
-    {
-        if (levelResouces == 1)
-        {
+    private void ReloadClouthText(int levelResouces, int count, int plusOrMinus) {
+        if(levelResouces == 1) {
             _currentCloath_1 = plusOrMinus == 1 ? _currentCloath_1 += count : _currentCloath_1 -= count;
             _cloath_0_Text.text = _currentCloath_1.ToString();
 
-        }
-        else if (levelResouces == 2)
-        {
+        } else if(levelResouces == 2) {
             _currentCloath_2 = plusOrMinus == 1 ? _currentCloath_2 += count : _currentCloath_2 -= count;
             _cloath_1_Text.text = _currentCloath_2.ToString();
 
-        }
-        else if (levelResouces == 3)
-        {
+        } else if(levelResouces == 3) {
             _currentCloath_3 = plusOrMinus == 1 ? _currentCloath_3 += count : _currentCloath_3 -= count;
             _cloath_2_Text.text = _currentCloath_3.ToString();
         }
     }
 
-    private void ReloadStoneText(int levelResouces, int count, int plusOrMinus)
-    {
-        if (levelResouces == 1)
-        {
+    private void ReloadStoneText(int levelResouces, int count, int plusOrMinus) {
+        if(levelResouces == 1) {
             _currentStone_1 = plusOrMinus == 1 ? _currentStone_1 += count : _currentStone_1 -= count;
             _stone_0_Text.text = _currentStone_1.ToString();
 
-        }
-        else if (levelResouces == 2)
-        {
+        } else if(levelResouces == 2) {
             _currentStone_2 = plusOrMinus == 1 ? _currentStone_2 += count : _currentStone_2 -= count;
             _stone_1_Text.text = _currentStone_2.ToString();
 
-        }
-        else if (levelResouces == 3)
-        {
+        } else if(levelResouces == 3) {
             _currentStone_3 = plusOrMinus == 1 ? _currentStone_3 += count : _currentStone_3 -= count;
             _stone_2_Text.text = _currentStone_3.ToString();
         }
@@ -459,16 +439,16 @@ public class UiController : MonoBehaviour
         return _currentStone_1;
     }
 
-    private void UpdateTimerText(float time)
-    {
-        if (time < 0)
-        {
-            time = 0;
-        }
+    //private void UpdateTimerText(float time)
+    //{
+    //    if (time < 0)
+    //    {
+    //        time = 0;
+    //    }
 
-        var minutes = Mathf.FloorToInt(time / 60);
-        var seconds = Mathf.FloorToInt(time % 60);
-        _clockHoldText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    //    var minutes = Mathf.FloorToInt(time / 60);
+    //    var seconds = Mathf.FloorToInt(time % 60);
+    //    _clockHoldText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
 
-    }
+    //}
 }

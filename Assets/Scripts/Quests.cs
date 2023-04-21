@@ -1,6 +1,5 @@
 
-public class Quests
-{
+public class Quests {
     public const string MAIN_QUEST_1_SHORT = "Открыть второй этаж дома";
     public const string MAIN_QUEST_1_LONG = "Ваша задача открыть второй этаж дома. Для этого вам потребуется: " +
                                             "Починить камин до 1 уровня, " +
