@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/QuestConstants.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Quests.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/QuestsNew.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/QuestsResources.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Scene_1/OrderResorces.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Scene_2/ClickRepair.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/UI/ButtonsController.cs" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/UpdateQuestsText.cs" charset="windows-1251" />
+    <file url="PROJECT" charset="windows-1251" />
+  </component>
+</project>
