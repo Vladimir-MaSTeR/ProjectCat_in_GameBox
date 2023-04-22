@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class FireplacePanel : MonoBehaviour {
-    #region ПЕРЕМЕННЫЕ ДВИЖКА
+public class ArmchairPanel: MonoBehaviour {
+    
+     #region ПЕРЕМЕННЫЕ ДВИЖКА
 
-    [Tooltip("Информационная панель камина")]
+    [Tooltip("Информационная панель кресло")]
     [SerializeField]
-    private GameObject _fireplacePanel;
+    private GameObject _armchairPanel;
 
     [Tooltip("Скрипт в котором лежат словари с текстурами рун")]
     [SerializeField]
@@ -18,7 +19,7 @@ public class FireplacePanel : MonoBehaviour {
     [Header("Текстовые поля внутри панели")]
     [Space(10)]
     [Header("Текущий текст")]
-    [Tooltip("Текст текущего уровня камина")]
+    [Tooltip("Текст текущего уровня")]
     [SerializeField]
     private TextMeshProUGUI _currentLevelText;
 
@@ -91,15 +92,15 @@ public class FireplacePanel : MonoBehaviour {
     private Texture[] _stoneTextures;
     private Texture[] _clothTextures;
 
-    private IDictionary<string, int> _fireplaceDictionary_1lv;
-    private IDictionary<string, int> _fireplaceDictionary_2lv;
-    private IDictionary<string, int> _fireplaceDictionary_3lv;
+    private IDictionary<string, int> _armchairDictionary_1lv;
+    private IDictionary<string, int> _armchairDictionary_2lv;
+    private IDictionary<string, int> _armchairDictionary_3lv;
     //private IDictionary<string, int> _fireplaceDictionary_4lv = EventsResources.onGetFireplaceDictionary?.Invoke(4);
 
     #endregion
 
     private void Start() {
-        _fireplacePanel.SetActive(false);
+        _armchairPanel.SetActive(false);
 
         _logTextures = _updateQuestsTextScript.GetLogTextures();
         _neilTextures = _updateQuestsTextScript.GetNeilTexture();
@@ -108,31 +109,31 @@ public class FireplacePanel : MonoBehaviour {
     }
 
     private void OnEnable() {
-        HomeEvents.onOpenInfoPanels += OpenFireplacePanel;
-        HomeEvents.onClosedFireplacePanel += ClosedFireplacePanel;
+        HomeEvents.onOpenInfoPanels += OpenArmchairPanel;
+        HomeEvents.onClosedArmchairPanel += ClosedArmchairPanel;
     }
 
     private void OnDisable() {
-        HomeEvents.onOpenInfoPanels -= OpenFireplacePanel;
-        HomeEvents.onClosedFireplacePanel -= ClosedFireplacePanel;
+        HomeEvents.onOpenInfoPanels -= OpenArmchairPanel;
+        HomeEvents.onClosedArmchairPanel -= ClosedArmchairPanel;
     }
 
     /**
-     * Активирует панель камина со всеми данными - запускается эвентом 
+     * Активирует панель кухни со всеми данными - запускается эвентом 
      */
-    private void OpenFireplacePanel(int id) {
-        if(HomeConstants.idFireplace == id) {
-            _fireplacePanel.SetActive(true);
+    private void OpenArmchairPanel(int id) {
+        if(HomeConstants.idArmchair == id) {
+            _armchairPanel.SetActive(true);
 
-            int currentLevel = (int)HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
+            int currentLevel = (int)HomeEvents.onGetCurrentArmchairLevel?.Invoke();
             SetCurrentText(currentLevel);
             SetNextTextAndRawImage(currentLevel);
             SetNextDurabilityValueAndComfortValueText(currentLevel);
         }
     }
 
-    private void ClosedFireplacePanel() {
-        _fireplacePanel.SetActive(false);
+    private void ClosedArmchairPanel() {
+        _armchairPanel.SetActive(false);
     }
 
     //СКОРЕЙ ВСЕГО НИЖЕ ХАРДКОД
@@ -141,7 +142,6 @@ public class FireplacePanel : MonoBehaviour {
      * Выводит все текущие значения
      */
     private void SetCurrentText(int currentLevel) {
-        // var currentLevel = HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
 
         _currentLevelText.text = $"Текущий уровень {currentLevel}";
 
@@ -173,10 +173,10 @@ public class FireplacePanel : MonoBehaviour {
     private void SetNextTextAndRawImage(int currentLevel) {
         if(currentLevel == 0) {
             _nextLevelText.text = $"Следующий уровень {currentLevel + 1}";
-            _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(currentLevel + 1);
+            _armchairDictionary_1lv = EventsResources.onGetChairDictionary?.Invoke(currentLevel + 1);
 
             //LOG
-            var targetLog = _fireplaceDictionary_1lv[ResourcesTags.Log_1.ToString()];
+            var targetLog = _armchairDictionary_1lv[ResourcesTags.Log_1.ToString()];
             var currentLog = EventsResources.onGetCurentLog?.Invoke(currentLevel + 1);
             _oneResoucesRawImage.texture = _logTextures[currentLevel];
             if(targetLog > 0) {
@@ -186,7 +186,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //NEIL
-            var targetNeil = _fireplaceDictionary_1lv[ResourcesTags.Neil_1.ToString()];
+            var targetNeil = _armchairDictionary_1lv[ResourcesTags.Neil_1.ToString()];
             var currentNeil = EventsResources.onGetCurentNeil?.Invoke(currentLevel + 1);
             _twoResoucesRawImage.texture = _neilTextures[currentLevel];
             if(targetNeil > 0) {
@@ -196,7 +196,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //STONE
-            var targetStone = _fireplaceDictionary_1lv[ResourcesTags.Stone_1.ToString()];
+            var targetStone = _armchairDictionary_1lv[ResourcesTags.Stone_1.ToString()];
             var currentStone = EventsResources.onGetCurentStone?.Invoke(currentLevel + 1);
             _threeResoucesRawImage.texture = _stoneTextures[currentLevel];
             if(targetStone > 0) {
@@ -206,7 +206,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //CLOTH
-            var targetCloth = _fireplaceDictionary_1lv[ResourcesTags.Cloth_1.ToString()];
+            var targetCloth = _armchairDictionary_1lv[ResourcesTags.Cloth_1.ToString()];
             var currentCloth = EventsResources.onGetCurentClouth?.Invoke(currentLevel + 1);
             _fourResoucesRawImage.texture = _clothTextures[currentLevel];
             if(targetCloth > 0) {
@@ -218,10 +218,10 @@ public class FireplacePanel : MonoBehaviour {
 
         if(currentLevel == 1) {
             _nextLevelText.text = $"Следующий уровень {currentLevel + 1}";
-            _fireplaceDictionary_2lv = EventsResources.onGetFireplaceDictionary?.Invoke(currentLevel + 1);
+            _armchairDictionary_2lv = EventsResources.onGetChairDictionary?.Invoke(currentLevel + 1);
 
             //LOG
-            var targetLog = _fireplaceDictionary_2lv[ResourcesTags.Log_2.ToString()];
+            var targetLog = _armchairDictionary_2lv[ResourcesTags.Log_2.ToString()];
             var currentLog = EventsResources.onGetCurentLog?.Invoke(currentLevel + 1);
             _oneResoucesRawImage.texture = _logTextures[currentLevel];
             if(targetLog > 0) {
@@ -231,7 +231,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //NEIL
-            var targetNeil = _fireplaceDictionary_2lv[ResourcesTags.Neil_2.ToString()];
+            var targetNeil = _armchairDictionary_2lv[ResourcesTags.Neil_2.ToString()];
             var currentNeil = EventsResources.onGetCurentNeil?.Invoke(currentLevel + 1);
             _twoResoucesRawImage.texture = _neilTextures[currentLevel];
             if(targetNeil > 0) {
@@ -241,7 +241,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //STONE
-            var targetStone = _fireplaceDictionary_2lv[ResourcesTags.Stone_2.ToString()];
+            var targetStone = _armchairDictionary_2lv[ResourcesTags.Stone_2.ToString()];
             var currentStone = EventsResources.onGetCurentStone?.Invoke(currentLevel + 1);
             _threeResoucesRawImage.texture = _stoneTextures[currentLevel];
             if(targetStone > 0) {
@@ -251,7 +251,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //CLOTH
-            var targetCloth = _fireplaceDictionary_2lv[ResourcesTags.Cloth_2.ToString()];
+            var targetCloth = _armchairDictionary_2lv[ResourcesTags.Cloth_2.ToString()];
             var currentCloth = EventsResources.onGetCurentClouth?.Invoke(currentLevel + 1);
             _fourResoucesRawImage.texture = _clothTextures[currentLevel];
             if(targetCloth > 0) {
@@ -263,10 +263,10 @@ public class FireplacePanel : MonoBehaviour {
 
         if(currentLevel == 2) {
             _nextLevelText.text = $"Следующий уровень {currentLevel + 1}";
-            _fireplaceDictionary_3lv = EventsResources.onGetFireplaceDictionary?.Invoke(currentLevel + 1);
+            _armchairDictionary_3lv = EventsResources.onGetChairDictionary?.Invoke(currentLevel + 1);
 
             //LOG
-            var targetLog = _fireplaceDictionary_3lv[ResourcesTags.Log_3.ToString()];
+            var targetLog = _armchairDictionary_3lv[ResourcesTags.Log_3.ToString()];
             var currentLog = EventsResources.onGetCurentLog?.Invoke(currentLevel + 1);
             _oneResoucesRawImage.texture = _logTextures[currentLevel];
             if(targetLog > 0) {
@@ -276,7 +276,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //NEIL
-            var targetNeil = _fireplaceDictionary_3lv[ResourcesTags.Neil_3.ToString()];
+            var targetNeil = _armchairDictionary_3lv[ResourcesTags.Neil_3.ToString()];
             var currentNeil = EventsResources.onGetCurentNeil?.Invoke(currentLevel + 1);
             _twoResoucesRawImage.texture = _neilTextures[currentLevel];
             if(targetNeil > 0) {
@@ -286,7 +286,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //STONE
-            var targetStone = _fireplaceDictionary_3lv[ResourcesTags.Stone_3.ToString()];
+            var targetStone = _armchairDictionary_3lv[ResourcesTags.Stone_3.ToString()];
             var currentStone = EventsResources.onGetCurentStone?.Invoke(currentLevel + 1);
             _threeResoucesRawImage.texture = _stoneTextures[currentLevel];
             if(targetStone > 0) {
@@ -296,7 +296,7 @@ public class FireplacePanel : MonoBehaviour {
             }
 
             //CLOTH
-            var targetCloth = _fireplaceDictionary_3lv[ResourcesTags.Cloth_3.ToString()];
+            var targetCloth = _armchairDictionary_3lv[ResourcesTags.Cloth_3.ToString()];
             var currentCloth = EventsResources.onGetCurentClouth?.Invoke(currentLevel + 1);
             _fourResoucesRawImage.texture = _clothTextures[currentLevel];
             if(targetCloth > 0) {
@@ -373,4 +373,5 @@ public class FireplacePanel : MonoBehaviour {
             _nextComfortValueText.text = HomeConstants.defaultValue;
         }
     }
+    
 }

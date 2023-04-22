@@ -25,8 +25,8 @@ public class QuestsNew : MonoBehaviour {
     }
     private void Start() {
         _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(1);
-        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(2);
-        _fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(3);
+        _fireplaceDictionary_2lv = EventsResources.onGetFireplaceDictionary?.Invoke(2);
+        _fireplaceDictionary_3lv = EventsResources.onGetFireplaceDictionary?.Invoke(3);
         //_fireplaceDictionary_1lv = EventsResources.onGetFireplaceDictionary?.Invoke(4);
 
 

@@ -3816,7 +3816,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -8564397001756077568, guid: a32050c07c9e6864e8792169bd40f731, type: 3}
+  m_Mesh: {fileID: -1590402546475629751, guid: a32050c07c9e6864e8792169bd40f731, type: 3}
 --- !u!4 &5602518545659425128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a32050c07c9e6864e8792169bd40f731, type: 3}
