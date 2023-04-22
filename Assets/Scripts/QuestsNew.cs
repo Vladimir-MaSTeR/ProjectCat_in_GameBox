@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestsNew : MonoBehaviour {
+    [Tooltip("Время через которое откроется панель предмета с выбором квеста")]
+    [SerializeField]
+    private float _timeToOpenPanel = 1.5f;
+    
     [SerializeField]
     private UpdateQuestsText _updateQuestsTextScript;
 
@@ -37,6 +42,7 @@ public class QuestsNew : MonoBehaviour {
         }
     }
 
+    #region ТЕСТОВЫЕ ДАННЫЕ
     private void TEST() {
         PlayerPrefs.SetString(QuestConstants.key, QuestConstants.fireplaceQuest_1);
 
@@ -48,6 +54,17 @@ public class QuestsNew : MonoBehaviour {
     private void DELETE_TEST_VALUE() {
         PlayerPrefs.DeleteKey(QuestConstants.key);
     }
+    
+    #endregion
+
+    private void OnEnable() {
+        HomeEvents.onGetTimeToOpenPanel += GetTimeToOpenPanel;
+    }
+
+    private void OnDisable() {
+        HomeEvents.onGetTimeToOpenPanel -= GetTimeToOpenPanel;
+    }
+
 
     /// <summary>
     /// Обновляет квест
@@ -131,18 +148,10 @@ public class QuestsNew : MonoBehaviour {
             _currentQuest = QuestConstants.noneQuest;
         }
 
-        //if(PlayerPrefs.HasKey(QuestConstants.fireplaceQuest_2)) {
-        //    _currentQuest = QuestConstants.fireplaceQuest_2;
-        //} else {
-        //    _currentQuest = QuestConstants.noneQuest;
-        //}
-
-        //if(PlayerPrefs.HasKey(QuestConstants.fireplaceQuest_3)) {
-        //    _currentQuest = QuestConstants.fireplaceQuest_3;
-        //} else {
-        //    _currentQuest = QuestConstants.noneQuest;
-        //}
-
         // добавить суда остальные квесты.
+    }
+
+    private float GetTimeToOpenPanel() {
+        return _timeToOpenPanel;
     }
 }
