@@ -142,6 +142,8 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler {
     public int LvObj {
         get { return _lvObjectNow; }
     }
+
+    
     /// <summary>
     ///  имя сохранения объекта
     /// </summary>
@@ -161,14 +163,17 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler {
         if(_fireplaceActiv == true) //"активания анимации  по апгрейду  камина
         {
             EventsResources.onAnimationReadyUpFireplace += _animReadyUp;
+            HomeEvents.onGetCurrentFireplaceLevel += GetCurrentLevel;
         }
         if(_armchairActiv == true) //активания анимации  по апгрейду  кресло
         {
             EventsResources.onAnimationReadyUpChair += _animReadyUp;
+            HomeEvents.onGetCurrentArmchairLevel += GetCurrentLevel;
         }
         if(_kitchenActiv == true) //активания анимации  по апгрейду  Кухни
         {
             EventsResources.onAnimationReadyUpTable += _animReadyUp;
+            HomeEvents.onGetCurrentKitchenLevel += GetCurrentLevel;
         }
         if(_ladderGoTo2Activ == true) //активания анимации  по апгрейду  Лестница на 2 этаж
         {
@@ -194,14 +199,17 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler {
     private void OnDisable() {
         if(_fireplaceActiv == true) { //"активания анимации  по апгрейду  камина
             EventsResources.onAnimationReadyUpFireplace -= _animReadyUp;
+            HomeEvents.onGetCurrentFireplaceLevel -= GetCurrentLevel;
         }
         if(_armchairActiv == true) //активания анимации  по апгрейду  кресло
         {
             EventsResources.onAnimationReadyUpChair -= _animReadyUp;
+            HomeEvents.onGetCurrentArmchairLevel -= GetCurrentLevel;
         }
         if(_kitchenActiv == true) //активания анимации  по апгрейду  Кухни
         {
             EventsResources.onAnimationReadyUpTable -= _animReadyUp;
+            HomeEvents.onGetCurrentKitchenLevel -= GetCurrentLevel;
         }
         if(_ladderGoTo2Activ == true) //активания анимации  по апгрейду  Лестница на 2 этаж
         {
@@ -221,6 +229,10 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler {
         }
 
         // SpawnSpiderHome.onAtackSpiderHome -= atackSpider;
+    }
+    
+    public int GetCurrentLevel() {
+        return _lvObjectNow;
     }
 
 

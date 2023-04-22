@@ -189,6 +189,8 @@ public class ButtonsController : MonoBehaviour {
         EventsResources.onFireplaceQuest += ClickFireplace;
         EventsResources.onChairQuest += ClickChair;
         EventsResources.onTableQuest += ClickTable;
+
+        HomeEvents.onOpenResourcesPanel += ClickResoucesButton;
     }
 
     private void OnDisable() {
@@ -201,6 +203,8 @@ public class ButtonsController : MonoBehaviour {
         EventsResources.onFireplaceQuest -= ClickFireplace;
         EventsResources.onChairQuest -= ClickChair;
         EventsResources.onTableQuest -= ClickTable;
+        
+        HomeEvents.onOpenResourcesPanel -= ClickResoucesButton;
     }
 
 
@@ -700,5 +704,17 @@ public class ButtonsController : MonoBehaviour {
 
     public void ClickBackButtonInTheGamePanel() {
         _theGameTextPanel.SetActive(false);
+    }
+
+    public void ClickClosedButtonInFireplacePanel() {
+        HomeEvents.onClosedFireplacePanel?.Invoke();
+    }
+
+    public void ClickClosedKitchenPanelButton() {
+        HomeEvents.onClosedKitchenPanel?.Invoke();
+    }
+
+    public void ClickClosedArmchairPanelButton() {
+        HomeEvents.onClosedArmchairPanel?.Invoke();
     }
 }

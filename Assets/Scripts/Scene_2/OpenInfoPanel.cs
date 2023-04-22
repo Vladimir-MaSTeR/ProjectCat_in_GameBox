@@ -5,7 +5,7 @@ public class OpenInfoPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     [Tooltip("Идентификатор предмета 1 = камин, 2 = Кресло, 3 = кухня")]
     [SerializeField]
-    private int _id;
+    private int _id = HomeConstants.idFireplace;
 
     private float _timeToOpen;
     private bool _startTime = false;
@@ -30,7 +30,7 @@ public class OpenInfoPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     private void GoTimeToOpen() {
         if(_timeToOpen <= 0) {
-            HomeEvents.onOpenFireplacePanel?.Invoke(_id);
+            HomeEvents.onOpenInfoPanels?.Invoke(_id);
         } else {
             _timeToOpen -= Time.deltaTime;
         }
