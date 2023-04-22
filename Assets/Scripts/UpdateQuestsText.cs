@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UpdateQuestsText : MonoBehaviour {
+
+    #region Переменные движка
     [Header("Текстовые поля")]
 
     [Tooltip("Текстовое поле для названия предмета")]
@@ -60,7 +62,13 @@ public class UpdateQuestsText : MonoBehaviour {
     [Tooltip("Масив для текстур рун с тегом Cloth всех уровней")]
     [SerializeField]
     private Texture[] _clothTextures;
+    #endregion
 
+    #region Приватные переменные
+    private string defaultValueRunsText = "---/---";
+    private string defaultMainText = "-----";
+    
+    #endregion
 
     #region СЕТТЕРЫ ДЛЯ ТЕКСТА
 
@@ -81,7 +89,7 @@ public class UpdateQuestsText : MonoBehaviour {
         if(targetValue > 0) {
             _oneRuneText.text = $"{currentValue}/{targetValue}";
         } else {
-            _oneRuneText.text = "---/---";
+            _oneRuneText.text = defaultValueRunsText;
         }
         
     }
@@ -95,7 +103,7 @@ public class UpdateQuestsText : MonoBehaviour {
         if(targetValue > 0) {
             _twoRuneText.text = $"{currentValue}/{targetValue}";
         } else {
-            _twoRuneText.text = "---/---";
+            _twoRuneText.text = defaultValueRunsText;
         }
     }
 
@@ -108,7 +116,7 @@ public class UpdateQuestsText : MonoBehaviour {
         if(targetValue > 0) {
             _threeRuneText.text = $"{currentValue}/{targetValue}";
         } else {
-            _threeRuneText.text = "---/---";
+            _threeRuneText.text = defaultValueRunsText;
         }
     }
 
@@ -121,7 +129,7 @@ public class UpdateQuestsText : MonoBehaviour {
         if(targetValue > 0) {
             _fourRuneText.text = $"{currentValue}/{targetValue}";
         } else {
-            _fourRuneText.text = "---/---";
+            _fourRuneText.text = defaultValueRunsText;
         }
     }
 
@@ -183,27 +191,39 @@ public class UpdateQuestsText : MonoBehaviour {
 
     #endregion
 
-    public void DefoultValue() {
-        _questText.text = "-----";
+    #region ГЕТТЕРЫ ДЛЯ МАССИВОВ КАРТИНОК
 
-        //_oneResoucesRawImage.texture = _logTextures[0];
+    public Texture[] GetLogTextures() {
+        return _logTextures;
+    }
+
+    public Texture[] GetNeilTexture() {
+        return _neilTextures;
+    }
+
+    public Texture[] GetStoneTexture() {
+        return _stoneTextures;
+    }
+
+    public Texture[] GetClothTextures() {
+        return _clothTextures;
+    }
+
+    #endregion
+
+    public void DefoultValue() {
+        _questText.text = defaultMainText;
+
         SetOneRawImage(ResourcesTags.Log_1.ToString(), 1);
-        //_oneRuneText.text = "--/--";
         SetOneRuneText(0, 0);
 
-        //_twoResoucesRawImage.texture = _stoneTextures[0];
         SetTwoRawImage(ResourcesTags.Neil_1.ToString(), 1);
-        //_twoRuneText.text = "--/--";
         SetTwoRuneText(0, 0);
 
-        //_threeResoucesRawImage.texture = _neilTextures[0];
         SetThreeRawImage(ResourcesTags.Stone_1.ToString(), 1);
-        //_threeRuneText.text = "--/--";
         SetThreeRuneText(0, 0);
 
-        //_fourResoucesRawImage.texture = _clothTextures[0];
         SetFourRawImage(ResourcesTags.Cloth_1.ToString(), 1);
-        //_fourRuneText.text = "--/--";
         SetFourRuneText(0, 0);
     }
 

@@ -1645,6 +1645,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 105fbd82e9180ed4abd1bbbd66a28b27, type: 3}
   m_PrefabInstance: {fileID: 199428191}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &211334578 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1143148013261863703, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+  m_PrefabInstance: {fileID: 244779947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &211334580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211334578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a26044f51442f685df97ef00189f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireplacePanel: {fileID: 835082276}
+  _updateQuestsTextScript: {fileID: 211334582}
+--- !u!114 &211334582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1143148013261863698, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+  m_PrefabInstance: {fileID: 244779947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211334578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262148d2ab80b3d4c84d56a0100cc232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &226282056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,6 +2037,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -130
       objectReference: {fileID: 0}
+    - target: {fileID: 1143148012633884823, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _sparkBuyCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1143148012760026635, guid: 09387014740877a4d977181cb8a5e524, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2110,6 +2144,10 @@ PrefabInstance:
     - target: {fileID: 1143148013235606249, guid: 09387014740877a4d977181cb8a5e524, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -380
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143148013261863701, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _timeToOpenPane
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1143148013283951369, guid: 09387014740877a4d977181cb8a5e524, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8652,7 +8690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &835082277
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14411,6 +14449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1437872054}
   - component: {fileID: 1437872057}
+  - component: {fileID: 1437872058}
   m_Layer: 0
   m_Name: 'Fireplace '
   m_TagString: Untagged
@@ -14469,6 +14508,19 @@ MonoBehaviour:
   _bedActiv: 0
   _ladderGoTo3Activ: 0
   _cupboardActiv: 0
+--- !u!114 &1437872058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437872053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e170444f3d40d48b89daa068609bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 1
 --- !u!1 &1438145979
 GameObject:
   m_ObjectHideFlags: 0
@@ -21455,7 +21507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8866918525926681691, guid: 0a4e1469601373745acf888e6ac864b5, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8866918525926681691, guid: 0a4e1469601373745acf888e6ac864b5, type: 3}
       propertyPath: m_LocalPosition.x
