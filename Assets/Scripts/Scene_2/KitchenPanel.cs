@@ -110,11 +110,15 @@ public class KitchenPanel : MonoBehaviour {
     private void OnEnable() {
         HomeEvents.onOpenInfoPanels += OpenKitchenPanel;
         HomeEvents.onClosedKitchenPanel += ClosedKitchenPanel;
+        
+        HomeEvents.onActiveKitchenQuest += SaveActiveQuest;
     }
 
     private void OnDisable() {
         HomeEvents.onOpenInfoPanels -= OpenKitchenPanel;
         HomeEvents.onClosedKitchenPanel -= ClosedKitchenPanel;
+        
+        HomeEvents.onActiveKitchenQuest -= SaveActiveQuest;
     }
 
     /**
@@ -371,5 +375,28 @@ public class KitchenPanel : MonoBehaviour {
             _nextDurabilityValueText.text = HomeConstants.defaultValue;
             _nextComfortValueText.text = HomeConstants.defaultValue;
         }
+    }
+    
+    /**
+     * Метод сохраняет квест для отслеживания
+     */
+    private void SaveActiveQuest() {
+        
+        int currentLevel = (int)HomeEvents.onGetCurrentKitchenLevel?.Invoke();
+        PlayerPrefs.DeleteKey(QuestConstants.key);
+        
+        if(currentLevel == 0) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.kitchenQuest_1);
+        }
+
+        if(currentLevel == 1) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.kitchenQuest_2);
+        }
+
+        if(currentLevel == 2) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.kitchenQuest_3);
+        }
+        
+        PlayerPrefs.Save();
     }
 }

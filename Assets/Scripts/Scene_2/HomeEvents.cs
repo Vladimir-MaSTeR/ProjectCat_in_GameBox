@@ -35,4 +35,17 @@ public class HomeEvents {
      * Получение текущего уровня кресла
      */
     public static Func<int> onGetCurrentArmchairLevel;
+
+    /**
+     * Активация квеста камина
+     */
+    public static Action onActiveFireplaceQuest;
+    /**
+     * Активация квеста кухни
+     */
+    public static Action onActiveKitchenQuest;
+    /**
+     * Активация квеста кресла
+     */
+    public static Action onActiveArmchairQuest;
 }
