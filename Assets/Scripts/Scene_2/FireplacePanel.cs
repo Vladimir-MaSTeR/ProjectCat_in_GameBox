@@ -110,11 +110,15 @@ public class FireplacePanel : MonoBehaviour {
     private void OnEnable() {
         HomeEvents.onOpenInfoPanels += OpenFireplacePanel;
         HomeEvents.onClosedFireplacePanel += ClosedFireplacePanel;
+
+        HomeEvents.onActiveFireplaceQuest += SaveActiveQuest;
     }
 
     private void OnDisable() {
         HomeEvents.onOpenInfoPanels -= OpenFireplacePanel;
         HomeEvents.onClosedFireplacePanel -= ClosedFireplacePanel;
+        
+        HomeEvents.onActiveFireplaceQuest -= SaveActiveQuest;
     }
 
     /**
@@ -131,8 +135,35 @@ public class FireplacePanel : MonoBehaviour {
         }
     }
 
+    /**
+     * Метода закрывает панель.
+     * Вызывается эвентом, который вызывается нажатием кнопки.
+     */
     private void ClosedFireplacePanel() {
         _fireplacePanel.SetActive(false);
+    }
+
+    /**
+     * Метод сохраняет квест для отслеживания
+     */
+    private void SaveActiveQuest() {
+        
+        int currentLevel = (int)HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
+        PlayerPrefs.DeleteKey(QuestConstants.key);
+        
+        if(currentLevel == 0) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.fireplaceQuest_1);
+        }
+
+        if(currentLevel == 1) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.fireplaceQuest_2);
+        }
+
+        if(currentLevel == 2) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.fireplaceQuest_3);
+        }
+        
+        PlayerPrefs.Save();
     }
 
     //СКОРЕЙ ВСЕГО НИЖЕ ХАРДКОД

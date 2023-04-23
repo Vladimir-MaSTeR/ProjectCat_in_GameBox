@@ -717,4 +717,19 @@ public class ButtonsController : MonoBehaviour {
     public void ClickClosedArmchairPanelButton() {
         HomeEvents.onClosedArmchairPanel?.Invoke();
     }
+
+    /**
+     * Метод активации эвента для отслеживания квеста в нутри панели предмета
+     */
+    public void ClickActiveFireplaceQuestButton() {
+        HomeEvents.onActiveFireplaceQuest?.Invoke();
+    }
+    
+    public void ClickActiveKitchenQuestButton() {
+        HomeEvents.onActiveKitchenQuest?.Invoke();
+    }
+    
+    public void ClickActiveArmchairQuestButton() {
+        HomeEvents.onActiveArmchairQuest?.Invoke();
+    }
 }

@@ -66,7 +66,7 @@ public class UpdateQuestsText : MonoBehaviour {
 
     #region Приватные переменные
     private string defaultValueRunsText = "---/---";
-    private string defaultMainText = "-----";
+    private string defaultMainText = "Квест не выбран";
     
     #endregion
 

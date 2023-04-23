@@ -661,6 +661,8 @@ public class ClickRepair : MonoBehaviour, IPointerClickHandler {
         _amtClickGoLvUp = _clickGoLvUp();
         _amtClickGoLvUp += _lvObjectNow * 2;
         SaveResources();
+        
+        PlayerPrefs.DeleteKey(QuestConstants.key);
     }
 
     /// <summary>

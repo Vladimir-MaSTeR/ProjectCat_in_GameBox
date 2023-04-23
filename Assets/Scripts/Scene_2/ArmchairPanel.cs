@@ -111,11 +111,15 @@ public class ArmchairPanel: MonoBehaviour {
     private void OnEnable() {
         HomeEvents.onOpenInfoPanels += OpenArmchairPanel;
         HomeEvents.onClosedArmchairPanel += ClosedArmchairPanel;
+        
+        HomeEvents.onActiveArmchairQuest += SaveActiveQuest;
     }
 
     private void OnDisable() {
         HomeEvents.onOpenInfoPanels -= OpenArmchairPanel;
         HomeEvents.onClosedArmchairPanel -= ClosedArmchairPanel;
+        
+        HomeEvents.onActiveArmchairQuest -= SaveActiveQuest;
     }
 
     /**
@@ -372,6 +376,26 @@ public class ArmchairPanel: MonoBehaviour {
             _nextDurabilityValueText.text = HomeConstants.defaultValue;
             _nextComfortValueText.text = HomeConstants.defaultValue;
         }
+    }
+    
+    private void SaveActiveQuest() {
+        
+        int currentLevel = (int)HomeEvents.onGetCurrentArmchairLevel?.Invoke();
+        PlayerPrefs.DeleteKey(QuestConstants.key);
+        
+        if(currentLevel == 0) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.armchairQuest_1);
+        }
+
+        if(currentLevel == 1) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.armchairQuest_2);
+        }
+
+        if(currentLevel == 2) {
+            PlayerPrefs.SetString(QuestConstants.key, QuestConstants.armchairQuest_3);
+        }
+        
+        PlayerPrefs.Save();
     }
     
 }
