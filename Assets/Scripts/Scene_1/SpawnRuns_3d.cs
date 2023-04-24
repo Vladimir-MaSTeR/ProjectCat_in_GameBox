@@ -158,6 +158,8 @@ public class SpawnRuns_3d : MonoBehaviour {
         MeargGameEvents.onRandomRuns += RandomRuns;
         MeargGameEvents.onAiceRuns += HoldColumn;
         MeargGameEvents.onFalseHoldColumn += SetFalseHoldColumn;
+
+        MeargGameEvents.onSetStartTimerTrue += SetStartTimerTrue;
     }
 
     private void OnDisable() {
@@ -171,6 +173,8 @@ public class SpawnRuns_3d : MonoBehaviour {
         MeargGameEvents.onRandomRuns -= RandomRuns;
         MeargGameEvents.onAiceRuns -= HoldColumn;
         MeargGameEvents.onFalseHoldColumn -= SetFalseHoldColumn;
+        
+        MeargGameEvents.onSetStartTimerTrue -= SetStartTimerTrue;
     }
 
     /// <summary>
@@ -253,17 +257,25 @@ public class SpawnRuns_3d : MonoBehaviour {
                 && object2.tag == object3.tag && object2.tag == object4.tag
                 && object3.tag == object4.tag) {
                 Debug.Log("5 В РЯД ПО ВЕРТИКАЛИ");
+                _startTimer = false;
+                
                 AddResouces(object0.tag);
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
                 AddResouces(object4.tag);
 
-                Destroy(object0);
-                Destroy(object1);
-                Destroy(object2);
-                Destroy(object3);
-                Destroy(object4);
+                // Destroy(object0);
+                // Destroy(object1);
+                // Destroy(object2);
+                // Destroy(object3);
+                // Destroy(object4);
+                
+                object0.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object3.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object4.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(4);
                 return;
@@ -276,15 +288,22 @@ public class SpawnRuns_3d : MonoBehaviour {
                 && object1.tag == object2.tag && object1.tag == object3.tag
                 && object2.tag == object3.tag) {
                 Debug.Log("4 В РЯД ПО ВЕРТИКАЛИ");
+                _startTimer = false;
+                
                 AddResouces(object0.tag);
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
 
-                Destroy(object0);
-                Destroy(object1);
-                Destroy(object2);
-                Destroy(object3);
+                // Destroy(object0);
+                // Destroy(object1);
+                // Destroy(object2);
+                // Destroy(object3);
+                
+                object0.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(3);
                 return;
@@ -296,15 +315,22 @@ public class SpawnRuns_3d : MonoBehaviour {
                 && object2.tag == object3.tag && object2.tag == object4.tag
                 && object3.tag == object4.tag) {
                 Debug.Log("4 В РЯД ПО ВЕРТИКАЛИ");
+                _startTimer = false;
+                
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
                 AddResouces(object4.tag);
 
-                Destroy(object1);
-                Destroy(object2);
-                Destroy(object3);
-                Destroy(object4);
+                // Destroy(object1);
+                // Destroy(object2);
+                // Destroy(object3);
+                // Destroy(object4);
+                
+                object1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object3.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object4.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(3);
                 return;
@@ -315,14 +341,19 @@ public class SpawnRuns_3d : MonoBehaviour {
         if(object0 != null && object1 != null && object2 != null) {
             if(object0.tag == object1.tag && object0.tag == object2.tag && object1.tag == object2.tag) { //3 в ряд
                 Debug.Log("3 В РЯД ПО ВЕРТИКАЛИ");
+                _startTimer = false;
 
                 AddResouces(object0.tag);
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
 
-                Destroy(object0);
-                Destroy(object1);
-                Destroy(object2);
+                // Destroy(object0);
+                // Destroy(object1);
+                // Destroy(object2);
+                
+                object0.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object2.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(2);
                 return;
@@ -332,14 +363,19 @@ public class SpawnRuns_3d : MonoBehaviour {
         if(object1 != null && object2 != null && object3) {
             if(object1.tag == object2.tag && object1.tag == object3.tag && object2.tag == object3.tag) {
                 Debug.Log("3 В РЯД ПО ВЕРТИКАЛИ");
+                _startTimer = false;
 
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
 
-                Destroy(object1);
-                Destroy(object2);
-                Destroy(object3);
+                // Destroy(object1);
+                // Destroy(object2);
+                // Destroy(object3);
+                
+                object1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(2);
                 return;
@@ -349,14 +385,19 @@ public class SpawnRuns_3d : MonoBehaviour {
         if(object2 != null && object3 != null && object4 != null) {
             if(object2.tag == object3.tag && object2.tag == object4.tag && object3.tag == object4.tag) {
                 Debug.Log("3 В РЯД ПО ВЕРТИКАЛИ");
+                _startTimer = false;
 
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
                 AddResouces(object4.tag);
 
-                Destroy(object2);
-                Destroy(object3);
-                Destroy(object4);
+                // Destroy(object2);
+                // Destroy(object3);
+                // Destroy(object4);
+                
+                object2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object3.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object4.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(2);
                 return;
@@ -397,15 +438,22 @@ public class SpawnRuns_3d : MonoBehaviour {
             if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag && object0Column0.tag == object0Column3.tag 
                 && object0Column1.tag == object0Column2.tag && object0Column1.tag == object0Column3.tag && object0Column2.tag == object0Column3.tag) {
                 Debug.Log("4 В РЯД ПО ГОРИЗОНТАЛИ");
+                _startTimer = false;
+                
                 AddResouces(object0Column0.tag);
                 AddResouces(object0Column1.tag);
                 AddResouces(object0Column2.tag);
                 AddResouces(object0Column3.tag);
 
-                Destroy(object0Column0);
-                Destroy(object0Column1);
-                Destroy(object0Column2);
-                Destroy(object0Column3);
+                // Destroy(object0Column0);
+                // Destroy(object0Column1);
+                // Destroy(object0Column2);
+                // Destroy(object0Column3);
+                
+                object0Column0.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(3);
                 return;
@@ -417,13 +465,19 @@ public class SpawnRuns_3d : MonoBehaviour {
             if(object0Column0.tag == object0Column1.tag && object0Column0.tag == object0Column2.tag &&
                 object0Column1.tag == object0Column2.tag) {
                 Debug.Log("3 В РЯД ПО ГОРИЗОНТАЛИ");
+                _startTimer = false;
+                
                 AddResouces(object0Column0.tag);
                 AddResouces(object0Column1.tag);
                 AddResouces(object0Column2.tag);
 
-                Destroy(object0Column0);
-                Destroy(object0Column1);
-                Destroy(object0Column2);
+                // Destroy(object0Column0);
+                // Destroy(object0Column1);
+                // Destroy(object0Column2);
+                
+                object0Column0.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column2.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(2);
                 return;
@@ -434,15 +488,19 @@ public class SpawnRuns_3d : MonoBehaviour {
             if(object0Column1.tag == object0Column2.tag && object0Column1.tag == object0Column3.tag 
                 && object0Column2.tag == object0Column3.tag) {
                 Debug.Log("3 В РЯД ПО ГОРИЗОНТАЛИ");
+                _startTimer = false;
               
                 AddResouces(object0Column1.tag);
                 AddResouces(object0Column2.tag);
                 AddResouces(object0Column3.tag);
 
-               
-                Destroy(object0Column1);
-                Destroy(object0Column2);
-                Destroy(object0Column3);
+                // Destroy(object0Column1);
+                // Destroy(object0Column2);
+                // Destroy(object0Column3);
+                
+                object0Column1.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column2.GetComponentInChildren<Animator>().SetBool("Del", true);
+                object0Column3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
                 UpdateSparks(2);
                 return;
@@ -453,15 +511,15 @@ public class SpawnRuns_3d : MonoBehaviour {
     private void UpdateSparks(int count) {
         if(count == 2) {
             EventsResources.onAddOrDeductSparkValue?.Invoke(1, true);
-            Debug.Log($"Увеличиваем искорки на {1}");
+            // Debug.Log($"Увеличиваем искорки на {1}");
         }
         if(count == 3) {
             EventsResources.onAddOrDeductSparkValue?.Invoke(3, true);
-            Debug.Log($"Увеличиваем искорки на {3}");
+            // Debug.Log($"Увеличиваем искорки на {3}");
         }
         if(count == 4) {
             EventsResources.onAddOrDeductSparkValue?.Invoke(5, true);
-            Debug.Log($"Увеличиваем искорки на {5}");
+            // Debug.Log($"Увеличиваем искорки на {5}");
         }
     }
 
@@ -1161,6 +1219,13 @@ public class SpawnRuns_3d : MonoBehaviour {
 
         Debug.Log("ПАУК ПЕРЕМЕШАЛ РУНЫ");
 
+        _startTimer = true;
+    }
+
+    /**
+     * Устанавливает _startTimer в true. Вызывается увентом.
+     */
+    private void SetStartTimerTrue() {
         _startTimer = true;
     }
 

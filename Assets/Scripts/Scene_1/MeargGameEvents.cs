@@ -17,6 +17,14 @@ public class MeargGameEvents
     public static Func<float> onGetCurrentTimeSpawnOldColumn;
     public static Action<float> onSetTimeToSpawnRuns;
 
+    /**
+     * Евент нужен для отслеживания конца анимации при собирании 3 в ряд
+     * Запускает таймер для проверки 3 в ряд.
+     */
+    public static Action onSetStartTimerTrue;
+    
+
+    //Altar
     public static Action onSaveAltarTime;
     public static Action onReloadAltarTime;
 
