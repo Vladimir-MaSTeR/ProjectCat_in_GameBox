@@ -3649,6 +3649,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3541035906893860837, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -21.999817
+      objectReference: {fileID: 0}
     - target: {fileID: 7475196124497256090, guid: 09387014740877a4d977181cb8a5e524, type: 3}
       propertyPath: m_Camera
       value: 
@@ -5614,8 +5618,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 4}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 6, y: 2.5, z: 10}
+  m_Center: {x: 0, y: 1, z: -1.4999998}
 --- !u!4 &7664076283190029326
 Transform:
   m_ObjectHideFlags: 0
