@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class Spiders : MonoBehaviour {
     [SerializeField]
     [Tooltip("Время через которое появится паук")]
@@ -25,13 +24,9 @@ public class Spiders : MonoBehaviour {
 
     private bool _startTimer = true;
 
-    private void Start() {
-        _currentTime = _emergenceTime;
-    }
+    private void Start() { _currentTime = _emergenceTime; }
 
-    private void FixedUpdate() {
-        TimerEmergenceSpiders();
-    }
+    private void FixedUpdate() { TimerEmergenceSpiders(); }
 
     private void OnEnable() {
         MeargGameEvents.onGetSpiderTime += GetSpiderTime;
@@ -48,20 +43,20 @@ public class Spiders : MonoBehaviour {
     private void TimerEmergenceSpiders() {
         if(_currentTime <= 0) {
             if(_startTimer) {
-                _currentSpider = Random.Range(0, 3); //для int,а максимальное значение не включительно
-                                                     //вызывать эвент появления паука. В зависимости от рандомного значения переменной.
+                //для int,а максимальное значение не включительно
+                //вызывать эвент появления паука. В зависимости от рандомного значения переменной.
+                _currentSpider = Random.Range(0, 3);
 
                 if(_currentSpider == 0) {
                     MeargGameEvents.onHoldSpider?.Invoke();
+                    SoundsEvents.onHoldSpiderSound?.Invoke();
                 } else if(_currentSpider == 1) {
                     MeargGameEvents.onThiefSpider?.Invoke();
+                    SoundsEvents.onThiefSpiderSound?.Invoke();
                 } else if(_currentSpider == 2) {
                     MeargGameEvents.onRandomSpider?.Invoke();
+                    SoundsEvents.onRandomSpiderSound?.Invoke();
                 }
-
-                //MeargGameEvents.onHoldSpider?.Invoke();
-                ////MeargGameEvents.onThiefSpider?.Invoke();
-                //MeargGameEvents.onRandomSpider?.Invoke();
 
                 _startTimer = false;
             }
@@ -75,23 +70,13 @@ public class Spiders : MonoBehaviour {
         _startTimer = true;
     }
 
-    private float GetSpiderTime() {
-        return _emergenceTime;
-    }
+    private float GetSpiderTime() { return _emergenceTime; }
 
-    private int GetTiefRunsCount() {
-        return _tiefRunsCount;
-    }
+    private int GetTiefRunsCount() { return _tiefRunsCount; }
 
-    public float GetSpeedSpiders() {
-        return _speed;
-    }
+    public float GetSpeedSpiders() { return _speed; }
 
-    public float GetHealthSpiders() {
-        return _health;
-    }
+    public float GetHealthSpiders() { return _health; }
 
-    public float GetDamageSpiders() {
-        return _damage;
-    }
+    public float GetDamageSpiders() { return _damage; }
 }

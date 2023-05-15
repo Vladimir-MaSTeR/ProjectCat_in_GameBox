@@ -215,6 +215,7 @@ public class SpawnRuns_3d : MonoBehaviour {
 
     /// <summary>
     /// новый 3 в ряд, какашка на ифах для колонн
+    /// </summary>
     private void Mearg3Column(GameObject[] columSlots) {
         //вызываем эвент для поиска 3 в ряд
 
@@ -264,19 +265,19 @@ public class SpawnRuns_3d : MonoBehaviour {
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
                 AddResouces(object4.tag);
-
-                // Destroy(object0);
+                
                 // Destroy(object1);
                 // Destroy(object2);
                 // Destroy(object3);
                 // Destroy(object4);
-                
+
                 object0.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object1.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object2.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object3.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object4.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(4);
                 return;
             }
@@ -294,17 +295,18 @@ public class SpawnRuns_3d : MonoBehaviour {
                 AddResouces(object1.tag);
                 AddResouces(object2.tag);
                 AddResouces(object3.tag);
-
-                // Destroy(object0);
+                
                 // Destroy(object1);
                 // Destroy(object2);
                 // Destroy(object3);
-                
+                // Destroy(object4);
+
                 object0.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object1.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object2.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object3.GetComponentInChildren<Animator>().SetBool("Del", true);
-
+                
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(3);
                 return;
             }
@@ -332,6 +334,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object3.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object4.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(3);
                 return;
             }
@@ -355,6 +358,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object1.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object2.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(2);
                 return;
             }
@@ -377,6 +381,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object2.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(2);
                 return;
             }
@@ -399,6 +404,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object3.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object4.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(2);
                 return;
             }
@@ -455,6 +461,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object0Column2.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object0Column3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(3);
                 return;
             }
@@ -479,6 +486,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object0Column1.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object0Column2.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(2);
                 return;
             }
@@ -502,6 +510,7 @@ public class SpawnRuns_3d : MonoBehaviour {
                 object0Column2.GetComponentInChildren<Animator>().SetBool("Del", true);
                 object0Column3.GetComponentInChildren<Animator>().SetBool("Del", true);
 
+                SoundsEvents.onMathSound?.Invoke();
                 UpdateSparks(2);
                 return;
             }

@@ -11,7 +11,7 @@ public class Bucket : MonoBehaviour, IDropHandler
     {
         var childrenTag = eventData.pointerDrag.tag;
 
-        SoundsEvents.onBucketSounds?.Invoke();
+        SoundsEvents.onBoxOpenSounds?.Invoke();
 
         CheckLogResouces(childrenTag, eventData);
         CheckNeilResources(childrenTag, eventData);
