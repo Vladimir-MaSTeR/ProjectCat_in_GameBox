@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 02673cbd97dae9645bab718780696e57, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74b5558fedfdbd14ba2e2d1bb5ab238b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2106,7 +2106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 02673cbd97dae9645bab718780696e57, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80d4bacde8f642841a8a3c386e698da3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2531,18 +2531,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2344515830942342491}
-        m_TargetAssemblyTypeName: UiSounds, Assembly-CSharp
-        m_MethodName: ClickButtonsSounds
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 7521148038008717727}
         m_TargetAssemblyTypeName: ButtonsController, Assembly-CSharp
         m_MethodName: ClickResoucesButton
@@ -3637,6 +3625,54 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _mathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 689db9bd3f92a064883068b042b1c076, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _boxOpenClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b69bc845e09a4c54680e2d5f709d7db3, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _altareUpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 55d02f567f2474740a08b8cf72ffb74e, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _altareDownClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9efd80c90f4a81e4fada3c056e880cd4, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _altareOpenClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e744a0838645e147a102b9fb5293215, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _deathSpiderClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 50e5506247f749547a7c5739ef273b86, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _positiveMeargeClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d56504f009eb2574fa10e6ffc7acf2be, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _startHoldSpiderClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a7496e1a4082cec459fc9c86ec37c11d, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _startTiefSpiderClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b2167c7cffe3894e9f122c5f3c508d1, type: 3}
+    - target: {fileID: 2446358884371923923, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _startRandomSpiderClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 62e89eef937c89743b26fe53f6910c85, type: 3}
+    - target: {fileID: 3410390083863495277, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: _click_Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b940b5cc1a322294f8f8f188189b58ed, type: 3}
+    - target: {fileID: 3541035906893860837, guid: 09387014740877a4d977181cb8a5e524, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -21.999756
+      objectReference: {fileID: 0}
     - target: {fileID: 7475196124497256090, guid: 09387014740877a4d977181cb8a5e524, type: 3}
       propertyPath: m_Camera
       value: 
@@ -4174,17 +4210,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2344515830942342491 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3410390083863495277, guid: 09387014740877a4d977181cb8a5e524, type: 3}
-  m_PrefabInstance: {fileID: 1143148013119332150}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9a453d96177b504aaa324652913a721, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2347493244152405755
 Transform:
   m_ObjectHideFlags: 0

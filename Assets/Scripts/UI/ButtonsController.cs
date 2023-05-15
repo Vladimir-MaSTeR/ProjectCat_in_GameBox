@@ -289,6 +289,9 @@ public class ButtonsController : MonoBehaviour {
         _menuPanel.SetActive(false);
     }
 
+    /**
+     * Сундук на сцене с доской
+     */
     public void ClickResoucesButton() {
         // Возможно стоит ставить паузу
 
@@ -299,6 +302,7 @@ public class ButtonsController : MonoBehaviour {
         }
         
         _resorcesPanel.SetActive(true);
+        SoundsEvents.onBoxOpenSounds?.Invoke();     // звук открытия 
         ButtonsEvents.onReloadResources?.Invoke(); // событие на загрузку сохранений
         UpdateShortQuestText();
     }

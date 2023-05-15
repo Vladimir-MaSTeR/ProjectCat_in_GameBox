@@ -55,6 +55,8 @@ public class Spider : MonoBehaviour, IPointerDownHandler {
     private float _currentSpeed;
     private float _currentDamage;
 
+    private bool _death = false;
+
     #endregion
 
     private void Start() {
@@ -84,7 +86,9 @@ public class Spider : MonoBehaviour, IPointerDownHandler {
     }
 
     private void Update() {
-        CheckDeathSpider();
+        if(!_death) {
+            CheckDeathSpider();
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -117,6 +121,7 @@ public class Spider : MonoBehaviour, IPointerDownHandler {
     /// </summary>
     private void CheckDeathSpider() {
         if(_currentHealth <= 0) {
+            _death = true;
             Debug.Log("ПАУК УМЕР");
 
             // вызвать анимацию смерти
@@ -128,17 +133,9 @@ public class Spider : MonoBehaviour, IPointerDownHandler {
             _startRandomSpider = false;
             _startHoldSpider = false;
 
-            
             // проиграть звук
-
-            // переместить паука в дефолтную позицию. и обновить параметры жизней и скрыть их
-            //CheckEndAnimDeath();
-            //// переместить паука в дефолтную позицию.
-            //Vector3 defaultPosition = _HoldSpiderPoints[0];        
-            //this.transform.position = defaultPosition;
-
-            //// обновить параметры жизней и скрыть их
-            //UpdateSpiderHealthValue();
+            SoundsEvents.onDeathSpider?.Invoke();
+            
         } 
     }
 
@@ -152,6 +149,7 @@ public class Spider : MonoBehaviour, IPointerDownHandler {
         // переместить паука в дефолтную позицию.
         Vector3 defaultPosition = _HoldSpiderPoints[0];
         this.transform.position = defaultPosition;
+        _death = false;
     } 
 
     private void UpdateSpiderHealthValue() {

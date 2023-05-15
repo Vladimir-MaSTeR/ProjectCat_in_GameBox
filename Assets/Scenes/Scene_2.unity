@@ -12898,11 +12898,11 @@ MonoBehaviour:
   _sourceClick: {fileID: 1250948271}
   _fonRepair: {fileID: 1871200254}
   _fon_Fireplace: {fileID: 8300000, guid: 409f2cd88e65c2d4ba735db3c3475233, type: 3}
-  _click_Error: {fileID: 8300000, guid: 137adbe95d06a0244ac4e004796cd6de, type: 3}
+  _click_Error: {fileID: 8300000, guid: ccf24dfee8d834146a1833f8dc1ee6d2, type: 3}
   _click_Fireplace: {fileID: 8300000, guid: 733b529b55b5a704b886ea855570dc8d, type: 3}
   _click_RepairObj: {fileID: 8300000, guid: 7b63d93620d70b64bad34cbfe45ff30a, type: 3}
   _fon_RepairObj: {fileID: 8300000, guid: dc9faecc15d85d942be8b207bbf18998, type: 3}
-  _click_RepairLvUp: {fileID: 8300000, guid: 65039fc6bb9b7a140971f74a6f6d9cb6, type: 3}
+  _click_RepairLvUp: {fileID: 8300000, guid: 0fed15a51e2ee11479fb159d5bc5bc0d, type: 3}
   _fireplaceObje: {fileID: 1437872053}
 --- !u!1 &1660750902
 GameObject:

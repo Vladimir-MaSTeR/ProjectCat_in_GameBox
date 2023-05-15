@@ -56,11 +56,15 @@ public class Altar_2 : MonoBehaviour, IDropHandler, IPointerDownHandler {
 
             //вызывать эвент уменьшения искорки.
             EventsResources.onAddOrDeductSparkValue?.Invoke(1, false);
+            
+            //Звук
+            SoundsEvents.onAltareDown?.Invoke();
 
 
             // Debug.Log($"Искру перетащили на алтарь, нужно убавить время");
         } else {
             //Проигрывать звук отказа использования алтаря 
+            SoundsEvents.onNegativeMeargeSound?.Invoke();
         }
     }
 }
