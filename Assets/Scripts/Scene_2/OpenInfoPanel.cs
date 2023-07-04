@@ -5,7 +5,7 @@ public class OpenInfoPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     [Tooltip("Идентификатор предмета 1 = камин, 2 = Кресло, 3 = кухня")]
     [SerializeField]
-    private int _id = HomeConstants.idFireplace;
+    private IdObjectsHome _id = IdObjectsHome.FIREPLACE;
 
     private float _timeToOpen;
     private bool _startTime = false;

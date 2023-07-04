@@ -12,6 +12,10 @@ public class FireplacePanel : MonoBehaviour {
     [Tooltip("Скрипт в котором лежат словари с текстурами рун")]
     [SerializeField]
     private UpdateQuestsText _updateQuestsTextScript;
+    
+    [Tooltip("СкриптоблОбджект камина")]
+    [SerializeField]
+    private ObjectsHouseInfo _fireplaceInfo;
 
 
     [Space(20)]
@@ -124,11 +128,13 @@ public class FireplacePanel : MonoBehaviour {
     /**
      * Активирует панель камина со всеми данными - запускается эвентом 
      */
-    private void OpenFireplacePanel(int id) {
-        if(HomeConstants.idFireplace == id) {
+    private void OpenFireplacePanel(IdObjectsHome id) {
+        if(IdObjectsHome.FIREPLACE == id) {
             _fireplacePanel.SetActive(true);
 
-            int currentLevel = (int)HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
+            // int currentLevel = (int)HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
+            int currentLevel = _fireplaceInfo.Level;
+            // int currentLevel = Resources.Load<ObjectsHouseInfo>("Home").Level;
             SetCurrentText(currentLevel);
             SetNextTextAndRawImage(currentLevel);
             SetNextDurabilityValueAndComfortValueText(currentLevel);
@@ -148,7 +154,8 @@ public class FireplacePanel : MonoBehaviour {
      */
     private void SaveActiveQuest() {
         
-        int currentLevel = (int)HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
+        // int currentLevel = (int)HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
+        int currentLevel = _fireplaceInfo.Level;
         PlayerPrefs.DeleteKey(QuestConstants.key);
         
         if(currentLevel == 0) {
@@ -172,7 +179,6 @@ public class FireplacePanel : MonoBehaviour {
      * Выводит все текущие значения
      */
     private void SetCurrentText(int currentLevel) {
-        // var currentLevel = HomeEvents.onGetCurrentFireplaceLevel?.Invoke();
 
         _currentLevelText.text = $"Текущий уровень {currentLevel}";
 

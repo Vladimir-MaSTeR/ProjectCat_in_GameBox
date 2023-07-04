@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90ed32485dcaf9439d8143c12427b10, type: 3}
+  m_Name: Fireplace_info
+  m_EditorClassIdentifier: 
+  _id: 0
+  _level: 2
+  _prefabs:
+  - {fileID: 6207063349985795717, guid: c06a49956d7256e4689636aaaeaa4d84, type: 3}
+  - {fileID: 6207063349985795717, guid: f5d7c49439335764c81c4d502e25c521, type: 3}
+  - {fileID: 6207063349985795717, guid: 1ee9b850d4d75f941b8ac495e020dc66, type: 3}
+  - {fileID: 6207063349985795717, guid: 2e86613a52d3f4e44b5dfe7a0965ee9a, type: 3}

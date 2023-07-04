@@ -124,8 +124,8 @@ public class KitchenPanel : MonoBehaviour {
     /**
      * Активирует панель кухни со всеми данными - запускается эвентом 
      */
-    private void OpenKitchenPanel(int id) {
-        if(HomeConstants.idKitchen == id) {
+    private void OpenKitchenPanel(IdObjectsHome id) {
+        if(IdObjectsHome.KITCHEN == id) {
             _kitchenPanel.SetActive(true);
 
             int currentLevel = (int)HomeEvents.onGetCurrentKitchenLevel?.Invoke();

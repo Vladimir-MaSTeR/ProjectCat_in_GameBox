@@ -125,8 +125,8 @@ public class ArmchairPanel: MonoBehaviour {
     /**
      * Активирует панель кухни со всеми данными - запускается эвентом 
      */
-    private void OpenArmchairPanel(int id) {
-        if(HomeConstants.idArmchair == id) {
+    private void OpenArmchairPanel(IdObjectsHome id) {
+        if(IdObjectsHome.ARMCHAIR == id) {
             _armchairPanel.SetActive(true);
 
             int currentLevel = (int)HomeEvents.onGetCurrentArmchairLevel?.Invoke();

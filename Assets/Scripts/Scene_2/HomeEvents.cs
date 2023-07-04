@@ -4,7 +4,7 @@ public class HomeEvents {
     /**
      * открывает панель предмета
      */
-    public static Action<int> onOpenInfoPanels; 
+    public static Action<IdObjectsHome> onOpenInfoPanels; 
     
     /**
      * Открывает панель ресурсов
@@ -26,7 +26,7 @@ public class HomeEvents {
     /**
      * Получение текущего уровня камина
      */
-    public static Func<int> onGetCurrentFireplaceLevel;
+    public static Func<int> onGetCurrentFireplaceLevel; // после перехода на скриптбл обджект не актуален
     /**
      * Получение текущего уровня кухни
      */
